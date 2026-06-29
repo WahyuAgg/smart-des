@@ -26,10 +26,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('status_hidup');
             $table->string('tanggal_meninggal')->nullable();
-            $table->foreignId('alamat_id')->constrained('alamat')->onDelete('cascade');
-            $table->foreignId('pendidikan_id')->constrained('pendidikan')->onDelete('cascade');
-            $table->foreignId('pekerjaan_id')->constrained('pekerjaan')->onDelete('cascade');
-            $table->foreignId('kk_id')->constrained('kk')->onDelete('cascade');
+            $table->foreignId('alamat_id');
+            $table->foreignId('pendidikan_id');
+            $table->foreignId('pekerjaan_id');
+            $table->foreignId('kk_id');
             $table->timestamps();
         });
     }
