@@ -16,7 +16,7 @@ class IndexVerifier extends AbstractVerifier
         }
 
         try {
-            $indexes = \App\Support\DatabaseInspector::indexes($table);
+            $indexes = DatabaseInspector::indexes($table);
             
             if (empty($indexes)) {
                 $this->printWarn("No indexes found on table");

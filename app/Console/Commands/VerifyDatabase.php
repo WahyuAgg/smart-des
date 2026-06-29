@@ -12,7 +12,6 @@ use App\Support\DatabaseVerifier\RelationVerifier;
 use App\Support\DatabaseVerifier\ForeignKeyVerifier;
 use App\Support\DatabaseVerifier\IndexVerifier;
 use App\Support\DatabaseVerifier\NullableVerifier;
-use App\Support\DatabaseInspector;
 
 class VerifyDatabase extends Command
 {

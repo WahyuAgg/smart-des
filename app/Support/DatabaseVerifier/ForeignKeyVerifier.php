@@ -17,7 +17,7 @@ class ForeignKeyVerifier extends AbstractVerifier
         }
 
         try {
-            $foreignKeys = \App\Support\DatabaseInspector::foreignKeys($table);
+            $foreignKeys = DatabaseInspector::foreignKeys($table);
             
             if (empty($foreignKeys)) {
                 $this->printPass("No foreign keys to verify");

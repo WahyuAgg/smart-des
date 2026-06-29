@@ -16,7 +16,7 @@ class NullableVerifier extends AbstractVerifier
         }
 
         try {
-            $columns = \App\Support\DatabaseInspector::columns($table);
+            $columns = DatabaseInspector::columns($table);
             
             $nullableCount = 0;
             foreach ($columns as $name => $info) {
