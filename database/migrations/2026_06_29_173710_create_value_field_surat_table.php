@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('value_field_surat', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('permohonan_surat_id');
+            $table->foreignId('pengajuan_surat_id');
 
             $table->foreignId('field_surat_id');
 
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique([
-                'permohonan_surat_id',
+                'pengajuan_surat_id',
                 'field_surat_id'
             ]);
         });

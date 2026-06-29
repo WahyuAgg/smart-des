@@ -14,7 +14,7 @@ class ValueFieldSurat extends Model
 
     public function pengajuanSurat()
     {
-        return $this->belongsTo(PengajuanSurat::class, 'permohonan_surat_id');
+        return $this->belongsTo(PengajuanSurat::class, 'pengajuan_surat_id');
     }
 
     public function fieldSurat()

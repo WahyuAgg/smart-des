@@ -35,6 +35,6 @@ class PengajuanSurat extends Model
 
     public function valueFieldSurat()
     {
-        return $this->hasMany(ValueFieldSurat::class, 'permohonan_surat_id');
+        return $this->hasMany(ValueFieldSurat::class, 'pengajuan_surat_id');
     }
 }

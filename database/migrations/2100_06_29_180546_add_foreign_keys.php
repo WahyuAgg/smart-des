@@ -18,7 +18,7 @@ return new class extends Migration
         });
 
         Schema::table('value_field_surat', function (Blueprint $table) {
-            $table->foreign('permohonan_surat_id')->references('id')->on('pengajuan_surat')->cascadeOnDelete();
+            $table->foreign('pengajuan_surat_id')->references('id')->on('pengajuan_surat')->cascadeOnDelete();
             $table->foreign('field_surat_id')->references('id')->on('field_surat')->cascadeOnDelete();
         });
 
@@ -65,7 +65,7 @@ return new class extends Migration
         });
 
         Schema::table('value_field_surat', function (Blueprint $table) {
-            $table->dropForeign(['permohonan_surat_id']);
+            $table->dropForeign(['pengajuan_surat_id']);
             $table->dropForeign(['field_surat_id']);
         });
 
