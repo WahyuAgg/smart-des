@@ -57,4 +57,9 @@ class Penduduk extends Model
     {
         return $this->belongsTo(Kk::class);
     }
+
+    public function pengajuanSurat()
+    {
+        return $this->hasMany(PengajuanSurat::class, 'penduduk_id', 'id');  
+    }
 }
