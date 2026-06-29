@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use App\Support\DatabaseVerifier\TableVerifier;
 use App\Support\DatabaseVerifier\FillableVerifier;
-use App\Support\DatabaseVerifier\CastVerifier;
+use App\Support\DatabaseVerifier\CastTypeMatchVerifier;
 use App\Support\DatabaseVerifier\RelationVerifier;
 use App\Support\DatabaseVerifier\ForeignKeyVerifier;
 use App\Support\DatabaseVerifier\IndexVerifier;
 use App\Support\DatabaseVerifier\NullableVerifier;
+use App\Support\DatabaseVerifier\TimestampsVerifier;
+use App\Support\DatabaseVerifier\PrimaryKeyVerifier;
+use App\Support\DatabaseVerifier\DefaultValueVerifier;
+use App\Support\DatabaseVerifier\EnumVerifier;
 
 class VerifyDatabase extends Command
 {
@@ -28,8 +32,12 @@ class VerifyDatabase extends Command
 
         $verifiers = [
             new TableVerifier($this),
+            new PrimaryKeyVerifier($this),
+            new TimestampsVerifier($this),
             new FillableVerifier($this),
-            new CastVerifier($this),
+            new DefaultValueVerifier($this),
+            new CastTypeMatchVerifier($this),
+            new EnumVerifier($this),
             new RelationVerifier($this),
             new ForeignKeyVerifier($this),
             new IndexVerifier($this),

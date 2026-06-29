@@ -64,7 +64,7 @@ class DatabaseInspector
     }
 
     /**
-     * Semua kolom beserta nullable.
+     * Semua kolom beserta detail tipe dan default.
      */
     public static function columns(string $table): array
     {
@@ -72,7 +72,9 @@ class DatabaseInspector
             SELECT
                 COLUMN_NAME,
                 IS_NULLABLE,
-                DATA_TYPE
+                DATA_TYPE,
+                COLUMN_TYPE,
+                COLUMN_DEFAULT
             FROM information_schema.COLUMNS
             WHERE
                 TABLE_SCHEMA = DATABASE()
@@ -84,6 +86,8 @@ class DatabaseInspector
                 $row->COLUMN_NAME => [
                     'nullable' => $row->IS_NULLABLE === 'YES',
                     'type' => $row->DATA_TYPE,
+                    'column_type' => $row->COLUMN_TYPE,
+                    'default' => $row->COLUMN_DEFAULT,
                 ]
             ])
             ->toArray();
