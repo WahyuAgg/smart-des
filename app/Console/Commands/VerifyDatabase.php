@@ -9,13 +9,17 @@ use App\Support\DatabaseVerifier\TableVerifier;
 use App\Support\DatabaseVerifier\FillableVerifier;
 use App\Support\DatabaseVerifier\CastTypeMatchVerifier;
 use App\Support\DatabaseVerifier\RelationVerifier;
-use App\Support\DatabaseVerifier\ForeignKeyVerifier;
 use App\Support\DatabaseVerifier\IndexVerifier;
 use App\Support\DatabaseVerifier\NullableVerifier;
 use App\Support\DatabaseVerifier\TimestampsVerifier;
 use App\Support\DatabaseVerifier\PrimaryKeyVerifier;
 use App\Support\DatabaseVerifier\DefaultValueVerifier;
 use App\Support\DatabaseVerifier\EnumVerifier;
+use App\Support\DatabaseVerifier\InverseRelationVerifier;
+use App\Support\DatabaseVerifier\ForeignKeyActionVerifier;
+use App\Support\DatabaseVerifier\CompositeUniqueVerifier;
+
+
 
 class VerifyDatabase extends Command
 {
@@ -38,10 +42,12 @@ class VerifyDatabase extends Command
             new DefaultValueVerifier($this),
             new CastTypeMatchVerifier($this),
             new EnumVerifier($this),
-            new RelationVerifier($this),
-            new ForeignKeyVerifier($this),
             new IndexVerifier($this),
             new NullableVerifier($this),
+            new RelationVerifier($this),
+            new InverseRelationVerifier($this),
+            new ForeignKeyActionVerifier($this),
+            new CompositeUniqueVerifier($this),
         ];
 
         foreach ($files as $file) {
