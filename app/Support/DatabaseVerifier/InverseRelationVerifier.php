@@ -3,13 +3,19 @@
 namespace App\Support\DatabaseVerifier;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
-
 
 class InverseRelationVerifier extends AbstractVerifier
 {
     /**
-     * Mapping pasangan relasi yang valid.
+     * Namespace model yang akan diverifikasi.
+     * Model vendor/package akan diabaikan.
+     */
+    protected array $allowedNamespaces = [
+        'App\\Models\\',
+    ];
+
+    /**
+     * Pasangan relasi yang valid.
      */
     protected array $inverseMap = [
 
@@ -60,19 +66,34 @@ class InverseRelationVerifier extends AbstractVerifier
 
             $relatedClass = $relation['related'];
 
-            if (! class_exists($relatedClass)) {
+            if (! $this->shouldVerifyRelation($relatedClass)) {
                 continue;
             }
 
+            /** @var Model $relatedModel */
             $relatedModel = new $relatedClass;
 
             $inverseRelations = ModelInspector::relations($relatedModel);
 
             $matched = collect($inverseRelations)
-                ->first(function ($inverse) use ($model) {
+                ->first(function ($inverse) use ($model, $relation) {
 
-                    return $inverse['related'] === get_class($model);
+                    // Harus mengarah kembali ke model asal
+                    if ($inverse['related'] !== get_class($model)) {
+                        return false;
+                    }
 
+                    // Jika kedua relasi punya foreign key,
+                    // pastikan FK sama (menghindari false positive
+                    // ketika ada lebih dari satu relasi ke model yang sama)
+                    if (
+                        ! empty($relation['foreign_key']) &&
+                        ! empty($inverse['foreign_key'])
+                    ) {
+                        return $relation['foreign_key'] === $inverse['foreign_key'];
+                    }
+
+                    return true;
                 });
 
             if (! $matched) {
@@ -88,7 +109,7 @@ class InverseRelationVerifier extends AbstractVerifier
 
             $expected = $this->inverseMap[$relation['type']] ?? [];
 
-            if (! in_array($matched['type'], $expected)) {
+            if (! in_array($matched['type'], $expected, true)) {
 
                 $this->printFail(sprintf(
                     "%s::%s() ↔ %s::%s() (Expected %s, found %s)",
@@ -111,5 +132,24 @@ class InverseRelationVerifier extends AbstractVerifier
                 $matched['method']
             ));
         }
+    }
+
+    /**
+     * Menentukan apakah relasi perlu diverifikasi.
+     */
+    protected function shouldVerifyRelation(string $relatedClass): bool
+    {
+        if (! class_exists($relatedClass)) {
+            return false;
+        }
+
+        foreach ($this->allowedNamespaces as $namespace) {
+
+            if (str_starts_with($relatedClass, $namespace)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
