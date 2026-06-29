@@ -19,7 +19,7 @@ class Penduduk extends Model
         'tempat_lahir',
         'agama',
         'status_perkawinan',
-        'kewarnagaran',
+        'kewarganegaraan',
         'golongan_darah',
         'no_hp',
         'email',

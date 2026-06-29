@@ -20,12 +20,12 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->string('agama');
             $table->string('status_perkawinan');
-            $table->string('kewarnagaran');
+            $table->string('kewarganegaraan');
             $table->string('golongan_darah');
             $table->string('no_hp');
             $table->string('email');
             $table->string('status_hidup');
-            $table->string('tanggal_meninggal')->nullable();
+            $table->date('tanggal_meninggal')->nullable();
             $table->foreignId('alamat_id');
             $table->foreignId('pendidikan_id');
             $table->foreignId('pekerjaan_id');
