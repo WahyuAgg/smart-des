@@ -51,6 +51,34 @@ return new class extends Migration
             $table->foreign('pekerjaan_id')->references('id')->on('pekerjaan')->cascadeOnDelete();
             $table->foreign('kk_id')->references('id')->on('kk')->cascadeOnDelete();
         });
+
+        Schema::table('inv_barang', function (Blueprint $table) {
+            $table->foreign('kategori_barang_id')
+                ->references('id')
+                ->on('inv_kategori_barang')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table->foreign('lokasi_id')
+                ->references('id')
+                ->on('inv_lokasi')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+        });
+
+        Schema::table('inv_detail_peminjaman', function (Blueprint $table) {
+            $table->foreign('peminjaman_id')
+                ->references('id')
+                ->on('inv_peminjaman')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('barang_id')
+                ->references('id')
+                ->on('inv_barang')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+        });
     }
 
     /**
@@ -97,6 +125,16 @@ return new class extends Migration
             $table->dropForeign(['pendidikan_id']);
             $table->dropForeign(['pekerjaan_id']);
             $table->dropForeign(['kk_id']);
+        });
+
+        Schema::table('inv_detail_peminjaman', function (Blueprint $table) {
+            $table->dropForeign(['barang_id']);
+            $table->dropForeign(['peminjaman_id']);
+        });
+
+        Schema::table('inv_barang', function (Blueprint $table) {
+            $table->dropForeign(['lokasi_id']);
+            $table->dropForeign(['kategori_barang_id']);
         });
     }
 };
