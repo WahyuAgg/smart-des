@@ -12,6 +12,7 @@ class JenisSurat extends Model
     protected $table = 'jenis_surat';
 
     protected $fillable = [
+        'kategori_surat_id',
         'kode_jenis_surat',
         'nama_jenis_surat',
         'deskripsi',
@@ -21,6 +22,11 @@ class JenisSurat extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    public function kategoriSurat()
+    {
+        return $this->belongsTo(KategoriSurat::class, 'kategori_surat_id');
+    }
 
     public function fieldSurat()
     {

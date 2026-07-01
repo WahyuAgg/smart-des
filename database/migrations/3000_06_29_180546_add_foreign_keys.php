@@ -79,6 +79,14 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });
+
+        Schema::table('jenis_surat', function (Blueprint $table) {
+            $table->foreign('kategori_surat_id')
+                ->references('id')
+                ->on('kategori_surat')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+        });
     }
 
     /**
@@ -135,6 +143,10 @@ return new class extends Migration
         Schema::table('inv_barang', function (Blueprint $table) {
             $table->dropForeign(['lokasi_id']);
             $table->dropForeign(['kategori_barang_id']);
+        });
+
+        Schema::table('jenis_surat', function (Blueprint $table) {
+            $table->dropForeign(['kategori_surat_id']);
         });
     }
 };

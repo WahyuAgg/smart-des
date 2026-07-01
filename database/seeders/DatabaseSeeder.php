@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
 use Laravolt\Indonesia\Seeds\ProvincesSeeder;
 use Laravolt\Indonesia\Seeds\CitiesSeeder;
 use Laravolt\Indonesia\Seeds\DistrictsSeeder;
@@ -22,14 +23,23 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // UserSeeder::class,
+
+
+            // ProvincesSeeder::class,
+            // CitiesSeeder::class,
+            // DistrictsSeeder::class,
+            // VillagesSeeder::class,
+
+
+            PekerjaanSeeder::class,
+            RefJabatanPerangkatSeeder::class,
             // AlamatSeeder::class,
             // KkSeeder::class,
             // PendidikanSeeder::class,
-            ProvincesSeeder::class,
-            CitiesSeeder::class,
-            DistrictsSeeder::class,
-            VillagesSeeder::class,
-            PekerjaanSeeder::class,
+
+
+            KategoriSuratSeeder::class,
+            JenisSuratSeeder::class,
         ]);
 
     }
