@@ -47,8 +47,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function pengajuanSurat()
+    public function srtPengajuanSurat()
     {
-        return $this->hasMany(PengajuanSurat::class, 'user_id', 'id');  
+        return $this->hasMany(SrtPengajuanSurat::class, 'user_id', 'id');  
     }
 }

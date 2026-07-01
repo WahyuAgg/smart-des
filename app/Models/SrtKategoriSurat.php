@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KategoriSurat extends Model
+class SrtKategoriSurat extends Model
 {
     use HasFactory;
 
-    protected $table = 'kategori_surat';
+    protected $table = 'srt_kategori_surat';
 
     protected $fillable = [
         'kode_kategori_surat',
@@ -22,8 +22,8 @@ class KategoriSurat extends Model
         'is_active' => 'boolean',
     ];
 
-    public function jenisSurat()
+    public function srtJenisSurat()
     {
-        return $this->hasMany(JenisSurat::class, 'kategori_surat_id');
+        return $this->hasMany(srtJenisSurat::class, 'kategori_surat_id');
     }
 }

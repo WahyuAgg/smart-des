@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PengajuanSurat extends Model
+class SrtPengajuanSurat extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengajuan_surat';
+    protected $table = 'srt_pengajuan_surat';
 
     protected $fillable = [
         'jenis_surat_id',
@@ -33,7 +33,7 @@ class PengajuanSurat extends Model
 
     public function jenisSurat()
     {
-        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
+        return $this->belongsTo(SrtJenisSurat::class, 'jenis_surat_id');
     }
 
     public function penduduk()
@@ -48,6 +48,6 @@ class PengajuanSurat extends Model
 
     public function valueFieldSurat()
     {
-        return $this->hasMany(ValueFieldSurat::class, 'pengajuan_surat_id');
+        return $this->hasMany(SrtValueFieldSurat::class, 'pengajuan_surat_id');
     }
 }

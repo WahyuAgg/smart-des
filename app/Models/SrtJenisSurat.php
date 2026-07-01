@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisSurat extends Model
+class SrtJenisSurat extends Model
 {
     use HasFactory;
 
-    protected $table = 'jenis_surat';
+    protected $table = 'srt_jenis_surat';
 
     protected $fillable = [
         'kategori_surat_id',
@@ -23,16 +23,16 @@ class JenisSurat extends Model
         'is_active' => 'boolean',
     ];
 
-    public function kategoriSurat()
+    public function srtKategoriSurat()
     {
-        return $this->belongsTo(KategoriSurat::class, 'kategori_surat_id');
+        return $this->belongsTo(SrtKategoriSurat::class, 'kategori_surat_id');
     }
 
-    public function masterFieldSurat()
+    public function srtMasterFieldSurat()
     {
         return $this->belongsToMany(
-            MasterFieldSurat::class,
-            'jenis_surat_field',
+            SrtMasterFieldSurat::class,
+            'srt_jenis_surat_field',
             'jenis_surat_id',
             'master_field_surat_id'
         )->withPivot([
@@ -41,8 +41,13 @@ class JenisSurat extends Model
         ])->withTimestamps();
     }
 
-    public function pengajuanSurat()
+    public function srtPengajuanSurat()
     {
-        return $this->hasMany(PengajuanSurat::class, 'jenis_surat_id');
+        return $this->hasMany(SrtPengajuanSurat::class, 'jenis_surat_id');
+    }
+
+    public function srtJenisSuratField()
+    {
+        return $this->hasMany(SrtJenisSuratField::class, 'jenis_surat_id');
     }
 }
