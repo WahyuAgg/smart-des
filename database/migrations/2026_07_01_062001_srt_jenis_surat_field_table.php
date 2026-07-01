@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jenis_surat_field', function (Blueprint $table) {
+        Schema::create('srt_jenis_surat_field', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('jenis_surat_id');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unique([
                 'jenis_surat_id',
                 'master_field_surat_id',
-            ]);
+            ], 'uq_jenis_surat_field');
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jenis_surat_field');
+        Schema::dropIfExists('srt_jenis_surat_field');
     }
 };

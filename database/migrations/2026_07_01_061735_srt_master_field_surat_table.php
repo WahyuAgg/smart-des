@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_field_surat', function (Blueprint $table) {
+        Schema::create('srt_master_field_surat', function (Blueprint $table) {
             $table->id();
 
             // Key / placeholder pada template DOCX
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_field_surat');
+        Schema::dropIfExists('srt_master_field_surat');
     }
 };

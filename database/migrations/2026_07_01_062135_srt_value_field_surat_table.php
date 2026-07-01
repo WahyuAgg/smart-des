@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('value_field_surat', function (Blueprint $table) {
+        Schema::create('srt_value_field_surat', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('pengajuan_surat_id');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('value_field_surat');
+        Schema::dropIfExists('srt_value_field_surat');
     }
 };
