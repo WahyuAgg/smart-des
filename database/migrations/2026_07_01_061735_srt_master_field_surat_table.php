@@ -14,19 +14,33 @@ return new class extends Migration
         Schema::create('srt_master_field_surat', function (Blueprint $table) {
             $table->id();
 
-            // Key / placeholder pada template DOCX
+            // Nama placeholder pada template DOCX
+            // Contoh: nama_lengkap, nik, alamat, nomor_surat
             $table->string('nama')->unique();
 
-            // Label yang ditampilkan pada form
+            // Label yang ditampilkan di aplikasi
             $table->string('label');
 
-            // text, textarea, number, date, select, checkbox, dll.
+            // Sumber data placeholder
+            // input, penduduk, profil_desa, sistem, perangkat, jenis_surat
+            $table->string('source', 30);
+
+            // Nama field pada sumber data
+            // Contoh:
+            // penduduk.nama
+            // penduduk.nik
+            // profil_desa.alamat
+            // NULL jika source = input
+            $table->string('source_field')->nullable();
+
+            // Digunakan jika source = input
+            // text, textarea, number, email, date, select, dll.
             $table->string('tipe', 30)->default('text');
 
-            // Jika tipe = select
+            // Opsi untuk select/radio
             $table->json('opsi')->nullable();
 
-            // Placeholder HTML
+            // Petunjuk pengisian (khusus input)
             $table->string('placeholder')->nullable();
 
             // Keterangan untuk admin

@@ -16,6 +16,8 @@ use Database\Seeders\GeneralSeeder\RefJabatanPerangkatSeeder;
 use Database\Seeders\GeneralSeeder\PendidikanSeeder;
 use Database\Seeders\GeneralSeeder\KategoriSuratSeeder;
 use Database\Seeders\GeneralSeeder\JenisSuratSeeder;
+use Database\Seeders\GeneralSeeder\MasterFieldSuratSeeder;
+
 
 use Database\Seeders\curugSeeder\RefProfilDesaSeeder;
 
@@ -43,8 +45,8 @@ class DatabaseSeeder extends Seeder
             RefJabatanPerangkatSeeder::class,
             PendidikanSeeder::class,
 
-
-
+            
+            MasterFieldSuratSeeder::class,
             KategoriSuratSeeder::class,
             JenisSuratSeeder::class,
 
