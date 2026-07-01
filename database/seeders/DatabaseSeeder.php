@@ -11,6 +11,14 @@ use Laravolt\Indonesia\Seeds\CitiesSeeder;
 use Laravolt\Indonesia\Seeds\DistrictsSeeder;
 use Laravolt\Indonesia\Seeds\VillagesSeeder;
 
+use Database\Seeders\GeneralSeeder\PekerjaanSeeder;
+use Database\Seeders\GeneralSeeder\RefJabatanPerangkatSeeder;
+use Database\Seeders\GeneralSeeder\PendidikanSeeder;
+use Database\Seeders\GeneralSeeder\KategoriSuratSeeder;
+use Database\Seeders\GeneralSeeder\JenisSuratSeeder;
+
+use Database\Seeders\curugSeeder\RefProfilDesaSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -41,6 +49,8 @@ class DatabaseSeeder extends Seeder
 
             KategoriSuratSeeder::class,
             JenisSuratSeeder::class,
+
+            RefProfilDesaSeeder::class,
         ]);
 
     }

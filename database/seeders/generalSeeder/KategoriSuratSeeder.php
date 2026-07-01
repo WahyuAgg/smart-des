@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\GeneralSeeder;
 
-use App\Models\KategoriSurat;
+use App\Models\SrtKategoriSurat;
 use Illuminate\Database\Seeder;
 
 class KategoriSuratSeeder extends Seeder
@@ -119,7 +119,7 @@ class KategoriSuratSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            KategoriSurat::updateOrCreate(
+            SrtKategoriSurat::updateOrCreate(
                 [
                     'kode_kategori_surat' => $item['kode_kategori_surat'],
                 ],

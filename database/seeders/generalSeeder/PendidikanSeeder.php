@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\GeneralSeeder;
 
 use App\Models\Pendidikan;
 use Illuminate\Database\Seeder;

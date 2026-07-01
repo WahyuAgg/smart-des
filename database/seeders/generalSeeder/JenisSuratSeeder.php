@@ -1,17 +1,17 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\GeneralSeeder;
 
-use App\Models\JenisSurat;
-use App\Models\KategoriSurat;
+use App\Models\SrtJenisSurat;
+use App\Models\SrtKategoriSurat;
 use Illuminate\Database\Seeder;
 
 class JenisSuratSeeder extends Seeder
 {
     public function run(): void
     {
-        $kategoriKeterangan = KategoriSurat::query()->where('kode_kategori_surat', 'KET')->firstOrFail();
-        $kategoriPengantar = KategoriSurat::query()->where('kode_kategori_surat', 'PENG')->firstOrFail();
+        $kategoriKeterangan = SrtKategoriSurat::query()->where('kode_kategori_surat', 'KET')->firstOrFail();
+        $kategoriPengantar = SrtKategoriSurat::query()->where('kode_kategori_surat', 'PENG')->firstOrFail();
 
         $data = [
 
@@ -74,7 +74,7 @@ class JenisSuratSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            JenisSurat::updateOrCreate(
+            SrtJenisSurat::updateOrCreate(
                 [
                     'kode_jenis_surat' => $item['kode_jenis_surat'],
                 ],

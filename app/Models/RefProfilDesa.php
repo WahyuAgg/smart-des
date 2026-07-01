@@ -29,25 +29,23 @@ class RefProfilDesa extends Model
         'deskripsi',
     ];
 
-    // Assuming the laravolt/indonesia models exist, you can relate them.
-    // Replace with correct namespaces if different.
     public function provinsi()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_id', 'id');
     }
 
     public function kabupaten()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\City::class, 'kabupaten_id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\City::class, 'kabupaten_id', 'id' );
     }
 
     public function kecamatan()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\District::class, 'kecamatan_id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\District::class, 'kecamatan_id', 'id' );
     }
 
     public function desa()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Village::class, 'desa_id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\Village::class, 'desa_id', 'id');
     }
 }
