@@ -12,10 +12,10 @@ class RefProfilDesa extends Model
     protected $table = 'ref_profil_desa';
 
     protected $fillable = [
-        'provinsi_id',
-        'kabupaten_id',
-        'kecamatan_id',
-        'desa_id',
+        'provinsi_code',
+        'kabupaten_code',
+        'kecamatan_code',
+        'desa_code',
         'nama',
         'kode',
         'kode_pos',
@@ -31,21 +31,21 @@ class RefProfilDesa extends Model
 
     public function provinsi()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_id', 'id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_code', 'code');
     }
 
     public function kabupaten()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\City::class, 'kabupaten_id', 'id' );
+        return $this->belongsTo(\Laravolt\Indonesia\Models\City::class, 'kabupaten_code', 'code' );
     }
 
     public function kecamatan()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\District::class, 'kecamatan_id', 'id' );
+        return $this->belongsTo(\Laravolt\Indonesia\Models\District::class, 'kecamatan_code', 'code' );
     }
 
     public function desa()
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Village::class, 'desa_id', 'id');
+        return $this->belongsTo(\Laravolt\Indonesia\Models\Village::class, 'desa_code', 'code');
     }
 }

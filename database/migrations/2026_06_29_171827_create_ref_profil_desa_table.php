@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('ref_profil_desa', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('provinsi_id');
+            $table->string('provinsi_code');
 
-            $table->foreignId('kabupaten_id');
+            $table->string('kabupaten_code');
 
-            $table->foreignId('kecamatan_id');
+            $table->string('kecamatan_code');
 
-            $table->foreignId('desa_id');
+            $table->string('desa_code');
 
             $table->string('nama');
             $table->string('kode')->nullable()->unique();

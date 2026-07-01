@@ -33,24 +33,24 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
 
 
-            // ProvincesSeeder::class,
-            // CitiesSeeder::class,
-            // DistrictsSeeder::class,
-            // VillagesSeeder::class,
+            ProvincesSeeder::class,
+            CitiesSeeder::class,
+            DistrictsSeeder::class,
+            VillagesSeeder::class,
 
 
             PekerjaanSeeder::class,
             RefJabatanPerangkatSeeder::class,
             PendidikanSeeder::class,
-            // AlamatSeeder::class,
-            // KkSeeder::class,
-            // PendidikanSeeder::class,
+
 
 
             KategoriSuratSeeder::class,
             JenisSuratSeeder::class,
 
             RefProfilDesaSeeder::class,
+            // AlamatSeeder::class,
+            // KkSeeder::class,
         ]);
 
     }

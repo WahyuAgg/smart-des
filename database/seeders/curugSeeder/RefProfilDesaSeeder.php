@@ -13,29 +13,26 @@ class RefProfilDesaSeeder extends Seeder
     public function run(): void
     {
         RefProfilDesa::updateOrCreate(
-            ['kode' => '3301012001'],
+            ['kode' => '3306022050'],
             [
-                'provinsi_id' => '2',
-                'kabupaten_id' => '2',
-                'kecamatan_id' => '2',
-                'desa_id' => '2',
+                'provinsi_code' => '33',
+                'kabupaten_code' => '3306',
+                'kecamatan_code' => '330602',
+                'desa_code' => '3306022050',
 
                 'nama' => 'Curug',
-                'kode' => '3301012001',
-                'kode_pos' => '51111',
+                'kode' => '3306022050',
+                'kode_pos' => '111111',
 
-                'alamat' => 'Jl. Raya Desa Curug No. 1',
-                'telepon' => '0281123456',
+                'alamat' => 'Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.',
+                'telepon' => '081234567890',
                 'email' => 'desa_curug@example.com',
-                'website' => 'https://desacurug.id',
+                'website' => 'https://desacurug.co.id',
                 'logo' => null,
 
-                'visi' => 'Terwujudnya desa yang maju, mandiri, sejahtera, dan berdaya saing.',
+                'visi' => '-',
 
-                'misi' => "- Meningkatkan kualitas pelayanan kepada masyarakat.\n"
-                    . "- Mengembangkan potensi ekonomi desa.\n"
-                    . "- Meningkatkan kualitas sumber daya manusia.\n"
-                    . "- Mewujudkan tata kelola pemerintahan yang transparan dan akuntabel.",
+                'misi' => "-",
 
                 'deskripsi' => 'Desa Curug merupakan desa fiktif yang digunakan sebagai data awal (seed) pada aplikasi Sistem Pelayanan Surat Desa.',
             ]
