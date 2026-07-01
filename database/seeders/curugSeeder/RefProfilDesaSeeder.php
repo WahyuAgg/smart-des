@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\curugSeeder;
+namespace Database\Seeders\CurugSeeder;
 
 use App\Models\RefProfilDesa;
 use Illuminate\Database\Seeder;
