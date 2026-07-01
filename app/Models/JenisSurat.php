@@ -28,9 +28,17 @@ class JenisSurat extends Model
         return $this->belongsTo(KategoriSurat::class, 'kategori_surat_id');
     }
 
-    public function fieldSurat()
+    public function masterFieldSurat()
     {
-        return $this->hasMany(FieldSurat::class, 'jenis_surat_id');
+        return $this->belongsToMany(
+            MasterFieldSurat::class,
+            'jenis_surat_field',
+            'jenis_surat_id',
+            'master_field_surat_id'
+        )->withPivot([
+            'wajib',
+            'urutan',
+        ])->withTimestamps();
     }
 
     public function pengajuanSurat()

@@ -13,7 +13,7 @@ class ValueFieldSurat extends Model
 
     protected $fillable = [
         'pengajuan_surat_id',
-        'field_surat_id',
+        'master_field_surat_id',
         'value',
     ];
 
@@ -22,8 +22,8 @@ class ValueFieldSurat extends Model
         return $this->belongsTo(PengajuanSurat::class, 'pengajuan_surat_id');
     }
 
-    public function fieldSurat()
+    public function masterFieldSurat()
     {
-        return $this->belongsTo(FieldSurat::class, 'field_surat_id');
+        return $this->belongsTo(MasterFieldSurat::class, 'master_field_surat_id');
     }
 }

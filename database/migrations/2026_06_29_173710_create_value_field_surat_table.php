@@ -16,18 +16,17 @@ return new class extends Migration
 
             $table->foreignId('pengajuan_surat_id');
 
-            $table->foreignId('field_surat_id');
+            $table->foreignId('master_field_surat_id');
 
             $table->longText('value')->nullable();
 
             $table->timestamps();
 
-            $table->unique([
-                'pengajuan_surat_id',
-                'field_surat_id'
-            ]);
+            $table->unique(
+                ['pengajuan_surat_id', 'master_field_surat_id'],
+                'uq_value_field'
+            );
         });
-
     }
 
     /**

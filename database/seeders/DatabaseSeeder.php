@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
 
             PekerjaanSeeder::class,
             RefJabatanPerangkatSeeder::class,
+            PendidikanSeeder::class,
             // AlamatSeeder::class,
             // KkSeeder::class,
             // PendidikanSeeder::class,

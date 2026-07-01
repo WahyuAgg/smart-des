@@ -19,12 +19,9 @@ return new class extends Migration
 
         Schema::table('value_field_surat', function (Blueprint $table) {
             $table->foreign('pengajuan_surat_id')->references('id')->on('pengajuan_surat')->cascadeOnDelete();
-            $table->foreign('field_surat_id')->references('id')->on('field_surat')->cascadeOnDelete();
+            $table->foreign('master_field_surat_id')->references('id')->on('master_field_surat')->cascadeOnDelete();
         });
 
-        Schema::table('field_surat', function (Blueprint $table) {
-            $table->foreign('jenis_surat_id')->references('id')->on('jenis_surat')->cascadeOnDelete();
-        });
 
         Schema::table('ref_profil_desa', function (Blueprint $table) {
             $table->foreign('provinsi_id')->references('id')->on('indonesia_provinces')->restrictOnDelete();
@@ -87,6 +84,22 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });
+
+        Schema::table('jenis_surat_field', function (Blueprint $table) {
+
+            $table->foreign('jenis_surat_id')
+                ->references('id')
+                ->on('jenis_surat')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
+            $table->foreign('master_field_surat_id')
+                ->references('id')
+                ->on('master_field_surat')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+        });
+
     }
 
     /**
@@ -102,11 +115,7 @@ return new class extends Migration
 
         Schema::table('value_field_surat', function (Blueprint $table) {
             $table->dropForeign(['pengajuan_surat_id']);
-            $table->dropForeign(['field_surat_id']);
-        });
-
-        Schema::table('field_surat', function (Blueprint $table) {
-            $table->dropForeign(['jenis_surat_id']);
+            $table->dropForeign(['master_field_surat_id']);
         });
 
         Schema::table('ref_profil_desa', function (Blueprint $table) {
@@ -148,5 +157,11 @@ return new class extends Migration
         Schema::table('jenis_surat', function (Blueprint $table) {
             $table->dropForeign(['kategori_surat_id']);
         });
+
+        Schema::table('jenis_surat_field', function (Blueprint $table) {
+            $table->dropForeign(['jenis_surat_id']);
+            $table->dropForeign(['master_field_surat_id']);
+        });
+
     }
 };

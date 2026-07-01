@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('field_surat', function (Blueprint $table) {
+        Schema::create('master_field_surat', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('jenis_surat_id');
-
-            // Nama placeholder pada template DOCX
-            $table->string('nama');
+            // Key / placeholder pada template DOCX
+            $table->string('nama')->unique();
 
             // Label yang ditampilkan pada form
             $table->string('label');
@@ -28,23 +26,14 @@ return new class extends Migration
             // Jika tipe = select
             $table->json('opsi')->nullable();
 
-            $table->boolean('wajib')->default(false);
-
-            // Urutan field pada form
-            $table->unsignedSmallInteger('urutan')->default(1);
-
+            // Placeholder HTML
             $table->string('placeholder')->nullable();
 
+            // Keterangan untuk admin
             $table->text('keterangan')->nullable();
 
             $table->timestamps();
-
-            $table->unique([
-                'jenis_surat_id',
-                'nama'
-            ]);
         });
-
     }
 
     /**
@@ -52,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('field_surat');
+        Schema::dropIfExists('master_field_surat');
     }
 };
