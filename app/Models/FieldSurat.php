@@ -10,8 +10,19 @@ class FieldSurat extends Model
     use HasFactory;
 
     protected $table = 'field_surat';
-    protected $guarded = ['id'];
-    
+
+    protected $fillable = [
+        'jenis_surat_id',
+        'nama',
+        'label',
+        'tipe',
+        'opsi',
+        'wajib',
+        'urutan',
+        'placeholder',
+        'keterangan',
+    ];
+
     protected $casts = [
         'opsi' => 'array',
         'wajib' => 'boolean',

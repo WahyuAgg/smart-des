@@ -10,7 +10,20 @@ class PengajuanSurat extends Model
     use HasFactory;
 
     protected $table = 'pengajuan_surat';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'jenis_surat_id',
+        'penduduk_id',
+        'nomor_surat',
+        'keperluan',
+        'status',
+        'catatan',
+        'file_hasil',
+        'tanggal_diajukan',
+        'tanggal_diproses',
+        'tanggal_selesai',
+        'user_id',
+    ];
 
     protected $casts = [
         'tanggal_diajukan' => 'datetime',

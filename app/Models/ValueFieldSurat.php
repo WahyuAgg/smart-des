@@ -10,7 +10,12 @@ class ValueFieldSurat extends Model
     use HasFactory;
 
     protected $table = 'value_field_surat';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'pengajuan_surat_id',
+        'field_surat_id',
+        'value',
+    ];
 
     public function pengajuanSurat()
     {

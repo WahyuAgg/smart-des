@@ -10,7 +10,17 @@ class JenisSurat extends Model
     use HasFactory;
 
     protected $table = 'jenis_surat';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'kode_jenis_surat',
+        'nama_jenis_surat',
+        'deskripsi',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function fieldSurat()
     {

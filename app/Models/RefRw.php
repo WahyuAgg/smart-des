@@ -10,7 +10,12 @@ class RefRw extends Model
     use HasFactory;
 
     protected $table = 'ref_rw';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'dusun_id',
+        'nomor_rw',
+        'ketua_rw',
+    ];
 
     public function refDusun()
     {

@@ -10,7 +10,25 @@ class RefPerangkatDesa extends Model
     use HasFactory;
 
     protected $table = 'ref_perangkat_desa';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'jabatan_perangkat_id',
+        'nama',
+        'nip',
+        'telepon',
+        'email',
+        'foto',
+        'tanda_tangan',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'aktif',
+    ];
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_selesai' => 'date',
+        'aktif' => 'boolean',
+    ];
 
     public function jabatanPerangkat()
     {

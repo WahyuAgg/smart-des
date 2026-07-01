@@ -10,7 +10,24 @@ class RefProfilDesa extends Model
     use HasFactory;
 
     protected $table = 'ref_profil_desa';
-    protected $guarded = ['id'];
+
+    protected $fillable = [
+        'provinsi_id',
+        'kabupaten_id',
+        'kecamatan_id',
+        'desa_id',
+        'nama',
+        'kode',
+        'kode_pos',
+        'alamat',
+        'telepon',
+        'email',
+        'website',
+        'logo',
+        'visi',
+        'misi',
+        'deskripsi',
+    ];
 
     // Assuming the laravolt/indonesia models exist, you can relate them.
     // Replace with correct namespaces if different.
