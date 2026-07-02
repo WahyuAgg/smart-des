@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller as BaseController;
+use App\Http\Controllers\Api\ApiController;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-abstract class CrudController extends BaseController
+abstract class CrudController extends ApiController
 {
     protected string $modelClass;
 
@@ -24,15 +25,15 @@ abstract class CrudController extends BaseController
 
     public function index(): JsonResponse
     {
-        $records = $this->query(
-            $this->resolveModel()
-                ->newQuery()
-                ->with($this->with)
-        )
-            ->latest()
-            ->paginate($this->perPage);
+        $model = $this->resolveModel();
 
-        return response()->json($records);
+        $records = $model
+            ->newQuery()
+            ->with($this->with)
+            ->latest()
+            ->paginate(15);
+
+        return $this->success($records);
     }
 
     public function store(Request $request): JsonResponse
@@ -45,7 +46,11 @@ abstract class CrudController extends BaseController
 
         $record = $model->newQuery()->create($data);
 
-        return response()->json($record->fresh($this->with), 201);
+        return $this->success(
+            $record->fresh($this->with),
+            'Data berhasil ditambahkan.',
+            201
+        );
     }
 
     public function show(string $id): JsonResponse
@@ -55,7 +60,7 @@ abstract class CrudController extends BaseController
             ->with($this->with)
             ->findOrFail($id);
 
-        return response()->json($record);
+        return $this->success($record);
     }
 
     public function update(Request $request, string $id): JsonResponse
@@ -64,11 +69,16 @@ abstract class CrudController extends BaseController
             ->newQuery()
             ->findOrFail($id);
 
-        $record->fill(
-            $request->only($record->getFillable())
-        )->save();
+        $data = method_exists($request, 'validated')
+            ? $request->validated()
+            : $request->only($record->getFillable());
 
-        return response()->json($record->fresh($this->with));
+        $record->update($data);
+
+        return $this->success(
+            $record->fresh($this->with),
+            'Data berhasil diperbarui.'
+        );
     }
 
     public function destroy(string $id): JsonResponse
@@ -79,7 +89,10 @@ abstract class CrudController extends BaseController
 
         $record->delete();
 
-        return response()->json(null, 204);
+        return $this->success(
+            null,
+            'Data berhasil dihapus.'
+        );
     }
 
     /**

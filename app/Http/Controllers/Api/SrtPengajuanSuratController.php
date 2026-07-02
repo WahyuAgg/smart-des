@@ -7,6 +7,11 @@ use App\Models\SrtPengajuanSurat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+ use Illuminate\Support\Facades\File;
+
+use App\Models\SrtJenisSurat;
+    use Illuminate\Support\Collection;
+
 
 use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\RefProfilDesa;
@@ -173,19 +178,13 @@ class SrtPengajuanSuratController extends Controller
 
         $jenisSurat = $pengajuan->jenisSurat;
 
-        if (! $jenisSurat) {
-            return response()->json([
-                'message' => 'Jenis surat tidak ditemukan.',
-            ], 404);
-        }
-
         if (empty($jenisSurat->template_path)) {
             return response()->json([
                 'message' => 'Template surat belum ditentukan.',
             ], 422);
         }
 
-        $templatePath = storage_path('app/public/' . $jenisSurat->template_path);
+        $templatePath = $this->getTemplatePath($jenisSurat->template_path);
 
         if (! file_exists($templatePath)) {
             return response()->json([
@@ -194,48 +193,27 @@ class SrtPengajuanSuratController extends Controller
         }
 
         $placeholders = $this->extractPlaceholders($templatePath);
-        $allowedFields = $jenisSurat->srtMasterFieldSurat
-            ->pluck('nama')
-            ->filter()
-            ->toArray();
 
-        $invalid = array_values(array_diff($placeholders, $allowedFields));
-
-        if (! empty($invalid)) {
-            return response()->json([
-                'message' => 'Placeholder tidak terdaftar.',
-                'placeholder' => $invalid,
-            ], 422);
-        }
-
-        $profilDesa = RefProfilDesa::query()->first();
-        $template = new TemplateProcessor($templatePath);
-
-        foreach ($placeholders as $placeholder) {
-            $field = $jenisSurat->srtMasterFieldSurat->firstWhere('nama', $placeholder);
-
-            if (! $field) {
-                continue;
-            }
-
-            $value = $this->resolveFieldValue($pengajuan, $profilDesa, $field);
-            $template->setValue($placeholder, $value ?? '');
-        }
-
-        $filename = sprintf(
-            '%s_%s.docx',
-            $jenisSurat->kode_jenis_surat ?: 'surat',
-            now()->format('YmdHis')
+        $this->validatePlaceholders(
+            $placeholders,
+            $jenisSurat->srtMasterFieldSurat
         );
 
-        $directory = storage_path('app/public/generated');
+        $template = new TemplateProcessor($templatePath);
 
-        if (! is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
+        $this->fillTemplate(
+            $template,
+            $pengajuan,
+            RefProfilDesa::query()->first(),
+            $placeholders
+        );
 
-        $outputPath = $directory . DIRECTORY_SEPARATOR . $filename;
-        $template->saveAs($outputPath);
+        $filename = $this->generateFilename($jenisSurat);
+
+        $outputPath = $this->saveDocument(
+            $template,
+            $filename
+        );
 
         $pengajuan->update([
             'file_hasil' => 'generated/' . $filename,
@@ -245,8 +223,102 @@ class SrtPengajuanSuratController extends Controller
 
         return response()->json([
             'message' => 'Surat berhasil digenerate.',
-            'file' => asset('storage/generated/' . $filename),
+            'file' => asset('storage/generated/' . basename($outputPath)),
         ]);
+    }
+
+    private function getTemplatePath(string $path): string
+    {
+        return storage_path('app/public/' . $path);
+    }
+
+
+    private function validatePlaceholders(
+        array $placeholders,
+        Collection $fields
+    ): void {
+
+        $allowed = $fields
+            ->pluck('nama')
+            ->filter()
+            ->toArray();
+
+        $invalid = array_values(
+            array_diff($placeholders, $allowed)
+        );
+
+        if (! empty($invalid)) {
+            abort(
+                response()->json([
+                    'message' => 'Placeholder tidak terdaftar.',
+                    'placeholder' => $invalid,
+                ], 422)
+            );
+        }
+    }
+
+    private function fillTemplate(
+        TemplateProcessor $template,
+        SrtPengajuanSurat $pengajuan,
+        ?RefProfilDesa $profilDesa,
+        array $placeholders
+    ): void {
+
+        $fields = $pengajuan
+            ->jenisSurat
+            ->srtMasterFieldSurat;
+
+        foreach ($placeholders as $placeholder) {
+
+            $field = $fields->firstWhere(
+                'nama',
+                $placeholder
+            );
+
+            if (! $field) {
+                continue;
+            }
+
+            $value = $this->resolveFieldValue(
+                $pengajuan,
+                $profilDesa,
+                $field
+            );
+
+            $template->setValue(
+                $placeholder,
+                $value ?? ''
+            );
+        }
+    }
+
+    private function generateFilename(
+        SrtJenisSurat $jenisSurat
+    ): string {
+
+        return sprintf(
+            '%s_%s.docx',
+            $jenisSurat->kode_jenis_surat ?: 'surat',
+            now()->format('YmdHis')
+        );
+    }
+
+   
+
+    private function saveDocument(
+        TemplateProcessor $template,
+        string $filename
+    ): string {
+
+        $directory = storage_path('app/public/generated');
+
+        File::ensureDirectoryExists($directory);
+
+        $outputPath = $directory . DIRECTORY_SEPARATOR . $filename;
+
+        $template->saveAs($outputPath);
+
+        return $outputPath;
     }
 
     private function resolveFieldValue(

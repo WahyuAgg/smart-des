@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\GeneralSeeder\RoleSeeder;
+use Database\Seeders\GeneralSeeder\UserSeeder;
+use Database\Seeders\GeneralSeeder\AssignRoles;
 
 use Laravolt\Indonesia\Seeds\ProvincesSeeder;
 use Laravolt\Indonesia\Seeds\CitiesSeeder;
@@ -35,17 +38,21 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
 
 
-            ProvincesSeeder::class,
-            CitiesSeeder::class,
-            DistrictsSeeder::class,
-            VillagesSeeder::class,
+            // ProvincesSeeder::class,
+            // CitiesSeeder::class,
+            // DistrictsSeeder::class,
+            // VillagesSeeder::class,
 
 
             PekerjaanSeeder::class,
             RefJabatanPerangkatSeeder::class,
             PendidikanSeeder::class,
 
-            
+            //USER SEEDER DAN ROLE SEEDER
+            RoleSeeder::class,
+            UserSeeder::class,
+            AssignRoles::class,
+
             MasterFieldSuratSeeder::class,
             KategoriSuratSeeder::class,
             JenisSuratSeeder::class,
