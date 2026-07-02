@@ -23,6 +23,12 @@ use Database\Seeders\GeneralSeeder\MasterFieldSuratSeeder;
 
 
 use Database\Seeders\curugSeeder\RefProfilDesaSeeder;
+use Database\Seeders\curugSeeder\RefDusunSeeder;
+use Database\Seeders\curugSeeder\RefRwSeeder;
+use Database\Seeders\curugSeeder\RefRtSeeder;
+use Database\Seeders\curugSeeder\AlamatSeeder;
+
+use Database\Seeders\TestingSrtSeeder\KkPendudukSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -35,15 +41,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // UserSeeder::class,
 
-
+            // LARAVOLT INDONESIA SEEDER
             // ProvincesSeeder::class,
             // CitiesSeeder::class,
             // DistrictsSeeder::class,
             // VillagesSeeder::class,
 
-
+            // REFERENCE SEEDER
             PekerjaanSeeder::class,
             RefJabatanPerangkatSeeder::class,
             PendidikanSeeder::class,
@@ -53,13 +58,22 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AssignRoles::class,
 
+            // SURAT SEEDER
             MasterFieldSuratSeeder::class,
             KategoriSuratSeeder::class,
             JenisSuratSeeder::class,
 
+
+            
+            // CURUG SEEDER
             RefProfilDesaSeeder::class,
-            // AlamatSeeder::class,
-            // KkSeeder::class,
+            RefDusunSeeder::class,
+            RefRwSeeder::class,
+            RefRtSeeder::class,
+            AlamatSeeder::class,
+
+            //TESTING SEEDER
+            KkPendudukSeeder::class,
         ]);
 
     }
