@@ -46,8 +46,10 @@ class SrtPengajuanSurat extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // public function valueFieldSurat()
-    // {
-    //     return $this->hasMany(SrtValueFieldSurat::class, 'pengajuan_surat_id');
-    // }
+    public function getTemplatePathAttribute()
+    {
+        return storage_path(
+            'app/' . $this->jenisSurat->template
+        );
+    }
 }

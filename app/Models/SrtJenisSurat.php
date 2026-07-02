@@ -16,6 +16,7 @@ class SrtJenisSurat extends Model
         'kode_jenis_surat',
         'nama_jenis_surat',
         'deskripsi',
+        'template_path',
         'is_active',
     ];
 
