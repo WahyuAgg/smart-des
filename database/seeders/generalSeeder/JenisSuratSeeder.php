@@ -18,8 +18,9 @@ class JenisSuratSeeder extends Seeder
             [
                 'kategori_surat_id' => $kategoriKeterangan->id,
                 'kode_jenis_surat' => 'SKP',
-                'nama_jenis_surat' => 'Surat Keterangan Penduduk',
+                'nama_jenis_surat' => 'Surat Keterangan Domisili Penduduk',
                 'deskripsi' => 'Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.',
+                'template_path'=> 'app/templates/domisili_temp.docx',
                 'is_active' => true,
             ],
 

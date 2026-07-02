@@ -39,13 +39,6 @@ class SrtMasterFieldSurat extends Model
         ])->withTimestamps();
     }
 
-    // public function srtValueFieldSurat()
-    // {
-    //     return $this->hasMany(
-    //         SrtValueFieldSurat::class,
-    //         'master_field_surat_id'
-    //     );
-    // }
 
     public function srtJenisSuratField()
     {

@@ -16,6 +16,7 @@ class SrtPengajuanSurat extends Model
         'penduduk_id',
         'nomor_surat',
         'keperluan',
+        'data_surat',
         'status',
         'catatan',
         'file_hasil',
@@ -29,6 +30,7 @@ class SrtPengajuanSurat extends Model
         'tanggal_diajukan' => 'datetime',
         'tanggal_diproses' => 'datetime',
         'tanggal_selesai' => 'datetime',
+        'data_surat' => 'array',
     ];
 
     public function jenisSurat()
@@ -46,10 +48,10 @@ class SrtPengajuanSurat extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getTemplatePathAttribute()
+    public function getTemplatePathAttribute(): string
     {
         return storage_path(
-            'app/' . $this->jenisSurat->template
+            'app/public/' . $this->jenisSurat->template_path
         );
     }
 }
