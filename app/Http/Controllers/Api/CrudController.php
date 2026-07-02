@@ -44,6 +44,8 @@ abstract class CrudController extends ApiController
             ? $request->validated()
             : $request->only($model->getFillable());
 
+        
+
         $record = $model->newQuery()->create($data);
 
         return $this->success(

@@ -47,8 +47,4 @@ class SrtJenisSurat extends Model
         return $this->hasMany(SrtPengajuanSurat::class, 'jenis_surat_id');
     }
 
-    public function srtJenisSuratField()
-    {
-        return $this->hasMany(SrtJenisSuratField::class, 'jenis_surat_id');
-    }
 }

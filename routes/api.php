@@ -28,7 +28,6 @@ Route::middleware([
     Route::apiResource('ref-rt', App\Http\Controllers\Api\RefRtController::class);
     Route::apiResource('ref-rw', App\Http\Controllers\Api\RefRwController::class);
     Route::apiResource('srt-jenis-surat', App\Http\Controllers\Api\SrtJenisSuratController::class);
-    Route::apiResource('srt-jenis-surat-field', App\Http\Controllers\Api\SrtJenisSuratFieldController::class);
     Route::apiResource('srt-kategori-surat', App\Http\Controllers\Api\SrtKategoriSuratController::class);
     Route::apiResource('srt-master-field-surat', App\Http\Controllers\Api\SrtMasterFieldSuratController::class);
     Route::apiResource('srt-pengajuan-surat', App\Http\Controllers\Api\SrtPengajuanSuratController::class);
