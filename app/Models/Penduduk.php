@@ -41,7 +41,7 @@ class Penduduk extends Model
         'updated_at' => 'datetime',
     ];
 
-
+    
     public function getNamaPekerjaanAttribute(): ?string
     {
         return $this->pekerjaan?->nama_pekerjaan;
@@ -60,7 +60,26 @@ class Penduduk extends Model
             get: fn() => $this->alamat?->provinsi
         );
     }
-    
+    protected function alamatKabupaten(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat?->kabupaten
+        );
+    }
+
+    protected function alamatKecamatan(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat?->kecamatan
+        );
+    }
+    protected function alamatDesa(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat?->desa
+        );
+    }
+
 
 
 

@@ -11,6 +11,18 @@ class SrtMasterFieldSurat extends Model
 
     protected $table = 'srt_master_field_surat';
 
+    public const INPUT_MODE_AUTO = 'auto';
+
+    public const INPUT_MODE_MANUAL = 'manual';
+
+    public const INPUT_MODE_AUTO_EDITABLE = 'auto_editable';
+
+    public const INPUT_MODES = [
+        self::INPUT_MODE_AUTO,
+        self::INPUT_MODE_MANUAL,
+        self::INPUT_MODE_AUTO_EDITABLE,
+    ];
+
     protected $fillable = [
         'nama',
         'label',
@@ -18,6 +30,7 @@ class SrtMasterFieldSurat extends Model
         'opsi',
         'placeholder',
         'keterangan',
+        'input_mode',
         'source',
         'source_field',
     ];
@@ -25,5 +38,4 @@ class SrtMasterFieldSurat extends Model
     protected $casts = [
         'opsi' => 'array',
     ];
-
 }

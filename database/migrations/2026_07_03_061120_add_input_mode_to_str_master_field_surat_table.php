@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('srt_master_field_surat', function (Blueprint $table) {
-            //
+
+            $table->enum('input_mode', [
+                'auto',
+                'manual',
+                'auto_editable',
+            ])->default('manual')
+              ->after('source_field');
+
         });
     }
 
@@ -22,7 +29,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('srt_master_field_surat', function (Blueprint $table) {
-            //
+
+            $table->dropColumn('input_mode');
+
         });
     }
 };

@@ -14,6 +14,14 @@ class Alamat extends Model
     protected $table = 'alamat';
 
     protected $fillable = [
+        'label_alamat',
+        'is_utama',
+        'nama_gedung_perumahan',
+        'nomor_rumah',
+        'blok',
+        'no_lantai',
+        'no_unit',
+        'patokan',
         'alamat_lengkap',
         'jalan',
         'rt',
@@ -22,6 +30,7 @@ class Alamat extends Model
         'kecamatan',
         'kabupaten',
         'provinsi',
+        'negara',
         'kode_pos',
         'latitude',
         'longitude',
