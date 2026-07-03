@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SrtPengajuanSuratController;
 use App\Http\Controllers\Api\WilayahController;
 
+use App\Http\Controllers\TestingController;
+
 
 Route::middleware([
     'auth:sanctum',
@@ -54,6 +56,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/wilayah', [WilayahController::class, 'index']);
+
+Route::get('/testing', [TestingController::class, 'testKades']);
 
 
 Route::middleware([

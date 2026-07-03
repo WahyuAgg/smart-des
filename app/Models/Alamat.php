@@ -16,7 +16,7 @@ class Alamat extends Model
     protected $fillable = [
         'label_alamat',
         'is_utama',
-        'nama_gedung_perumahan',
+        'gedung_perumahan',
         'nomor_rumah',
         'blok',
         'no_lantai',
@@ -26,6 +26,7 @@ class Alamat extends Model
         'jalan',
         'rt',
         'rw',
+        'dusun',
         'desa',
         'kecamatan',
         'kabupaten',
@@ -41,23 +42,38 @@ class Alamat extends Model
         return $this->hasMany(Penduduk::class, 'alamat_id');
     }
 
-    protected function alamatLengkap(): Attribute
-{
-    return Attribute::make(
-        get: function (): string {
+    protected function alamatFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                $parts = array_filter([
+                    // Detail Bangunan
+                    $this->gedung_perumahan,
+                    $this->nomor_rumah ? "No. {$this->nomor_rumah}" : null,
+                    $this->blok ? "Blok {$this->blok}" : null,
+                    $this->no_lantai ? "Lantai {$this->no_lantai}" : null,
+                    $this->no_unit ? "Unit {$this->no_unit}" : null,
 
-            $parts = array_filter([
-                $this->jalan,
-                "RT {$this->rt}/RW {$this->rw}",
-                "Desa {$this->desa}",
-                "Kecamatan {$this->kecamatan}",
-                "Kabupaten {$this->kabupaten}",
-                "Provinsi {$this->provinsi}",
-                $this->kode_pos,
-            ]);
+                    // Jalan & Lingkungan
+                    $this->jalan,
+                    $this->dusun ? "Dusun {$this->dusun}" : null,
+                    ($this->rt && $this->rw) ? "RT {$this->rt}/RW {$this->rw}" : null,
 
-            return implode(', ', $parts);
-        }
-    );
-}
+                    // Wilayah Administratif
+                    $this->desa ? "Desa/Kel. {$this->desa}" : null,
+                    $this->kecamatan ? "Kec. {$this->kecamatan}" : null,
+                    $this->kabupaten ? "Kab./Kota {$this->kabupaten}" : null,
+                    $this->provinsi ? "Prov. {$this->provinsi}" : null,
+                    $this->kode_pos,
+                ]);
+
+                // Patokan diletakkan di akhir atau bisa disesuaikan posisinya
+                if ($this->patokan) {
+                    $parts[] = "Patokan: {$this->patokan}";
+                }
+
+                return implode(', ', $parts);
+            }
+        );
+    }
 }

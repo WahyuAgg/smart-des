@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -41,7 +42,15 @@ class Penduduk extends Model
         'updated_at' => 'datetime',
     ];
 
+    // NAMA PENDUDUK KAPITAL
+    protected function namaLengkap(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => mb_strtoupper($value ?? '')
+        );
+    }
 
+    // cara lama (classic accessor) di Laravel, konvensi getXxxAttribute()
     public function getNamaPekerjaanAttribute(): ?string
     {
         return $this->pekerjaan?->nama_pekerjaan;
@@ -54,41 +63,57 @@ class Penduduk extends Model
         );
     }
 
+    public function getUmurAttribute(): int
+    {
+        if (!$this->tanggal_lahir) {
+            return 0;
+        }
+
+        return Carbon::parse($this->tanggal_lahir)->age;
+    }
+
 
     // Alamat Accessors
-    protected function alamatLengkap(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->alamat?->alamat_lengkap
-        );
-    }
+    // protected function alamatLengkap(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn() => $this->alamat?->alamat_lengkap
+    //     );
+    // }
 
-    protected function alamatProvinsi(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->alamat?->provinsi
-        );
-    }
-    protected function alamatKabupaten(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->alamat?->kabupaten
-        );
-    }
+    // protected function alamatProvinsi(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn() => $this->alamat?->provinsi
+    //     );
+    // }
+    // protected function alamatKabupaten(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn() => $this->alamat?->kabupaten
+    //     );
+    // }
 
-    protected function alamatKecamatan(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->alamat?->kecamatan
-        );
-    }
-    protected function alamatDesa(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->alamat?->desa
-        );
-    }
+    // protected function alamatKecamatan(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn() => $this->alamat?->kecamatan
+    //     );
+    // }
+    // protected function alamatDesa(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn() => $this->alamat?->desa
+    //     );
+    // }
 
+
+    protected function getAlamat(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat
+        );
+    }
 
 
 

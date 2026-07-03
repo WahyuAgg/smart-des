@@ -18,11 +18,12 @@ class AlamatSeeder extends Seeder
                 'jalan' => 'Jln.Lingkar Utara',
                 'rt' => '002',
                 'rw' => '001',
+                'dusun' => 'Curug',
                 'desa' => 'Curug',
                 'kecamatan' => 'Ngombol',
                 'kabupaten' => 'Purworejo',
                 'provinsi' => 'Jawa Tengah',
-                'kode_pos' => '56281',
+                'kode_pos' => '54172',
                 'latitude' => -7.783981,
                 'longitude' => 109.961424,
             ]

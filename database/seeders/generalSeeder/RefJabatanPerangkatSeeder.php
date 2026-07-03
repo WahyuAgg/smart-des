@@ -12,7 +12,7 @@ class RefJabatanPerangkatSeeder extends Seeder
         $data = [
 
             [
-                'kode' => 'KADES',
+                'kode' => 'kades',
                 'nama' => 'Kepala Desa',
                 'deskripsi' => 'Pimpinan Pemerintah Desa',
                 'urutan' => 1,
@@ -21,7 +21,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'SEKDES',
+                'kode' => 'sekdes',
                 'nama' => 'Sekretaris Desa',
                 'deskripsi' => 'Membantu Kepala Desa dalam administrasi pemerintahan',
                 'urutan' => 2,
@@ -30,7 +30,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KAUR_TU',
+                'kode' => 'kaur_tu',
                 'nama' => 'Kepala Urusan Tata Usaha dan Umum',
                 'deskripsi' => 'Mengelola administrasi umum dan tata usaha',
                 'urutan' => 3,
@@ -39,7 +39,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KAUR_KEU',
+                'kode' => 'kaur_keu',
                 'nama' => 'Kepala Urusan Keuangan',
                 'deskripsi' => 'Mengelola administrasi keuangan desa',
                 'urutan' => 4,
@@ -48,7 +48,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KAUR_PER',
+                'kode' => 'kaur_per',
                 'nama' => 'Kepala Urusan Perencanaan',
                 'deskripsi' => 'Mengelola perencanaan pembangunan desa',
                 'urutan' => 5,
@@ -57,7 +57,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KASI_PEM',
+                'kode' => 'kasi_pem',
                 'nama' => 'Kepala Seksi Pemerintahan',
                 'deskripsi' => 'Menyelenggarakan urusan pemerintahan desa',
                 'urutan' => 6,
@@ -66,7 +66,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KASI_KES',
+                'kode' => 'kasi_kes',
                 'nama' => 'Kepala Seksi Kesejahteraan',
                 'deskripsi' => 'Mengelola bidang kesejahteraan masyarakat',
                 'urutan' => 7,
@@ -75,7 +75,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KASI_PEL',
+                'kode' => 'kasi_pel',
                 'nama' => 'Kepala Seksi Pelayanan',
                 'deskripsi' => 'Mengelola pelayanan kepada masyarakat',
                 'urutan' => 8,
@@ -84,7 +84,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'KADUS',
+                'kode' => 'kadus',
                 'nama' => 'Kepala Dusun',
                 'deskripsi' => 'Memimpin wilayah dusun',
                 'urutan' => 9,
@@ -94,7 +94,7 @@ class RefJabatanPerangkatSeeder extends Seeder
 
             // Jabatan yang cukup sering ditemui
             [
-                'kode' => 'STAF_ADM',
+                'kode' => 'staf_adm',
                 'nama' => 'Staf Administrasi',
                 'deskripsi' => 'Membantu administrasi pemerintahan desa',
                 'urutan' => 10,
@@ -103,7 +103,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'STAF_KEU',
+                'kode' => 'staf_keu',
                 'nama' => 'Staf Keuangan',
                 'deskripsi' => 'Membantu pengelolaan keuangan desa',
                 'urutan' => 11,
@@ -112,7 +112,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'STAF_PER',
+                'kode' => 'staf_per',
                 'nama' => 'Staf Perencanaan',
                 'deskripsi' => 'Membantu penyusunan perencanaan desa',
                 'urutan' => 12,
@@ -121,7 +121,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'STAF_PEL',
+                'kode' => 'staf_pel',
                 'nama' => 'Staf Pelayanan',
                 'deskripsi' => 'Membantu pelayanan administrasi masyarakat',
                 'urutan' => 13,
@@ -130,7 +130,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'OP_DESA',
+                'kode' => 'op_desa',
                 'nama' => 'Operator Desa',
                 'deskripsi' => 'Mengelola aplikasi dan sistem informasi desa',
                 'urutan' => 14,
@@ -139,7 +139,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'BENDAHARA',
+                'kode' => 'bendahara',
                 'nama' => 'Bendahara Desa',
                 'deskripsi' => 'Mengelola kas desa apabila dipisahkan dari Kaur Keuangan',
                 'urutan' => 15,
@@ -148,7 +148,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'ARSIP',
+                'kode' => 'arsip',
                 'nama' => 'Pengelola Arsip',
                 'deskripsi' => 'Mengelola arsip dan dokumen desa',
                 'urutan' => 16,
@@ -157,7 +157,7 @@ class RefJabatanPerangkatSeeder extends Seeder
             ],
 
             [
-                'kode' => 'UMUM',
+                'kode' => 'umum',
                 'nama' => 'Staf Umum',
                 'deskripsi' => 'Membantu tugas umum pemerintahan desa',
                 'urutan' => 17,

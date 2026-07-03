@@ -29,6 +29,9 @@ use Database\Seeders\curugSeeder\RefRtSeeder;
 use Database\Seeders\curugSeeder\AlamatSeeder;
 
 use Database\Seeders\TestingSrtSeeder\KkPendudukSeeder;
+use Database\Seeders\TestingSrtSeeder\RefKecamatanSeeder;
+use Database\Seeders\TestingSrtSeeder\RefPerangkatDesaSeeder;
+
 
 
 class DatabaseSeeder extends Seeder
@@ -58,22 +61,26 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             // AssignRoles::class,
 
-            // SURAT SEEDER
-            MasterFieldSuratSeeder::class,
+            // // SURAT SEEDER
             // KategoriSuratSeeder::class,
             // JenisSuratSeeder::class,
+            MasterFieldSuratSeeder::class,
+
 
             // // CURUG SEEDER
             // RefProfilDesaSeeder::class,
             // RefDusunSeeder::class,
             // RefRwSeeder::class,
             // RefRtSeeder::class,
-            // AlamatSeeder::class,
+            AlamatSeeder::class,
 
             // //TESTING SEEDER
             // KkPendudukSeeder::class,
+            // RefPerangkatDesaSeeder::class,
+            // RefKecamatanSeeder::class,
+
+
+
         ]);
-
     }
-
 }

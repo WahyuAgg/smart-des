@@ -59,7 +59,7 @@ class KkPendudukSeeder extends Seeder
                 'tempat_lahir'       => 'Jakarta',
                 'agama'              => 'Islam',
                 'status_perkawinan'  => 'Belum Kawin',
-                'kewarganegaraan'    => 'WNI',
+                'kewarganegaraan'    => 'INDONESIA',
                 'golongan_darah'     => 'O',
                 'no_hp'              => '081234567890',
                 'email'              => 'penduduk' . $pData['nik'] . '@example.com',

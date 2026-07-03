@@ -17,12 +17,10 @@ class RefJabatanPerangkat extends Model
         'deskripsi',
         'urutan',
         'aktif',
-        'dapat_menandatangani',
     ];
 
     protected $casts = [
         'aktif' => 'boolean',
-        'dapat_menandatangani' => 'boolean',
     ];
 
     public function refPerangkatDesa()
