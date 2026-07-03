@@ -19,7 +19,7 @@ class MasterFieldSuratSeeder extends Seeder
             ['nama' => 'nik', 'label' => 'NIK', 'source' => 'penduduk', 'source_field' => 'nik', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'no_kk', 'label' => 'Nomor KK', 'source' => 'penduduk', 'source_field' => 'no_kk', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'tempat_lahir', 'label' => 'Tempat Lahir', 'source' => 'penduduk', 'source_field' => 'tempat_lahir', 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto'],
+            ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
             ['nama' => 'jenis_kelamin', 'label' => 'Jenis Kelamin', 'source' => 'penduduk', 'source_field' => 'jenis_kelamin', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'agama', 'label' => 'Agama', 'source' => 'penduduk', 'source_field' => 'agama', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'status_perkawinan', 'label' => 'Status Perkawinan', 'source' => 'penduduk', 'source_field' => 'status_perkawinan', 'tipe' => 'text', 'input_mode' => 'auto'],
@@ -38,7 +38,8 @@ class MasterFieldSuratSeeder extends Seeder
             ['nama' => 'kode_pos', 'label' => 'Kode Pos', 'source' => 'penduduk', 'source_field' => 'kode_pos', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'nomor_hp', 'label' => 'Nomor HP', 'source' => 'penduduk', 'source_field' => 'nomor_hp', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'email', 'label' => 'Email', 'source' => 'penduduk', 'source_field' => 'email', 'tipe' => 'email', 'input_mode' => 'auto'],
-            ['nama' => 'tanggal_tercatat', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto'],
+            // kasus unik, misal untuk surat kematian, bisa menggunakan tanggal tercatat sebagai tanggal lahir
+            ['nama' => 'tanggal_tercatat_penduduk', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
 
             // PROFIL DESA
             ['nama' => 'nama_desa', 'label' => 'Nama Desa', 'source' => 'profil_desa', 'source_field' => 'nama', 'input_mode' => 'auto'],
@@ -67,17 +68,17 @@ class MasterFieldSuratSeeder extends Seeder
             ['nama' => 'hari', 'label' => 'Hari', 'source' => 'system', 'source_field' => 'hari', 'input_mode' => 'auto'],
 
             // INPUT ADMIN / PEMOHON
-            ['nama' => 'keperluan', 'label' => 'Keperluan', 'source' => 'input', 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'auto'],
-            ['nama' => 'tujuan', 'label' => 'Tujuan', 'source' => 'input', 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'keterangan', 'label' => 'Keterangan', 'source' => 'input', 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'auto'],
-            ['nama' => 'catatan', 'label' => 'Catatan', 'source' => 'input', 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'auto'],
-            ['nama' => 'nama_usaha', 'label' => 'Nama Usaha', 'source' => 'input', 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'jenis_usaha', 'label' => 'Jenis Usaha', 'source' => 'input', 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'alamat_usaha', 'label' => 'Alamat Usaha', 'source' => 'input', 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'auto'],
-            ['nama' => 'luas_tanah', 'label' => 'Luas Tanah', 'source' => 'input', 'source_field' => null, 'tipe' => 'number', 'input_mode' => 'auto'],
-            ['nama' => 'nomor_sertifikat', 'label' => 'Nomor Sertifikat', 'source' => 'input', 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'lama_usaha', 'label' => 'Lama Usaha', 'source' => 'input', 'source_field' => null, 'tipe' => 'number', 'input_mode' => 'auto'],
-            ['nama' => 'penghasilan', 'label' => 'Penghasilan', 'source' => 'input', 'source_field' => null, 'tipe' => 'currency', 'input_mode' => 'auto'],
+            ['nama' => 'keperluan', 'label' => 'Keperluan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
+            ['nama' => 'tujuan', 'label' => 'Tujuan', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
+            ['nama' => 'keterangan', 'label' => 'Keterangan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
+            ['nama' => 'catatan', 'label' => 'Catatan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
+            ['nama' => 'nama_usaha', 'label' => 'Nama Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
+            ['nama' => 'jenis_usaha', 'label' => 'Jenis Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
+            ['nama' => 'alamat_usaha', 'label' => 'Alamat Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
+            ['nama' => 'luas_tanah', 'label' => 'Luas Tanah', 'source' => null, 'source_field' => null, 'tipe' => 'number', 'input_mode' => 'manual'],
+            ['nama' => 'nomor_sertifikat', 'label' => 'Nomor Sertifikat', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
+            ['nama' => 'lama_usaha', 'label' => 'Lama Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'number', 'input_mode' => 'manual'],
+            ['nama' => 'penghasilan', 'label' => 'Penghasilan', 'source' => null, 'source_field' => null, 'tipe' => 'currency', 'input_mode' => 'manual'],
         ];
 
         foreach ($fields as $field) {

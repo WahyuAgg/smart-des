@@ -13,6 +13,7 @@ use App\Models\SrtJenisSurat;
 use App\Models\SrtMasterFieldSurat;
 
 use Illuminate\Support\Collection;
+use App\Support\Surat\SystemFieldResolver;
 
 
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -322,6 +323,15 @@ class SrtPengajuanSuratController extends Controller
         return $outputPath;
     }
 
+    // use App\Support\Surat\SystemFieldResolver;
+
+    private SystemFieldResolver $systemFieldResolver;
+
+    public function __construct()
+    {
+        $this->systemFieldResolver = new SystemFieldResolver();
+    }
+
     private function resolveFieldValue(
         SrtPengajuanSurat $pengajuan,
         ?RefProfilDesa $profilDesa,
@@ -332,15 +342,16 @@ class SrtPengajuanSuratController extends Controller
             'pengajuan' => data_get($pengajuan, $field->source_field),
             'profil_desa' => data_get($profilDesa, $field->source_field),
             'data_surat' => data_get($pengajuan->data_surat, $field->source_field),
+            'system' => $this->systemFieldResolver->resolve($pengajuan, $field->source_field),
             default => null,
         };
 
         if ($value instanceof \Carbon\Carbon) {
-            return $value->translatedFormat('d-m-Y');
+            return $value->translatedFormat('d-M-Y');
         }
 
         if ($value instanceof \DateTimeInterface) {
-            return $value->format('d-m-Y');
+            return $value->format('d-M-Y');
         }
 
         if (is_array($value)) {

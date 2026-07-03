@@ -54,4 +54,5 @@ class SrtPengajuanSurat extends Model
             $this->jenisSurat->template_path
         );
     }
+    
 }

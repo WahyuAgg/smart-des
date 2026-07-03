@@ -41,12 +41,21 @@ class Penduduk extends Model
         'updated_at' => 'datetime',
     ];
 
-    
+
     public function getNamaPekerjaanAttribute(): ?string
     {
         return $this->pekerjaan?->nama_pekerjaan;
     }
 
+    protected function tanggalLahirFormatted(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->tanggal_lahir?->translatedFormat('d F Y')
+        );
+    }
+
+
+    // Alamat Accessors
     protected function alamatLengkap(): Attribute
     {
         return Attribute::make(
@@ -79,6 +88,8 @@ class Penduduk extends Model
             get: fn() => $this->alamat?->desa
         );
     }
+
+
 
 
 

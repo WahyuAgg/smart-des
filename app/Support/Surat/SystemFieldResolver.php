@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Support\Surat;
+
+use App\Models\SrtPengajuanSurat;
+
+class SystemFieldResolver
+{
+    public function resolve(
+        SrtPengajuanSurat $pengajuan,
+        string $field
+    ): mixed
+    {
+        return match ($field) {
+
+            'nomor_surat' => $pengajuan->nomor_surat,
+
+            'tanggal_surat' => now()->translatedFormat('d F Y'),
+
+            'tanggal_cetak' => now()->translatedFormat('d F Y'),
+
+            'tahun' => now()->year,
+
+            'bulan' => now()->translatedFormat('F'),
+
+            'hari' => now()->translatedFormat('l'),
+
+            default => null,
+        };
+    }
+}
