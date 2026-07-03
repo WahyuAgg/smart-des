@@ -33,6 +33,8 @@ class Penduduk extends Model
         'pendidikan_id',
         'pekerjaan_id',
         'kk_id',
+        'nama_ayah_kandung',
+        'nama_ibu_kandung',
     ];
 
     protected $casts = [
@@ -50,11 +52,6 @@ class Penduduk extends Model
         );
     }
 
-    // cara lama (classic accessor) di Laravel, konvensi getXxxAttribute()
-    public function getNamaPekerjaanAttribute(): ?string
-    {
-        return $this->pekerjaan?->nama_pekerjaan;
-    }
 
     protected function tanggalLahirFormatted(): Attribute
     {
@@ -72,40 +69,29 @@ class Penduduk extends Model
         return Carbon::parse($this->tanggal_lahir)->age;
     }
 
+    protected function noKk(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->kk?->no_kk
+        );
+    }
 
-    // Alamat Accessors
-    // protected function alamatLengkap(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn() => $this->alamat?->alamat_lengkap
-    //     );
-    // }
+    protected function namaPendidikan(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->pendidikan?->tingkat_pendidikan
+        );
+    }
 
-    // protected function alamatProvinsi(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn() => $this->alamat?->provinsi
-    //     );
-    // }
-    // protected function alamatKabupaten(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn() => $this->alamat?->kabupaten
-    //     );
-    // }
+    protected function namaPekerjaan(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->pekerjaan?->nama_pekerjaan
+        );
+    }
 
-    // protected function alamatKecamatan(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn() => $this->alamat?->kecamatan
-    //     );
-    // }
-    // protected function alamatDesa(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn() => $this->alamat?->desa
-    //     );
-    // }
+
+
 
 
     protected function getAlamat(): Attribute

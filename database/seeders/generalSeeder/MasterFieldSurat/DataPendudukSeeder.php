@@ -26,7 +26,10 @@ class DataPendudukSeeder extends Seeder
             ['nama' => 'agama', 'label' => 'Agama', 'source' => 'penduduk', 'source_field' => 'agama', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'status_perkawinan', 'label' => 'Status Perkawinan', 'source' => 'penduduk', 'source_field' => 'status_perkawinan', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'pekerjaan', 'label' => 'Pekerjaan', 'source' => 'penduduk', 'source_field' => 'nama_pekerjaan', 'tipe' => 'text', 'input_mode' => 'auto'],
+            ['nama' => 'pendidikan', 'label' => 'Pendidikan', 'source' => 'penduduk', 'source_field' => 'nama_pendidikan', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'kewarganegaraan', 'label' => 'Kewarganegaraan', 'source' => 'penduduk', 'source_field' => 'kewarganegaraan', 'tipe' => 'text', 'input_mode' => 'auto'],
+            ['nama' => 'nama_ayah_kandung', 'label' => 'Nama Ayah Kandung', 'source' => 'penduduk', 'source_field' => 'nama_ayah_kandung', 'tipe' => 'text', 'input_mode' => 'auto'],
+            ['nama' => 'nama_ibu_kandung', 'label' => 'Nama Ibu Kandung', 'source' => 'penduduk', 'source_field' => 'nama_ibu_kandung', 'tipe' => 'text', 'input_mode' => 'auto'],
 
             // Kontak penduduk
             ['nama' => 'nomor_hp_penduduk', 'label' => 'Nomor HP', 'source' => 'penduduk', 'source_field' => 'nomor_hp', 'tipe' => 'text', 'input_mode' => 'auto'],
