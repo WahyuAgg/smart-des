@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\SrtPengajuanSuratController;
 use App\Http\Controllers\Api\WilayahController;
 
 
@@ -54,3 +55,10 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/wilayah', [WilayahController::class, 'index']);
 
+
+Route::middleware([
+    'auth:sanctum',
+    'role:admin|petugas|kepala_desa',
+])->group(function () {
+    Route::post('/srt-pengajuan-surat/{id}/generate', [SrtPengajuanSuratController::class, 'generate']);
+});

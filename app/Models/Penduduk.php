@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
+
 class Penduduk extends Model
 {
     use HasFactory;
@@ -38,6 +41,31 @@ class Penduduk extends Model
         'updated_at' => 'datetime',
     ];
 
+
+    public function getNamaPekerjaanAttribute(): ?string
+    {
+        return $this->pekerjaan?->nama_pekerjaan;
+    }
+
+    protected function alamatLengkap(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat?->alamat_lengkap
+        );
+    }
+
+    protected function alamatProvinsi(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->alamat?->provinsi
+        );
+    }
+    
+
+
+
+
+    // FUNSGI RELATIONSHIP
     public function alamat()
     {
         return $this->belongsTo(Alamat::class);
@@ -60,6 +88,6 @@ class Penduduk extends Model
 
     public function srtPengajuanSurat()
     {
-        return $this->hasMany(SrtPengajuanSurat::class, 'penduduk_id', 'id');  
+        return $this->hasMany(SrtPengajuanSurat::class, 'penduduk_id', 'id');
     }
 }

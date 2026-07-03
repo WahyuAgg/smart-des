@@ -51,7 +51,7 @@ class SrtPengajuanSurat extends Model
     public function getTemplatePathAttribute(): string
     {
         return storage_path(
-            'app/public/' . $this->jenisSurat->template_path
+            $this->jenisSurat->template_path
         );
     }
 }

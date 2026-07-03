@@ -17,11 +17,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
 
-        Schema::table('srt_value_field_surat', function (Blueprint $table) {
-            $table->foreign('pengajuan_surat_id')->references('id')->on('srt_pengajuan_surat')->cascadeOnDelete();
-            $table->foreign('master_field_surat_id')->references('id')->on('srt_master_field_surat')->cascadeOnDelete();
-        });
-
 
         Schema::table('ref_profil_desa', function (Blueprint $table) {
             $table->foreign('provinsi_code')->references('code')->on('indonesia_provinces')->restrictOnDelete();
@@ -85,20 +80,6 @@ return new class extends Migration
                 ->restrictOnDelete();
         });
 
-        Schema::table('srt_jenis_surat_field', function (Blueprint $table) {
-
-            $table->foreign('jenis_surat_id')
-                ->references('id')
-                ->on('srt_jenis_surat')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
-            $table->foreign('master_field_surat_id')
-                ->references('id')
-                ->on('srt_master_field_surat')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-        });
 
     }
 
@@ -111,11 +92,6 @@ return new class extends Migration
             $table->dropForeign(['jenis_surat_id']);
             $table->dropForeign(['penduduk_id']);
             $table->dropForeign(['user_id']);
-        });
-
-        Schema::table('srt_value_field_surat', function (Blueprint $table) {
-            $table->dropForeign(['pengajuan_surat_id']);
-            $table->dropForeign(['master_field_surat_id']);
         });
 
         Schema::table('ref_profil_desa', function (Blueprint $table) {
@@ -158,10 +134,6 @@ return new class extends Migration
             $table->dropForeign(['kategori_surat_id']);
         });
 
-        Schema::table('srt_jenis_surat_field', function (Blueprint $table) {
-            $table->dropForeign(['jenis_surat_id']);
-            $table->dropForeign(['master_field_surat_id']);
-        });
 
     }
 };

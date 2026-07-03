@@ -29,18 +29,6 @@ class SrtJenisSurat extends Model
         return $this->belongsTo(SrtKategoriSurat::class, 'kategori_surat_id');
     }
 
-    public function srtMasterFieldSurat()
-    {
-        return $this->belongsToMany(
-            SrtMasterFieldSurat::class,
-            'srt_jenis_surat_field',
-            'jenis_surat_id',
-            'master_field_surat_id'
-        )->withPivot([
-            'wajib',
-            'urutan',
-        ])->withTimestamps();
-    }
 
     public function srtPengajuanSurat()
     {

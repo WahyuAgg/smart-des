@@ -42,38 +42,36 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 
-            // LARAVOLT INDONESIA SEEDER
+            // // LARAVOLT INDONESIA SEEDER
             // ProvincesSeeder::class,
             // CitiesSeeder::class,
             // DistrictsSeeder::class,
             // VillagesSeeder::class,
 
-            // REFERENCE SEEDER
-            PekerjaanSeeder::class,
-            RefJabatanPerangkatSeeder::class,
-            PendidikanSeeder::class,
+            // // REFERENCE SEEDER
+            // PekerjaanSeeder::class,
+            // RefJabatanPerangkatSeeder::class,
+            // PendidikanSeeder::class,
 
-            //USER SEEDER DAN ROLE SEEDER
-            RoleSeeder::class,
-            UserSeeder::class,
-            AssignRoles::class,
+            // //USER SEEDER DAN ROLE SEEDER
+            // RoleSeeder::class,
+            // UserSeeder::class,
+            // AssignRoles::class,
 
             // SURAT SEEDER
             MasterFieldSuratSeeder::class,
-            KategoriSuratSeeder::class,
-            JenisSuratSeeder::class,
+            // KategoriSuratSeeder::class,
+            // JenisSuratSeeder::class,
 
+            // // CURUG SEEDER
+            // RefProfilDesaSeeder::class,
+            // RefDusunSeeder::class,
+            // RefRwSeeder::class,
+            // RefRtSeeder::class,
+            // AlamatSeeder::class,
 
-            
-            // CURUG SEEDER
-            RefProfilDesaSeeder::class,
-            RefDusunSeeder::class,
-            RefRwSeeder::class,
-            RefRtSeeder::class,
-            AlamatSeeder::class,
-
-            //TESTING SEEDER
-            KkPendudukSeeder::class,
+            // //TESTING SEEDER
+            // KkPendudukSeeder::class,
         ]);
 
     }

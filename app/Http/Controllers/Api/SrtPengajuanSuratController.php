@@ -7,10 +7,12 @@ use App\Models\SrtPengajuanSurat;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
- use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File;
 
 use App\Models\SrtJenisSurat;
-    use Illuminate\Support\Collection;
+use App\Models\SrtMasterFieldSurat;
+
+use Illuminate\Support\Collection;
 
 
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -172,7 +174,7 @@ class SrtPengajuanSuratController extends Controller
     public function generate(string $id): JsonResponse
     {
         $pengajuan = SrtPengajuanSurat::with([
-            'jenisSurat.srtMasterFieldSurat',
+            'jenisSurat',
             'penduduk',
         ])->findOrFail($id);
 
@@ -196,7 +198,7 @@ class SrtPengajuanSuratController extends Controller
 
         $this->validatePlaceholders(
             $placeholders,
-            $jenisSurat->srtMasterFieldSurat
+            SrtMasterFieldSurat::select('nama')->get()
         );
 
         $template = new TemplateProcessor($templatePath);
@@ -229,7 +231,7 @@ class SrtPengajuanSuratController extends Controller
 
     private function getTemplatePath(string $path): string
     {
-        return storage_path('app/public/' . $path);
+        return storage_path($path);
     }
 
 
@@ -264,9 +266,8 @@ class SrtPengajuanSuratController extends Controller
         array $placeholders
     ): void {
 
-        $fields = $pengajuan
-            ->jenisSurat
-            ->srtMasterFieldSurat;
+        $fields = SrtMasterFieldSurat::all();
+
 
         foreach ($placeholders as $placeholder) {
 
@@ -303,7 +304,7 @@ class SrtPengajuanSuratController extends Controller
         );
     }
 
-   
+
 
     private function saveDocument(
         TemplateProcessor $template,

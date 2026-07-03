@@ -26,17 +26,4 @@ class SrtMasterFieldSurat extends Model
         'opsi' => 'array',
     ];
 
-    public function srtJenisSurat()
-    {
-        return $this->belongsToMany(
-            SrtJenisSurat::class,
-            'srt_jenis_surat_field',
-            'master_field_surat_id',
-            'jenis_surat_id'
-        )->withPivot([
-            'wajib',
-            'urutan',
-        ])->withTimestamps();
-    }
-
 }

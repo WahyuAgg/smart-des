@@ -18,7 +18,8 @@ class MasterFieldSuratSeeder extends Seeder
             // DATA PENDUDUK
             // =====================================================
 
-            ['nama' => 'nama_lengkap',          'label' => 'Nama Lengkap',             'source' => 'penduduk', 'source_field' => 'nama',                   'tipe' => 'text'],
+            ['nama' => 'nama_lengkap',          'label' => 'Nama Lengkap',             'source' => 'penduduk', 'source_field' => 'nama_lengkap',                   'tipe' => 'text'],
+            ['nama' => 'nama',                  'label' => 'Nama',                     'source' => 'penduduk', 'source_field' => 'nama_lengkap',                   'tipe' => 'text'],
             ['nama' => 'nik',                   'label' => 'NIK',                      'source' => 'penduduk', 'source_field' => 'nik',                    'tipe' => 'text'],
             ['nama' => 'no_kk',                 'label' => 'Nomor KK',                'source' => 'penduduk', 'source_field' => 'no_kk',                  'tipe' => 'text'],
             ['nama' => 'tempat_lahir',          'label' => 'Tempat Lahir',            'source' => 'penduduk', 'source_field' => 'tempat_lahir',          'tipe' => 'text'],
@@ -26,15 +27,22 @@ class MasterFieldSuratSeeder extends Seeder
             ['nama' => 'jenis_kelamin',         'label' => 'Jenis Kelamin',           'source' => 'penduduk', 'source_field' => 'jenis_kelamin',         'tipe' => 'text'],
             ['nama' => 'agama',                 'label' => 'Agama',                   'source' => 'penduduk', 'source_field' => 'agama',                  'tipe' => 'text'],
             ['nama' => 'status_perkawinan',     'label' => 'Status Perkawinan',       'source' => 'penduduk', 'source_field' => 'status_perkawinan',     'tipe' => 'text'],
-            ['nama' => 'pekerjaan',             'label' => 'Pekerjaan',               'source' => 'penduduk', 'source_field' => 'pekerjaan',              'tipe' => 'text'],
+            ['nama' => 'pekerjaan',             'label' => 'Pekerjaan',               'source' => 'penduduk', 'source_field' => 'nama_pekerjaan',              'tipe' => 'text'],
             ['nama' => 'kewarganegaraan',       'label' => 'Kewarganegaraan',         'source' => 'penduduk', 'source_field' => 'kewarganegaraan',       'tipe' => 'text'],
-            ['nama' => 'alamat',                'label' => 'Alamat',                  'source' => 'penduduk', 'source_field' => 'alamat',                 'tipe' => 'textarea'],
+            ['nama' => 'alamat',                'label' => 'Alamat',                  'source' => 'penduduk', 'source_field' => 'alamat_lengkap',                 'tipe' => 'textarea'],
+            ['nama' => 'alamat_provinsi', 'label' => 'Alamat Provinsi', 'source' => 'penduduk', 'source_field' => 'provinsi', 'tipe' => 'text'],
+            ['nama' => 'alamat_kabupaten', 'label' => 'Alamat Kabupaten', 'source' => 'penduduk', 'source_field' => 'kabupaten', 'tipe' => 'text'],
+            ['nama' => 'alamat_kecamatan', 'label' => 'Alamat Kecamatan', 'source' => 'penduduk', 'source_field' => 'kecamatan', 'tipe' => 'text'],
+            ['nama' => 'alamat_desa', 'label' => 'Alamat Desa', 'source' => 'penduduk', 'source_field' => 'desa', 'tipe' => 'text'],
+            ['nama' => 'alamat_jalan', 'label' => 'Alamat Jalan', 'source' => 'penduduk', 'source_field' => 'jalan', 'tipe' => 'text'],
+            ['nama' => 'alamat_rt_rw', 'label' => 'Alamat RT/RW', 'source' => 'penduduk', 'source_field' => 'rt_rw', 'tipe' => 'text'],
             ['nama' => 'rt',                    'label' => 'RT',                      'source' => 'penduduk', 'source_field' => 'rt',                     'tipe' => 'text'],
             ['nama' => 'rw',                    'label' => 'RW',                      'source' => 'penduduk', 'source_field' => 'rw',                     'tipe' => 'text'],
             ['nama' => 'dusun',                 'label' => 'Dusun',                   'source' => 'penduduk', 'source_field' => 'dusun',                  'tipe' => 'text'],
             ['nama' => 'kode_pos',              'label' => 'Kode Pos',                'source' => 'penduduk', 'source_field' => 'kode_pos',               'tipe' => 'text'],
             ['nama' => 'nomor_hp',              'label' => 'Nomor HP',                'source' => 'penduduk', 'source_field' => 'nomor_hp',               'tipe' => 'text'],
             ['nama' => 'email',                 'label' => 'Email',                   'source' => 'penduduk', 'source_field' => 'email',                  'tipe' => 'email'],
+            ['nama' => 'tanggal_tercatat', 'label' => 'Tanggal Tercatat',         'source' => 'penduduk', 'source_field' => 'tanggal_lahir',      'tipe' => 'date'],
 
             // =====================================================
             // PROFIL DESA
