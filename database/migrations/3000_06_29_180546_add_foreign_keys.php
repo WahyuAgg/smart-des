@@ -40,7 +40,6 @@ return new class extends Migration
         Schema::table('penduduk', function (Blueprint $table) {
             $table->foreign('alamat_id')->references('id')->on('alamat')->cascadeOnDelete();
             $table->foreign('pendidikan_id')->references('id')->on('pendidikan')->cascadeOnDelete();
-            $table->foreign('pekerjaan_id')->references('id')->on('pekerjaan')->cascadeOnDelete();
             $table->foreign('kk_id')->references('id')->on('kk')->cascadeOnDelete();
         });
 
@@ -116,7 +115,6 @@ return new class extends Migration
         Schema::table('penduduk', function (Blueprint $table) {
             $table->dropForeign(['alamat_id']);
             $table->dropForeign(['pendidikan_id']);
-            $table->dropForeign(['pekerjaan_id']);
             $table->dropForeign(['kk_id']);
         });
 

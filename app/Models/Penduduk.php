@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Enums\Agama;
+use App\Enums\StatusPerkawinan;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -31,7 +33,7 @@ class Penduduk extends Model
         'tanggal_meninggal',
         'alamat_id',
         'pendidikan_id',
-        'pekerjaan_id',
+        'pekerjaan',
         'kk_id',
         'nama_ayah_kandung',
         'nama_ibu_kandung',
@@ -42,6 +44,8 @@ class Penduduk extends Model
         'tanggal_meninggal' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        // 'agama' => Agama::class,
+        // 'status_perkawinan' => StatusPerkawinan::class,
     ];
 
     // NAMA PENDUDUK KAPITAL
@@ -83,17 +87,6 @@ class Penduduk extends Model
         );
     }
 
-    protected function namaPekerjaan(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->pekerjaan?->nama_pekerjaan
-        );
-    }
-
-
-
-
-
     protected function getAlamat(): Attribute
     {
         return Attribute::make(
@@ -115,11 +108,6 @@ class Penduduk extends Model
     public function pendidikan()
     {
         return $this->belongsTo(Pendidikan::class);
-    }
-
-    public function pekerjaan()
-    {
-        return $this->belongsTo(Pekerjaan::class);
     }
 
     public function kk()

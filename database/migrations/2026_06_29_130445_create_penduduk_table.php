@@ -13,23 +13,30 @@ return new class extends Migration
     {
         Schema::create('penduduk', function (Blueprint $table) {
             $table->id();
-            $table->string('nik');
+
+            // Data Utama (Wajib diisi)
+            $table->string('nik')->unique();
             $table->string('nama_lengkap');
-            $table->string('jenis_kelamin');
-            $table->date('tanggal_lahir');
-            $table->string('tempat_lahir');
-            $table->string('agama');
-            $table->string('status_perkawinan');
-            $table->string('kewarganegaraan');
-            $table->string('golongan_darah');
-            $table->string('no_hp');
-            $table->string('email');
-            $table->string('status_hidup');
+            $table->foreignId('kk_id'); // Relasi ke keluarga harus ada
+
+            // Data Pelengkap (Boleh kosong/nullable)
+            $table->string('jenis_kelamin')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->string('agama')->nullable();
+            $table->string('pekerjaan')->nullable();
+            $table->string('status_perkawinan')->nullable();
+            $table->string('kewarganegaraan')->nullable();
+            $table->string('golongan_darah')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('status_hidup')->default('Hidup'); // Default agar tidak null
             $table->date('tanggal_meninggal')->nullable();
-            $table->foreignId('alamat_id');
-            $table->foreignId('pendidikan_id');
-            $table->foreignId('pekerjaan_id');
-            $table->foreignId('kk_id');
+
+            // Foreign Keys (Nullable jika penduduk belum memiliki data terkait)
+            $table->foreignId('alamat_id')->nullable();
+            $table->foreignId('pendidikan_id')->nullable();
+
             $table->timestamps();
         });
     }

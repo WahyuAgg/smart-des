@@ -13,12 +13,11 @@ class AlamatSeeder extends Seeder
     public function run(): void
     {
         Alamat::updateOrCreate(
-            ['alamat_lengkap' => 'Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.'],
+            ['alamat_lengkap' => 'Desa Curug, RT 001 RW 002, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.'],
             [
                 'jalan' => 'Jln.Lingkar Utara',
-                'rt' => '002',
-                'rw' => '001',
-                'dusun' => 'Curug',
+                'rt' => '', // disamakan dengan data excel
+                'rw' => '', // disamakan dengan data excel
                 'desa' => 'Curug',
                 'kecamatan' => 'Ngombol',
                 'kabupaten' => 'Purworejo',
