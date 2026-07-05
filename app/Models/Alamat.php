@@ -37,6 +37,8 @@ class Alamat extends Model
         'longitude',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function penduduks()
     {
         return $this->hasMany(Penduduk::class, 'alamat_id');

@@ -20,4 +20,6 @@ class RefKecamatan extends Model
         'foto',
         'tanda_tangan',
     ];
+
+    protected $hidden = ['created_at', 'updated_at'];
 }

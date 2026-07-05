@@ -27,6 +27,8 @@ class InvPeminjaman extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function detailPeminjamans()
     {
         return $this->hasMany(InvDetailPeminjaman::class, 'peminjaman_id');

@@ -34,6 +34,8 @@ class RefProfilDesa extends Model
         'deskripsi',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function provinsi()
     {
         return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_code', 'code');

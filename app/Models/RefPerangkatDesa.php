@@ -30,6 +30,8 @@ class RefPerangkatDesa extends Model
         'aktif' => 'boolean',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function jabatanPerangkat()
     {
         return $this->belongsTo(RefJabatanPerangkat::class, 'jabatan_perangkat_id');

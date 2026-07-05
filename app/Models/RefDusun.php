@@ -16,6 +16,8 @@ class RefDusun extends Model
         'kepala_dusun',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function refRw()
     {
         return $this->hasMany(RefRw::class, 'dusun_id');

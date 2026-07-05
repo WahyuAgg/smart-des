@@ -16,6 +16,8 @@ class Kk extends Model
         'nik_kepala_keluarga',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function penduduks()
     {
         return $this->hasMany(Penduduk::class, 'kk_id');

@@ -45,13 +45,8 @@ class SrtPengajuanSuratController extends Controller
 
         $data = $request->validate([
             'jenis_surat_id' => ['required', 'exists:srt_jenis_surat,id'],
-
-            // 'penduduk_ids' => ['required', 'array', 'min:1'],
-            // 'penduduk_ids.*' => ['required', 'distinct', 'exists:penduduk,id'],
-
-            'niks'           => ['required', 'array', 'min:1'], // min:1 memastikan array tidak kosong
+            'niks'           => ['required', 'array', 'min:1'], 
             'niks.*'         => ['required', 'exists:penduduk,nik'],
-
             'keperluan' => ['nullable', 'string'],
             'data_surat' => ['nullable', 'array'],
         ]);

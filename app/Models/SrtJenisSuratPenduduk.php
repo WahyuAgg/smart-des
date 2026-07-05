@@ -24,6 +24,8 @@ class SrtJenisSuratPenduduk extends Model
         'wajib' => 'boolean',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function jenisSurat()
     {
         return $this->belongsTo(

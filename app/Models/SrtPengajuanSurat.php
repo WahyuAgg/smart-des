@@ -32,6 +32,8 @@ class SrtPengajuanSurat extends Model
         'data_surat' => 'array',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function jenisSurat()
     {
         return $this->belongsTo(SrtJenisSurat::class, 'jenis_surat_id');

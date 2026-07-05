@@ -17,6 +17,8 @@ class SrtPengajuanSuratPenduduk extends Model
         'urutan',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function pengajuanSurat()
     {
         return $this->belongsTo(

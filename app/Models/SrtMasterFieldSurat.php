@@ -38,4 +38,6 @@ class SrtMasterFieldSurat extends Model
     protected $casts = [
         'opsi' => 'array',
     ];
+
+    protected $hidden = ['created_at', 'updated_at'];
 }

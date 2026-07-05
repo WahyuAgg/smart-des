@@ -21,6 +21,8 @@ class InvDetailPeminjaman extends Model
         'keterangan',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function peminjaman()
     {
         return $this->belongsTo(InvPeminjaman::class, 'peminjaman_id');

@@ -22,6 +22,8 @@ class SrtKategoriSurat extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function srtJenisSurat()
     {
         return $this->hasMany(srtJenisSurat::class, 'kategori_surat_id');

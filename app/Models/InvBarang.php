@@ -29,6 +29,8 @@ class InvBarang extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function kategoriBarang()
     {
         return $this->belongsTo(InvKategoriBarang::class, 'kategori_barang_id');

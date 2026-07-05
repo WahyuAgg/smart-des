@@ -24,6 +24,8 @@ class SrtJenisSurat extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function srtKategoriSurat()
     {
         return $this->belongsTo(SrtKategoriSurat::class, 'kategori_surat_id');
@@ -36,11 +38,10 @@ class SrtJenisSurat extends Model
     }
 
     public function srtJenisSuratPenduduks()
-{
-    return $this->hasMany(
-        SrtJenisSuratPenduduk::class,
-        'jenis_surat_id'
-    )->orderBy('urutan');
-}
-
+    {
+        return $this->hasMany(
+            SrtJenisSuratPenduduk::class,
+            'jenis_surat_id'
+        )->orderBy('urutan');
+    }
 }

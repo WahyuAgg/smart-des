@@ -23,6 +23,8 @@ class RefJabatanPerangkat extends Model
         'aktif' => 'boolean',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function refPerangkatDesa()
     {
         return $this->hasMany(RefPerangkatDesa::class, 'jabatan_perangkat_id');

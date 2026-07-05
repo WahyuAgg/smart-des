@@ -48,6 +48,8 @@ class Penduduk extends Model
         // 'status_perkawinan' => StatusPerkawinan::class,
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     // NAMA PENDUDUK KAPITAL
     protected function namaLengkap(): Attribute
     {

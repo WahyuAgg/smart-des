@@ -16,6 +16,8 @@ class InvKategoriBarang extends Model
         'keterangan',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function barangs()
     {
         return $this->hasMany(InvBarang::class, 'kategori_barang_id');

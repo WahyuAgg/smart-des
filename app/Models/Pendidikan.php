@@ -15,6 +15,8 @@ class Pendidikan extends Model
         'tingkat_pendidikan',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function penduduks()
     {
         return $this->hasMany(Penduduk::class, 'pendidikan_id');

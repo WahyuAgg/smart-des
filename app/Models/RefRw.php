@@ -17,6 +17,8 @@ class RefRw extends Model
         'ketua_rw',
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function refDusun()
     {
         return $this->belongsTo(RefDusun::class, 'dusun_id');
