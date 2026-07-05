@@ -15,6 +15,8 @@ use App\Models\SrtMasterFieldSurat;
 use Illuminate\Support\Collection;
 use App\Support\Surat\SystemFieldResolver;
 
+use App\Models\Penduduk;
+
 
 use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\RefProfilDesa;
@@ -28,12 +30,7 @@ class SrtPengajuanSuratController extends Controller
      */
     public function index(): JsonResponse
     {
-        $records = SrtPengajuanSurat::with([
-            'jenisSurat',
-            'penduduk',
-            'user',
-        ])
-            ->latest()
+        $records = SrtPengajuanSurat::query()
             ->paginate(15);
 
         return response()->json($records);
@@ -48,21 +45,39 @@ class SrtPengajuanSuratController extends Controller
 
         $data = $request->validate([
             'jenis_surat_id' => ['required', 'exists:srt_jenis_surat,id'],
-            'penduduk_id' => ['required', 'exists:penduduk,id'],
+
+            // 'penduduk_ids' => ['required', 'array', 'min:1'],
+            // 'penduduk_ids.*' => ['required', 'distinct', 'exists:penduduk,id'],
+
+            'niks'           => ['required', 'array', 'min:1'], // min:1 memastikan array tidak kosong
+            'niks.*'         => ['required', 'exists:penduduk,nik'],
+
             'keperluan' => ['nullable', 'string'],
             'data_surat' => ['nullable', 'array'],
         ]);
 
-        $data['status'] = 'diajukan';
-        $data['tanggal_diajukan'] = now();
-        $data['user_id'] = $request->user()->id;
+        $record = SrtPengajuanSurat::create([
+            'jenis_surat_id' => $data['jenis_surat_id'],
+            'keperluan' => $data['keperluan'] ?? null,
+            'data_surat' => $data['data_surat'] ?? null,
+            'status' => 'diajukan',
+            'tanggal_diajukan' => now(),
+            'user_id' => $request->user()->id,
+        ]);
 
-        $record = SrtPengajuanSurat::create($data);
+        $penduduks = Penduduk::query()->whereIn('nik', $data['niks'])->get();
+
+        foreach ($penduduks as $urutan => $penduduk) {
+            $record->srtPengajuanSuratPenduduks()->create([
+                'penduduk_id' => $penduduk->id,
+                'urutan' => $urutan + 1,
+            ]);
+        }
 
         return response()->json(
             $record->load([
                 'jenisSurat',
-                'penduduk',
+                'penduduks',
                 'user',
             ]),
             201
@@ -76,7 +91,7 @@ class SrtPengajuanSuratController extends Controller
     {
         $record = SrtPengajuanSurat::with([
             'jenisSurat',
-            'penduduk',
+            'penduduks',
             'user',
         ])->findOrFail($id);
 
@@ -176,8 +191,10 @@ class SrtPengajuanSuratController extends Controller
     {
         $pengajuan = SrtPengajuanSurat::with([
             'jenisSurat',
-            'penduduk',
+            'penduduks',
         ])->findOrFail($id);
+
+        // return response()->json($pengajuan);
 
         $jenisSurat = $pengajuan->jenisSurat;
 
@@ -203,6 +220,8 @@ class SrtPengajuanSuratController extends Controller
         );
 
         $template = new TemplateProcessor($templatePath);
+
+        // dd($placeholders);
 
         $this->fillTemplate(
             $template,
@@ -241,14 +260,22 @@ class SrtPengajuanSuratController extends Controller
         Collection $fields
     ): void {
 
+        $normalize = fn($value) => preg_replace('/^\d+\./', '', $value);
+
         $allowed = $fields
             ->pluck('nama')
             ->filter()
+            ->map($normalize)
+            ->unique()
+            ->values()
             ->toArray();
 
-        $invalid = array_values(
-            array_diff($placeholders, $allowed)
-        );
+        $invalid = collect($placeholders)
+            ->filter(function ($placeholder) use ($allowed, $normalize) {
+                return ! in_array($normalize($placeholder), $allowed, true);
+            })
+            ->values()
+            ->toArray();
 
         if (! empty($invalid)) {
             abort(
@@ -260,6 +287,8 @@ class SrtPengajuanSuratController extends Controller
         }
     }
 
+
+
     private function fillTemplate(
         TemplateProcessor $template,
         SrtPengajuanSurat $pengajuan,
@@ -269,29 +298,44 @@ class SrtPengajuanSuratController extends Controller
 
         $fields = SrtMasterFieldSurat::all();
 
+        // dd($placeholders, $fields->pluck('nama')->toArray());
+
 
         foreach ($placeholders as $placeholder) {
 
-            $field = $fields->firstWhere(
-                'nama',
-                $placeholder
-            );
+            $field = $this->findField($fields, $placeholder);
 
-            if (! $field) {
-                continue;
-            }
+            
+
+            // abort(response()->json(['placeholder' => $placeholder], 422));
+
+            // if (! $field) {
+            //     continue;
+            // }
 
             $value = $this->resolveFieldValue(
                 $pengajuan,
                 $profilDesa,
-                $field
+                $field,
+                $placeholder
             );
+
+            // dd($placeholder, $value);
 
             $template->setValue(
                 $placeholder,
                 $value ?? ''
             );
         }
+    }
+
+    private function findField(Collection $fields, string $placeholder)
+    {
+        return $fields->first(function ($field) use ($placeholder) {
+            return $field->nama === $placeholder
+                || preg_replace('/^\d+\./', '', $field->nama)
+                === preg_replace('/^\d+\./', '', $placeholder);
+        });
     }
 
     private function generateFilename(
@@ -335,16 +379,42 @@ class SrtPengajuanSuratController extends Controller
     private function resolveFieldValue(
         SrtPengajuanSurat $pengajuan,
         ?RefProfilDesa $profilDesa,
-        $field
+        $field,
+        string $placeholder
     ): mixed {
-        $value = match ($field->source) {
-            'penduduk' => data_get($pengajuan->penduduk, $field->source_field),
-            'pengajuan' => data_get($pengajuan, $field->source_field),
-            'profil_desa' => data_get($profilDesa, $field->source_field),
-            'data_surat' => data_get($pengajuan->data_surat, $field->source_field),
-            'system' => $this->systemFieldResolver->resolve($pengajuan, $field->source_field),
-            default => null,
-        };
+
+        if ($field->source === 'penduduk') {
+
+            $penduduk = null;
+            $sourceField = $field->source_field;
+
+            if (preg_match('/^(\d+)\./', $placeholder, $matches)) {
+
+                $urutan = (int) $matches[1];
+
+                $penduduk = $pengajuan
+                    ->penduduks
+                    ->firstWhere('pivot.urutan', $urutan);
+            } else {
+
+                // fallback jika suatu saat ada field lama tanpa prefix
+                $penduduk = $pengajuan->penduduks->first();
+            }
+
+            $value = data_get($penduduk, $sourceField);
+        } else {
+
+            $value = match ($field->source) {
+                'pengajuan' => data_get($pengajuan, $field->source_field),
+                'profil_desa' => data_get($profilDesa, $field->source_field),
+                'data_surat' => data_get($pengajuan->data_surat, $field->source_field),
+                'system' => $this->systemFieldResolver->resolve(
+                    $pengajuan,
+                    $field->source_field
+                ),
+                default => null,
+            };
+        }
 
         if ($value instanceof \Carbon\Carbon) {
             return $value->translatedFormat('d-M-Y');

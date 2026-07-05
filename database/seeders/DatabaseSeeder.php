@@ -31,7 +31,7 @@ use Database\Seeders\curugSeeder\AlamatSeeder;
 use Database\Seeders\TestingSrtSeeder\KkPendudukSeeder;
 use Database\Seeders\TestingSrtSeeder\RefKecamatanSeeder;
 use Database\Seeders\TestingSrtSeeder\RefPerangkatDesaSeeder;
-
+use Database\Seeders\TestingSrtSeeder\SrtJenisSuratPendudukSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -45,38 +45,39 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 
-            // // LARAVOLT INDONESIA SEEDER
-            ProvincesSeeder::class,
-            CitiesSeeder::class,
-            DistrictsSeeder::class,
-            VillagesSeeder::class,
+            // // // LARAVOLT INDONESIA SEEDER
+            // ProvincesSeeder::class,
+            // CitiesSeeder::class,
+            // DistrictsSeeder::class,
+            // VillagesSeeder::class,
 
-            // REFERENCE SEEDER
-            RefJabatanPerangkatSeeder::class,
-            PendidikanSeeder::class,
+            // // REFERENCE SEEDER
+            // RefJabatanPerangkatSeeder::class,
+            // PendidikanSeeder::class,
 
-            // //USER SEEDER DAN ROLE SEEDER
-            RoleSeeder::class,
-            UserSeeder::class,
-            AssignRoles::class,
+            // // //USER SEEDER DAN ROLE SEEDER
+            // RoleSeeder::class,
+            // UserSeeder::class,
+            // AssignRoles::class,
 
-            // // SURAT SEEDER
-            KategoriSuratSeeder::class,
-            JenisSuratSeeder::class,
+            // // // SURAT SEEDER
+            // KategoriSuratSeeder::class,
+            // JenisSuratSeeder::class,
             MasterFieldSuratSeeder::class,
 
 
-            // // CURUG SEEDER
-            RefProfilDesaSeeder::class,
-            RefDusunSeeder::class,
-            RefRwSeeder::class,
-            RefRtSeeder::class,
-            // AlamatSeeder::class,
+            // // // CURUG SEEDER
+            // RefProfilDesaSeeder::class,
+            // RefDusunSeeder::class,
+            // RefRwSeeder::class,
+            // RefRtSeeder::class,
+            // // AlamatSeeder::class,
 
-            // //TESTING SEEDER
-            // KkPendudukSeeder::class,
-            RefPerangkatDesaSeeder::class,
-            RefKecamatanSeeder::class,
+            // // //TESTING SEEDER
+            // // KkPendudukSeeder::class,
+            // RefPerangkatDesaSeeder::class,
+            // RefKecamatanSeeder::class,
+            SrtJenisSuratPendudukSeeder::class,
 
 
 

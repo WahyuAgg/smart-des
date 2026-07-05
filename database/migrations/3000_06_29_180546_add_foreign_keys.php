@@ -79,7 +79,24 @@ return new class extends Migration
                 ->restrictOnDelete();
         });
 
+        Schema::table('srt_pengajuan_surat_penduduk', function (Blueprint $table) {
+            $table->foreign('pengajuan_surat_id')
+                ->references('id')
+                ->on('srt_pengajuan_surat')
+                ->cascadeOnDelete();
 
+            $table->foreign('penduduk_id')
+                ->references('id')
+                ->on('penduduk')
+                ->cascadeOnDelete();
+        });
+
+        Schema::table('srt_jenis_surat_penduduk', function (Blueprint $table) {
+            $table->foreign('jenis_surat_id')
+                ->references('id')
+                ->on('srt_jenis_surat')
+                ->cascadeOnDelete();
+        });
     }
 
     /**
@@ -132,6 +149,10 @@ return new class extends Migration
             $table->dropForeign(['kategori_surat_id']);
         });
 
-
+        Schema::table('srt_pengajuan_surat_penduduk', function (Blueprint $table) {
+            // Nama constraint biasanya mengikuti pola: [nama_tabel]_[nama_kolom]_foreign
+            $table->dropForeign(['pengajuan_surat_id']);
+            $table->dropForeign(['penduduk_id']);
+        });
     }
 };

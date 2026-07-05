@@ -13,7 +13,6 @@ class SrtPengajuanSurat extends Model
 
     protected $fillable = [
         'jenis_surat_id',
-        'penduduk_id',
         'nomor_surat',
         'keperluan',
         'data_surat',
@@ -38,10 +37,6 @@ class SrtPengajuanSurat extends Model
         return $this->belongsTo(SrtJenisSurat::class, 'jenis_surat_id');
     }
 
-    public function penduduk()
-    {
-        return $this->belongsTo(Penduduk::class, 'penduduk_id');
-    }
 
     public function user()
     {
@@ -54,5 +49,23 @@ class SrtPengajuanSurat extends Model
             $this->jenisSurat->template_path
         );
     }
-    
+
+    public function srtPengajuanSuratPenduduks()
+    {
+        return $this->hasMany(
+            SrtPengajuanSuratPenduduk::class,
+            'pengajuan_surat_id'
+        );
+    }
+
+    public function penduduks()
+    {
+        return $this->belongsToMany(
+            Penduduk::class,
+            'srt_pengajuan_surat_penduduk',
+            'pengajuan_surat_id',
+            'penduduk_id'
+        )->withPivot('urutan')
+            ->orderByPivot('urutan');
+    }
 }

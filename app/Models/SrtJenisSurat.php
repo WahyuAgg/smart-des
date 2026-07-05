@@ -35,4 +35,12 @@ class SrtJenisSurat extends Model
         return $this->hasMany(SrtPengajuanSurat::class, 'jenis_surat_id');
     }
 
+    public function srtJenisSuratPenduduks()
+{
+    return $this->hasMany(
+        SrtJenisSuratPenduduk::class,
+        'jenis_surat_id'
+    )->orderBy('urutan');
+}
+
 }

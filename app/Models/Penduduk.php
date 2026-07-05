@@ -115,8 +115,22 @@ class Penduduk extends Model
         return $this->belongsTo(Kk::class);
     }
 
-    public function srtPengajuanSurat()
+
+    public function srtPengajuanSuratPenduduks()
     {
-        return $this->hasMany(SrtPengajuanSurat::class, 'penduduk_id', 'id');
+        return $this->hasMany(
+            SrtPengajuanSuratPenduduk::class,
+            'penduduk_id'
+        );
+    }
+
+    public function pengajuanSurats()
+    {
+        return $this->belongsToMany(
+            SrtPengajuanSurat::class,
+            'srt_pengajuan_surat_penduduk',
+            'penduduk_id',
+            'pengajuan_surat_id'
+        )->withPivot('urutan');
     }
 }
