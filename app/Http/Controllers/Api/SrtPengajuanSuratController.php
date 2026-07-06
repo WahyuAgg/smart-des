@@ -59,7 +59,8 @@ class SrtPengajuanSuratController extends Controller
             'tanggal_diajukan' => now(),
             'user_id' => $request->user()->id,
         ]);
-
+        
+        
         $penduduks = Penduduk::query()->whereIn('nik', $data['niks'])->get();
 
         foreach ($penduduks as $urutan => $penduduk) {
