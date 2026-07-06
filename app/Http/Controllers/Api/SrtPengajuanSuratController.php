@@ -45,7 +45,7 @@ class SrtPengajuanSuratController extends Controller
 
         $data = $request->validate([
             'jenis_surat_id' => ['required', 'exists:srt_jenis_surat,id'],
-            'niks'           => ['required', 'array', 'min:1'], 
+            'niks'           => ['required', 'array', 'min:1'],
             'niks.*'         => ['required', 'exists:penduduk,nik'],
             'keperluan' => ['nullable', 'string'],
             'data_surat' => ['nullable', 'array'],
@@ -69,14 +69,41 @@ class SrtPengajuanSuratController extends Controller
             ]);
         }
 
-        return response()->json(
-            $record->load([
-                'jenisSurat',
-                'penduduks',
-                'user',
-            ]),
-            201
-        );
+        $this->getAutoValues($record->id);
+
+        $record->refresh();
+
+        $fields = collect($record->data_surat ?? [])
+            ->filter(function ($field) {
+
+                if (empty($field['value'])) {
+                    return true;
+                }
+
+                return in_array(
+                    $field['mode'],
+                    [
+                        'manual',
+                        'auto_editable',
+                    ],
+                    true
+                );
+            })
+            ->map(function ($field, $placeholder) {
+                return [
+                    'placeholder' => $placeholder,
+                    ...$field,
+                ];
+            })
+            ->values();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pengajuan surat berhasil dibuat.',
+            'requires_input' => $fields->isNotEmpty(),
+            'data' => $record,
+            'fields' => $fields,
+        ]);
     }
 
     /**
@@ -96,100 +123,190 @@ class SrtPengajuanSuratController extends Controller
     /**
      * Mengubah pengajuan.
      */
-    public function update(Request $request, string $id): JsonResponse
+    public function update(string $id, Request $request): JsonResponse
     {
-        $record = SrtPengajuanSurat::findOrFail($id);
 
-        $record->fill(
-            $request->only([
-                'keperluan',
-                'catatan',
-            ])
-        );
+        $pengajuan = SrtPengajuanSurat::findOrFail($id);
 
-        $record->save();
 
-        return response()->json(
-            $record->fresh([
-                'jenisSurat',
-                'penduduk',
-                'user',
-            ])
-        );
+        $data = $request->validate([
+            'data_surat' => ['required', 'array'],
+        ]);
+
+        $dataSurat = $pengajuan->data_surat ?? [];
+
+        foreach ($data['data_surat'] as $placeholder => $value) {
+
+            if (! isset($dataSurat[$placeholder])) {
+                continue;
+            }
+
+            $dataSurat[$placeholder]['value'] = $value;
+        }
+
+
+        $pengajuan->update([
+            'data_surat' => $dataSurat,
+        ]);
+
+        $pengajuan->refresh();
+
+        $id = $pengajuan->id;
+
+        $this->generate($id);
+
+        $pengajuan->refresh();
+
+return response()->json([
+    'success' => true,
+    'message' => 'Surat berhasil diproses dan preview berhasil dibuat.',
+    'data' => [
+        'id' => $pengajuan->id,
+        'status' => $pengajuan->status,
+        'nomor_surat' => $pengajuan->nomor_surat,
+        'tanggal_diajukan' => $pengajuan->tanggal_diajukan,
+        'tanggal_selesai' => $pengajuan->tanggal_selesai,
+        'file_hasil' => $pengajuan->file_hasil,
+        'preview_url' => asset('storage/' . $pengajuan->file_hasil),
+    ],
+]);
     }
 
     /**
      * Menghapus pengajuan.
      */
-    public function destroy(string $id): JsonResponse
+    // public function destroy(string $id): JsonResponse
+    // {
+    //     $record = SrtPengajuanSurat::findOrFail($id);
+
+    //     $record->delete();
+
+    //     return response()->json(null, 204);
+    // }
+
+    // /**
+    //  * Approve pengajuan.
+    //  */
+    // public function approve(string $id): JsonResponse
+    // {
+    //     $record = SrtPengajuanSurat::findOrFail($id);
+
+    //     $record->update([
+    //         'status' => 'disetujui',
+    //         'tanggal_diproses' => now(),
+    //     ]);
+
+    //     return response()->json($record);
+    // }
+
+    // /**
+    //  * Tolak pengajuan.
+    //  */
+    // public function reject(Request $request, string $id): JsonResponse
+    // {
+    //     $record = SrtPengajuanSurat::findOrFail($id);
+
+    //     $record->update([
+    //         'status' => 'ditolak',
+    //         'catatan' => $request->input('catatan'),
+    //         'tanggal_diproses' => now(),
+    //     ]);
+
+    //     return response()->json($record);
+    // }
+
+    // /**
+    //  * Download surat hasil generate.
+    //  */
+    // public function download(string $id)
+    // {
+    //     $record = SrtPengajuanSurat::findOrFail($id);
+
+    //     abort_if(
+    //         empty($record->file_hasil),
+    //         404,
+    //         'File surat belum tersedia.'
+    //     );
+
+    //     return response()->download(
+    //         storage_path('app/' . $record->file_hasil)
+    //     );
+    // }
+
+
+    public function getAutoValues(string $pengajuanSuratId)
     {
-        $record = SrtPengajuanSurat::findOrFail($id);
+        $profilDesa = RefProfilDesa::query()->first();
 
-        $record->delete();
+        $pengajuan = SrtPengajuanSurat::with([
+            'jenisSurat',
+            'penduduks',
+        ])->findOrFail($pengajuanSuratId);
 
-        return response()->json(null, 204);
-    }
+        $jenisSurat = $pengajuan->jenisSurat;
 
-    /**
-     * Approve pengajuan.
-     */
-    public function approve(string $id): JsonResponse
-    {
-        $record = SrtPengajuanSurat::findOrFail($id);
+        if (empty($jenisSurat->template_path)) {
+            return response()->json([
+                'message' => 'Template surat belum ditentukan.',
+            ], 422);
+        }
+        $templatePath = $this->getTemplatePath($jenisSurat->template_path);
 
-        $record->update([
-            'status' => 'disetujui',
-            'tanggal_diproses' => now(),
+        if (! file_exists($templatePath)) {
+            return response()->json([
+                'message' => 'Template surat tidak ditemukan.',
+            ], 404);
+        }
+
+
+        $placeholders = $this->extractPlaceholders($templatePath);
+
+        $fields = SrtMasterFieldSurat::all();
+
+        $dataSurat = $pengajuan->data_surat ?? [];
+
+        $this->validatePlaceholders($placeholders, $fields);
+
+        foreach ($placeholders as $placeholder) {
+
+            $field = $this->findField($fields, $placeholder);
+
+            if (! $field) {
+                continue;
+            }
+
+            $value = $this->resolveFieldValue(
+                $pengajuan,
+                $profilDesa,
+                $field,
+                $placeholder
+            );
+
+            $dataSurat[$placeholder] = [
+                "label" => $field->label,
+                "mode" => $field->input_mode,
+                "type" => $field->tipe,
+                "value" => $value ?: null,
+            ];
+        }
+
+        $pengajuan->update([
+            'data_surat' => $dataSurat,
         ]);
 
-        return response()->json($record);
-    }
-
-    /**
-     * Tolak pengajuan.
-     */
-    public function reject(Request $request, string $id): JsonResponse
-    {
-        $record = SrtPengajuanSurat::findOrFail($id);
-
-        $record->update([
-            'status' => 'ditolak',
-            'catatan' => $request->input('catatan'),
-            'tanggal_diproses' => now(),
-        ]);
-
-        return response()->json($record);
-    }
-
-    /**
-     * Download surat hasil generate.
-     */
-    public function download(string $id)
-    {
-        $record = SrtPengajuanSurat::findOrFail($id);
-
-        abort_if(
-            empty($record->file_hasil),
-            404,
-            'File surat belum tersedia.'
-        );
-
-        return response()->download(
-            storage_path('app/' . $record->file_hasil)
-        );
+        // return response()->json([
+        //     'message' => 'Data surat berhasil diperbarui.',
+        //     'data_surat' => $dataSurat,
+        // ]);
     }
 
     /**
      * Generate surat.
      */
-    public function generate(string $id): JsonResponse
+    public function generate(string $id)
     {
-        $pengajuan = SrtPengajuanSurat::with([
-            'jenisSurat',
-            'penduduks',
-        ])->findOrFail($id);
-
-        // return response()->json($pengajuan);
+        $pengajuan = SrtPengajuanSurat::with('jenisSurat')
+            ->findOrFail($id);
 
         $jenisSurat = $pengajuan->jenisSurat;
 
@@ -199,7 +316,9 @@ class SrtPengajuanSuratController extends Controller
             ], 422);
         }
 
-        $templatePath = $this->getTemplatePath($jenisSurat->template_path);
+        $templatePath = $this->getTemplatePath(
+            $jenisSurat->template_path
+        );
 
         if (! file_exists($templatePath)) {
             return response()->json([
@@ -207,22 +326,13 @@ class SrtPengajuanSuratController extends Controller
             ], 404);
         }
 
-        $placeholders = $this->extractPlaceholders($templatePath);
-
-        $this->validatePlaceholders(
-            $placeholders,
-            SrtMasterFieldSurat::select('nama')->get()
-        );
-
         $template = new TemplateProcessor($templatePath);
 
-        // dd($placeholders);
+        // dd($pengajuan->data_surat);
 
         $this->fillTemplate(
             $template,
-            $pengajuan,
-            RefProfilDesa::query()->first(),
-            $placeholders
+            $pengajuan->data_surat ?? []
         );
 
         $filename = $this->generateFilename($jenisSurat);
@@ -238,10 +348,12 @@ class SrtPengajuanSuratController extends Controller
             'tanggal_selesai' => now(),
         ]);
 
-        return response()->json([
-            'message' => 'Surat berhasil digenerate.',
-            'file' => asset('storage/generated/' . basename($outputPath)),
-        ]);
+        // return response()->json([
+        //     'message' => 'Surat berhasil digenerate.',
+        //     'file' => asset(
+        //         'storage/generated/' . basename($outputPath)
+        //     ),
+        // ]);
     }
 
     private function getTemplatePath(string $path): string
@@ -286,40 +398,14 @@ class SrtPengajuanSuratController extends Controller
 
     private function fillTemplate(
         TemplateProcessor $template,
-        SrtPengajuanSurat $pengajuan,
-        ?RefProfilDesa $profilDesa,
-        array $placeholders
+        array $dataSurat
     ): void {
 
-        $fields = SrtMasterFieldSurat::all();
-
-        // dd($placeholders, $fields->pluck('nama')->toArray());
-
-
-        foreach ($placeholders as $placeholder) {
-
-            $field = $this->findField($fields, $placeholder);
-
-            
-
-            // abort(response()->json(['placeholder' => $placeholder], 422));
-
-            // if (! $field) {
-            //     continue;
-            // }
-
-            $value = $this->resolveFieldValue(
-                $pengajuan,
-                $profilDesa,
-                $field,
-                $placeholder
-            );
-
-            // dd($placeholder, $value);
+        foreach ($dataSurat as $placeholder => $field) {
 
             $template->setValue(
                 $placeholder,
-                $value ?? ''
+                $field['value'] ?? ''
             );
         }
     }

@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
             // // KkPendudukSeeder::class,
             // RefPerangkatDesaSeeder::class,
             // RefKecamatanSeeder::class,
-            SrtJenisSuratPendudukSeeder::class,
+            // SrtJenisSuratPendudukSeeder::class,
 
 
 

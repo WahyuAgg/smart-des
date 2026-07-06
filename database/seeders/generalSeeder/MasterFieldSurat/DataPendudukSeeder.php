@@ -37,9 +37,9 @@ class DataPendudukSeeder extends Seeder
 
 
             // kasus unik, misal untuk surat kematian, bisa menggunakan tanggal tercatat sebagai tanggal lahir
-            ['nama' => 'tanggal_tercatat_penduduk', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
-            ['nama' => 'tanggal_kematian_penduduk', 'label' => 'Tanggal Kematian', 'source' => 'penduduk', 'source_field' => 'tanggal_kematian_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
-            ['nama' => 'umur', 'label' => 'Umur', 'source' => 'penduduk', 'source_field' => 'umur', 'tipe' => 'number', 'input_mode' => 'auto'],
+            ['nama' => 'tanggal_tercatat_penduduk', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto_editable'],
+            ['nama' => 'tanggal_kematian_penduduk', 'label' => 'Tanggal Kematian', 'source' => 'penduduk', 'source_field' => 'tanggal_kematian_formatted', 'tipe' => 'date', 'input_mode' => 'auto_editable'],
+            ['nama' => 'umur', 'label' => 'Umur', 'source' => 'penduduk', 'source_field' => 'umur', 'tipe' => 'number', 'input_mode' => 'auto_editable'],
 
         ];
 
@@ -57,6 +57,8 @@ class DataPendudukSeeder extends Seeder
                     'opsi'          => $field['opsi'] ?? null,
                     'placeholder'   => $field['placeholder'] ?? null,
                     'keterangan'    => $field['keterangan'] ?? null,
+                    'input_mode'    => $field['input_mode'] ?? 'manual',
+
                 ]
             );
         }

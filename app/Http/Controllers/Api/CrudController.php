@@ -18,6 +18,14 @@ abstract class CrudController extends ApiController
      */
     protected array $with = [];
 
+    protected array $withIndex = [];
+
+    protected array $withShow = [];
+
+    protected array $withStore = [];
+
+    protected array $withUpdate = [];
+
     /**
      * Number of records per page.
      */
@@ -25,13 +33,11 @@ abstract class CrudController extends ApiController
 
     public function index(): JsonResponse
     {
-        $model = $this->resolveModel();
-
-        $records = $model
+        $records = $this->resolveModel()
             ->newQuery()
-            ->with($this->with)
+            ->with($this->withIndex)
             ->latest()
-            ->paginate(15);
+            ->paginate($this->perPage);
 
         return $this->success($records);
     }
@@ -44,12 +50,12 @@ abstract class CrudController extends ApiController
             ? $request->validated()
             : $request->only($model->getFillable());
 
-        
+
 
         $record = $model->newQuery()->create($data);
 
         return $this->success(
-            $record->fresh($this->with),
+            $record->fresh($this->withStore),
             'Data berhasil ditambahkan.',
             201
         );
@@ -59,7 +65,7 @@ abstract class CrudController extends ApiController
     {
         $record = $this->resolveModel()
             ->newQuery()
-            ->with($this->with)
+            ->with($this->withShow)
             ->findOrFail($id);
 
         return $this->success($record);
@@ -78,7 +84,7 @@ abstract class CrudController extends ApiController
         $record->update($data);
 
         return $this->success(
-            $record->fresh($this->with),
+            $record->fresh($this->withUpdate),
             'Data berhasil diperbarui.'
         );
     }

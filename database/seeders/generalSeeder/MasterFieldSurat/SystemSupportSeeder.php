@@ -43,6 +43,8 @@ class SystemSupportSeeder extends Seeder
                     'opsi'          => $field['opsi'] ?? null,
                     'placeholder'   => $field['placeholder'] ?? null,
                     'keterangan'    => $field['keterangan'] ?? null,
+                    'input_mode'    => $field['input_mode'] ?? 'manual',
+
                 ]
             );
         }

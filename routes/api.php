@@ -64,5 +64,6 @@ Route::middleware([
     'auth:sanctum',
     'role:admin|petugas|kepala_desa',
 ])->group(function () {
-    Route::post('/srt-pengajuan-surat/{id}/generate', [SrtPengajuanSuratController::class, 'generate']);
+    Route::get('/srt-pengajuan-surat/{id}/generate', [SrtPengajuanSuratController::class, 'generate']);
+    Route::get('/srt-pengajuan-surat/{id}/get-auto-values', [SrtPengajuanSuratController::class, 'getAutoValues']);
 });
