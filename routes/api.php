@@ -11,10 +11,12 @@ use App\Http\Controllers\TestingController;
 
 
 /**
- * API OVERRRIDE
+ * Route Ini digunakan untuk pengajuan surat wizard
  */
- Route::get('/jenis-surat', [SrtJenisSuratController::class,'index']);
-  Route::get('/jenis-surat/{id}', [SrtJenisSuratController::class,'show']);
+Route::get('/jenis-surat', [SrtJenisSuratController::class,'index']);
+Route::get('/jenis-surat/{id}', [SrtJenisSuratController::class,'show']);
+Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
+Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
 
 
 

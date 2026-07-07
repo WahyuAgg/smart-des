@@ -1,5 +1,3 @@
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-</script>
-
-@stack('scripts')
+<footer class="px-6 py-4 text-xs text-slate-400 border-t border-slate-200 bg-white">
+  &copy; {{ date('Y') }} SIAK Desa &mdash; Sistem Informasi Administrasi Kependudukan
+</footer>

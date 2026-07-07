@@ -9,35 +9,16 @@ use App\Http\Controllers\Web\AdminController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
 });
 
 
-// Route::get('/', function () {
-//     return redirect('/dashboard');
-// });
 
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index']);
+
+
+Route::get('/', fn () => redirect()->route('surat.index'))->name('dashboard');
+
+Route::prefix('surat')->name('surat.')->group(function () {
+    Route::get('/', fn () => view('surat.index'))->name('index');
 });
 
-Route::prefix('surat/create')->group(function () {
-    Route::get('/get-templates', [SuratController::class, 'getTemplates']);
-    Route::get('/get-nik-placeholders/{template_id}', [SuratController::class,'']);
-    Route::post('/get-surat-placeholders', [SuratController::class, 'create']);
-    Route::post('/data-surat', [SuratController::class, 'show']);
-});
-
-Route::prefix('artikel')->group(function () {
-
-    Route::get('/', [ArtikelController::class, 'index']);
-
-    Route::get('/{id}', [ArtikelController::class, 'show']);
-
-});
-
-Route::prefix('admin')->group(function () {
-
-    Route::get('/', [AdminController::class, 'index']);
-
-});

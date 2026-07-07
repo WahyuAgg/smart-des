@@ -1,109 +1,38 @@
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@yield('title', 'Layanan Surat') - SIAK Desa</title>
 
-    <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+        },
+        colors: {
+          page: '#EEF2F6',
+          navy: {
+            900: '#0B172A',
+            800: '#12233F',
+            700: '#183156',
+          },
+          accent: {
+            DEFAULT: '#0D9488',
+            hover: '#0F766E',
+            light: '#CCFBF1',
+          },
+        },
+      },
+    },
+  }
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <title>@yield('title', 'Sistem Desa')</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #f5f6fa;
-        }
-
-        .sidebar {
-            min-height: calc(100vh - 56px);
-            background: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-        }
-
-        main {
-            background: #ffffff;
-        }
-
-        .step-circle {
-
-            width: 40px;
-            height: 40px;
-
-            border: 2px solid #0d6efd;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            margin: auto;
-
-            font-weight: bold;
-
-        }
-
-        .step-box {
-            width :1 px;
-            height : 1 px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin:auto;
-
-        }
-
-        .step-line {
-
-            flex: 1;
-
-            height: 2px;
-
-            background: #0d6efd;
-
-            margin: 10 10px;
-
-            /* mb-3; */
-
-        }
-
-        .step-circle.active {
-
-            background: #0d6efd;
-
-            color: white;
-
-        }
-
-.template-card {
-
-    cursor: pointer;
-
-    transition: .2s;
-
-}
-
-.template-card:hover {
-
-    transform: translateY(-2px);
-
-}
-
-.template-card.selected {
-
-    border: 2px solid #0d6efd;
-
-    background-color: #e7f1ff;
-
-}
-
-
-
-
-    </style>
-
-    @stack('styles')
-
-</head>
+<style>
+  [x-cloak] { display: none !important; }
+  body { background-color: #EEF2F6; }
+</style>

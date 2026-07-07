@@ -10,17 +10,9 @@ class SuratController extends Controller
 {
     public function getTemplates()
     {
-        $steps = [
-            'Pilih Surat',
-            'Isi NIK',
-            'Isi Form',
-            'Preview',
-            'Cetak',
-        ];
-        return view('surat.surat-wizard', [
-            'currentStep' => 'pilih-surat',
-            'noStep' => 1,
-            'steps' => $steps
+
+
+        return view('surat.index', [
         ]);
     }
 }
