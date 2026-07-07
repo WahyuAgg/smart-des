@@ -50,7 +50,7 @@ class SrtJenisSurat extends Model
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active' => 'boolean'
     ];
 
     protected $hidden = ['created_at', 'updated_at'];

@@ -5,8 +5,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SrtPengajuanSuratController;
 use App\Http\Controllers\Api\WilayahController;
+use App\Http\Controllers\Api\SrtJenisSuratController;
 
 use App\Http\Controllers\TestingController;
+
+
+/**
+ * API OVERRRIDE
+ */
+ Route::get('/jenis-surat', [SrtJenisSuratController::class,'index']);
+  Route::get('/jenis-surat/{id}', [SrtJenisSuratController::class,'show']);
+
+
 
 
 Route::middleware([
@@ -58,6 +68,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/wilayah', [WilayahController::class, 'index']);
 
 Route::get('/testing', [TestingController::class, 'testKades']);
+
 
 
 Route::middleware([

@@ -59,8 +59,8 @@ class SrtPengajuanSuratController extends Controller
             'tanggal_diajukan' => now(),
             'user_id' => $request->user()->id,
         ]);
-        
-        
+
+
         $penduduks = Penduduk::query()->whereIn('nik', $data['niks'])->get();
 
         foreach ($penduduks as $urutan => $penduduk) {
@@ -102,7 +102,7 @@ class SrtPengajuanSuratController extends Controller
             'success' => true,
             'message' => 'Pengajuan surat berhasil dibuat.',
             'requires_input' => $fields->isNotEmpty(),
-            'data' => $record,
+            'data' => $record->only("id"),
             'fields' => $fields,
         ]);
     }
@@ -158,19 +158,19 @@ class SrtPengajuanSuratController extends Controller
 
         $pengajuan->refresh();
 
-return response()->json([
-    'success' => true,
-    'message' => 'Surat berhasil diproses dan preview berhasil dibuat.',
-    'data' => [
-        'id' => $pengajuan->id,
-        'status' => $pengajuan->status,
-        'nomor_surat' => $pengajuan->nomor_surat,
-        'tanggal_diajukan' => $pengajuan->tanggal_diajukan,
-        'tanggal_selesai' => $pengajuan->tanggal_selesai,
-        'file_hasil' => $pengajuan->file_hasil,
-        'preview_url' => asset('storage/' . $pengajuan->file_hasil),
-    ],
-]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Surat berhasil diproses dan preview berhasil dibuat.',
+            'data' => [
+                'id' => $pengajuan->id,
+                'status' => $pengajuan->status,
+                'nomor_surat' => $pengajuan->nomor_surat,
+                'tanggal_diajukan' => $pengajuan->tanggal_diajukan,
+                'tanggal_selesai' => $pengajuan->tanggal_selesai,
+                'file_hasil' => $pengajuan->file_hasil,
+                'preview_url' => asset('storage/' . $pengajuan->file_hasil),
+            ],
+        ]);
     }
 
     /**
