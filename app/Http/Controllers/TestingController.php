@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class TestingController extends Controller
 {
-    public function testKades(){
+    public function testing(){
         // $data = RefProfilDesa::query()->first()->profile_kecamatan;
-        $data = Penduduk::query()->first()->umur;
+        $data = Penduduk::query()->find(3)->tempat_lahir;
 
         return response()->json([
             'data'=> $data

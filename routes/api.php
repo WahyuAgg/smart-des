@@ -69,7 +69,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/wilayah', [WilayahController::class, 'index']);
 
-Route::get('/testing', [TestingController::class, 'testKades']);
+Route::get('/testing', [TestingController::class, 'testing']);
 
 
 

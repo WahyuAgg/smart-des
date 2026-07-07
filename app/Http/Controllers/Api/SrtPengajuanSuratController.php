@@ -349,12 +349,6 @@ class SrtPengajuanSuratController extends Controller
             'tanggal_selesai' => now(),
         ]);
 
-        // return response()->json([
-        //     'message' => 'Surat berhasil digenerate.',
-        //     'file' => asset(
-        //         'storage/generated/' . basename($outputPath)
-        //     ),
-        // ]);
     }
 
     private function getTemplatePath(string $path): string

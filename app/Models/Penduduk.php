@@ -36,7 +36,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Alamat|null $alamat
  * @property-read mixed $get_alamat
- * @property-read int $umur
  * @property-read \App\Models\Kk $kk
  * @property-read mixed $nama_pendidikan
  * @property-read mixed $no_kk
@@ -129,13 +128,11 @@ class Penduduk extends Model
         );
     }
 
-    public function getUmurAttribute(): int
+    public function umur(): Attribute
     {
-        if (!$this->tanggal_lahir) {
-            return 0;
-        }
-
-        return Carbon::parse($this->tanggal_lahir)->age;
+        return Attribute::make(
+            get: fn() => $this->tanggal_lahir ? Carbon::parse($this->tanggal_lahir)->age : null
+        );
     }
 
     protected function noKk(): Attribute
@@ -149,6 +146,41 @@ class Penduduk extends Model
     {
         return Attribute::make(
             get: fn() => $this->pendidikan?->tingkat_pendidikan
+        );
+    }
+
+    protected function tempatLahir(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
+        );
+    }
+
+    protected function pekerjaan(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
+        );
+    }
+
+    protected function jenisKelamin(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
+        );
+    }
+
+    protected function agama(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
+        );
+    }
+
+    protected function kewarganegaraan(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
         );
     }
 
@@ -198,4 +230,17 @@ class Penduduk extends Model
             'pengajuan_surat_id'
         )->withPivot('urutan');
     }
+
+
+    private function capitalizeSpecial($str)
+{
+    // Mengubah semua menjadi lowercase dulu agar konsisten
+    $str = strtolower($str);
+    
+    // Regex: mencari karakter yang diikuti oleh simbol (spasi, /, -, _)
+    // Lalu mengubah huruf setelahnya menjadi kapital
+    return preg_replace_callback('/(^|[ \/\-_])([a-z])/', function ($matches) {
+        return $matches[1] . strtoupper($matches[2]);
+    }, $str);
+}
 }
