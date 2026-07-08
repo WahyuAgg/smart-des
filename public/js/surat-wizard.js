@@ -36,7 +36,11 @@ document.addEventListener('alpine:init', () => {
       this.loading = true;
       this.error = null;
       try {
-        const res = await fetch(`${this.baseUrl}/jenis-surat`);
+        const res = await fetch(`${this.baseUrl}/jenis-surat`, {
+          headers: Auth.headers(),
+        });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!json.success) throw new Error(json.message || 'Gagal memuat jenis surat.');
         this.jenisSuratList = (json.data && json.data.data) || [];
@@ -51,7 +55,11 @@ document.addEventListener('alpine:init', () => {
       this.loading = true;
       this.error = null;
       try {
-        const res = await fetch(`${this.baseUrl}/jenis-surat/${item.id}`);
+        const res = await fetch(`${this.baseUrl}/jenis-surat/${item.id}`, {
+          headers: Auth.headers(),
+        });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!json.jenis_surat) throw new Error('Detail jenis surat tidak ditemukan.');
 
@@ -96,13 +104,15 @@ document.addEventListener('alpine:init', () => {
 
         const res = await fetch(`${this.baseUrl}/pengajuan-surat`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: Auth.headers({ 'Content-Type': 'application/json' }),
           body: JSON.stringify({
             jenis_surat_id: this.selectedJenisSurat.id,
             niks,
             keperluan: this.keperluan || null,
           }),
         });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!json.success) throw new Error(json.message || 'Gagal mengajukan surat.');
 
@@ -144,9 +154,11 @@ document.addEventListener('alpine:init', () => {
       try {
         const res = await fetch(`${this.baseUrl}/pengajuan-surat/${this.pengajuanId}`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          headers: Auth.headers({ 'Content-Type': 'application/json' }),
           body: JSON.stringify({ data_surat: this.dataSurat }),
         });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!json.success) throw new Error(json.message || 'Gagal membuat surat.');
 

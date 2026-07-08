@@ -37,3 +37,5 @@
   [x-cloak] { display: none !important; }
   body { background-color: #EEF2F6; }
 </style>
+
+<script src="/js/auth.js"></script>

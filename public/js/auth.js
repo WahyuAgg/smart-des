@@ -1,0 +1,122 @@
+/**
+ * Auth Helper — Reusable token manager untuk Sanctum SPA auth.
+ *
+ * Menyimpan token & user di localStorage.
+ * Dipakai oleh semua JS module (master-field-surat, surat-wizard, dll)
+ * untuk mengirim Authorization header ke API.
+ *
+ * Usage:
+ *   Auth.headers()         → { Authorization: 'Bearer ...', Accept: 'application/json' }
+ *   Auth.getToken()        → string | null
+ *   Auth.getUser()         → object | null
+ *   Auth.setSession(t, u)  → void
+ *   Auth.clear()           → void
+ *   Auth.isLoggedIn()      → boolean
+ *   Auth.requireAuth()     → redirect ke /login jika belum login
+ *   Auth.handleResponse(r) → redirect ke /login jika 401
+ */
+(function () {
+  'use strict';
+
+  const TOKEN_KEY = 'auth_token';
+  const USER_KEY  = 'auth_user';
+
+  window.Auth = {
+    /**
+     * Ambil token dari localStorage.
+     */
+    getToken() {
+      return localStorage.getItem(TOKEN_KEY);
+    },
+
+    /**
+     * Ambil user object dari localStorage.
+     */
+    getUser() {
+      try {
+        const raw = localStorage.getItem(USER_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    },
+
+    /**
+     * Simpan token + user setelah login berhasil.
+     */
+    setSession(token, user) {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    },
+
+    /**
+     * Hapus session (logout).
+     */
+    clear() {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+    },
+
+    /**
+     * Cek apakah user sudah login.
+     */
+    isLoggedIn() {
+      return !!this.getToken();
+    },
+
+    /**
+     * Return headers object untuk fetch.
+     * Jika belum login, tetap return Accept header saja.
+     */
+    headers(extra = {}) {
+      const h = { Accept: 'application/json', ...extra };
+      const token = this.getToken();
+      if (token) {
+        h['Authorization'] = `Bearer ${token}`;
+      }
+      return h;
+    },
+
+    /**
+     * Redirect ke /login jika belum login.
+     * Panggil di init() halaman yang butuh auth.
+     */
+    requireAuth() {
+      if (!this.isLoggedIn()) {
+        window.location.href = '/login';
+        return false;
+      }
+      return true;
+    },
+
+    /**
+     * Cek response fetch. Jika 401, clear session & redirect ke login.
+     * Return true jika harus stop proses (karena redirect).
+     */
+    handleUnauthorized(response) {
+      if (response.status === 401) {
+        this.clear();
+        window.location.href = '/login';
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * Logout: fetch API logout, clear session, redirect.
+     */
+    async logout(baseUrl) {
+      const url = (baseUrl || window.API_BASE_URL || '/api') + '/logout';
+      try {
+        await fetch(url, {
+          method: 'POST',
+          headers: this.headers(),
+        });
+      } catch {
+        // Abaikan error network saat logout
+      }
+      this.clear();
+      window.location.href = '/login';
+    },
+  };
+})();

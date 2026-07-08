@@ -72,7 +72,7 @@
         </div>
     </nav>
 
-    <div class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
-        Masuk sebagai <span class="text-slate-200 font-medium">{{ auth()->user()->name ?? 'Petugas' }}</span>
+    <div x-data="{ user: Auth.getUser() }" class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
+        Masuk sebagai <span class="text-slate-200 font-medium" x-text="user?.name || 'Petugas'"></span>
     </div>
 </aside>

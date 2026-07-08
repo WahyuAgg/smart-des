@@ -25,6 +25,7 @@ document.addEventListener('alpine:init', () => {
     deletingItem: null,
 
     async init() {
+      if (!Auth.requireAuth()) return;
       await this.load();
     },
 
@@ -37,8 +38,10 @@ document.addEventListener('alpine:init', () => {
       try {
         const params = new URLSearchParams({ page, search: this.search || '' });
         const res = await fetch(`${this.baseUrl}/${this.endpoint}?${params.toString()}`, {
-          headers: { Accept: 'application/json' },
+          headers: Auth.headers(),
         });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!json.success && json.success !== undefined) {
           throw new Error(json.message || 'Gagal memuat data.');
@@ -96,13 +99,15 @@ document.addEventListener('alpine:init', () => {
 
         const res = await fetch(url, {
           method: isEdit ? 'PUT' : 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          headers: Auth.headers({ 'Content-Type': 'application/json' }),
           body: JSON.stringify({
             ...this.form,
             source: this.form.source || null,
             source_field: this.form.source_field || null,
           }),
         });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json();
         if (!res.ok || (json.success !== undefined && !json.success)) {
           throw new Error(json.message || 'Gagal menyimpan data.');
@@ -133,8 +138,10 @@ document.addEventListener('alpine:init', () => {
       try {
         const res = await fetch(`${this.baseUrl}/${this.endpoint}/${this.deletingItem.id}`, {
           method: 'DELETE',
-          headers: { Accept: 'application/json' },
+          headers: Auth.headers(),
         });
+        if (Auth.handleUnauthorized(res)) return;
+
         const json = await res.json().catch(() => ({}));
         if (!res.ok || (json.success !== undefined && !json.success)) {
           throw new Error(json.message || 'Gagal menghapus data.');
