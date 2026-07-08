@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'libreoffice' => [
+        'path' => env('LIBREOFFICE_PATH'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],

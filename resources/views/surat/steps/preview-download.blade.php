@@ -13,13 +13,23 @@
     </template>
   </p>
 
-  <div class="border border-slate-200 rounded-lg p-4 max-w-sm mx-auto text-left mb-6">
-    <p class="text-xs text-slate-400 mb-1">File hasil</p>
-    <p class="text-sm text-slate-700 break-all" x-text="result?.file_hasil"></p>
+  <div class="border border-slate-200 rounded-lg overflow-hidden max-w-lg mx-auto text-left mb-6">
+    <div class="px-4 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+      <p class="text-xs text-slate-400">Preview surat</p>
+      <p class="text-xs text-slate-500 break-all text-right" x-text="result?.file_hasil"></p>
+    </div>
+
+    <iframe :src="result?.preview_url" class="w-full h-[420px] bg-slate-100" title="Preview surat"></iframe>
+
+    <div class="px-4 py-2 bg-slate-50 border-t border-slate-200 text-center">
+      <a :href="result?.preview_url" target="_blank" rel="noopener" class="text-xs text-accent hover:text-accent-hover font-medium">
+        Preview tidak muncul? Buka di tab baru &rarr;
+      </a>
+    </div>
   </div>
 
   <div class="flex items-center justify-center gap-3">
-    <a :href="result?.preview_url" target="_blank" rel="noopener"
+    <a :href="result?.preview_url" download target="_blank" rel="noopener"
        class="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium text-white bg-accent hover:bg-accent-hover">
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />

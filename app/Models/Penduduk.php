@@ -71,6 +71,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTanggalMeninggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTempatLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereUpdatedAt($value)
+ * @property-read mixed $umur
  * @mixin \Eloquent
  */
 class Penduduk extends Model
@@ -121,24 +122,26 @@ class Penduduk extends Model
     }
 
 
-    protected function tanggalLahirFormatted(): Attribute
+    protected function tanggalLahirF(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->tanggal_lahir?->translatedFormat('d F Y')
         );
     }
 
+
+
     public function umur(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->tanggal_lahir ? Carbon::parse($this->tanggal_lahir)->age : null
+            get: fn(): ?int =>  $this->tanggal_lahir ? Carbon::parse($this->tanggal_lahir)->age : null
         );
     }
 
     protected function noKk(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->kk?->no_kk
+            get: fn() :?string => $this->kk?->no_kk
         );
     }
 
@@ -166,7 +169,7 @@ class Penduduk extends Model
     protected function jenisKelamin(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? $this->capitalizeSpecial($value) : null
+            get: fn($value) => $value ? ucfirst(strtolower($value)) : null
         );
     }
 
@@ -233,14 +236,14 @@ class Penduduk extends Model
 
 
     private function capitalizeSpecial($str)
-{
-    // Mengubah semua menjadi lowercase dulu agar konsisten
-    $str = strtolower($str);
-    
-    // Regex: mencari karakter yang diikuti oleh simbol (spasi, /, -, _)
-    // Lalu mengubah huruf setelahnya menjadi kapital
-    return preg_replace_callback('/(^|[ \/\-_])([a-z])/', function ($matches) {
-        return $matches[1] . strtoupper($matches[2]);
-    }, $str);
-}
+    {
+        $str = strtolower($str);
+
+
+        return preg_replace_callback('/(^|[ \/\-_])([a-z])/', function ($matches) {
+            return $matches[1] . strtoupper($matches[2]);
+        }, $str);
+    }
+
+
 }

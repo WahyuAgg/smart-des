@@ -17,6 +17,8 @@ use App\Support\Surat\SystemFieldResolver;
 
 use App\Models\Penduduk;
 
+use App\Services\DocumentConverter;
+
 
 use PhpOffice\PhpWord\TemplateProcessor;
 use App\Models\RefProfilDesa;
@@ -338,17 +340,22 @@ class SrtPengajuanSuratController extends Controller
 
         $filename = $this->generateFilename($jenisSurat);
 
-        $outputPath = $this->saveDocument(
+        $docxPath = $this->saveDocument(
             $template,
-            $filename
+            $filename,
         );
 
+        $pdfPath = $this->konversiPdf($docxPath);
+
+        // Ubah menjadi path relatif untuk database
+        // Misal: "generated_surat/pdf/nama_file.pdf"
+        $relativePath = 'generated_surat/pdf/' . basename($pdfPath);
+
         $pengajuan->update([
-            'file_hasil' => 'generated/' . $filename,
+            'file_hasil' => $relativePath,
             'status' => 'selesai',
             'tanggal_selesai' => now(),
         ]);
-
     }
 
     private function getTemplatePath(string $path): string
@@ -426,21 +433,31 @@ class SrtPengajuanSuratController extends Controller
     }
 
 
+    public function konversiPdf(string $pathDocx,): string
+    {
+        $converter = new DocumentConverter();
 
-    private function saveDocument(
-        TemplateProcessor $template,
-        string $filename
-    ): string {
+        try {
+            $pdfPath = $converter->docxToPdf($pathDocx);
 
-        $directory = storage_path('app/public/generated');
+            return $pdfPath;
+        } catch (\Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
+    }
 
+
+
+    private function saveDocument(TemplateProcessor $template, string $filename): string
+    {
+        // Cukup simpan di satu folder yang sama agar mudah dikelola
+        $directory = storage_path('app/public/generated_surat');
         File::ensureDirectoryExists($directory);
 
-        $outputPath = $directory . DIRECTORY_SEPARATOR . $filename;
+        $docxPath = $directory . DIRECTORY_SEPARATOR . $filename;
+        $template->saveAs($docxPath);
 
-        $template->saveAs($outputPath);
-
-        return $outputPath;
+        return $docxPath;
     }
 
     // use App\Support\Surat\SystemFieldResolver;

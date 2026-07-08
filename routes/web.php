@@ -22,3 +22,7 @@ Route::prefix('surat')->name('surat.')->group(function () {
     Route::get('/', fn () => view('surat.index'))->name('index');
 });
 
+
+Route::prefix('master-data')->name('surat.')->group(function () {
+    Route::get('/master-field-surat', fn () => view('master-data.master-field-surat.index'))->name('index');
+});
