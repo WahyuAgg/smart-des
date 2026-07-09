@@ -30,9 +30,3 @@
 </div>
 @endsection
 
-<!-- @push('scripts')
-  <script>
-    window.API_BASE_URL = "{{ rtrim(config('services.surat.base_url', env('SURAT_API_URL', url('/api'))), '/') }}";
-  </script>
-  @vite('resources/js/surat-wizard.js')
-@endpush -->
