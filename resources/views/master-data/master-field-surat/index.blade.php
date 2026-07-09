@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Kelola daftar field yang bisa dipakai di template surat')
 
 @section('content')
-  <div x-data="masterFieldSurat()" x-init="init()" class="max-w-5xl mx-auto">
+  <div x-data="masterFieldSurat" class="max-w-5xl mx-auto">
 
     @include('components.alert')
 
@@ -170,10 +170,10 @@
   </div>
 @endsection
 
-@push('scripts')
+<!-- @push('scripts')
   <script>
     window.API_BASE_URL = window.API_BASE_URL ||
       "{{ rtrim(config('services.surat.base_url', env('SURAT_API_URL', url('/api'))), '/') }}";
   </script>
-  <script src="{{ asset('js/master-field-surat.js') }}"></script>
-@endpush
+  @vite('resources/js/master-field-surat.js')
+@endpush -->

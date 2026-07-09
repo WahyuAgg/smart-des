@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Ajukan surat keterangan dalam empat langkah singkat')
 
 @section('content')
-<div x-data="suratWizard()" x-init="init()" class="max-w-3xl mx-auto">
+<div x-data="suratWizard" class="max-w-3xl mx-auto">
 
   @include('components.step-indicator')
   @include('components.alert')
@@ -30,9 +30,9 @@
 </div>
 @endsection
 
-@push('scripts')
+<!-- @push('scripts')
   <script>
     window.API_BASE_URL = "{{ rtrim(config('services.surat.base_url', env('SURAT_API_URL', url('/api'))), '/') }}";
   </script>
-  <script src="{{ asset('js/surat-wizard.js') }}"></script>
-@endpush
+  @vite('resources/js/surat-wizard.js')
+@endpush -->

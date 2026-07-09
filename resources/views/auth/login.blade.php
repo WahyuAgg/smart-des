@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-<div x-data="loginForm()" x-init="init()" class="w-full max-w-md">
+<div x-data="loginForm" class="w-full max-w-md">
 
   {{-- Logo & Branding --}}
   <div class="text-center mb-8">
@@ -104,9 +104,9 @@
 </div>
 @endsection
 
-@push('scripts')
+<!-- @push('scripts')
   <script>
     window.API_BASE_URL = "{{ rtrim(config('services.surat.base_url', env('SURAT_API_URL', url('/api'))), '/') }}";
   </script>
-  <script src="{{ asset('js/login.js') }}"></script>
-@endpush
+  @vite('resources/js/login.js')
+@endpush -->
