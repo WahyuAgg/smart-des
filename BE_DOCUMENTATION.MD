@@ -134,7 +134,7 @@ Best practice:
 
 ## Cross-reference / When to consult frontend docs
 
-When you need frontend context during backend analysis or modification (which Blade views consume an endpoint, expected UI behavior, JS services, or component usage), consult FE_DOCUMENTATION.MD (`c:\agg\projects\KKN\web_desa\FE_DOCUMENTATION.MD`). Update BE_DOCUMENTATION.MD if backend changes require frontend updates, and coordinate changes with the frontend documentation to keep both in sync.
+When you need frontend context during backend analysis or modification (which Blade views consume an endpoint, expected UI behavior, JS services, or component usage), consult FE_DOCUMENTATION.MD (`FE_DOCUMENTATION.MD`). Update BE_DOCUMENTATION.MD if backend changes require frontend updates, and coordinate changes with the frontend documentation to keep both in sync.
 
 # Note
 If theres modification to the code, update it together with the related files.

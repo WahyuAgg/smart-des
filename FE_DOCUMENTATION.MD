@@ -27,6 +27,16 @@ The frontend in this project is mainly built with:
 
 This document is meant to help future maintainers and AI agents quickly locate the correct file type and avoid mixing concerns.
 
+## Project note (Laravel + API)
+This project is a single Laravel application: the backend and frontend live in the same repository. The frontend is implemented as Blade + Alpine + Vite, but communicates with the backend primarily via the API (routes/api.php). Treat the backend as the canonical source for data and business logic while the frontend is responsible for presentation and interactions.
+
+## Where to check data shapes / structures
+When the frontend needs to know request/response shapes, attributes, or relationships, check the backend source of truth:
+- App\Models\* — Eloquent model attributes, casts, relations and accessors show expected data fields.
+- App\Http\Controllers\Api\* (and related FormRequest / Resources) — controller methods, FormRequest classes, and API Resources document expected request validation and response structure.
+
+If you update API response shapes or model attributes, update both FE_DOCUMENTATION.MD and BE_DOCUMENTATION.MD and coordinate frontend/backend changes.
+
 ---
 
 ## Main `resources/` Structure
@@ -375,7 +385,7 @@ When working on the frontend, prefer:
 
 ## Cross-reference / When to consult backend docs
 
-When you need authoritative backend information during analysis or modification (API request/response shapes, route names, auth rules, file-generation endpoints, or validation errors), consult BE_DOCUMENTATION.MD (`c:\agg\projects\KKN\web_desa\BE_DOCUMENTATION.MD`). Update FE_DOCUMENTATION.MD if frontend changes require backend adjustments, and coordinate changes with the backend documentation to keep both in sync.
+When you need authoritative backend information during analysis or modification (API request/response shapes, route names, auth rules, file-generation endpoints, or validation errors), consult BE_DOCUMENTATION.MD (`BE_DOCUMENTATION.MD`). Update FE_DOCUMENTATION.MD if frontend changes require backend adjustments, and coordinate changes with the backend documentation to keep both in sync.
 
 # Note
 If theres modification to the code, update it together with the related files.
