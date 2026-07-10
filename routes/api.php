@@ -11,7 +11,8 @@ use App\Http\Controllers\TestingController;
 
 
 /**
- * Route Ini digunakan untuk pengajuan surat wizard
+ * Route Ini digunakan untuk pengajuan surat wizard. 
+ * currently no authentication or role middleware is applied to these routes, but you may want to add them based on your application's requirements.
  */
 Route::get('/jenis-surat', [SrtJenisSuratController::class,'index']);
 Route::get('/jenis-surat/{id}', [SrtJenisSuratController::class,'show']);
@@ -20,7 +21,10 @@ Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update
 
 
 
-
+/**
+ * This route is user for managing master data, and it is protected by auth:sanctum and role middleware.
+ * Only users with roles 'admin', 'petugas', or 'kepala_desa' can access these routes.
+ */
 Route::middleware([
     'auth:sanctum',
     'role:admin|petugas|kepala_desa',
@@ -51,13 +55,19 @@ Route::middleware([
     Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
 });
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
 
 
+
+/**
+ * These routes are for authentication and user management.
+ * They include login, logout, refresh token, and getting the authenticated user's information.
+ */
 Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/user', function (Request $request) {
+    return $request->user();
+    });
 
     Route::get('/me', [AuthController::class, 'me']);
 
@@ -67,6 +77,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
+/**
+ * These routes are for public access and do not require authentication.
+ */
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/wilayah', [WilayahController::class, 'index']);
@@ -75,10 +88,3 @@ Route::get('/testing', [TestingController::class, 'testing']);
 
 
 
-Route::middleware([
-    'auth:sanctum',
-    'role:admin|petugas|kepala_desa',
-])->group(function () {
-    Route::get('/srt-pengajuan-surat/{id}/generate', [SrtPengajuanSuratController::class, 'generate']);
-    Route::get('/srt-pengajuan-surat/{id}/get-auto-values', [SrtPengajuanSuratController::class, 'getAutoValues']);
-});
