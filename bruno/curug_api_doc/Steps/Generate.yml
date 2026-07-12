@@ -1,0 +1,54 @@
+info:
+  name: Generate
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{base_url}}/api/pengajuan-surat/65"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: level
+      value: kabupaten
+      type: query
+      disabled: true
+    - name: level
+      value: kecamatan
+      type: query
+      disabled: true
+    - name: level
+      value: desa
+      type: query
+      disabled: true
+    - name: parent
+      value: ""
+      type: query
+      disabled: true
+    - name: search
+      value: ""
+      type: query
+      disabled: true
+  body:
+    type: json
+    data: "{\r
+
+      \    \"data_surat\": {\r
+
+      \        // \"umur\": \"56\",\r
+
+      \        \"tujuan\": \"Pembuatan BPJS\",\r
+
+      \        \"catatan\": \"Mohon diproses secepatnya\"\r
+
+      \    }\r
+
+      }"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

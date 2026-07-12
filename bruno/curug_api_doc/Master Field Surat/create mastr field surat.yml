@@ -1,0 +1,52 @@
+info:
+  name: create mastr field surat
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/master-field-sura"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: level
+      value: kabupaten
+      type: query
+      disabled: true
+    - name: level
+      value: kecamatan
+      type: query
+      disabled: true
+    - name: level
+      value: desa
+      type: query
+      disabled: true
+    - name: parent
+      value: ""
+      type: query
+      disabled: true
+    - name: search
+      value: ""
+      type: query
+      disabled: true
+  body:
+    type: json
+    data: "{\r
+
+      \    \"nama\":\"sf\",\r
+
+      \    \"label\":\"label\",\r
+
+      \    \"source\": \"source\",\r
+
+      \    \"source_feld\":\"source_feld\"\r
+
+      }"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

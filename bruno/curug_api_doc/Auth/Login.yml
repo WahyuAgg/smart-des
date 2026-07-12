@@ -1,0 +1,55 @@
+info:
+  name: Login
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/login"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: "{\r
+
+      \  \"email\": \"admin@desa.id\",\r
+
+      \  \"password\": \"admin123\"\r
+
+      }\r\n"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: "try {\r
+
+        \    let res = res.getBody();\r
+
+        \    \r
+
+        \    // Changed 'res.access_token' to 'res.token'\r
+
+        \    if (res.token) {\r
+
+        \        pm.collectionVariables.set(\"access_token\", res.token);\r
+
+        \        console.log(\"✅ Token saved to Collection:\", res.token);\r
+
+        \    } else {\r
+
+        \        console.warn(\"⚠️ 'token' key not found in response. Available keys:\", Object.keys(res));\r
+
+        \    }\r
+
+        } catch (err) {\r
+
+        \    console.error(\"❌ Failed to parse JSON:\", err);\r
+
+        }"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

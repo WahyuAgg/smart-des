@@ -1,0 +1,49 @@
+info:
+  name: Mengajukan Surat
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{base_url}}/api/pengajuan-surat"
+  headers:
+    - name: Accept
+      value: application/json
+  params:
+    - name: level
+      value: kabupaten
+      type: query
+      disabled: true
+    - name: level
+      value: kecamatan
+      type: query
+      disabled: true
+    - name: level
+      value: desa
+      type: query
+      disabled: true
+    - name: parent
+      value: ""
+      type: query
+      disabled: true
+    - name: search
+      value: ""
+      type: query
+      disabled: true
+  body:
+    type: json
+    data: "{\r
+
+      \  \"jenis_surat_id\": 1,\r
+
+      \  \"niks\": [\"3306025404160002\", \"3306024911510002\"],\r
+
+      \  \"keperluan\":null\r
+
+      }\r\n"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
