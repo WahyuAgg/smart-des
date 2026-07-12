@@ -26,18 +26,27 @@ abstract class CrudController extends ApiController
 
     protected array $withUpdate = [];
 
+    protected array $appends = [];
+
     /**
      * Number of records per page.
      */
     protected int $perPage = 15;
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        // fungsi input() untuk mengambil data dari request berdasrkan key atau nama parameter, jika tidak ada maka akan menggunakan nilai default yang ditentukan (dalam hal ini $this->perPage).
+
+
         $records = $this->resolveModel()
             ->newQuery()
             ->with($this->withIndex)
             ->latest()
             ->paginate($this->perPage);
+
+        $records->through(function ($item) {
+            return $item->append($this->appends);
+        });
 
         return $this->success($records);
     }
@@ -68,6 +77,7 @@ abstract class CrudController extends ApiController
             ->with($this->withShow)
             ->findOrFail($id);
 
+        $record->append($this->appends);
         return $this->success($record);
     }
 
