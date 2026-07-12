@@ -1,7 +1,7 @@
 opencollection: 1.0.0
 
 info:
-  name: CURUG_WEB - 1
+  name: CURUG_API_DOC
 config:
   proxy:
     inherit: true
@@ -22,7 +22,7 @@ request:
     - name: access_token
       value: ""
     - name: base_url
-      value: ""
+      value: http://127.0.0.1:8000
     - name: id_penduduk
       value: ""
     - name: per_page

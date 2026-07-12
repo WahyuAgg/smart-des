@@ -22,31 +22,15 @@ http:
 runtime:
   scripts:
     - type: after-response
-      code: "try {\r
+      code: |-
+        const body = res.getBody();
 
-        \    let res = res.getBody();\r
-
-        \    \r
-
-        \    // Changed 'res.access_token' to 'res.token'\r
-
-        \    if (res.token) {\r
-
-        \        pm.collectionVariables.set(\"access_token\", res.token);\r
-
-        \        console.log(\"✅ Token saved to Collection:\", res.token);\r
-
-        \    } else {\r
-
-        \        console.warn(\"⚠️ 'token' key not found in response. Available keys:\", Object.keys(res));\r
-
-        \    }\r
-
-        } catch (err) {\r
-
-        \    console.error(\"❌ Failed to parse JSON:\", err);\r
-
-        }"
+        if (body.token) {
+            bru.setVar("access_token", body.token);
+        console.log("✅ Token saved:",bru.getVar('access_token'))           // Runtime variables
+        } else {
+            console.warn("⚠️ 'token' key not found.");
+        }
 
 settings:
   encodeUrl: true
