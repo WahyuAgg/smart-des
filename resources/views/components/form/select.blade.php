@@ -14,6 +14,8 @@
     'placeholder' => '- Pilih -',
     'nullable' => true,
     'required' => false,
+  'hint' => null,
+  'error' => null,
 ])
 
 <div>
@@ -33,4 +35,12 @@
       <option value="{{ $opt['value'] }}">{{ $opt['label'] }}</option>
     @endforeach
   </select>
+
+  @if ($hint)
+    <p class="text-xs text-slate-400 mt-1">{{ $hint }}</p>
+  @endif
+
+  @if ($error)
+    <p x-show="{{ $error }}" x-text="{{ $error }}" class="text-xs text-red-500 mt-1"></p>
+  @endif
 </div>

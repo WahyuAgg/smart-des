@@ -10,7 +10,7 @@
     $masterData = [
         ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
         ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
-        ['label' => 'Data Penduduk', 'route' => 'master-data.penduduk.index'],
+        ['label' => 'Penduduk', 'route' => 'master-data.penduduk.index'],
     ];
     $masterDataActive = collect($masterData)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
