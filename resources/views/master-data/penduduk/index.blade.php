@@ -157,7 +157,6 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <x-form.input type="number" label="ID KK" model="form.kk_id" placeholder="23" />
             <x-form.input label="Nama Ayah Kandung" model="form.nama_ayah_kandung" placeholder="Nama ayah" />
             <x-form.input label="Nama Ibu Kandung" model="form.nama_ibu_kandung" placeholder="Nama ibu" />
             <x-form.select label="Status Perkawinan" model="form.status_perkawinan" :options="[
@@ -167,7 +166,6 @@
               ['value' => 'Cerai Hidup', 'label' => 'Cerai Hidup'],
               ['value' => 'Cerai Mati', 'label' => 'Cerai Mati'],
             ]" />
-            <x-form.input type="number" label="ID Pendidikan" model="form.pendidikan_id" placeholder="5" />
             <x-form.input label="Pekerjaan" model="form.pekerjaan" placeholder="Contoh: Petani/Pekebun" />
           </div>
         </section>
@@ -234,11 +232,83 @@
             </div>
             <x-form.input label="Dusun" model="form.alamat.dusun" placeholder="Nama dusun" />
             <x-form.input label="Desa" model="form.alamat.desa" placeholder="Nama desa" />
+            <x-form.input label="Provinsi" model="form.alamat.provinsi" placeholder="Nama provinsi" />
             <x-form.input label="Kecamatan" model="form.alamat.kecamatan" placeholder="Nama kecamatan" />
             <x-form.input label="Kabupaten" model="form.alamat.kabupaten" placeholder="Nama kabupaten" />
             <x-form.input label="Patokan" model="form.alamat.patokan" placeholder="Dekat masjid / kantor desa" />
             <x-form.input label="Latitude" model="form.alamat.latitude" placeholder="-7.7839810" />
             <x-form.input label="Longitude" model="form.alamat.longitude" placeholder="109.9614240" />
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <div>
+            <h4 class="text-sm font-semibold text-slate-800">Lookup Referensi</h4>
+            <p class="text-xs text-slate-400">Pilih KK dan pendidikan dengan pencarian langsung.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="relative" @click.away="kkOpen = false">
+              <label class="block text-sm font-medium text-slate-700 mb-1">ID KK</label>
+              <input type="hidden" x-model="form.kk_id">
+              <input
+                type="text"
+                x-model="kkSearch"
+                @focus="kkOpen = true"
+                @input.debounce.300ms="searchKk()"
+                placeholder="Cari no_kk"
+                autocomplete="off"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              >
+
+              <div x-show="kkOpen" x-transition class="absolute z-30 mt-1 w-full rounded-lg border border-slate-200 bg-white shadow-lg overflow-hidden">
+                <template x-if="kkLoading">
+                  <div class="px-3 py-2 text-sm text-slate-400">Memuat data KK...</div>
+                </template>
+
+                <template x-if="!kkLoading && visibleKkOptions.length === 0">
+                  <div class="px-3 py-2 text-sm text-slate-400">Tidak ada KK yang cocok.</div>
+                </template>
+
+                <template x-for="option in visibleKkOptions" :key="option.id">
+                  <button type="button" @click="selectKk(option)" class="w-full px-3 py-2 text-left hover:bg-slate-50 border-t border-slate-100 first:border-t-0">
+                    <div class="text-sm font-medium text-slate-800" x-text="option.no_kk"></div>
+                    <div class="text-xs text-slate-400" x-text="'ID: ' + option.id"></div>
+                  </button>
+                </template>
+              </div>
+            </div>
+
+            <div class="relative" @click.away="pendidikanOpen = false">
+              <label class="block text-sm font-medium text-slate-700 mb-1">ID Pendidikan</label>
+              <input type="hidden" x-model="form.pendidikan_id">
+              <input
+                type="text"
+                x-model="pendidikanSearch"
+                @focus="searchPendidikan()"
+                @input.debounce.300ms="searchPendidikan()"
+                placeholder="Cari tingkat pendidikan"
+                autocomplete="off"
+                class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+              >
+
+              <div x-show="pendidikanOpen" x-transition class="absolute z-30 mt-1 w-full rounded-lg border border-slate-200 bg-white shadow-lg overflow-hidden">
+                <template x-if="pendidikanLoading">
+                  <div class="px-3 py-2 text-sm text-slate-400">Memuat data pendidikan...</div>
+                </template>
+
+                <template x-if="!pendidikanLoading && visiblePendidikanOptions.length === 0">
+                  <div class="px-3 py-2 text-sm text-slate-400">Tidak ada pendidikan yang cocok.</div>
+                </template>
+
+                <template x-for="option in visiblePendidikanOptions" :key="option.id">
+                  <button type="button" @click="selectPendidikan(option)" class="w-full px-3 py-2 text-left hover:bg-slate-50 border-t border-slate-100 first:border-t-0">
+                    <div class="text-sm font-medium text-slate-800" x-text="option.tingkat_pendidikan"></div>
+                    <div class="text-xs text-slate-400" x-text="'ID: ' + option.id"></div>
+                  </button>
+                </template>
+              </div>
+            </div>
           </div>
         </section>
       </form>

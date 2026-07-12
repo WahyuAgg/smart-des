@@ -13,8 +13,8 @@ http:
     type: json
     data: |
       {
-              "nik": "33060242343243545126",
-              "nama_lengkap": "SITI MUBAIDAH MM",
+              "nik": "3453464575675677",
+              "nama_lengkap": "AMAT",
               "kk_id": 1,
               "nama_ayah_kandung": "SITI CHIPTIYAH MM",
               "nama_ibu_kandung": "MARGO UTOMO UTOMO",
@@ -43,11 +43,11 @@ http:
                   "no_unit": 6,
                   "rt": "2",
                   "rw": "2",
-                  "desa": "3306022050",
+                  "desa": "Bojonegoro",
                   "dusun": "Cagar",
-                  "kecamatan": "330602",
-                  "kabupaten": "3306",
-                  "provinsi": "33",
+                  "kecamatan": "Kaliuaag",
+                  "kabupaten": "Purworejo",
+                  "provinsi": "Jawa Tengan",
                   "negara": "Indonesia",
                   "kode_pos": "54172",
                   "patokan": "Belakang Puskesmas Ngombol",

@@ -18,11 +18,24 @@ export default () => ({
   editingId: null,
   form: emptyForm(),
 
+  kkSearch: '',
+  kkOptions: [],
+  kkLoading: false,
+  kkOpen: false,
+  kkSelected: null,
+
+  pendidikanSearch: '',
+  pendidikanOptions: [],
+  pendidikanLoading: false,
+  pendidikanOpen: false,
+  pendidikanSelected: null,
+
   confirmShow: false,
   deletingItem: null,
 
   async init() {
     if (!Auth.requireAuth()) return;
+    await Promise.all([this.loadKkOptions(), this.loadPendidikanOptions()]);
     await this.load();
   },
 
@@ -64,13 +77,16 @@ export default () => ({
   openCreate() {
     this.editingId = null;
     this.form = emptyForm();
+    this.resetLookupState();
     this.showModal = true;
   },
 
-  openEdit(item) {
+  async openEdit(item) {
     this.editingId = item.id;
     this.form = mapItemToForm(item);
+    this.syncLookupState();
     this.showModal = true;
+    await Promise.all([this.ensureKkSelection(), this.ensurePendidikanSelection()]);
   },
 
   async save() {
@@ -174,6 +190,197 @@ export default () => ({
       timeZone: 'UTC',
     }).format(date);
   },
+
+  resetLookupState() {
+    this.kkSearch = '';
+    this.kkOptions = [];
+    this.kkLoading = false;
+    this.kkOpen = false;
+    this.kkSelected = null;
+
+    this.pendidikanSearch = '';
+    this.pendidikanOptions = [];
+    this.pendidikanLoading = false;
+    this.pendidikanOpen = false;
+    this.pendidikanSelected = null;
+  },
+
+  syncLookupState() {
+    if (this.form.kk_id) {
+      this.kkSearch = this.kkSelected?.no_kk || this.kkSearch || '';
+    }
+
+    if (this.form.pendidikan_id) {
+      this.pendidikanSearch = this.pendidikanSelected?.tingkat_pendidikan || this.pendidikanSearch || '';
+    }
+  },
+
+  async ensureKkSelection() {
+    if (!this.form.kk_id || this.kkSelected?.id === this.form.kk_id) return;
+
+    const selected = await this.fetchKkById(this.form.kk_id);
+    if (selected) {
+      this.kkSelected = selected;
+      this.kkSearch = selected.no_kk || '';
+    }
+  },
+
+  async ensurePendidikanSelection() {
+    if (!this.form.pendidikan_id || this.pendidikanSelected?.id === this.form.pendidikan_id) return;
+
+    const selected = await this.fetchPendidikanById(this.form.pendidikan_id);
+    if (selected) {
+      this.pendidikanSelected = selected;
+      this.pendidikanSearch = selected.tingkat_pendidikan || '';
+    }
+  },
+
+  async loadKkOptions(search = '') {
+    this.kkLoading = true;
+
+    try {
+      const params = new URLSearchParams({ per_page: '10', search });
+
+      const response = await fetch(`${this.baseUrl}/kk?${params.toString()}`, {
+        headers: Auth.headers(),
+      });
+
+      if (Auth.handleUnauthorized(response)) return [];
+
+      const json = await response.json();
+      if (!response.ok || (json.success !== undefined && !json.success)) {
+        throw new Error(json.message || 'Gagal memuat data KK.');
+      }
+
+      const payload = json.data ?? json;
+      this.kkOptions = payload.data ?? payload;
+      return this.kkOptions;
+    } catch (error) {
+      this.error = error.message || 'Gagal memuat data KK.';
+      return [];
+    } finally {
+      this.kkLoading = false;
+    }
+  },
+
+  async loadPendidikanOptions() {
+    this.pendidikanLoading = true;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/pendidikan`, {
+        headers: Auth.headers(),
+      });
+
+      if (Auth.handleUnauthorized(response)) return [];
+
+      const json = await response.json();
+      if (!response.ok || (json.success !== undefined && !json.success)) {
+        throw new Error(json.message || 'Gagal memuat data pendidikan.');
+      }
+
+      const payload = json.data ?? json;
+      this.pendidikanOptions = payload.data ?? payload;
+      return this.pendidikanOptions;
+    } catch (error) {
+      this.error = error.message || 'Gagal memuat data pendidikan.';
+      return [];
+    } finally {
+      this.pendidikanLoading = false;
+    }
+  },
+
+  async fetchKkById(id) {
+    if (!id) return null;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/kk/${id}`, {
+        headers: Auth.headers(),
+      });
+
+      if (Auth.handleUnauthorized(response)) return null;
+
+      const json = await response.json();
+      if (!response.ok || (json.success !== undefined && !json.success)) {
+        throw new Error(json.message || 'Gagal memuat detail KK.');
+      }
+
+      return json.data ?? json;
+    } catch {
+      return null;
+    }
+  },
+
+  async fetchPendidikanById(id) {
+    if (!id) return null;
+
+    try {
+      const response = await fetch(`${this.baseUrl}/pendidikan/${id}`, {
+        headers: Auth.headers(),
+      });
+
+      if (Auth.handleUnauthorized(response)) return null;
+
+      const json = await response.json();
+      if (!response.ok || (json.success !== undefined && !json.success)) {
+        throw new Error(json.message || 'Gagal memuat detail pendidikan.');
+      }
+
+      return json.data ?? json;
+    } catch {
+      return null;
+    }
+  },
+
+  async searchKk() {
+    if (this.kkSelected && this.kkSearch !== this.kkSelected.no_kk) {
+      this.form.kk_id = '';
+      this.kkSelected = null;
+    }
+
+    this.kkOpen = true;
+    await this.loadKkOptions(this.kkSearch.trim());
+  },
+
+  async searchPendidikan() {
+    if (this.pendidikanSelected && this.pendidikanSearch !== this.pendidikanSelected.tingkat_pendidikan) {
+      this.form.pendidikan_id = '';
+      this.pendidikanSelected = null;
+    }
+
+    this.pendidikanOpen = true;
+
+    if (this.pendidikanOptions.length === 0) {
+      await this.loadPendidikanOptions();
+    }
+  },
+
+  selectKk(option) {
+    this.form.kk_id = option.id;
+    this.kkSelected = option;
+    this.kkSearch = option.no_kk || '';
+    this.kkOpen = false;
+  },
+
+  selectPendidikan(option) {
+    this.form.pendidikan_id = option.id;
+    this.pendidikanSelected = option;
+    this.pendidikanSearch = option.tingkat_pendidikan || '';
+    this.pendidikanOpen = false;
+  },
+
+  get visibleKkOptions() {
+    return this.kkOptions;
+  },
+
+  get visiblePendidikanOptions() {
+    const query = this.pendidikanSearch.trim().toLowerCase();
+
+    if (!query) return this.pendidikanOptions;
+
+    return this.pendidikanOptions.filter((item) =>
+      String(item.tingkat_pendidikan || '').toLowerCase().includes(query)
+    );
+  },
 });
 
 function emptyAddressForm() {
@@ -227,6 +434,8 @@ function emptyForm() {
 }
 
 function mapItemToForm(item) {
+  const address = item.alamat ?? {};
+
   return {
     ...emptyForm(),
     nik: item.nik ?? '',
@@ -249,8 +458,27 @@ function mapItemToForm(item) {
     pendidikan_id: item.pendidikan_id ?? '',
     alamat: {
       ...emptyAddressForm(),
-      ...(item.alamat ?? {}),
-      is_utama: Boolean(item.alamat?.is_utama),
+      label_alamat: address.label_alamat ?? item.label_alamat ?? 'Rumah',
+      is_utama: Boolean(address.is_utama ?? item.is_utama),
+      alamat_lengkap: address.alamat_lengkap ?? item.alamat_lengkap ?? '',
+      jalan: address.jalan ?? item.jalan ?? '',
+      gedung_perumahan: address.gedung_perumahan ?? item.gedung_perumahan ?? '',
+      nomor_rumah: address.nomor_rumah ?? item.nomor_rumah ?? '',
+      blok: address.blok ?? item.blok ?? '',
+      no_lantai: address.no_lantai ?? item.no_lantai ?? '',
+      no_unit: address.no_unit ?? item.no_unit ?? '',
+      rt: address.rt ?? item.rt ?? '',
+      rw: address.rw ?? item.rw ?? '',
+      desa: address.desa ?? item.desa ?? '',
+      dusun: address.dusun ?? item.dusun ?? '',
+      kecamatan: address.kecamatan ?? item.kecamatan ?? '',
+      kabupaten: address.kabupaten ?? item.kabupaten ?? '',
+      provinsi: address.provinsi ?? item.provinsi ?? '',
+      negara: address.negara ?? item.negara ?? 'Indonesia',
+      kode_pos: address.kode_pos ?? item.kode_pos ?? '',
+      patokan: address.patokan ?? item.patokan ?? '',
+      latitude: address.latitude ?? item.latitude ?? '',
+      longitude: address.longitude ?? item.longitude ?? '',
     },
   };
 }

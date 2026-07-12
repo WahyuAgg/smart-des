@@ -14,8 +14,9 @@ class PendudukController extends CrudController
     protected string $modelClass = Penduduk::class;
 
     protected array $withIndex = [
-        'kk',
+        'alamat',
         'pendidikan',
+        'kk',
     ];
 
     protected array $withShow = [
