@@ -9,27 +9,6 @@ http:
   headers:
     - name: Accept
       value: application/json
-  params:
-    - name: level
-      value: kabupaten
-      type: query
-      disabled: true
-    - name: level
-      value: kecamatan
-      type: query
-      disabled: true
-    - name: level
-      value: desa
-      type: query
-      disabled: true
-    - name: parent
-      value: ""
-      type: query
-      disabled: true
-    - name: search
-      value: ""
-      type: query
-      disabled: true
   auth: inherit
 
 settings:

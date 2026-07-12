@@ -32,19 +32,13 @@ http:
       disabled: true
   body:
     type: json
-    data: "{\r
-
-      \    \"data_surat\": {\r
-
-      \        // \"umur\": \"56\",\r
-
-      \        \"tujuan\": \"Pembuatan BPJS\",\r
-
-      \        \"catatan\": \"Mohon diproses secepatnya\"\r
-
-      \    }\r
-
-      }"
+    data: |-
+      {
+          "data_surat": {
+              "tujuan": "Pembuatan BPJS",
+              "catatan": "Mohon diproses secepatnya"
+          }
+      }
   auth: inherit
 
 settings:
