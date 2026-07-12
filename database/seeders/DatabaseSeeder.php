@@ -51,11 +51,11 @@ class DatabaseSeeder extends Seeder
             // DistrictsSeeder::class,
             // VillagesSeeder::class,
 
-            // // REFERENCE SEEDER
+            // // // REFERENCE SEEDER
             // RefJabatanPerangkatSeeder::class,
             // PendidikanSeeder::class,
 
-            // // //USER SEEDER DAN ROLE SEEDER
+            // // // USER SEEDER DAN ROLE SEEDER
             // RoleSeeder::class,
             // UserSeeder::class,
             // AssignRoles::class,
@@ -71,14 +71,13 @@ class DatabaseSeeder extends Seeder
             // RefDusunSeeder::class,
             // RefRwSeeder::class,
             // RefRtSeeder::class,
-            // // AlamatSeeder::class,
+            // AlamatSeeder::class,
 
-            // // //TESTING SEEDER
-            // // KkPendudukSeeder::class,
+            // // // TESTING SEEDER
+            // KkPendudukSeeder::class,
             // RefPerangkatDesaSeeder::class,
             // RefKecamatanSeeder::class,
             // SrtJenisSuratPendudukSeeder::class,
-
 
 
         ]);

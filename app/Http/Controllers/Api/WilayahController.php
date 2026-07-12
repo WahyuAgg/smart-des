@@ -12,123 +12,110 @@ use Laravolt\Indonesia\Models\Village;
 
 class WilayahController extends ApiController
 {
+
+
     public function index(Request $request): JsonResponse
     {
-        $level = strtolower(
-            $request->query('level', 'provinsi')
-        );
+        // $perPage = $request->input('per_page', $this->defaultPerPage);
 
-        $search = trim(
-            $request->query('search', '')
-        );
+        // $perPage = min($perPage, $this->maxPerPage);
 
-        $parent = $request->query('parent');
-        $id = $request->query('id');
-        $value = $request->query('value');
+        // 1. Ambil dan sanitasi parameter input
+        $level = strtolower($request->query('level', 'provinsi'));
+        $search = trim($request->query('search', ''));
+        $id_parent = $request->query('parent'); // Untuk filter berdasarkan relasi (misal: ID provinsi untuk mencari kabupaten)
+        $code = $request->query('code'); // kode wilayah
 
+
+        // 2. Tentukan model dan kolom relasi berdasarkan level wilayah
         [$model, $parentColumn] = match ($level) {
-
-            'provinsi' => [
-                Province::class,
-                null,
-            ],
-
-            'kabupaten' => [
-                City::class,
-                'province_code',
-            ],
-
-            'kecamatan' => [
-                District::class,
-                'city_code',
-            ],
-
-            'desa' => [
-                Village::class,
-                'district_code',
-            ],
-
-            default => [
-                null,
-                null,
-            ],
+            'provinsi'  => [Province::class, null],
+            'kabupaten' => [City::class, 'province_code'],
+            'kecamatan' => [District::class, 'city_code'],
+            'desa'      => [Village::class, 'district_code'],
+            default     => [null, null],
         };
 
+        // 3. Validasi level yang tidak terdaftar
         if (! $model) {
-            return $this->error(
-                'Level wilayah tidak valid.',
-                null,
-                422
-            );
+            return $this->error('Level wilayah tidak valid.', null, 422);
         }
 
-        if (
-            $level === 'desa'
-            && ! $parent
-            && ! $search
-            && ! $id
-            && ! $value
-        ) {
-            return $this->error(
-                'Parameter parent, search, id, atau value wajib diisi.'
-            );
-        }
 
-        /** @var Builder $query */
-        $query = $model::query()
-            ->select([
-                'id',
-                'code',
-                'name',
-            ]);
+        // 4. Bangun query dasar
+        $query = $model::query()->select(['id', 'code', 'name']);
 
-        if ($parentColumn && $parent) {
-            $query->where($parentColumn, $parent);
-        }
-
-        if ($id) {
-            $query->where('id', $id);
-        }
-
-        if ($value) {
-            $query->where('code', $value);
+        // 6. Terapkan filter jika parameter tersedia
+        if ($parentColumn && $id_parent) {
+            $query->where($parentColumn, $id_parent); // Contoh: Cari kabupaten berdasarkan kode provinsi
         }
 
         if ($search !== '') {
             $query->where('name', 'like', "%{$search}%");
         }
 
-        // Lookup / Search
-        if ($id || $value || $search !== '') {
+        $query->limit(3);
 
-            $data = $query
-                ->orderBy('name')
-                ->get()
-                ->map(fn ($item) => [
-                    'id' => $item->id,
-                    'value' => $item->code,
-                    'label' => $item->name,
-                ]);
 
-            return $this->success($data);
+        $data = $query->orderBy('name')->get();
+
+
+        $formattedData = $data->map(function ($item) {
+            return [
+                'value' => $item->code,
+                'label' => $item->name,
+            ];
+        });
+
+        return $this->success($formattedData);
+    }
+
+
+    public function showById(string $level, string $id): JsonResponse
+    {
+        [$model] = match (strtolower($level)) {
+            'provinsi'  => [Province::class],
+            'kabupaten' => [City::class],
+            'kecamatan' => [District::class],
+            'desa'      => [Village::class],
+            default     => [null],
+        };
+
+        if (! $model) {
+            return $this->error('Level wilayah tidak valid.', null, 422);
         }
 
-        // Browse
-        $data = $query
-            ->orderBy('name')
-            ->paginate(
-                min(
-                    $request->integer('per_page', 20),
-                    100
-                )
-            );
+        $record = $model::query()->findOrFail($id);
 
-        $data->through(fn ($item) => [
-            'id' => $item->id,
-            'value' => $item->code,
-            'label' => $item->name,
+        return $this->success([
+            'type'  => strtolower($level),
+            'value' => $record->code,
+            'label' => $record->name,
         ]);
+    }
 
-        return $this->success($data);
+
+    public function showByCode(string $level, string $code): JsonResponse
+    {
+        [$model] = match (strtolower($level)) {
+            'provinsi'  => [Province::class],
+            'kabupaten' => [City::class],
+            'kecamatan' => [District::class],
+            'desa'      => [Village::class],
+            default     => [null],
+        };
+
+        if (! $model) {
+            return $this->error('Level wilayah tidak valid.', null, 422);
+        }
+
+        $record = $model::query()->where('code', $code)->firstOrFail();
+
+
+        return $this->success([
+            'type'  => strtolower($level),
+            'value' => $record->code,
+            'label' => $record->name,
+        ]);
     }
 }

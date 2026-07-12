@@ -39,9 +39,9 @@ class PendudukController extends CrudController
     public function index(Request $request): JsonResponse
     {
 
-        $perPage = $request->input('per_page', $this->perPage);
+        $perPage = $request->input('per_page', $this->defaultPerPage);
 
-        $perPage = min($perPage, 100);
+        $perPage = min($perPage, $this->maxPerPage);
 
         $query = $this->resolveModel()
             ->newQuery()

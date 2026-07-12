@@ -7,6 +7,8 @@ use Illuminate\Http\JsonResponse;
 
 abstract class ApiController extends Controller
 {
+    protected int $defaultPerPage = 15;
+    protected int $maxPerPage = 100;
     protected function success(
         mixed $data = null,
         string $message = 'Success',

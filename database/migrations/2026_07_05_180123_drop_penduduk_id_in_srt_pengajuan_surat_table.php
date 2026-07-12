@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('srt_pengajuan_surat', function (Blueprint $table) {
             // Penting: Hapus foreign key constraint terlebih dahulu sebelum drop kolom
             // Sesuaikan nama constraint jika Anda tidak menggunakan penamaan standar Laravel
-            $table->dropForeign(['penduduk_id']);
+            // $table->dropForeign(['penduduk_id']);
             
             // Hapus kolomnya
             $table->dropColumn('penduduk_id');

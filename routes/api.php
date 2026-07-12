@@ -82,9 +82,10 @@ Route::middleware('auth:sanctum')->group(function () {
  */
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/wilayah', [WilayahController::class, 'index']);
-
 Route::get('/testing', [TestingController::class, 'testing']);
 
+// Route Wilayah
 
-
+Route::get('/wilayah', [WilayahController::class, 'index']);
+Route::get('/wilayah/level/{level}/id/{id}', [WilayahController::class, 'showById']);
+Route::get('/wilayah/level/{level}/code/{code}', [WilayahController::class, 'showByCode']);

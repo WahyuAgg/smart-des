@@ -31,18 +31,19 @@ abstract class CrudController extends ApiController
     /**
      * Number of records per page.
      */
-    protected int $perPage = 15;
+
 
     public function index(Request $request): JsonResponse
     {
-        // fungsi input() untuk mengambil data dari request berdasrkan key atau nama parameter, jika tidak ada maka akan menggunakan nilai default yang ditentukan (dalam hal ini $this->perPage).
+        $perPage = $request->input('per_page', $this->defaultPerPage);
 
+        $perPage = min($perPage, $this->maxPerPage);
 
         $records = $this->resolveModel()
             ->newQuery()
             ->with($this->withIndex)
             ->latest()
-            ->paginate($this->perPage);
+            ->paginate($perPage);
 
         $records->through(function ($item) {
             return $item->append($this->appends);

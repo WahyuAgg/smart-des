@@ -1,0 +1,91 @@
+info:
+  name: Get list Desa by CODE Kecamatan
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{base_url}}/api/wilayah?level=desa&parent={{code_kecamatan}}&search={{keywords}}"
+  params:
+    - name: level
+      value: desa
+      type: query
+    - name: parent
+      value: "{{code_kecamatan}}"
+      type: query
+    - name: search
+      value: "{{keywords}}"
+      type: query
+  auth: inherit
+
+runtime:
+  variables:
+    - name: level
+      value: desa
+    - name: code_kecamatan
+      value: "110507"
+    - name: keywords
+      value: ""
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/wilayah?level=desa&parent={{code_kecamatan}}&search={{keywords}}"
+      method: GET
+      params:
+        - name: level
+          value: desa
+          type: query
+        - name: parent
+          value: "{{code_kecamatan}}"
+          type: query
+        - name: search
+          value: "{{keywords}}"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 15:52:09 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBGER933S0Z755GKYPVKH04
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": [
+              {
+                "value": "1105072002",
+                "label": "ALUE BAGOK"
+              },
+              {
+                "value": "1105072004",
+                "label": "ALUE BATEE"
+              },
+              {
+                "value": "1105072003",
+                "label": "ALUE SUNDAK"
+              }
+            ]
+          }

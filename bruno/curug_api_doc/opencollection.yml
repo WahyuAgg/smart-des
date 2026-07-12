@@ -28,7 +28,7 @@ request:
     - name: per_page
       value: "2"
     - name: keywords
-      value: ana
+      value: ""
 bundled: false
 extensions:
   bruno:

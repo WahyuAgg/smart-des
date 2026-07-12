@@ -1,0 +1,69 @@
+info:
+  name: Get wilayah by CODE
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{base_url}}/api/wilayah/level/{{level}}/code/{{code_wilayah}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: level
+      value: provinsi
+      disabled: true
+    - name: level
+      value: kabupaten
+      disabled: true
+    - name: level
+      value: kecamatan
+    - name: level
+      value: desa
+      disabled: true
+    - name: code_wilayah
+      value: "110506"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/wilayah/level/{{level}}/code/{{code_wilayah}}"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 15:55:54 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBGNM5ACZHQD0KZ8YQHZETF
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "type": "kecamatan",
+              "value": "110506",
+              "label": "BUBON"
+            }
+          }

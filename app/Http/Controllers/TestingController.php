@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\Penduduk;
-// use App\Models\RefProfilDesa;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\Village;
 
 use App\Models\Penduduk;
 use App\Models\RefProfilDesa;
@@ -18,22 +24,26 @@ class TestingController extends Controller
         // $data = RefProfilDesa::query()->first()->profile_kecamatan;
         // $data = Penduduk::query()->find(3)->tempat_lahir;
 
-        $namaFile = 'catatan.txt';
-        $isi = 'Halo, ini adalah isi file teks saya.';
+        // $namaFile = 'catatan.txt';
+        // $isi = 'Halo, ini adalah isi file teks saya.';
 
 
 
 
-        // membuat folder 
-        Storage::disk('public')->makeDirectory('testDir');
+        // // membuat folder 
+        // Storage::disk('public')->makeDirectory('testDir');
 
-        // Menyimpan ke storage/app/public/catatan.txt
-        $data = Storage::disk('public')->put($namaFile, $isi);
+        // // Menyimpan ke storage/app/public/catatan.txt
+        // $data = Storage::disk('public')->put($namaFile, $isi);
 
-        $path = 'testing/folder';
+        // $path = 'testing/folder';
+
+        $kecDenganDesaTerbanyak = District::withCount('villages')
+            ->orderByDesc('villages_count')
+            ->first();
 
         return response()->json([
-            'data' => $data,
+            'data' => $kecDenganDesaTerbanyak,
         ]);
     }
 }
