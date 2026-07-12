@@ -11,13 +11,11 @@ http:
       value: application/json
   body:
     type: json
-    data: "{\r
-
-      \  \"no_kk\": \"23874826745643\",\r
-
-      \  \"nik_kepala_keluarga\": \"2309493827596782\"\r
-
-      }\r\n"
+    data: |
+      {
+        "no_kk": "66666674826745643",
+        "nik_kepala_keluarga": "233453536496782"
+      }
   auth: inherit
 
 settings:
@@ -25,3 +23,98 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/kk"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: "{\r
+
+          \  \"no_kk\": \"23874826745643\",\r
+
+          \  \"nik_kepala_keluarga\": \"2309493827596782\"\r
+
+          }\r\n"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 18:51:56 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBTQYW71F3K2ZF3YCGJAQ8V
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 2,
+              "no_kk": "23874826745643",
+              "nik_kepala_keluarga": "2309493827596782"
+            }
+          }
+  - name: example tanpa nik kepala keluarga
+    request:
+      url: "{{base_url}}/api/kk"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |
+          {
+            "no_kk": "666666748264554343463"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 19:07:00 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBVKH9BSV3WE1DW3R1GF0YG
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 6,
+              "no_kk": "666666748264554343463",
+              "nik_kepala_keluarga": null
+            }
+          }

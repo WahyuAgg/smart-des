@@ -1,17 +1,17 @@
 info:
-  name: Get by ID
+  name: Create
   type: http
-  seq: 3
+  seq: 1
 
 http:
-  method: GET
-  url: "{{base_url}}/api/kk/{{id_kk}}"
+  method: POST
+  url: "{{base_url}}/api/pendidikan"
+  body:
+    type: json
+    data: |-
+      {    "tingkat_pendidikan": "S4"
+      }
   auth: inherit
-
-runtime:
-  variables:
-    - name: id_kk
-      value: "2"
 
 settings:
   encodeUrl: true
@@ -22,11 +22,16 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/kk/{{id_kk}}"
-      method: GET
+      url: "{{base_url}}/api/pendidikan"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {    "tingkat_pendidikan": "S4"
+          }
     response:
-      status: 200
-      statusText: OK
+      status: 201
+      statusText: Created
       headers:
         - name: host
           value: 127.0.0.1:8000
@@ -37,22 +42,21 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 18:52:58 GMT
+          value: Sun, 12 Jul 2026 19:23:21 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBTSVM3PDMJ2KYG7BCNE836
+          value: 01KXBWHFKC25CDRK74XD2EBKT5
       body:
         type: json
         data: |-
           {
             "success": true,
-            "message": "Success",
+            "message": "Data berhasil ditambahkan.",
             "data": {
-              "id": 2,
-              "no_kk": "238766666666666",
-              "nik_kepala_keluarga": "23094938277777777"
+              "id": 11,
+              "tingkat_pendidikan": "S4"
             }
           }

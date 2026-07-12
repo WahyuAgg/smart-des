@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\ApiController;
-
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Alamat;
 
 use App\Models\Penduduk;
@@ -17,6 +12,11 @@ use App\Models\Penduduk;
 class PendudukController extends CrudController
 {
     protected string $modelClass = Penduduk::class;
+
+    protected array $withIndex = [
+        'kk',
+        'pendidikan',
+    ];
 
     protected array $withShow = [
         'alamat',
@@ -120,6 +120,11 @@ class PendudukController extends CrudController
             $alamat = Alamat::create($request->alamat);
 
             $dataPenduduk = $request->except('alamat');
+
+            if ($request->filled('alamat')) {
+
+                $alamat = Alamat::create($request->alamat);
+            }
 
             $penduduk = Penduduk::create($dataPenduduk);
 

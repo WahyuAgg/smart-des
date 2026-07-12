@@ -1,17 +1,17 @@
 info:
-  name: Get by ID
+  name: Delete by ID
   type: http
-  seq: 3
+  seq: 5
 
 http:
-  method: GET
-  url: "{{base_url}}/api/kk/{{id_kk}}"
+  method: DELETE
+  url: "{{base_url}}/api/pendidikan/{{id}}"
   auth: inherit
 
 runtime:
   variables:
-    - name: id_kk
-      value: "2"
+    - name: id
+      value: "11"
 
 settings:
   encodeUrl: true
@@ -22,8 +22,8 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/kk/{{id_kk}}"
-      method: GET
+      url: "{{base_url}}/api/pendidikan/{{id}}"
+      method: DELETE
     response:
       status: 200
       statusText: OK
@@ -37,22 +37,18 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 18:52:58 GMT
+          value: Sun, 12 Jul 2026 19:24:38 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBTSVM3PDMJ2KYG7BCNE836
+          value: 01KXBWKTKZSZF0FWW6NDYA6V6A
       body:
         type: json
         data: |-
           {
             "success": true,
-            "message": "Success",
-            "data": {
-              "id": 2,
-              "no_kk": "238766666666666",
-              "nik_kepala_keluarga": "23094938277777777"
-            }
+            "message": "Data berhasil dihapus.",
+            "data": null
           }

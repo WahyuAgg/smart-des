@@ -24,7 +24,7 @@ request:
     - name: base_url
       value: http://127.0.0.1:8000
     - name: id_penduduk
-      value: ""
+      value: "1"
     - name: per_page
       value: "2"
     - name: keywords

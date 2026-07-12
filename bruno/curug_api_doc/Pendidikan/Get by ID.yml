@@ -1,17 +1,17 @@
 info:
   name: Get by ID
   type: http
-  seq: 3
+  seq: 2
 
 http:
   method: GET
-  url: "{{base_url}}/api/kk/{{id_kk}}"
+  url: "{{base_url}}/api/pendidikan/{{id}}"
   auth: inherit
 
 runtime:
   variables:
-    - name: id_kk
-      value: "2"
+    - name: id
+      value: "1"
 
 settings:
   encodeUrl: true
@@ -22,7 +22,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/kk/{{id_kk}}"
+      url: "{{base_url}}/api/pendidikan/{{id}}"
       method: GET
     response:
       status: 200
@@ -37,13 +37,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 18:52:58 GMT
+          value: Sun, 12 Jul 2026 19:21:00 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBTSVM3PDMJ2KYG7BCNE836
+          value: 01KXBWD61TS8FFW9CVTP3PZ195
       body:
         type: json
         data: |-
@@ -51,8 +51,7 @@ examples:
             "success": true,
             "message": "Success",
             "data": {
-              "id": 2,
-              "no_kk": "238766666666666",
-              "nik_kepala_keluarga": "23094938277777777"
+              "id": 1,
+              "tingkat_pendidikan": "Tidak/Belum Sekolah"
             }
           }

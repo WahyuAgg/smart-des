@@ -1,27 +1,22 @@
 info:
   name: Update by ID
   type: http
-  seq: 2
+  seq: 4
 
 http:
   method: PUT
-  url: "{{base_url}}/api/kk/{{id_kk}}"
-  headers:
-    - name: Accept
-      value: application/json
+  url: "{{base_url}}/api/pendidikan/{{id}}"
   body:
     type: json
-    data: |
-      {
-        "no_kk": "238766666666666",
-        "nik_kepala_keluarga": "23094938277777777"
+    data: |-
+      {    "tingkat_pendidikan": "S5"
       }
   auth: inherit
 
 runtime:
   variables:
-    - name: id_kk
-      value: "2"
+    - name: id
+      value: "11"
 
 settings:
   encodeUrl: true
@@ -32,17 +27,12 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/kk/{{id_kk}}"
+      url: "{{base_url}}/api/pendidikan/{{id}}"
       method: PUT
-      headers:
-        - name: Accept
-          value: application/json
       body:
         type: json
-        data: |
-          {
-            "no_kk": "238766666666666",
-            "nik_kepala_keluarga": "23094938277777777"
+        data: |-
+          {    "tingkat_pendidikan": "S5"
           }
     response:
       status: 200
@@ -57,13 +47,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 18:52:43 GMT
+          value: Sun, 12 Jul 2026 19:23:54 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBTSCPMMKE51K9QDBJQ4GVW
+          value: 01KXBWJFB3YYX5J1DBFB0194H5
       body:
         type: json
         data: |-
@@ -71,8 +61,7 @@ examples:
             "success": true,
             "message": "Data berhasil diperbarui.",
             "data": {
-              "id": 2,
-              "no_kk": "238766666666666",
-              "nik_kepala_keluarga": "23094938277777777"
+              "id": 11,
+              "tingkat_pendidikan": "S5"
             }
           }

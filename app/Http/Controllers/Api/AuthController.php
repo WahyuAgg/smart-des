@@ -29,7 +29,7 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Hapus token lama (opsional)
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
