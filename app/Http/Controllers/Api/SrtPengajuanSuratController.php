@@ -48,10 +48,12 @@ class SrtPengajuanSuratController extends Controller
         $data = $request->validate([
             'jenis_surat_id' => ['required', 'exists:srt_jenis_surat,id'],
             'niks'           => ['required', 'array', 'min:1'],
-            'niks.*'         => ['required', 'exists:penduduk,nik'],
+            'niks.*'         => ['required', 'digits:16', 'exists:penduduk,nik'],
             'keperluan' => ['nullable', 'string'],
             'data_surat' => ['nullable', 'array'],
         ]);
+
+        // dd($data);
 
         $record = SrtPengajuanSurat::create([
             'jenis_surat_id' => $data['jenis_surat_id'],

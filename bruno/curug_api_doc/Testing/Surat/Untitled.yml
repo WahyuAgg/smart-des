@@ -1,0 +1,26 @@
+info:
+  name: Untitled
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/pengajuan-surat"
+  body:
+    type: json
+    data: |+
+      
+
+      {
+        "jenis_surat_id":1,
+        "niks":["33060242343243545126"],
+        "keperluan":null
+      }
+
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

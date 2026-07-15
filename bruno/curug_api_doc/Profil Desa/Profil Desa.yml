@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/ref-profil-desa"
+  url: "{{base_url}}/api/ref-profil-desa/1"
   headers:
     - name: Accept
       value: application/json
