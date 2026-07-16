@@ -10,7 +10,7 @@
   @include('components.step-indicator')
   @include('components.alert')
 
-  <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 relative min-h-[320px]">
+  <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 relative min-h-80">
 
     {{-- loading overlay --}}
     <div x-show="loading" x-cloak

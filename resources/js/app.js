@@ -9,8 +9,8 @@ window.Auth = Auth;
 
 // Components
 import loginForm from './components/login';
-import masterFieldSurat from './components/master-field-surat';
-import pendudukCrud from './components/penduduk';
+import masterFieldSurat from './pages/master-field-surat';
+import pendudukCrud from './pages/penduduk';
 import suratWizard from './components/surat-wizard';
 
 // Alpine configuration

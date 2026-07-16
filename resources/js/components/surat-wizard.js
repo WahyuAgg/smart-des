@@ -130,8 +130,9 @@ export default () => ({
                 keperluan: this.keperluan || null,
             };
 
-            console.log("Request body:", body);
-            console.log("Request JSON:", JSON.stringify(body));
+            // console.log("Request body:", body);
+            // console.log("Request JSON:", JSON.stringify(body));
+            console.log("testing console")
 
             const res = await fetch(`${this.baseUrl}/pengajuan-surat`, {
                 method: "POST",
