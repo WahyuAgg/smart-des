@@ -3,10 +3,10 @@ import { UnauthorizedError } from '../services/httpClient';
 
 /**
  * Spread this into the Alpine component's data object, e.g.:
- *   export default () => ({ ...kkLookup(), ...otherStuff })
+ *   export default () => ({ ...useKKLookup(), ...otherStuff })
  * `this` inside these methods refers to the merged Alpine component.
  */
-export function kkLookup() {
+export function useKKLookup() {
   return {
     kkSearch: '',
     kkOptions: [],

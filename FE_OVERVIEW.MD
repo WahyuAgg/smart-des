@@ -1,14 +1,14 @@
-# Init
+# Modification
 If theres modification to the code, update it together with the related files.
 If this documentation becomes outdated, update it together with the related files.
 
 # FE Documentation
 
-This document explains the frontend structure under `resources/` so an AI agent can understand where UI code lives, how it is organized, and what each important file is used for.
+This document explains the frontend structure under `resources/` so future Developer can understand where UI code lives, how it is organized, and what each important file is used for.
 
 ## Purpose
 
-This project has two main frontend feature areas:
+This project currently has two main frontend feature areas:
 
 1. **Surat Wizard**  
    Located in `resources/views/surat`  
@@ -25,36 +25,100 @@ The frontend in this project is mainly built with:
 - **Tailwind CSS** for styling
 - **Vite** for asset bundling
 
-This document is meant to help future maintainers and AI agents quickly locate the correct file type and avoid mixing concerns.
+This document is meant to help future maintainers quickly locate the correct file type and avoid mixing concerns.
 
 ## Project note (Laravel + API)
 This project is a single Laravel application: the backend and frontend live in the same repository. The frontend is implemented as Blade + Alpine + Vite, but communicates with the backend primarily via the API (routes/api.php). Treat the backend as the canonical source for data and business logic while the frontend is responsible for presentation and interactions.
 
 ## Where to check data shapes / structures
-When the frontend needs to know request/response shapes, attributes, or relationships, check the backend source of truth:
-- App\Models\* — Eloquent model attributes, casts, relations and accessors show expected data fields.
-- App\Http\Controllers\Api\* (and related FormRequest / Resources) — controller methods, FormRequest classes, and API Resources document expected request validation and response structure.
+When the frontend needs to know request/response shapes, attributes, or relationships, check the API documentation: bruno\CURUG_API_DOC
 
-If you update API response shapes or model attributes, update both FE_DOCUMENTATION.MD and BE_DOCUMENTATION.MD and coordinate frontend/backend changes.
+this documentation is made using bruno, so it is using bruno API collection format.
+
 
 ---
 
-## Main `resources/` Structure
+## Main `resources/` basic Structure
 
 ```text
 resources/
-├── css/
-│   └── app.css
-├── js/
-│   └── app.js
-└── views/
-    ├── components/
-    ├── layouts/
-    ├── master-data/
-    ├── surat/
-    └── ...
+├───css
+│       app.css
+│       
+├───js
+│   │   app.js
+│   │   bootstrap.js
+│   │   
+│   ├───components
+│   │       login.js
+│   │       surat-wizard.js
+│   │       
+│   ├───composables
+│   │       kkLookup.js
+│   │       
+│   ├───mappers
+│   │       kkMapper.js
+│   │       pendudukMapper.js
+│   │       
+│   ├───pages
+│   │       kk.js
+│   │       penduduk.js
+│   │       
+│   ├───services
+│   │       auth.js
+│   │       httpClient.js
+│   │       kkApi.js
+│   │       pendudukApi.js
+│   │       
+│   └───utils
+│           date.js
+│           format.js
+│           inputMode.js
+│           number.js
+│           pagination.js
+│           validation.js
+│           
+└───views
+    ├───auth
+    │       login.blade.php
+    │       
+    ├───components
+    │   │   
+    │   └───form
+    │           input.blade.php
+    │           select.blade.php
+    │           textarea.blade.php
+    │           
+    ├───layouts
+    │       app.blade.php
+    │       auth.blade.php
+    │       
+    ├───master-data
+    │   ├───kk
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   └───penduduk
+    │       │   index.blade.php
+    │       │   
+    │       └───partials
+    │               
+    ├───partials
+    │       
+    └───surat
+        │   index.blade.php
+        │   
+        └───steps
+                isi-data-manual.blade.php
+                isi-nik.blade.php
+                pilih-jenis-surat.blade.php
+                preview-download.blade.php
 ```
 
+- this structure maybe have not been updated
 ---
 
 ## `resources/views/`
@@ -70,8 +134,7 @@ This directory contains **Blade templates**.
 
 ### Typical usage
 Blade files are used for:
-- Rendering HTML from the backend
-- Passing data from controllers
+- Rendering HTML
 - Embedding components with `<x-... />`
 - Using Alpine directives like `x-data`, `x-if`, `:class`
 
@@ -113,7 +176,7 @@ Other folders inside `master-data` should follow the same pattern:
 - all CRUD-related views for that data type grouped together
 
 ### Notes
-If a view is for managing stored reference data instead of the surat wizard, it usually belongs here.
+If a view is for managing stored reference and CRUD data instead of the surat wizard, it usually belongs here.
 
 ---
 
@@ -122,57 +185,17 @@ If a view is for managing stored reference data instead of the surat wizard, it 
 ### `resources/views/components/`
 Reusable UI blocks.
 
-Examples:
-- `step-indicator.blade.php`
-- Buttons
-- Inputs
-- Cards
-- Modals
-- Wizard helpers
-
 **Rule of thumb:**  
 If a UI block is reused in more than one page, it should usually live here.
 
 ### `resources/views/layouts/`
 Base page layouts.
 
-Examples:
-- Main app shell
-- Guest/auth layout
-- Header/footer wrappers
+### `resources/views/partials`
 
-**Usage:**  
-A layout usually contains:
-- `<head>`
-- global scripts/styles
-- navbar/sidebar
-- `@yield(...)` or `<main>` slots
-
+Specific fragment layouts
 ---
 
-## Example Component: `resources/views/components/step-indicator.blade.php`
-
-This component is a **presentation-only wizard step indicator**.
-
-### What it does
-- Shows the current step in a multi-step form
-- Displays numbered circles and checkmarks
-- Highlights completed/current/upcoming steps
-- Uses Alpine state from the parent scope
-
-### What it does not do
-- It does not fetch data
-- It does not change application state
-- It does not contain business logic
-
-### Expected parent usage
-The parent Blade view should provide a `step` variable, usually through Alpine, for example:
-- `step = 1`
-- `step = 2`
-- `step = 3`
-- `step = 4`
-
----
 
 ## `resources/js/`
 
@@ -196,22 +219,13 @@ This is the **main frontend entry point**.
 - Initializing plugins or UI behavior
 - Serving as the Vite entry referenced by Blade
 
-### Why it is important
-If a page uses:
-- Alpine components
-- frontend interactions
-- global JS helpers
-- Vite-managed assets
-
-then `resources/js/app.js` is usually where that setup starts.
-
 ### Common responsibilities
 - importing the main CSS entry
 - initializing Alpine
 - attaching custom component logic
 - loading libraries used across many pages
 
-### Notes for AI agents
+### Notes 
 When adding frontend behavior, check `resources/js/app.js` before creating new JS files.  
 If the behavior is global, it probably belongs there.
 
@@ -243,7 +257,7 @@ This is the **main stylesheet entry**.
 - `@tailwind utilities;`
 - custom CSS rules if needed
 
-### Notes for AI agents
+### Notes 
 If styling appears across many pages, check `resources/css/app.css` before adding inline styles in Blade.
 
 ---
@@ -353,11 +367,7 @@ Usage patterns:
 - Services should return plain objects / responses; handle errors and status codes centrally in `apiClient`.
 - Utilities provide pure functions used by components and services.
 
-Example service snippet (pseudo):
-```javascript
-// import apiClient from './apiClient'
-// export function listJenisSurat() { return apiClient.get('/jenis-surat'); }
-```
+
 
 Notes:
 - Keep DOM-manipulating code inside components.
@@ -366,15 +376,8 @@ Notes:
 
 ---
 
-## AI Agent Notes
+## Notes
 
-This project is organized to keep responsibilities separated:
-
-- **Blade** = structure and rendering
-- **JS** = behavior and initialization
-- **CSS** = styling
-- **Components** = reusable UI pieces
-- **surat/** = surat wizard flow
 - **master-data/** = master data CRUD screens
 
 When working on the frontend, prefer:
@@ -383,10 +386,6 @@ When working on the frontend, prefer:
 3. global styling in `resources/css/app.css`
 4. Blade views only for page-specific structure
 
-## Cross-reference / When to consult backend docs
 
-When you need authoritative backend information during analysis or modification (API request/response shapes, route names, auth rules, file-generation endpoints, or validation errors), consult BE_DOCUMENTATION.MD (`BE_DOCUMENTATION.MD`). Update FE_DOCUMENTATION.MD if frontend changes require backend adjustments, and coordinate changes with the backend documentation to keep both in sync.
-
-# Note
-If theres modification to the code, update it together with the related files.
-If this documentation becomes outdated, update it together with the related files.
+- If theres modification to the code, update it together with the related files.
+- If this documentation becomes outdated, update it together with the related files.

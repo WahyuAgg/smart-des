@@ -5,8 +5,8 @@ import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/pendudukMapper';
 import { formatDate } from '../utils/date';
 import { genderLabel, statusBadge, statusLabel } from '../utils/format';
-import { kkLookup } from '../composables/kkLookup';
-import { pendidikanLookup } from '../composables/pendidikanLookup';
+import { useKKLookup } from '../composables/useKKLookup';
+import { usePendidikanLookup } from '../composables/usePendidikanLookup';
 
 export default () => ({
   loading: false,
@@ -26,8 +26,8 @@ export default () => ({
   deletingItem: null,
 
   // Autocomplete/lookup state & methods for KK and Pendidikan
-  ...kkLookup(),
-  ...pendidikanLookup(),
+  ...useKKLookup(),
+  ...usePendidikanLookup(),
 
   async init() {
     if (!Auth.requireAuth()) return;

@@ -1,4 +1,13 @@
-{{-- Expects Alpine parent scope with: error (string|null), success (string|null) --}}
+{{--
+  Alert notifikasi sukses/error untuk halaman CRUD.
+
+  Mengakses properti Alpine dari parent scope:
+    error   : string | null — pesan error
+    success : string | null — pesan sukses
+
+  Contoh:
+    @include('components.alert')
+--}}
 
 <div x-show="error" x-cloak x-transition
      class="mb-4 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

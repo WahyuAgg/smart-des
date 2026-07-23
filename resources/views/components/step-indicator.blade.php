@@ -1,4 +1,12 @@
-{{-- Expects Alpine parent scope with: step (number 1-4) --}}
+{{--
+  Step indicator untuk wizard multi-langkah (surat).
+
+  Mengakses properti Alpine dari parent scope:
+    step : number (1-4) — langkah aktif
+
+  Contoh:
+    @include('components.step-indicator')
+--}}
 @php
   $labels = ['Jenis Surat', 'Data NIK', 'Lengkapi Data', 'Unduh Surat'];
 @endphp

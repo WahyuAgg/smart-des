@@ -8,7 +8,12 @@
   <div x-data="pendidikanCrud" class="max-w-4xl mx-auto space-y-5">
     @include('components.alert')
 
-    @include('master-data.pendidikan.partials.toolbar')
+    <x-master-data-toolbar
+      title="Pendidikan"
+      description="Tambah, ubah, cari, dan hapus data tingkat pendidikan."
+      searchPlaceholder="Cari tingkat pendidikan..."
+      buttonLabel="Tambah Pendidikan"
+      searchWidth="sm:w-72" />
     @include('master-data.pendidikan.partials.table')
 
     <x-modal max-width="max-w-xl">

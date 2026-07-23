@@ -1,3 +1,16 @@
+{{--
+  Textarea generik untuk form CRUD master-data.
+
+  Props:
+    label       : label field
+    model       : path Alpine, mis. 'form.keterangan'
+    placeholder : teks placeholder
+    required    : true|false
+    rows        : jumlah baris (default: 3)
+    hint        : teks bantuan kecil di bawah textarea
+    error       : ekspresi Alpine untuk pesan error, mis. 'errors.keterangan' (opsional)
+    wrapperClass : kelas tambahan untuk wrapper div
+--}}
 @props([
     'label' => null,
     'model' => null,

@@ -8,7 +8,11 @@
   <div x-data="kkCrud" class="max-w-6xl mx-auto space-y-5">
     @include('components.alert')
 
-    @include('master-data.kk.partials.toolbar')
+    <x-master-data-toolbar
+      title="Kartu Keluarga"
+      description="Tambah, ubah, cari, dan hapus data KK dari satu halaman."
+      searchPlaceholder="Cari nomor KK atau NIK kepala keluarga..."
+      buttonLabel="Tambah KK" />
     @include('master-data.kk.partials.table')
 
     <x-modal max-width="max-w-xl">
