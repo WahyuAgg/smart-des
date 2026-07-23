@@ -3,7 +3,6 @@ import { isRequired } from '../utils/validation';
 import { masterFieldSuratApi } from '../services/masterFieldSuratApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/masterFieldSuratMapper';
-import { mapPaginatedResponse } from '../utils/pagination';
 import { inputModeLabel, inputModeBadge } from '../utils/inputMode';
 
 export default () => ({
@@ -33,8 +32,7 @@ export default () => ({
     this.error = null;
 
     try {
-      const payload = await masterFieldSuratApi.list({ page, search: this.search });
-      const { items, meta } = mapPaginatedResponse(payload);
+      const { items, meta } = await masterFieldSuratApi.list({ page, search: this.search });
       this.items = items;
       this.meta = meta;
     } catch (error) {

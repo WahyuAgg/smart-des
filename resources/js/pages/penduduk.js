@@ -2,7 +2,7 @@ import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { pendudukApi } from '../services/pendudukApi';
 import { UnauthorizedError } from '../services/httpClient';
-import { emptyForm, mapItemToForm, buildPayload, mapPaginatedResponse } from '../mappers/pendudukMapper';
+import { emptyForm, mapItemToForm, buildPayload } from '../mappers/pendudukMapper';
 import { formatDate } from '../utils/date';
 import { genderLabel, statusBadge, statusLabel } from '../utils/format';
 import { kkLookup } from '../composables/kkLookup';
@@ -40,8 +40,7 @@ export default () => ({
     this.error = null;
 
     try {
-      const payload = await pendudukApi.list({ page, search: this.search });
-      const { items, meta } = mapPaginatedResponse(payload);
+      const { items, meta } = await pendudukApi.list({ page, search: this.search });
       this.items = items;
       this.meta = meta;
     } catch (error) {

@@ -8,33 +8,11 @@
   <div x-data="pendudukCrud" class="max-w-7xl mx-auto">
     @include('components.alert')
 
-    <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between mb-5">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-accent">Master Data</p>
-        <h1 class="text-2xl font-semibold text-slate-900 mt-1">Penduduk</h1>
-        <p class="text-sm text-slate-500 mt-1">Tambah, ubah, cari, dan hapus data penduduk dari satu halaman.</p>
-      </div>
-
-      <div class="flex flex-col sm:flex-row gap-3 sm:items-center w-full lg:w-auto">
-        <div class="relative w-full sm:w-80">
-          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m21 21-4.3-4.3M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
-          </svg>
-          <input type="text" x-model="search" @input.debounce.400ms="load(1)" placeholder="Cari NIK, nama, email, atau nomor HP..."
-            class="w-full pl-9 pr-3 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" />
-        </div>
-
-        <button type="button" @click="openCreate()"
-          class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-accent hover:bg-accent-hover shrink-0">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
-          </svg>
-          Tambah Penduduk
-        </button>
-      </div>
-    </div>
+    <x-master-data-toolbar
+      title="Penduduk"
+      description="Tambah, ubah, cari, dan hapus data penduduk dari satu halaman."
+      searchPlaceholder="Cari NIK, nama, email, atau nomor HP..."
+      buttonLabel="Tambah Penduduk" />
 
     <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
       <div class="overflow-x-auto">
@@ -106,16 +84,7 @@
         </table>
       </div>
 
-      <div x-show="meta.last_page > 1"
-        class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 py-3 border-t border-slate-200 text-xs text-slate-500">
-        <span>Halaman <span x-text="meta.current_page"></span> dari <span x-text="meta.last_page"></span> · <span x-text="meta.total"></span> data</span>
-        <div class="flex gap-2">
-          <button type="button" @click="load(meta.current_page - 1)" :disabled="meta.current_page <= 1"
-            class="px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Sebelumnya</button>
-          <button type="button" @click="load(meta.current_page + 1)" :disabled="meta.current_page >= meta.last_page"
-            class="px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Berikutnya</button>
-        </div>
-      </div>
+      @include('components.pagination')
     </div>
 
     <x-modal max-width="max-w-5xl">

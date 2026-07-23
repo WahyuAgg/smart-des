@@ -9,25 +9,11 @@
 
     @include('components.alert')
 
-    {{-- header: search + tambah --}}
-    <div class="flex items-center justify-between gap-3 mb-4">
-      <div class="relative w-full max-w-xs">
-        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.3-4.3M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" />
-        </svg>
-        <input type="text" x-model="search" @input.debounce.400ms="load(1)" placeholder="Cari nama atau label..."
-          class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" />
-      </div>
-
-      <button type="button" @click="openCreate()"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-accent hover:bg-accent-hover shrink-0">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
-        </svg>
-        Tambah Field
-      </button>
-    </div>
+    <x-master-data-toolbar
+      title="Master Field Surat"
+      description="Kelola daftar field yang bisa dipakai di template surat."
+      searchPlaceholder="Cari nama atau label..."
+      buttonLabel="Tambah Field" />
 
     {{-- table --}}
     <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
@@ -92,18 +78,7 @@
         </table>
       </div>
 
-      {{-- pagination --}}
-      <div x-show="meta.last_page > 1"
-        class="flex items-center justify-between px-4 py-3 border-t border-slate-200 text-xs text-slate-500">
-        <span>Halaman <span x-text="meta.current_page"></span> dari <span x-text="meta.last_page"></span> &middot;
-          <span x-text="meta.total"></span> data</span>
-        <div class="flex gap-2">
-          <button type="button" @click="load(meta.current_page - 1)" :disabled="meta.current_page <= 1"
-            class="px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Sebelumnya</button>
-          <button type="button" @click="load(meta.current_page + 1)" :disabled="meta.current_page >= meta.last_page"
-            class="px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed">Berikutnya</button>
-        </div>
-      </div>
+      @include('components.pagination')
     </div>
 
     {{-- modal create/edit --}}

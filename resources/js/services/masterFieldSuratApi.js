@@ -1,12 +1,13 @@
-import { apiFetch, baseUrl } from './httpClient';
+import { apiFetch, apiFetchJson, baseUrl } from './httpClient';
+import { normalizePaginatedResponse } from '../utils/pagination';
 
 const endpoint = 'srt-master-field-surat';
 
 export const masterFieldSuratApi = {
   async list({ page = 1, search = '' } = {}) {
     const params = new URLSearchParams({ page, search: search || '' });
-    // Returns the raw paginated payload (current_page, last_page, total, data)
-    return apiFetch(`${baseUrl}/${endpoint}?${params.toString()}`);
+    const payload = await apiFetchJson(`${baseUrl}/${endpoint}?${params.toString()}`);
+    return normalizePaginatedResponse(payload);
   },
 
   async create(payload) {
