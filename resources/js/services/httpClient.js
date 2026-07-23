@@ -40,3 +40,22 @@ export async function apiFetch(url, options = {}) {
 
   return json.data ?? json;
 }
+
+export async function apiFetchJson(url, options = {}) {
+  const response = await fetch(url, {
+    ...options,
+    headers: Auth.headers(options.headers),
+  });
+
+  if (Auth.handleUnauthorized(response)) {
+    throw new UnauthorizedError();
+  }
+
+  const json = await response.json().catch(() => ({}));
+
+  if (!response.ok || (json.success !== undefined && !json.success)) {
+    throw new Error(json.message || 'Terjadi kesalahan pada server.');
+  }
+
+  return json;
+}

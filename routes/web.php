@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Web\DashboardController;
-use App\Http\Controllers\Web\SuratController;
-use App\Http\Controllers\Web\ArtikelController;
-use App\Http\Controllers\Web\AdminController;
-
 
 // ---------------------------------------------------------------
 // Auth Routes
@@ -29,9 +24,8 @@ Route::prefix('surat')->name('surat.')->group(function () {
 // Master Data Routes
 Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/master-field-surat', fn() => view('master-data.master-field-surat.index'))->name('master-field-surat.index');
+    Route::get('/kk', fn() => view('master-data.kk.index'))->name('kk.index');
+    Route::get('/pendidikan', fn() => view('master-data.pendidikan.index'))->name('pendidikan.index');
+    Route::get('/penduduk', fn() => view('master-data.penduduk.index'))->name('penduduk.index');
     // more master data routes can be added here
 });
-
-Route::get('/master-data/penduduk', function () {
-    return view('master-data.penduduk.index');
-})->name('master-data.penduduk.index');

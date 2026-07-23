@@ -9,6 +9,8 @@
     // setiap kali ada halaman master-data baru (jenis surat, penduduk, dst).
     $masterData = [
         ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
+        ['label' => 'KK / Kartu Keluarga', 'route' => 'master-data.kk.index'],
+        ['label' => 'Pendidikan', 'route' => 'master-data.pendidikan.index'],
         ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
         ['label' => 'Penduduk', 'route' => 'master-data.penduduk.index'],
     ];

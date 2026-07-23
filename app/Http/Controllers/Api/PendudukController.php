@@ -114,23 +114,24 @@ class PendudukController extends CrudController
         );
     }
 
+
+    // app/Http/Controllers/Api/PendudukController.php - store()
     public function store(Request $request): JsonResponse
     {
         $penduduk = DB::transaction(function () use ($request) {
-
-            $alamat = Alamat::create($request->alamat);
-
-            $dataPenduduk = $request->except('alamat');
+            $alamat = null;
 
             if ($request->filled('alamat')) {
-
-                $alamat = Alamat::create($request->alamat);
+                $alamat = Alamat::create($request->alamat);  // Only create ONCE
             }
 
+            $dataPenduduk = $request->except('alamat');
             $penduduk = Penduduk::create($dataPenduduk);
 
-            $penduduk->alamat_id = $alamat->id;
-            $penduduk->save();
+            if ($alamat) {
+                $penduduk->alamat_id = $alamat->id;
+                $penduduk->save();
+            }
 
             return $penduduk;
         });
