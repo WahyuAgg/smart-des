@@ -23,6 +23,20 @@ export function normalizeCollectionResponse(payload) {
 
 export function normalizePaginatedResponse(payload) {
   const body = unwrapResponseData(payload);
+
+  // If body is a plain array (collection response, not paginated)
+  if (Array.isArray(body)) {
+    return {
+      items: body,
+      meta: {
+        current_page: 1,
+        last_page: 1,
+        total: body.length,
+        per_page: body.length || 10,
+      },
+    };
+  }
+
   const items = Array.isArray(body?.data) ? body.data : [];
 
   return {
@@ -31,6 +45,7 @@ export function normalizePaginatedResponse(payload) {
       current_page: body.current_page ?? 1,
       last_page: body.last_page ?? 1,
       total: body.total ?? items.length,
+      per_page: body.per_page ?? 10,
     },
   };
 }

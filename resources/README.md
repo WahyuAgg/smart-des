@@ -222,3 +222,120 @@ Blade (index.blade.php)
 
 - If theres modification to the code, update this file together with the related files.
 - If this documentation becomes outdated, please update this file.
+
+# summary of current resources complete structure
+
+
+│   README.md
+│   
+├───css
+│       app.css
+│       
+├───js
+│   │   app.js
+│   │   bootstrap.js
+│   │   
+│   ├───components
+│   │       login.js
+│   │       surat-wizard.js
+│   │       
+│   ├───composables
+│   │       useKKLookup.js
+│   │       usePendidikanLookup.js
+│   │       
+│   ├───mappers
+│   │       kkMapper.js
+│   │       masterFieldSuratMapper.js
+│   │       pendidikanMapper.js
+│   │       pendudukMapper.js
+│   │       
+│   ├───pages
+│   │       kk.js
+│   │       master-field-surat.js
+│   │       pendidikan.js
+│   │       penduduk.js
+│   │       
+│   ├───services
+│   │       auth.js
+│   │       httpClient.js
+│   │       kkApi.js
+│   │       masterFieldSuratApi.js
+│   │       pendidikanApi.js
+│   │       pendudukApi.js
+│   │       
+│   └───utils
+│           date.js
+│           format.js
+│           inputMode.js
+│           number.js
+│           pagination.js
+│           validation.js
+│           
+└───views
+    ├───auth
+    │       login.blade.php
+    │       
+    ├───components
+    │   │   alert.blade.php
+    │   │   confirm-dialog.blade.php
+    │   │   master-data-toolbar.blade.php
+    │   │   modal.blade.php
+    │   │   pagination.blade.php
+    │   │   step-indicator.blade.php
+    │   │   
+    │   └───form
+    │           input.blade.php
+    │           select.blade.php
+    │           textarea.blade.php
+    │           
+    ├───layouts
+    │       app.blade.php
+    │       auth.blade.php
+    │       
+    ├───master-data
+    │   ├───kk
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   ├───master-field-surat
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   ├───pendidikan
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   └───penduduk
+    │       │   index.blade.php
+    │       │   
+    │       └───partials
+    │               form-alamat.blade.php
+    │               form-identitas.blade.php
+    │               form-keluarga.blade.php
+    │               form-kontak.blade.php
+    │               form-lookup.blade.php
+    │               table.blade.php
+    │               
+    ├───partials
+    │       footer.blade.php
+    │       head.blade.php
+    │       navbar.blade.php
+    │       sidebar.blade.php
+    │       
+    └───surat
+        │   index.blade.php
+        │   
+        └───steps
+                isi-data-manual.blade.php
+                isi-nik.blade.php
+                pilih-jenis-surat.blade.php
+                preview-download.blade.php

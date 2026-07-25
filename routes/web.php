@@ -26,6 +26,8 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/master-field-surat', fn() => view('master-data.master-field-surat.index'))->name('master-field-surat.index');
     Route::get('/kk', fn() => view('master-data.kk.index'))->name('kk.index');
     Route::get('/pendidikan', fn() => view('master-data.pendidikan.index'))->name('pendidikan.index');
+    Route::get('/jabatan-perangkat', fn() => view('master-data.jabatan-perangkat.index'))->name('jabatan-perangkat.index');
+    Route::get('/perangkat-desa', fn() => view('master-data.perangkat-desa.index'))->name('perangkat-desa.index');
     Route::get('/penduduk', fn() => view('master-data.penduduk.index'))->name('penduduk.index');
     // more master data routes can be added here
 });

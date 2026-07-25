@@ -12,6 +12,8 @@
         ['label' => 'KK / Kartu Keluarga', 'route' => 'master-data.kk.index'],
         ['label' => 'Pendidikan', 'route' => 'master-data.pendidikan.index'],
         ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
+        ['label' => 'Jabatan Perangkat', 'route' => 'master-data.jabatan-perangkat.index'],
+        ['label' => 'Perangkat Desa', 'route' => 'master-data.perangkat-desa.index'],
         ['label' => 'Penduduk', 'route' => 'master-data.penduduk.index'],
     ];
     $masterDataActive = collect($masterData)->contains(fn($item) => request()->routeIs($item['route'] . '*'));

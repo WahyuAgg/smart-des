@@ -13,16 +13,21 @@ class RefPerangkatDesaController extends CrudController
 
     public function index(Request $request): JsonResponse
     {
-        $jabatan = RefJabatanPerangkat::query()
+        $perPage = $request->input('per_page', $this->defaultPerPage);
+
+        $perPage = min($perPage, $this->maxPerPage);
+
+        $records = RefJabatanPerangkat::query()
             ->with(['refPerangkatDesa' => function ($query) {
                 $query->where('aktif', true);
             }])
             ->where('aktif', true)
             ->orderBy('urutan')
-            ->get()
-            ->map(fn ($item) => $this->formatJabatan($item));
+            ->paginate($perPage);
 
-        return $this->success($jabatan);
+        $records->getCollection()->transform(fn ($item) => $this->formatJabatan($item));
+
+        return $this->success($records);
     }
 
     public function show(string $id): JsonResponse
