@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InvDetailPeminjaman> $detailPeminjamans
  * @property-read int|null $detail_peminjamans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InvDetailMutasi> $detailMutasis
+ * @property-read int|null $detail_mutasis_count
  * @property-read \App\Models\InvKategoriBarang $kategoriBarang
  * @property-read \App\Models\InvLokasi $lokasi
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvBarang newModelQuery()
@@ -48,35 +50,48 @@ class InvBarang extends Model
     protected $fillable = [
         'kode_barang',
         'nama_barang',
-        'kategori_barang_id',
+        'kategori_id',
         'lokasi_id',
-        'jumlah',
         'satuan',
-        'kondisi',
         'tanggal_perolehan',
         'keterangan',
+        'jumlah_total',
+        'jumlah_tersedia',
+        'jumlah_rusak',
+        'jumlah_dipinjam',
     ];
 
     protected $casts = [
         'tanggal_perolehan' => 'date',
+        'jumlah_total' => 'integer',
+        'jumlah_tersedia' => 'integer',
+        'jumlah_rusak' => 'integer',
+        'jumlah_dipinjam' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
-    public function kategoriBarang()
+    // Relasi ke Kategori Barang
+    public function kategori()
     {
-        return $this->belongsTo(InvKategoriBarang::class, 'kategori_barang_id');
+        return $this->belongsTo(InvKategoriBarang::class, 'kategori_id');
     }
 
+    // Relasi ke Lokasi
     public function lokasi()
     {
         return $this->belongsTo(InvLokasi::class, 'lokasi_id');
     }
 
+    // Relasi ke Detail Peminjaman
     public function detailPeminjamans()
     {
         return $this->hasMany(InvDetailPeminjaman::class, 'barang_id');
+    }
+
+    // Relasi ke Detail Mutasi
+    public function detailMutasis()
+    {
+        return $this->hasMany(InvDetailMutasi::class, 'barang_id');
     }
 }

@@ -42,6 +42,7 @@ class InvPeminjaman extends Model
         'nama_peminjam',
         'tanggal_pinjam',
         'tanggal_rencana_kembali',
+        'tanggal_kembali',
         'status',
         'keterangan',
     ];
@@ -49,14 +50,20 @@ class InvPeminjaman extends Model
     protected $casts = [
         'tanggal_pinjam' => 'date',
         'tanggal_rencana_kembali' => 'date',
+        'tanggal_kembali' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
-    public function detailPeminjamans()
+    // Relasi ke detail peminjaman
+    public function details()
     {
         return $this->hasMany(InvDetailPeminjaman::class, 'peminjaman_id');
+    }
+
+    // Relasi ke mutasi (jika ada mutasi yang terhubung dengan peminjaman ini)
+    public function mutasis()
+    {
+        return $this->hasMany(InvMutasi::class, 'peminjaman_id');
     }
 }

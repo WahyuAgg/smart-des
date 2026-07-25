@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+
 class InvDetailPeminjaman extends Model
 {
     use HasFactory;
@@ -43,19 +44,28 @@ class InvDetailPeminjaman extends Model
         'peminjaman_id',
         'barang_id',
         'jumlah_pinjam',
-        'jumlah_kembali',
+        'jumlah_kembali_baik',
+        'jumlah_kembali_rusak',
         'jumlah_hilang',
-        'jumlah_rusak',
         'keterangan',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $casts = [
+        'jumlah_pinjam' => 'integer',
+        'jumlah_kembali_baik' => 'integer',
+        'jumlah_kembali_rusak' => 'integer',
+        'jumlah_hilang' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
+    // Relasi ke Header Peminjaman
     public function peminjaman()
     {
         return $this->belongsTo(InvPeminjaman::class, 'peminjaman_id');
     }
 
+    // Relasi ke Master Barang
     public function barang()
     {
         return $this->belongsTo(InvBarang::class, 'barang_id');

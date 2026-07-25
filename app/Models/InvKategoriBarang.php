@@ -38,6 +38,6 @@ class InvKategoriBarang extends Model
 
     public function barangs()
     {
-        return $this->hasMany(InvBarang::class, 'kategori_barang_id');
+        return $this->hasMany(InvBarang::class, 'kategori_id');
     }
 }
