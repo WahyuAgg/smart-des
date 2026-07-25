@@ -1,0 +1,42 @@
+info:
+  name: Update Profil Desa by ID
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/ref-profil-desa/1"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "provinsi_code": "33",
+          "kabupaten_code": "3306",
+          "kecamatan_code": "330602",
+          "desa_code": "3306022050",
+          "nama": "Curug",
+          "kode": "3306022050",
+          "kode_pos": "111111",
+          "alamat": "Jln.Lingkar Utara Desa Curug.",
+          "telepon": "081234567890",
+          "email": "desa_curug@example.com",
+          "website": "https://desacurug.co.id",
+          "logo": null,
+          "visi": "-",
+          "misi": "-",
+          "deskripsi": "Desa Curug (seed)",
+          "nama_provinsi": "Jawa Tengah",
+          "nama_kabupaten": "Kabupaten Purworejo",
+          "nama_kecamatan": "Ngombol",
+          "nama_desa": "Curug"
+          }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

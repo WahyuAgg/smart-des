@@ -32,18 +32,247 @@ http:
       disabled: true
   body:
     type: json
-    data: "{\r
-
-      \  \"jenis_surat_id\": 1,\r
-
-      \  \"niks\": [\"3306025404160002\", \"3306024911510002\"],\r
-
-      \  \"keperluan\":null\r
-
-      }\r\n"
+    data: |
+      {
+        "jenis_surat_id": 1,
+        "niks": ["3306024234324354", "3306024234324354"],
+        "keperluan":null
+      }
 
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/pengajuan-surat"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      params:
+        - name: level
+          value: kabupaten
+          type: query
+          disabled: true
+        - name: level
+          value: kecamatan
+          type: query
+          disabled: true
+        - name: level
+          value: desa
+          type: query
+          disabled: true
+        - name: parent
+          value: ""
+          type: query
+          disabled: true
+        - name: search
+          value: ""
+          type: query
+          disabled: true
+      body:
+        type: json
+        data: |
+          {
+            "jenis_surat_id": 1,
+            "niks": ["3306024234324354", "3306024234324354"],
+            "keperluan":null
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Fri, 24 Jul 2026 09:57:51 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KY9RYMPSY8DHPJHX1G99FYFF
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Pengajuan surat berhasil dibuat.",
+            "requires_input": true,
+            "data": {
+              "id": 27
+            },
+            "fields": [
+              {
+                "placeholder": "umur",
+                "mode": "auto_editable",
+                "type": "number",
+                "label": "Umur",
+                "value": 55
+              },
+              {
+                "placeholder": "2.nik",
+                "mode": "auto",
+                "type": "text",
+                "label": "NIK",
+                "value": null
+              },
+              {
+                "placeholder": "1.umur",
+                "mode": "auto_editable",
+                "type": "number",
+                "label": "Umur",
+                "value": 55
+              },
+              {
+                "placeholder": "2.nama",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama",
+                "value": null
+              },
+              {
+                "placeholder": "2.umur",
+                "mode": "auto_editable",
+                "type": "number",
+                "label": "Umur",
+                "value": null
+              },
+              {
+                "placeholder": "2.no_kk",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nomor KK",
+                "value": null
+              },
+              {
+                "placeholder": "ttd_kades",
+                "mode": "auto",
+                "type": "text",
+                "label": "TTD Kepala Desa",
+                "value": null
+              },
+              {
+                "placeholder": "foto_kades",
+                "mode": "auto",
+                "type": "text",
+                "label": "Foto Kepala Desa",
+                "value": null
+              },
+              {
+                "placeholder": "nomor_surat",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nomor Surat",
+                "value": null
+              },
+              {
+                "placeholder": "ref_provinsi",
+                "mode": "auto",
+                "type": "text",
+                "label": "Provinsi",
+                "value": null
+              },
+              {
+                "placeholder": "tanggal_mati",
+                "mode": "manual",
+                "type": "date",
+                "label": "Tanggal Kematian",
+                "value": null
+              },
+              {
+                "placeholder": "ref_kabupaten",
+                "mode": "auto",
+                "type": "text",
+                "label": "Kabupaten",
+                "value": null
+              },
+              {
+                "placeholder": "ref_kecamatan",
+                "mode": "auto",
+                "type": "text",
+                "label": "Kecamatan",
+                "value": null
+              },
+              {
+                "placeholder": "ref_nama_desa",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama Desa",
+                "value": null
+              },
+              {
+                "placeholder": "2.nama_lengkap",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama Lengkap",
+                "value": null
+              },
+              {
+                "placeholder": "2.tempat_lahir",
+                "mode": "auto",
+                "type": "text",
+                "label": "Tempat Lahir",
+                "value": null
+              },
+              {
+                "placeholder": "2.jenis_kelamin",
+                "mode": "auto",
+                "type": "text",
+                "label": "Jenis Kelamin",
+                "value": null
+              },
+              {
+                "placeholder": "2.tanggal_lahir",
+                "mode": "auto",
+                "type": "date",
+                "label": "Tanggal Lahir",
+                "value": null
+              },
+              {
+                "placeholder": "nama_jenis_surat",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama Jenis Surat",
+                "value": null
+              },
+              {
+                "placeholder": "tanggal_domisili",
+                "mode": "auto_editable",
+                "type": "date",
+                "label": "Tanggal Tercatat",
+                "value": "01-Jan-1971"
+              },
+              {
+                "placeholder": "nomor_hp_penduduk",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nomor HP",
+                "value": null
+              },
+              {
+                "placeholder": "tgl_selesai_kades",
+                "mode": "auto",
+                "type": "text",
+                "label": "Tgl Selesai Kepala Desa",
+                "value": null
+              },
+              {
+                "placeholder": "tanggal_domisili_f",
+                "mode": "auto_editable",
+                "type": "date",
+                "label": "Tanggal Tercatat",
+                "value": "01 Januari 1971"
+              }
+            ]
+          }

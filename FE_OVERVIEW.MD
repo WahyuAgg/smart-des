@@ -388,4 +388,4 @@ When working on the frontend, prefer:
 
 
 - If theres modification to the code, update it together with the related files.
-- If this documentation becomes outdated, update it together with the related files.
+- If this documentation becomes outdated, please update this file.

@@ -20,6 +20,21 @@ Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
 Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
 
 
+/** 
+ * Route Override
+ */
+
+Route::middleware([
+    'auth:sanctum',
+    'role:admin|petugas|kepala_desa',
+])->group(function () {
+
+    // Route::apiResource('ref-profil-desa', App\Http\Controllers\Api\RefProfilDesaController::class);
+    // Route::get('ref-prifil-desa', [App\Http\Controllers\Api\RefProfilDesaController::class, 'show']);
+});
+
+
+
 
 /**
  * This route is user for managing master data, and it is protected by auth:sanctum and role middleware.
@@ -83,6 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/testing', [TestingController::class, 'testing']);
+
 
 // Route Wilayah
 

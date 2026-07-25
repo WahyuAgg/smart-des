@@ -18,12 +18,12 @@ return new class extends Migration
         });
 
 
-        Schema::table('ref_profil_desa', function (Blueprint $table) {
-            $table->foreign('provinsi_code')->references('code')->on('indonesia_provinces')->restrictOnDelete();
-            $table->foreign('kabupaten_code')->references('code')->on('indonesia_cities')->restrictOnDelete();
-            $table->foreign('kecamatan_code')->references('code')->on('indonesia_districts')->restrictOnDelete();
-            $table->foreign('desa_code')->references('code')->on('indonesia_villages')->restrictOnDelete();
-        });
+        // Schema::table('ref_profil_desa', function (Blueprint $table) {
+        //     $table->foreign('provinsi_code')->references('code')->on('indonesia_provinces')->restrictOnDelete();
+        //     $table->foreign('kabupaten_code')->references('code')->on('indonesia_cities')->restrictOnDelete();
+        //     $table->foreign('kecamatan_code')->references('code')->on('indonesia_districts')->restrictOnDelete();
+        //     $table->foreign('desa_code')->references('code')->on('indonesia_villages')->restrictOnDelete();
+        // });
 
         Schema::table('ref_perangkat_desa', function (Blueprint $table) {
             $table->foreign('jabatan_perangkat_id')->references('id')->on('ref_jabatan_perangkat')->restrictOnDelete();
@@ -110,12 +110,12 @@ return new class extends Migration
             $table->dropForeign(['user_id']);
         });
 
-        Schema::table('ref_profil_desa', function (Blueprint $table) {
-            $table->dropForeign(['provinsi_code']);
-            $table->dropForeign(['kabupaten_code']);
-            $table->dropForeign(['kecamatan_code']);
-            $table->dropForeign(['desa_code']);
-        });
+        // Schema::table('ref_profil_desa', function (Blueprint $table) {
+        //     $table->dropForeign(['provinsi_code']);
+        //     $table->dropForeign(['kabupaten_code']);
+        //     $table->dropForeign(['kecamatan_code']);
+        //     $table->dropForeign(['desa_code']);
+        // });
 
         Schema::table('ref_perangkat_desa', function (Blueprint $table) {
             $table->dropForeign(['jabatan_perangkat_id']);

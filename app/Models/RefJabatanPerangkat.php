@@ -49,7 +49,7 @@ class RefJabatanPerangkat extends Model
         'aktif' => 'boolean',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'dapat_menandatangani', 'deskripsi'];
 
     public function refPerangkatDesa()
     {

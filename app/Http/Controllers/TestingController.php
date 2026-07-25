@@ -38,12 +38,16 @@ class TestingController extends Controller
 
         // $path = 'testing/folder';
 
-        $kecDenganDesaTerbanyak = District::withCount('villages')
-            ->orderByDesc('villages_count')
-            ->first();
+        // $kecDenganDesaTerbanyak = District::withCount('villages')
+        //     ->orderByDesc('villages_count')
+        //     ->first();
 
+        // return response()->json([
+        //     'data' => $kecDenganDesaTerbanyak,
+        // ]);
+
+        $village = Village::first();
         return response()->json([
-            'data' => $kecDenganDesaTerbanyak,
-        ]);
+            "village"=> $village,]);
     }
 }

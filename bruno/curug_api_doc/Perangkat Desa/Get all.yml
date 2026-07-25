@@ -1,0 +1,328 @@
+info:
+  name: Get all
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/ref-perangkat-desa/"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-perangkat-desa/"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 03:46:47 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBP3XCQS7DG0ENT0ZZYFC9X
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": [
+              {
+                "kode": "kades",
+                "nama": "Kepala Desa",
+                "aktif": true,
+                "urutan": 1,
+                "perangkat": {
+                  "id": 22,
+                  "jabatan_perangkat_id": 1,
+                  "nama": "Joko Andi Perangkat Desa",
+                  "nip": "3829292929292929",
+                  "telepon": "081234567890",
+                  "email": "budi@gmail.com",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "sekdes",
+                "nama": "Sekretaris Desa",
+                "aktif": true,
+                "urutan": 2,
+                "perangkat": {
+                  "id": 1,
+                  "jabatan_perangkat_id": 2,
+                  "nama": "Pak Bayu Perangkat Desa",
+                  "nip": "3829292929292929",
+                  "telepon": "081234567890",
+                  "email": "budi@gmail.com",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kaur_tu",
+                "nama": "Kepala Urusan Tata Usaha dan Umum",
+                "aktif": true,
+                "urutan": 3,
+                "perangkat": {
+                  "id": 3,
+                  "jabatan_perangkat_id": 3,
+                  "nama": "Ahmad Fauzi",
+                  "nip": "19820303003",
+                  "telepon": "081234567892",
+                  "email": "kasi_pemerintahan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-03-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kaur_keu",
+                "nama": "Kepala Urusan Keuangan",
+                "aktif": true,
+                "urutan": 4,
+                "perangkat": {
+                  "id": 4,
+                  "jabatan_perangkat_id": 4,
+                  "nama": "Dewi Lestari",
+                  "nip": "19880404004",
+                  "telepon": "081234567893",
+                  "email": "kasi_kesra@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-04-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kaur_per",
+                "nama": "Kepala Urusan Perencanaan",
+                "aktif": true,
+                "urutan": 5,
+                "perangkat": {
+                  "id": 5,
+                  "jabatan_perangkat_id": 5,
+                  "nama": "Bambang S.",
+                  "nip": "19750505005",
+                  "telepon": "081234567894",
+                  "email": "kasi_pelayanan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-05-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kasi_pem",
+                "nama": "Kepala Seksi Pemerintahan",
+                "aktif": true,
+                "urutan": 6,
+                "perangkat": {
+                  "id": 6,
+                  "jabatan_perangkat_id": 6,
+                  "nama": "Rina Kurnia",
+                  "nip": "19900606006",
+                  "telepon": "081234567895",
+                  "email": "kaur_keuangan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-06-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kasi_kes",
+                "nama": "Kepala Seksi Kesejahteraan",
+                "aktif": true,
+                "urutan": 7,
+                "perangkat": {
+                  "id": 7,
+                  "jabatan_perangkat_id": 7,
+                  "nama": "Hendra Wijaya",
+                  "nip": "19870707007",
+                  "telepon": "081234567896",
+                  "email": "kaur_umum@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-07-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kasi_pel",
+                "nama": "Kepala Seksi Pelayanan",
+                "aktif": true,
+                "urutan": 8,
+                "perangkat": {
+                  "id": 8,
+                  "jabatan_perangkat_id": 8,
+                  "nama": "Siska Putri",
+                  "nip": "19920808008",
+                  "telepon": "081234567897",
+                  "email": "kaur_perencanaan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-08-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "kadus",
+                "nama": "Kepala Dusun",
+                "aktif": true,
+                "urutan": 9,
+                "perangkat": {
+                  "id": 9,
+                  "jabatan_perangkat_id": 9,
+                  "nama": "Agus Priyanto",
+                  "nip": "19810909009",
+                  "telepon": "081234567898",
+                  "email": "kadus1@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-09-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "staf_adm",
+                "nama": "Staf Administrasi",
+                "aktif": true,
+                "urutan": 10,
+                "perangkat": {
+                  "id": 10,
+                  "jabatan_perangkat_id": 10,
+                  "nama": "Dwi Handayani",
+                  "nip": "19841010010",
+                  "telepon": "081234567899",
+                  "email": "kadus2@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-10-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "staf_keu",
+                "nama": "Staf Keuangan",
+                "aktif": true,
+                "urutan": 11,
+                "perangkat": {
+                  "id": 11,
+                  "jabatan_perangkat_id": 11,
+                  "nama": "Eko Prasetyo",
+                  "nip": "19861111011",
+                  "telepon": "081234567800",
+                  "email": "kadus3@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2020-11-01T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "staf_per",
+                "nama": "Staf Perencanaan",
+                "aktif": true,
+                "urutan": 12,
+                "perangkat": {
+                  "id": 12,
+                  "jabatan_perangkat_id": 12,
+                  "nama": "Fitriani",
+                  "nip": "19891212012",
+                  "telepon": "081234567801",
+                  "email": "staf_admin1@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2021-01-15T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "staf_pel",
+                "nama": "Staf Pelayanan",
+                "aktif": true,
+                "urutan": 13,
+                "perangkat": {
+                  "id": 13,
+                  "jabatan_perangkat_id": 13,
+                  "nama": "Guntur Jaya",
+                  "nip": "19910113013",
+                  "telepon": "081234567802",
+                  "email": "staf_admin2@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2021-02-15T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "op_desa",
+                "nama": "Operator Desa",
+                "aktif": true,
+                "urutan": 14,
+                "perangkat": {
+                  "id": 14,
+                  "jabatan_perangkat_id": 14,
+                  "nama": "Hasan Basri",
+                  "nip": "19780214014",
+                  "telepon": "081234567803",
+                  "email": "staf_keamanan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2021-03-15T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "bendahara",
+                "nama": "Bendahara Desa",
+                "aktif": true,
+                "urutan": 15,
+                "perangkat": {
+                  "id": 15,
+                  "jabatan_perangkat_id": 15,
+                  "nama": "Indah Sari",
+                  "nip": "19930315015",
+                  "telepon": "081234567804",
+                  "email": "staf_kebersihan@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2021-04-15T00:00:00.000000Z"
+                }
+              },
+              {
+                "kode": "arsip",
+                "nama": "Pengelola Arsip",
+                "aktif": true,
+                "urutan": 16,
+                "perangkat": {
+                  "id": 16,
+                  "jabatan_perangkat_id": 16,
+                  "nama": "Joko Widodo",
+                  "nip": "19900303003",
+                  "telepon": "081234567805",
+                  "email": "staf_IT@desa.id",
+                  "foto": null,
+                  "tanda_tangan": null,
+                  "tanggal_mulai": "2021-05-15T00:00:00.000000Z"
+                }
+              }
+            ]
+          }

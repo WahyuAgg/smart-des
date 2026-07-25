@@ -1,0 +1,84 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/ref-jabatan-perangkat/{{id_jabatan_perangkat}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |2-
+       {
+          "kode": "umum",
+          "nama": "Staf Umum",
+          "urutan": 17,
+          "aktif": false
+        }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_jabatan_perangkat
+      value: "17"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-jabatan-perangkat/{{id_jabatan_perangkat}}"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |2-
+           {
+              "kode": "umum",
+              "nama": "Staf Umum",
+              "urutan": 17,
+              "aktif": false
+            }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 03:33:56 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBNCD3TXFS02ZGGX9SM1E1D
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 17,
+              "kode": "umum",
+              "nama": "Staf Umum",
+              "urutan": 17,
+              "aktif": false
+            }
+          }

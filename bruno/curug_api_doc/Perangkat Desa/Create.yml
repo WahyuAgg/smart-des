@@ -1,0 +1,209 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-perangkat-desa/"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "jabatan_perangkat_id": 17,
+        "nama": "Danang Perangkat Desa Baru",
+        "nip": "3829292929292929",
+        "telepon": "081234567890",
+        "email": "budi@gmail.com",
+        "foto": null,
+        "tanda_tangan": null,
+        "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-perangkat-desa/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jabatan_perangkat_id": 1,
+            "nama": "Joko Andi Perangkat Desa",
+            "nip": "3829292929292929",
+            "telepon": "081234567890",
+            "email": "budi@gmail.com",
+            "foto": null,
+            "tanda_tangan": null,
+            "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 03:46:23 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBP36K089EQ8EF4Q0P5CSWE
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "kode": "kades",
+              "nama": "Kepala Desa",
+              "aktif": true,
+              "urutan": 1,
+              "perangkat": {
+                "id": 22,
+                "jabatan_perangkat_id": 1,
+                "nama": "Joko Andi Perangkat Desa",
+                "nip": "3829292929292929",
+                "telepon": "081234567890",
+                "email": "budi@gmail.com",
+                "foto": null,
+                "tanda_tangan": null,
+                "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+              }
+            }
+          }
+  - name: example fail (Jabatan/posisi perangkat sudah terisi)
+    request:
+      url: "{{base_url}}/api/ref-perangkat-desa/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jabatan_perangkat_id": 1,
+            "nama": "Danang Perangkat Desa Baru",
+            "nip": "3829292929292929",
+            "telepon": "081234567890",
+            "email": "budi@gmail.com",
+            "foto": null,
+            "tanda_tangan": null,
+            "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+          }
+    response:
+      status: 409
+      statusText: Conflict
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 04:04:36 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBQ4HH94C5XA10H2QQ0V3BD
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Jabatan ini sudah memiliki perangkat desa yang aktif.",
+            "errors": {
+              "kode": "kades",
+              "nama": "Kepala Desa",
+              "aktif": true,
+              "urutan": 1,
+              "perangkat": {
+                "id": 22,
+                "jabatan_perangkat_id": 1,
+                "nama": "Joko Andi Perangkat Desa",
+                "nip": "3829292929292929",
+                "telepon": "081234567890",
+                "email": "budi@gmail.com",
+                "foto": null,
+                "tanda_tangan": null,
+                "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+              }
+            }
+          }
+  - name: example fail (Jabatan perangkat tidak aktif)
+    request:
+      url: "{{base_url}}/api/ref-perangkat-desa/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jabatan_perangkat_id": 17,
+            "nama": "Danang Perangkat Desa Baru",
+            "nip": "3829292929292929",
+            "telepon": "081234567890",
+            "email": "budi@gmail.com",
+            "foto": null,
+            "tanda_tangan": null,
+            "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+          }
+    response:
+      status: 400
+      statusText: Bad Request
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 04:14:09 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBQP0RSC1H3DYG76F6CADHB
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Posisi perangkat tidak aktif",
+            "errors": 403
+          }

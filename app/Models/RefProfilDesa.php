@@ -85,13 +85,8 @@ class RefProfilDesa extends Model
     protected $table = 'ref_profil_desa';
 
     protected $fillable = [
-        'provinsi_code',
-        'kabupaten_code',
-        'kecamatan_code',
-        'desa_code',
         'nama',
         'kode',
-        'kode_pos',
         'alamat',
         'telepon',
         'email',
@@ -104,25 +99,47 @@ class RefProfilDesa extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    public function provinsi()
+    /**
+     * Getter untuk Wilayah
+     */
+
+    public function desa(): Attribute
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Province::class, 'provinsi_code', 'code');
+        return Attribute::make(
+            get: fn() => Village::where('code', $this->kode)->first()
+        );
     }
 
-    public function kabupaten()
+    public function kodePos(): Attribute
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\City::class, 'kabupaten_code', 'code');
+        return Attribute::make(
+            get: fn() => Village::where('code', $this->kode)->first()->meta['pos']
+        );
     }
 
-    public function kecamatan()
+
+    protected function kecamatan(): Attribute
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\District::class, 'kecamatan_code', 'code');
+        return Attribute::make(
+            get: fn() => $this->desa?->district
+        );
     }
 
-    public function desa()
+    protected function kabupaten(): Attribute
     {
-        return $this->belongsTo(\Laravolt\Indonesia\Models\Village::class, 'desa_code', 'code');
+        return Attribute::make(
+            get: fn() => $this->kecamatan?->city
+        );
     }
+
+    protected function provinsi(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->kabupaten?->province
+        );
+    }
+
+
 
     /**
      * Getters untuk nama wilayah
@@ -158,7 +175,7 @@ class RefProfilDesa extends Model
     }
 
 
-    protected function profileKecamatan(): Attribute
+    protected function profilKecamatan(): Attribute
     {
         return Attribute::make(
             get: fn() => RefKecamatan::query()->first()

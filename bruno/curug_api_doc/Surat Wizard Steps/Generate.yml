@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{base_url}}/api/pengajuan-surat/65"
+  url: "{{base_url}}/api/pengajuan-surat/28"
   headers:
     - name: Accept
       value: application/json
@@ -46,3 +46,78 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/pengajuan-surat/26"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      params:
+        - name: level
+          value: kabupaten
+          type: query
+          disabled: true
+        - name: level
+          value: kecamatan
+          type: query
+          disabled: true
+        - name: level
+          value: desa
+          type: query
+          disabled: true
+        - name: parent
+          value: ""
+          type: query
+          disabled: true
+        - name: search
+          value: ""
+          type: query
+          disabled: true
+      body:
+        type: json
+        data: |-
+          {
+              "data_surat": {
+                  "tujuan": "Pembuatan BPJS",
+                  "catatan": "Mohon diproses secepatnya"
+              }
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Fri, 24 Jul 2026 09:54:27 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KY9RRDM9V18FA8T6W7PJQPP8
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Surat berhasil diproses dan preview berhasil dibuat.",
+            "data": {
+              "id": 26,
+              "status": "selesai",
+              "nomor_surat": null,
+              "tanggal_diajukan": "2026-07-24T09:54:05.000000Z",
+              "tanggal_selesai": "2026-07-24T09:54:27.000000Z",
+              "file_hasil": "generated_surat/pdf/SKP_20260724095415.pdf",
+              "preview_url": "http://127.0.0.1:8000/storage/generated_surat/pdf/SKP_20260724095415.pdf"
+            }
+          }
