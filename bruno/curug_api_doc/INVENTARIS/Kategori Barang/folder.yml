@@ -1,0 +1,7 @@
+info:
+  name: Kategori Barang
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit

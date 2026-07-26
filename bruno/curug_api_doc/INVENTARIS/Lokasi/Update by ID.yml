@@ -1,0 +1,80 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/inv-lokasi/{{id_inv_lokasi}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "nama" : "Gudang Balai desa",
+        "keterangan" : "Tempat simpan barang desa edited"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_lokasi
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-lokasi/"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:07:40 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYETW6ED7SJD8Z9RVW5GFZZM
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": [
+              {
+                "id": 2,
+                "nama": "Gudang PKK",
+                "keterangan": "Tempat simpan barang-barang PKK",
+                "barangs_count": 0
+              },
+              {
+                "id": 1,
+                "nama": "Balai desa",
+                "keterangan": "Tempat simpan barang-barang desa",
+                "barangs_count": 0
+              }
+            ]
+          }

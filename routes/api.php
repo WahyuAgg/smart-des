@@ -51,10 +51,26 @@ Route::middleware([
 
     Route::apiResource('alamat', App\Http\Controllers\Api\AlamatController::class);
     Route::apiResource('inv-barang', App\Http\Controllers\Api\InvBarangController::class);
+    // Endpoint mutasi stok pada barang
+    Route::post('inv-barang/{id}/pengadaan', [App\Http\Controllers\Api\InvBarangController::class, 'pengadaan']);
+    Route::post('inv-barang/{id}/rusak', [App\Http\Controllers\Api\InvBarangController::class, 'rusak']);
+    Route::post('inv-barang/{id}/hilang', [App\Http\Controllers\Api\InvBarangController::class, 'hilang']);
+    Route::post('inv-barang/{id}/opname', [App\Http\Controllers\Api\InvBarangController::class, 'opname']);
+    Route::delete('inv-barang/{id}/hapus-stok', [App\Http\Controllers\Api\InvBarangController::class, 'hapusStok']);
+
     Route::apiResource('inv-detail-peminjaman', App\Http\Controllers\Api\InvDetailPeminjamanController::class);
+
     Route::apiResource('inv-kategori-barang', App\Http\Controllers\Api\InvKategoriBarangController::class);
     Route::apiResource('inv-lokasi', App\Http\Controllers\Api\InvLokasiController::class);
+
     Route::apiResource('inv-peminjaman', App\Http\Controllers\Api\InvPeminjamanController::class);
+    // Endpoint khusus peminjaman
+    Route::post('inv-peminjaman/{id}/kembalikan', [App\Http\Controllers\Api\InvPeminjamanController::class, 'kembalikan']);
+    Route::post('inv-peminjaman/{id}/batalkan', [App\Http\Controllers\Api\InvPeminjamanController::class, 'batalkan']);
+
+    // Buku Besar Mutasi (Stock Ledger)
+    Route::apiResource('inv-mutasi', App\Http\Controllers\Api\InvMutasiController::class)->only(['index', 'show', 'store', 'destroy']);
+    Route::apiResource('inv-detail-mutasi', App\Http\Controllers\Api\InvDetailMutasiController::class)->only(['index', 'show']);
     Route::apiResource('kk', App\Http\Controllers\Api\KkController::class);
     Route::apiResource('pekerjaan', App\Http\Controllers\Api\PekerjaanController::class);
     Route::apiResource('pendidikan', App\Http\Controllers\Api\PendidikanController::class);
