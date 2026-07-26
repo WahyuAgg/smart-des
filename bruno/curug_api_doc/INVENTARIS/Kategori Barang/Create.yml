@@ -4,11 +4,18 @@ info:
   seq: 1
 
 http:
-  method: GET
-  url: ""
+  method: POST
+  url: "{{base_url}}/api/inv-kategori-barang"
+  headers:
+    - name: Accept
+      value: application/json
   body:
     type: json
-    data: ""
+    data: |-
+      {
+        "nama" : "Alat Makan",
+        "keterangan" : "Alat makan milik PKK"
+      }
   auth: inherit
 
 settings:
@@ -16,3 +23,97 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-kategori-barang"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama" : "Elektronik",
+            "keterangan" : "Barang elektronik"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:14:50 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYEV99W0NR5QMRGDK4SDQ914
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Kategori barang berhasil ditambahkan.",
+            "data": {
+              "nama": "Elektronik",
+              "keterangan": "Barang elektronik",
+              "id": 1
+            }
+          }
+  - name: example (1)
+    request:
+      url: "{{base_url}}/api/inv-kategori-barang"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama" : "Meja Kursi",
+            "keterangan" : "Barang Meja dan Kursi"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:15:55 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYEVB9QT6N03FF1HTDPXDP2V
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Kategori barang berhasil ditambahkan.",
+            "data": {
+              "nama": "Meja Kursi",
+              "keterangan": "Barang Meja dan Kursi",
+              "id": 2
+            }
+          }

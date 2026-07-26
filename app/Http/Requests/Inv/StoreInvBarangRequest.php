@@ -22,9 +22,9 @@ class StoreInvBarangRequest extends FormRequest
             'tanggal_perolehan' => 'nullable|date',
             'keterangan'       => 'nullable|string',
             'jumlah_total'     => 'required|integer|min:0',
-            'jumlah_tersedia'  => 'required|integer|min:0',
             'jumlah_rusak'     => 'nullable|integer|min:0',
-            'jumlah_dipinjam'  => 'nullable|integer|min:0',
+            'jumlah_tersedia'  => 'prohibited',
+            'jumlah_dipinjam'  => 'prohibited',
         ];
     }
 }

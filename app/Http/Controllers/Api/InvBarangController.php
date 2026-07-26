@@ -37,7 +37,7 @@ class InvBarangController extends ApiController
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('nama_barang', 'like', "%{$search}%")
-                  ->orWhere('kode_barang', 'like', "%{$search}%");
+                    ->orWhere('kode_barang', 'like', "%{$search}%");
             });
         }
 
@@ -69,22 +69,36 @@ class InvBarangController extends ApiController
     {
         $data = $request->validated();
 
+        $jumlahTotalMutasi = $data['jumlah_total'];
+        $jumlahRusakMutasi = $data['jumlah_rusak'];
+
+
         // Default nilai stok
-        $data['jumlah_total']    = $data['jumlah_total'] ?? 0;
-        $data['jumlah_tersedia'] = $data['jumlah_tersedia'] ?? 0;
-        $data['jumlah_rusak']    = $data['jumlah_rusak'] ?? 0;
-        $data['jumlah_dipinjam'] = $data['jumlah_dipinjam'] ?? 0;
+        $data['jumlah_total'] = 0;
+        $data['jumlah_tersedia'] = 0;
+        $data['jumlah_rusak'] = 0;
+        $data['jumlah_dipinjam'] = 0;
 
         $record = InvBarang::create($data);
 
         // Catat mutasi pengadaan jika stok awal > 0
-        if ($data['jumlah_total'] > 0) {
+        if ($jumlahTotalMutasi > 0) {
             InvMutasiService::pengadaan(
                 $record->id,
-                $data['jumlah_total'],
+                $jumlahTotalMutasi,
                 'Stok awal barang baru'
             );
         }
+
+        if ($jumlahRusakMutasi > 0) {
+            InvMutasiService::rusak(
+                $record->id,
+                $jumlahRusakMutasi,
+                'Stok awal barang baru'
+            );
+        }
+
+        
 
         return $this->success(
             $record->fresh(['kategori', 'lokasi']),

@@ -1,0 +1,35 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 2
+
+http:
+  method: PATCH
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "kode_barang": "BRG-00012",
+        "nama_barang": "Laptop Lenovo ThinkPad Edited",
+        "kategori_id": 2,
+        "lokasi_id": 2,
+        "satuan": "Unit",
+        "tanggal_perolehan": "2026-07-28",
+        "keterangan": "Laptop untuk staf Edited"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "9"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
