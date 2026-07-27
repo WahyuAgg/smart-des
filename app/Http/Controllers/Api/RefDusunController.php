@@ -7,4 +7,6 @@ use App\Models\RefDusun;
 class RefDusunController extends CrudController
 {
     protected string $modelClass = RefDusun::class;
+
+    protected array $withShow = ['refRw'];
 }

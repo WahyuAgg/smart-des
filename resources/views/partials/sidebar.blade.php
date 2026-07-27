@@ -2,21 +2,25 @@
     $menu = [
         ['label' => 'Dashboard', 'route' => 'dashboard', 'icon' => 'home'],
         ['label' => 'Pengajuan Surat', 'route' => 'surat.index', 'icon' => 'document'],
-        ['label' => 'Riwayat Surat', 'route' => 'surat.riwayat', 'icon' => 'history'],
     ];
 
-    // Master data: kelompok menu dengan submenu, tinggal tambah item baru di sini
-    // setiap kali ada halaman master-data baru (jenis surat, penduduk, dst).
-    $masterData = [
-        ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
+    // Master data desa: kelompok menu dengan submenu
+    $masterDataDesa = [
         ['label' => 'KK / Kartu Keluarga', 'route' => 'master-data.kk.index'],
         ['label' => 'Pendidikan', 'route' => 'master-data.pendidikan.index'],
-        ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
         ['label' => 'Jabatan Perangkat', 'route' => 'master-data.jabatan-perangkat.index'],
         ['label' => 'Perangkat Desa', 'route' => 'master-data.perangkat-desa.index'],
         ['label' => 'Penduduk', 'route' => 'master-data.penduduk.index'],
     ];
-    $masterDataActive = collect($masterData)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
+    $masterDataDesaActive = collect($masterDataDesa)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
+
+    // Master data surat: kelompok menu surat-menyurat
+    $masterDataSurat = [
+        ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
+        ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
+        ['label' => 'Riwayat Surat', 'route' => 'surat.riwayat'],
+    ];
+    $masterDataSuratActive = collect($masterDataSurat)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
     // Inventaris: kelompok menu baru
     $inventaris = [
@@ -58,16 +62,16 @@
             </a>
         @endforeach
 
-        {{-- grup master data: bisa nambah halaman baru cukup edit array $masterData di atas --}}
-        <div x-data="{ open: {{ $masterDataActive ? 'true' : 'false' }} }">
+        {{-- grup master data desa --}}
+        <div x-data="{ open: {{ $masterDataDesaActive ? 'true' : 'false' }} }">
             <button type="button" @click="open = !open"
                 class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
-                     {{ $masterDataActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
+                     {{ $masterDataDesaActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
                 <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                     <path d="{{ $icons['database'] }}" />
                 </svg>
-                <span class="flex-1 text-left">Master Data</span>
+                <span class="flex-1 text-left">Master Data Desa</span>
                 <svg class="w-4 h-4 shrink-0 transition-transform" :class="open && 'rotate-180'" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
@@ -75,7 +79,35 @@
             </button>
 
             <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
-                @foreach ($masterData as $item)
+                @foreach ($masterDataDesa as $item)
+                    @php $subActive = request()->routeIs($item['route'].'*'); @endphp
+                    <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                        class="block px-2 py-1.5 rounded-md text-sm transition
+                    {{ $subActive ? 'text-accent font-medium' : 'text-slate-400 hover:text-white' }}">
+                        {{ $item['label'] }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- grup master data surat --}}
+        <div x-data="{ open: {{ $masterDataSuratActive ? 'true' : 'false' }} }">
+            <button type="button" @click="open = !open"
+                class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                     {{ $masterDataSuratActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
+                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="{{ $icons['document'] }}" />
+                </svg>
+                <span class="flex-1 text-left">Master Data Surat</span>
+                <svg class="w-4 h-4 shrink-0 transition-transform" :class="open && 'rotate-180'" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+
+            <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
+                @foreach ($masterDataSurat as $item)
                     @php $subActive = request()->routeIs($item['route'].'*'); @endphp
                     <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
                         class="block px-2 py-1.5 rounded-md text-sm transition

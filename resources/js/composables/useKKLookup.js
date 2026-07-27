@@ -56,7 +56,7 @@ export function useKKLookup() {
       this.kkOpen = false;
     },
 
-    get visibleKkOptions() {
+    visibleKkOptions() {
       return this.kkOptions;
     },
   };

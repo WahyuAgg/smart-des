@@ -23,11 +23,11 @@
           <div class="px-3 py-2 text-sm text-slate-400">Memuat data KK...</div>
         </template>
 
-        <template x-if="!kkLoading && visibleKkOptions.length === 0">
+        <template x-if="!kkLoading && visibleKkOptions().length === 0">
           <div class="px-3 py-2 text-sm text-slate-400">Tidak ada KK yang cocok.</div>
         </template>
 
-        <template x-for="option in visibleKkOptions" :key="option.id">
+        <template x-for="option in visibleKkOptions()" :key="option.id">
           <button type="button" @click="selectKk(option)" class="w-full px-3 py-2 text-left hover:bg-slate-50 border-t border-slate-100 first:border-t-0">
             <div class="text-sm font-medium text-slate-800" x-text="option.no_kk"></div>
             <div class="text-xs text-slate-400" x-text="'ID: ' + option.id"></div>
@@ -54,11 +54,11 @@
           <div class="px-3 py-2 text-sm text-slate-400">Memuat data pendidikan...</div>
         </template>
 
-        <template x-if="!pendidikanLoading && visiblePendidikanOptions.length === 0">
+        <template x-if="!pendidikanLoading && visiblePendidikanOptions().length === 0">
           <div class="px-3 py-2 text-sm text-slate-400">Tidak ada pendidikan yang cocok.</div>
         </template>
 
-        <template x-for="option in visiblePendidikanOptions" :key="option.id">
+        <template x-for="option in visiblePendidikanOptions()" :key="option.id">
           <button type="button" @click="selectPendidikan(option)" class="w-full px-3 py-2 text-left hover:bg-slate-50 border-t border-slate-100 first:border-t-0">
             <div class="text-sm font-medium text-slate-800" x-text="option.tingkat_pendidikan"></div>
             <div class="text-xs text-slate-400" x-text="'ID: ' + option.id"></div>

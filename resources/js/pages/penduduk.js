@@ -7,6 +7,7 @@ import { formatDate } from '../utils/date';
 import { genderLabel, statusBadge, statusLabel } from '../utils/format';
 import { useKKLookup } from '../composables/useKKLookup';
 import { usePendidikanLookup } from '../composables/usePendidikanLookup';
+import { useWilayahLookup } from '../composables/useWilayahLookup';
 
 export default () => ({
   loading: false,
@@ -28,10 +29,11 @@ export default () => ({
   // Autocomplete/lookup state & methods for KK and Pendidikan
   ...useKKLookup(),
   ...usePendidikanLookup(),
+  ...useWilayahLookup(),
 
   async init() {
     if (!Auth.requireAuth()) return;
-    await Promise.all([this.loadKkOptions(), this.loadPendidikanOptions()]);
+    await Promise.all([this.loadKkOptions(), this.loadPendidikanOptions(), this.loadProvinsiOptions()]);
     await this.load();
   },
 
@@ -55,6 +57,7 @@ export default () => ({
     this.editingId = null;
     this.form = emptyForm();
     this.resetLookupState();
+    this.resetWilayahState();
     this.showModal = true;
   },
 
@@ -62,6 +65,7 @@ export default () => ({
     this.editingId = item.id;
     this.form = mapItemToForm(item);
     this.syncLookupState();
+    await this.syncWilayahSelection();
     this.showModal = true;
     await Promise.all([this.ensureKkSelection(), this.ensurePendidikanSelection()]);
   },

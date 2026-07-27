@@ -1,0 +1,70 @@
+info:
+  name: Create
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-rw"
+  body:
+    type: json
+    data: |-
+      {
+          "dusun_id": 1,
+          "nomor_rw": "003",
+          "ketua_rw": "Pak Leci"
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-rw"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "dusun_id": 2,
+              "nomor_rw": "001",
+              "ketua_rw": "Pak Pisang"
+            }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 11:49:14 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHPGR6F6BZWAWZE3FK3XFQ8
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 3,
+              "dusun_id": 2,
+              "nomor_rw": "001",
+              "ketua_rw": "Pak Pisang"
+            }
+          }

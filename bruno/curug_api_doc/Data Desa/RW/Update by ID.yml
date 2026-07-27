@@ -1,0 +1,78 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/ref-rw/{{ref_rw_id}}"
+  body:
+    type: json
+    data: |-
+      {
+          "dusun_id": 1,
+          "nomor_rw": "002",
+          "ketua_rw": "Pak Banana"
+        }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_ref_dusun
+      value: "2"
+    - name: ref_rw_id
+      value: "7"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-rw/{{ref_rw_id}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {
+              "dusun_id": 1,
+              "nomor_rw": "002",
+              "ketua_rw": "Pak Banana"
+            }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 13:12:05 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHV8EQPJXY6VA505Y1GCEC6
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 7,
+              "dusun_id": 1,
+              "desa_id": null,
+              "nomor_rw": "002",
+              "ketua_rw": "Pak Banana"
+            }
+          }

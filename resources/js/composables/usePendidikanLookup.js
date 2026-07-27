@@ -59,7 +59,7 @@ export function usePendidikanLookup() {
       this.pendidikanOpen = false;
     },
 
-    get visiblePendidikanOptions() {
+    visiblePendidikanOptions() {
       const query = this.pendidikanSearch.trim().toLowerCase();
 
       if (!query) return this.pendidikanOptions;

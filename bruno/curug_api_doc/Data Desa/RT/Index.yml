@@ -1,0 +1,137 @@
+info:
+  name: Index
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/ref-rt?rw_id=1"
+  headers:
+    - name: per_page
+      value: "4"
+    - name: page
+      value: "2"
+  params:
+    - name: rw_id
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-rt?rw_id=1"
+      method: GET
+      headers:
+        - name: per_page
+          value: "4"
+        - name: page
+          value: "2"
+      params:
+        - name: rw_id
+          value: "1"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 13:34:28 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHWHEJ6M9Y09Y9T6NJTWWFZ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 1,
+                  "rw_id": 1,
+                  "nomor_rt": "001",
+                  "ketua_rt": "Joko Santoso",
+                  "ref_rw": {
+                    "id": 1,
+                    "dusun_id": 1,
+                    "desa_id": null,
+                    "nomor_rw": "001",
+                    "ketua_rw": "Slamet Riyadi",
+                    "ref_dusun": {
+                      "id": 1,
+                      "nama": "Curug",
+                      "kepala_dusun": "Budi Santoso"
+                    }
+                  }
+                },
+                {
+                  "id": 2,
+                  "rw_id": 1,
+                  "nomor_rt": "002",
+                  "ketua_rt": "Siti Aminah",
+                  "ref_rw": {
+                    "id": 1,
+                    "dusun_id": 1,
+                    "desa_id": null,
+                    "nomor_rw": "001",
+                    "ketua_rw": "Slamet Riyadi",
+                    "ref_dusun": {
+                      "id": 1,
+                      "nama": "Curug",
+                      "kepala_dusun": "Budi Santoso"
+                    }
+                  }
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/ref-rt?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/ref-rt?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/ref-rt?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/ref-rt",
+              "per_page": 15,
+              "prev_page_url": null,
+              "to": 2,
+              "total": 2
+            }
+          }

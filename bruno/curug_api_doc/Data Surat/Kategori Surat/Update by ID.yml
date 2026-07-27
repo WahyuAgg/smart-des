@@ -1,0 +1,78 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/srt-kategori-surat/{{id_srt_kategori_surat}}"
+  body:
+    type: json
+    data: |-
+      {
+        "kode_kategori_surat": "Gen",
+        "nama_kategori_surat": "General",
+        "deskripsi": "Surat semua kebutuhan edited",
+        "is_active": false
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_srt_kategori_surat
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-kategori-surat/{{id_srt_kategori_surat}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {
+            "kode_kategori_surat": "Gen",
+            "nama_kategori_surat": "General",
+            "deskripsi": "Surat semua kebutuhan edited",
+            "is_active": false
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 10:55:53 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHKF2G5498MTYVZG9T12K38
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 16,
+              "kode_kategori_surat": "Gen",
+              "nama_kategori_surat": "General",
+              "deskripsi": "Surat semua kebutuhan edited",
+              "is_active": false
+            }
+          }

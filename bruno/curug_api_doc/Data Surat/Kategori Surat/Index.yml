@@ -1,0 +1,209 @@
+info:
+  name: Index
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/srt-kategori-surat?page=1&per_page=30"
+  params:
+    - name: page
+      value: "1"
+      type: query
+    - name: per_page
+      value: "30"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-kategori-surat?page=1&per_page=100"
+      method: GET
+      params:
+        - name: page
+          value: "1"
+          type: query
+        - name: per_page
+          value: "100"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 10:52:13 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHK8BDVQ1D55QZ1SK7AJXT6
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 16,
+                  "kode_kategori_surat": "Gen",
+                  "nama_kategori_surat": "General",
+                  "deskripsi": "Surat semua kebutuhan",
+                  "is_active": true
+                },
+                {
+                  "id": 1,
+                  "kode_kategori_surat": "KET",
+                  "nama_kategori_surat": "Surat Keterangan",
+                  "deskripsi": "Berbagai surat yang menerangkan suatu kondisi, status, atau keadaan seseorang.",
+                  "is_active": true
+                },
+                {
+                  "id": 2,
+                  "kode_kategori_surat": "PENG",
+                  "nama_kategori_surat": "Surat Pengantar",
+                  "deskripsi": "Surat pengantar untuk pengurusan dokumen atau layanan pada instansi lain.",
+                  "is_active": true
+                },
+                {
+                  "id": 3,
+                  "kode_kategori_surat": "PERNY",
+                  "nama_kategori_surat": "Surat Pernyataan",
+                  "deskripsi": "Surat yang berisi pernyataan atau pengakuan dari pemohon.",
+                  "is_active": true
+                },
+                {
+                  "id": 4,
+                  "kode_kategori_surat": "REK",
+                  "nama_kategori_surat": "Surat Rekomendasi",
+                  "deskripsi": "Surat rekomendasi yang diterbitkan pemerintah desa.",
+                  "is_active": true
+                },
+                {
+                  "id": 5,
+                  "kode_kategori_surat": "DOM",
+                  "nama_kategori_surat": "Surat Domisili",
+                  "deskripsi": "Surat yang berkaitan dengan domisili penduduk maupun usaha.",
+                  "is_active": true
+                },
+                {
+                  "id": 6,
+                  "kode_kategori_surat": "USAHA",
+                  "nama_kategori_surat": "Surat Usaha",
+                  "deskripsi": "Surat yang berkaitan dengan kegiatan usaha masyarakat.",
+                  "is_active": true
+                },
+                {
+                  "id": 7,
+                  "kode_kategori_surat": "TANAH",
+                  "nama_kategori_surat": "Surat Pertanahan",
+                  "deskripsi": "Surat mengenai tanah, kepemilikan, batas, dan riwayat tanah.",
+                  "is_active": true
+                },
+                {
+                  "id": 8,
+                  "kode_kategori_surat": "NIKAH",
+                  "nama_kategori_surat": "Surat Pernikahan",
+                  "deskripsi": "Surat yang berkaitan dengan administrasi perkawinan.",
+                  "is_active": true
+                },
+                {
+                  "id": 9,
+                  "kode_kategori_surat": "PDDK",
+                  "nama_kategori_surat": "Surat Kependudukan",
+                  "deskripsi": "Surat administrasi kependudukan.",
+                  "is_active": true
+                },
+                {
+                  "id": 10,
+                  "kode_kategori_surat": "SOS",
+                  "nama_kategori_surat": "Surat Bantuan Sosial",
+                  "deskripsi": "Surat untuk pengajuan atau persyaratan bantuan sosial.",
+                  "is_active": true
+                },
+                {
+                  "id": 11,
+                  "kode_kategori_surat": "WARIS",
+                  "nama_kategori_surat": "Surat Waris",
+                  "deskripsi": "Surat yang berkaitan dengan ahli waris dan pewarisan.",
+                  "is_active": true
+                },
+                {
+                  "id": 12,
+                  "kode_kategori_surat": "PERIZ",
+                  "nama_kategori_surat": "Surat Perizinan",
+                  "deskripsi": "Surat izin atau rekomendasi kegiatan tertentu.",
+                  "is_active": true
+                },
+                {
+                  "id": 13,
+                  "kode_kategori_surat": "LEGAL",
+                  "nama_kategori_surat": "Legalisasi Dokumen",
+                  "deskripsi": "Layanan legalisasi dan pengesahan dokumen.",
+                  "is_active": true
+                },
+                {
+                  "id": 14,
+                  "kode_kategori_surat": "KEU",
+                  "nama_kategori_surat": "Surat Keuangan",
+                  "deskripsi": "Surat yang berkaitan dengan penghasilan, rekening, atau administrasi keuangan.",
+                  "is_active": true
+                },
+                {
+                  "id": 15,
+                  "kode_kategori_surat": "LAIN",
+                  "nama_kategori_surat": "Surat Lainnya",
+                  "deskripsi": "Kategori untuk surat yang belum termasuk kategori lain.",
+                  "is_active": true
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/srt-kategori-surat?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/srt-kategori-surat?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/srt-kategori-surat?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/srt-kategori-surat",
+              "per_page": 100,
+              "prev_page_url": null,
+              "to": 16,
+              "total": 16
+            }
+          }

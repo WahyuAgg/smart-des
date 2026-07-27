@@ -1,0 +1,70 @@
+info:
+  name: Create
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-rt"
+  body:
+    type: json
+    data: |-
+      {
+          "rw_id": 7,
+          "nomor_rt": "002",
+          "ketua_rt": "Pak Manggis"
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-rt"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "rw_id": 7,
+              "nomor_rt": "002",
+              "ketua_rt": "Pak Manggis"
+            }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 13:21:07 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHVRZV8PDCXHQ7EWMMRXFR3
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 8,
+              "rw_id": 7,
+              "nomor_rt": "002",
+              "ketua_rt": "Pak Manggis"
+            }
+          }

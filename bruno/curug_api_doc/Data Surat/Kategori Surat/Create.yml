@@ -1,0 +1,73 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/srt-kategori-surat"
+  body:
+    type: json
+    data: |-
+      {
+        "kode_kategori_surat": "Gen",
+        "nama_kategori_surat": "General",
+        "deskripsi": "Surat semua kebutuhan",
+        "is_active": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-kategori-surat"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "kode_kategori_surat": "Gen",
+            "nama_kategori_surat": "General",
+            "deskripsi": "Surat semua kebutuhan",
+            "is_active": true
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 10:50:13 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHK4P5GE6XSZM2EXQQRCXMN
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 16,
+              "kode_kategori_surat": "Gen",
+              "nama_kategori_surat": "General",
+              "deskripsi": "Surat semua kebutuhan",
+              "is_active": true
+            }
+          }

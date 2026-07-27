@@ -1,0 +1,72 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/ref-dusun/{{id_ref_dusun}}"
+  body:
+    type: json
+    data: |-
+      {
+          "nama": "Nanas",
+          "kepala_dusun": "Pak Semangka"
+        }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_ref_dusun
+      value: "2"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-dusun/{{id_ref_dusun}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {
+              "nama": "Nanas",
+              "kepala_dusun": "Pak Semangka"
+            }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 11:41:58 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHP3EKFP8FSA48XJZ0ZHCR1
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 2,
+              "nama": "Nanas",
+              "kepala_dusun": "Pak Semangka"
+            }
+          }

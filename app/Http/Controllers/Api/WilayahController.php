@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravolt\Indonesia\Models\City;
@@ -16,15 +15,11 @@ class WilayahController extends ApiController
 
     public function index(Request $request): JsonResponse
     {
-        // $perPage = $request->input('per_page', $this->defaultPerPage);
-
-        // $perPage = min($perPage, $this->maxPerPage);
-
         // 1. Ambil dan sanitasi parameter input
         $level = strtolower($request->query('level', 'provinsi'));
         $search = trim($request->query('search', ''));
         $id_parent = $request->query('parent'); // Untuk filter berdasarkan relasi (misal: ID provinsi untuk mencari kabupaten)
-        $code = $request->query('code'); // kode wilayah
+        $limit = max(1, min($request->integer('limit', 1000), 1000));
 
 
         // 2. Tentukan model dan kolom relasi berdasarkan level wilayah
@@ -54,7 +49,7 @@ class WilayahController extends ApiController
             $query->where('name', 'like', "%{$search}%");
         }
 
-        $query->limit(3);
+        $query->limit($limit);
 
 
         $data = $query->orderBy('name')->get();
