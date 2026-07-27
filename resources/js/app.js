@@ -25,6 +25,12 @@ import perangkatDesaCrud from './pages/perangkat-desa';
 import pendudukCrud from './pages/penduduk';
 import suratWizard from './components/surat-wizard';
 
+// Master Data Baru
+import kategoriSuratCrud from './pages/kategori-surat';
+import dusunCrud from './pages/dusun';
+import rwCrud from './pages/rw';
+import rtCrud from './pages/rt';
+
 // Inventaris Pages
 import kategoriBarangCrud from './pages/kategori-barang';
 import lokasiCrud from './pages/lokasi';
@@ -52,6 +58,12 @@ Alpine.data('lokasiCrud', lokasiCrud);
 Alpine.data('barangCrud', barangCrud);
 Alpine.data('peminjamanCrud', peminjamanCrud);
 Alpine.data('mutasiCrud', mutasiCrud);
+
+// Master Data Baru
+Alpine.data('kategoriSuratCrud', kategoriSuratCrud);
+Alpine.data('dusunCrud', dusunCrud);
+Alpine.data('rwCrud', rwCrud);
+Alpine.data('rtCrud', rtCrud);
 
 window.Alpine = Alpine;
 Alpine.start();

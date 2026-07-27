@@ -6,6 +6,9 @@
 
     // Master data desa: kelompok menu dengan submenu
     $masterDataDesa = [
+        ['label' => 'Dusun', 'route' => 'master-data.dusun.index'],
+        ['label' => 'RW', 'route' => 'master-data.rw.index'],
+        ['label' => 'RT', 'route' => 'master-data.rt.index'],
         ['label' => 'KK / Kartu Keluarga', 'route' => 'master-data.kk.index'],
         ['label' => 'Pendidikan', 'route' => 'master-data.pendidikan.index'],
         ['label' => 'Jabatan Perangkat', 'route' => 'master-data.jabatan-perangkat.index'],
@@ -16,6 +19,7 @@
 
     // Master data surat: kelompok menu surat-menyurat
     $masterDataSurat = [
+        ['label' => 'Kategori Surat', 'route' => 'master-data.kategori-surat.index'],
         ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
         ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
         ['label' => 'Riwayat Surat', 'route' => 'surat.riwayat'],

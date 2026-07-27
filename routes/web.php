@@ -29,7 +29,11 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/jabatan-perangkat', fn() => view('master-data.jabatan-perangkat.index'))->name('jabatan-perangkat.index');
     Route::get('/perangkat-desa', fn() => view('master-data.perangkat-desa.index'))->name('perangkat-desa.index');
     Route::get('/penduduk', fn() => view('master-data.penduduk.index'))->name('penduduk.index');
-    // more master data routes can be added here
+    // — additional master data —
+    Route::get('/kategori-surat', fn() => view('master-data.kategori-surat.index'))->name('kategori-surat.index');
+    Route::get('/dusun', fn() => view('master-data.dusun.index'))->name('dusun.index');
+    Route::get('/rw', fn() => view('master-data.rw.index'))->name('rw.index');
+    Route::get('/rt', fn() => view('master-data.rt.index'))->name('rt.index');
 });
 
 // Inventaris Routes
