@@ -37,6 +37,9 @@ Route::prefix('inventaris')->name('inventaris.')->group(function () {
     Route::get('/kategori-barang', fn() => view('inventaris.kategori-barang.index'))->name('kategori-barang.index');
     Route::get('/lokasi', fn() => view('inventaris.lokasi.index'))->name('lokasi.index');
     Route::get('/barang', fn() => view('inventaris.barang.index'))->name('barang.index');
+    Route::get('/barang/{id}', fn($id) => view('inventaris.barang.detail', ['id' => $id]))->name('barang.detail');
     Route::get('/peminjaman', fn() => view('inventaris.peminjaman.index'))->name('peminjaman.index');
+    Route::get('/peminjaman/{id}', fn($id) => view('inventaris.peminjaman.detail', ['id' => $id]))->name('peminjaman.detail');
     Route::get('/mutasi', fn() => view('inventaris.mutasi.index'))->name('mutasi.index');
+    Route::get('/mutasi/{id}', fn($id) => view('inventaris.mutasi.show', ['id' => $id]))->name('mutasi.show');
 });
