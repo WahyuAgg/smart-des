@@ -38,13 +38,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property-read mixed $get_alamat
  * @property-read \App\Models\Kk $kk
  * @property-read mixed $nama_pendidikan
- * @property-read mixed $no_kk
+ * @property-read string|null $no_kk
  * @property-read \App\Models\Pendidikan|null $pendidikan
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SrtPengajuanSurat> $pengajuanSurats
  * @property-read int|null $pengajuan_surats_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SrtPengajuanSuratPenduduk> $srtPengajuanSuratPenduduks
  * @property-read int|null $srt_pengajuan_surat_penduduks_count
- * @property-read mixed $tanggal_lahir_formatted
+ * @property-read mixed $tanggal_lahir_f
+ * @property-read int|null $umur
  * @method static \Database\Factories\PendudukFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk newQuery()
@@ -71,7 +72,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTanggalMeninggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTempatLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereUpdatedAt($value)
- * @property-read mixed $umur
  * @mixin \Eloquent
  */
 class Penduduk extends Model

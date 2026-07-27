@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * @property int $id
@@ -12,18 +11,19 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property string $nama_barang
  * @property int $kategori_id
  * @property int $lokasi_id
- * @property int $jumlah_total
- * @property int $jumlah_dipinjam
  * @property string $satuan
  * @property \Illuminate\Support\Carbon|null $tanggal_perolehan
  * @property string|null $keterangan
- * @property-read int $jumlah_tersedia
+ * @property int $jumlah_total
+ * @property int $jumlah_dipinjam
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InvDetailPeminjaman> $detailPeminjamans
- * @property-read int|null $detail_peminjamans_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InvDetailMutasi> $detailMutasis
  * @property-read int|null $detail_mutasis_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\InvDetailPeminjaman> $detailPeminjamans
+ * @property-read int|null $detail_peminjamans_count
+ * @property-read int $jumlah_masih_hilang
+ * @property-read int $jumlah_tersedia
  * @property-read \App\Models\InvKategoriBarang $kategori
  * @property-read \App\Models\InvLokasi $lokasi
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvBarang newModelQuery()

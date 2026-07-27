@@ -12,10 +12,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * @property int $id
- * @property string $provinsi_code
- * @property string $kabupaten_code
- * @property string $kecamatan_code
- * @property string $desa_code
  * @property string $nama
  * @property string|null $kode
  * @property string|null $kode_pos
@@ -32,15 +28,15 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property-read mixed $kades
  * @property-read mixed $sekdes
  * @property-read mixed $bendahara
- * @property-read Village $desa
- * @property-read City $kabupaten
+ * @property-read mixed $desa
+ * @property-read mixed $kabupaten
  * @property-read mixed $kasi_kes
  * @property-read mixed $kasi_pel
  * @property-read mixed $kasi_pem
  * @property-read mixed $kaur_keu
  * @property-read mixed $kaur_per
  * @property-read mixed $kaur_tu
- * @property-read District $kecamatan
+ * @property-read mixed $kecamatan
  * @property-read mixed $kepala_dusun
  * @property-read mixed $nama_desa
  * @property-read mixed $nama_kabupaten
@@ -48,8 +44,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property-read mixed $nama_provinsi
  * @property-read mixed $operator_desa
  * @property-read mixed $pengelola_arsip
- * @property-read mixed $profile_kecamatan
- * @property-read Province $provinsi
+ * @property-read mixed $profil_kecamatan
+ * @property-read mixed $provinsi
  * @property-read mixed $staf_adm
  * @property-read mixed $staf_keu
  * @property-read mixed $staf_pel
@@ -60,18 +56,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereAlamat($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereDesaCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereDeskripsi($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereKabupatenCode($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereKecamatanCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereKode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereKodePos($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereLogo($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereMisi($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereNama($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereProvinsiCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereTelepon($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereVisi($value)

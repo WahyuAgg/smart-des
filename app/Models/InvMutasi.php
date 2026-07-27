@@ -6,6 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\InvDetailMutasi;
 
+/**
+ * @property int $id
+ * @property int|null $peminjaman_id
+ * @property string $nomor
+ * @property string $jenis
+ * @property \Illuminate\Support\Carbon $tanggal
+ * @property string|null $keterangan
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, InvDetailMutasi> $details
+ * @property-read int|null $details_count
+ * @property-read \App\Models\InvPeminjaman|null $peminjaman
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereJenis($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereKeterangan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereNomor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi wherePeminjamanId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|InvMutasi whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class InvMutasi extends Model
 {
     use HasFactory;

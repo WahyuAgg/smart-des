@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property bool $wajib
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\SrtJenisSurat|null $jenisSurat
+ * @property-read \App\Models\SrtJenisSurat $jenisSurat
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSuratPenduduk newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSuratPenduduk newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSuratPenduduk query()
