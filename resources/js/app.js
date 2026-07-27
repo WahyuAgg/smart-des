@@ -7,6 +7,14 @@ import collapse from '@alpinejs/collapse';
 import { Auth } from './services/auth';
 window.Auth = Auth;
 
+// Expose API services globally for inline Alpine components in Blade views
+import { barangApi } from './services/barangApi';
+import { peminjamanApi } from './services/peminjamanApi';
+import { mutasiApi } from './services/mutasiApi';
+window.barangApi = barangApi;
+window.peminjamanApi = peminjamanApi;
+window.mutasiApi = mutasiApi;
+
 // Components
 import loginForm from './components/login';
 import masterFieldSurat from './pages/master-field-surat';

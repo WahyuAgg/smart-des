@@ -13,23 +13,23 @@
       <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-6">
         <div class="flex items-start justify-between">
           <div>
-            <h2 class="text-lg font-semibold text-slate-800" x-text="'Peminjaman: ' + item.nomor"></h2>
-            <p class="text-sm text-slate-500" x-text="item.nama_peminjam"></p>
+            <h2 class="text-lg font-semibold text-slate-800" x-text="'Peminjaman: ' + (item?.nomor ?? '')"></h2>
+            <p class="text-sm text-slate-500" x-text="item?.nama_peminjam ?? ''"></p>
           </div>
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-            :class="statusBadge(item.status)"
-            x-text="statusLabel(item.status)"></span>
+            :class="statusBadge(item?.status)"
+            x-text="statusLabel(item?.status)"></span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div><span class="text-slate-500">Tanggal Pinjam:</span> <span class="ml-1 font-medium" x-text="item.tanggal_pinjam"></span></div>
-          <div><span class="text-slate-500">Rencana Kembali:</span> <span class="ml-1 font-medium" x-text="item.tanggal_rencana_kembali || '—'"></span></div>
-          <div x-show="item.tanggal_kembali"><span class="text-slate-500">Tgl. Kembali:</span> <span class="ml-1 font-medium" x-text="item.tanggal_kembali"></span></div>
+          <div><span class="text-slate-500">Tanggal Pinjam:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_pinjam ?? ''"></span></div>
+          <div><span class="text-slate-500">Rencana Kembali:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_rencana_kembali || '—'"></span></div>
+          <div x-show="item?.tanggal_kembali"><span class="text-slate-500">Tgl. Kembali:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_kembali"></span></div>
         </div>
 
-        <div x-show="item.keterangan" class="text-sm">
+        <div x-show="item?.keterangan" class="text-sm">
           <span class="text-slate-500">Keterangan:</span>
-          <p class="mt-1 text-slate-700" x-text="item.keterangan"></p>
+          <p class="mt-1 text-slate-700" x-text="item?.keterangan"></p>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
-            <template x-for="det in item.details" :key="det.id">
+            <template x-for="det in item?.details || []" :key="det.id">
               <tr>
                 <td class="px-4 py-2" x-text="det.barang?.nama_barang || '—'"></td>
                 <td class="px-4 py-2 text-right font-medium" x-text="det.jumlah_pinjam ?? 0"></td>
@@ -59,7 +59,7 @@
       </div>
 
       {{-- Form Pengembalian (jika status dipinjam) --}}
-      <div x-show="item.status === 'dipinjam'" class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+      <div x-show="item?.status === 'dipinjam'" class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
         <h3 class="text-sm font-semibold text-slate-800 mb-4">Form Pengembalian</h3>
         <p class="text-xs text-slate-500 mb-4">Catat jumlah barang yang dikembalikan dan/atau hilang.</p>
 
@@ -114,14 +114,10 @@
         if (!id) return;
 
         try {
-          const response = await fetch(`/api/inv-peminjaman/${id}`, {
-            headers: { Accept: 'application/json', ...(window.Auth?.getHeaders?.() || {}) },
-          });
-          const json = await response.json();
-          this.item = json.data || json;
+          this.item = await window.peminjamanApi.getById(id);
 
           // Init form returns
-          if (this.item.details) {
+          if (this.item?.details) {
             this.returns = this.item.details.map(d => ({
               barang_id: d.barang_id,
               barang_nama: d.barang?.nama_barang || '—',
@@ -130,7 +126,7 @@
             }));
           }
         } catch (e) {
-          this.error = 'Gagal memuat detail peminjaman.';
+          this.error = e.message || 'Gagal memuat detail peminjaman.';
         } finally {
           this.loading = false;
         }
@@ -150,26 +146,10 @@
             })),
           };
 
-          const response = await fetch(`/api/inv-peminjaman/${this.item.id}/kembalikan`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json',
-              ...(window.Auth?.getHeaders?.() || {}),
-            },
-            body: JSON.stringify(payload),
-          });
-
-          const json = await response.json();
-          if (!response.ok) throw new Error(json.message || 'Gagal mengembalikan barang.');
+          await window.peminjamanApi.kembalikan(this.item.id, payload);
 
           this.success = 'Barang berhasil dikembalikan.';
-          // Reload detail
-          const resp = await fetch(`/api/inv-peminjaman/${this.item.id}`, {
-            headers: { Accept: 'application/json', ...(window.Auth?.getHeaders?.() || {}) },
-          });
-          const data = await resp.json();
-          this.item = data.data || data;
+          this.item = await window.peminjamanApi.getById(this.item.id);
         } catch (e) {
           this.error = e.message || 'Gagal mengembalikan barang.';
         } finally {

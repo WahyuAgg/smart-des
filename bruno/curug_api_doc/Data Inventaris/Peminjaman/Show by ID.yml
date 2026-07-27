@@ -14,7 +14,7 @@ http:
 runtime:
   variables:
     - name: id_peminjaman
-      value: "15"
+      value: "18"
 
 settings:
   encodeUrl: true

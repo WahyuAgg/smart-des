@@ -13,8 +13,8 @@
       <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-6">
         <div class="flex items-start justify-between">
           <div>
-            <h2 class="text-lg font-semibold text-slate-800" x-text="item.nama_barang"></h2>
-            <p class="text-sm text-slate-500 font-mono" x-text="item.kode_barang"></p>
+            <h2 class="text-lg font-semibold text-slate-800" x-text="item?.nama_barang ?? ''"></h2>
+            <p class="text-sm text-slate-500 font-mono" x-text="item?.kode_barang ?? ''"></p>
           </div>
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
             :class="stokBadge"
@@ -22,17 +22,17 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div><span class="text-slate-500">Kategori:</span> <span class="ml-1 font-medium" x-text="item.kategori?.nama || '—'"></span></div>
-          <div><span class="text-slate-500">Lokasi:</span> <span class="ml-1 font-medium" x-text="item.lokasi?.nama || '—'"></span></div>
-          <div><span class="text-slate-500">Satuan:</span> <span class="ml-1 font-medium" x-text="item.satuan || '—'"></span></div>
-          <div><span class="text-slate-500">Tanggal Perolehan:</span> <span class="ml-1 font-medium" x-text="item.tanggal_perolehan || '—'"></span></div>
-          <div><span class="text-slate-500">Total Stok:</span> <span class="ml-1 font-medium" x-text="item.jumlah_total ?? 0"></span></div>
-          <div><span class="text-slate-500">Sedang Dipinjam:</span> <span class="ml-1 font-medium" x-text="item.jumlah_dipinjam ?? 0"></span></div>
+          <div><span class="text-slate-500">Kategori:</span> <span class="ml-1 font-medium" x-text="item?.kategori?.nama || '—'"></span></div>
+          <div><span class="text-slate-500">Lokasi:</span> <span class="ml-1 font-medium" x-text="item?.lokasi?.nama || '—'"></span></div>
+          <div><span class="text-slate-500">Satuan:</span> <span class="ml-1 font-medium" x-text="item?.satuan || '—'"></span></div>
+          <div><span class="text-slate-500">Tanggal Perolehan:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_perolehan || '—'"></span></div>
+          <div><span class="text-slate-500">Total Stok:</span> <span class="ml-1 font-medium" x-text="item?.jumlah_total ?? 0"></span></div>
+          <div><span class="text-slate-500">Sedang Dipinjam:</span> <span class="ml-1 font-medium" x-text="item?.jumlah_dipinjam ?? 0"></span></div>
         </div>
 
-        <div x-show="item.keterangan" class="text-sm">
+        <div x-show="item?.keterangan" class="text-sm">
           <span class="text-slate-500">Keterangan:</span>
-          <p class="mt-1 text-slate-700" x-text="item.keterangan"></p>
+          <p class="mt-1 text-slate-700" x-text="item?.keterangan"></p>
         </div>
       </div>
 
@@ -88,27 +88,20 @@
         if (!id) return;
 
         try {
-          const response = await fetch(`/api/inv-barang/${id}`, {
-            headers: { Accept: 'application/json', ...(window.Auth?.getHeaders?.() || {}) },
-          });
-          const json = await response.json();
-          this.item = json.data || json;
+          this.item = await window.barangApi.getById(id);
 
           // Load riwayat mutasi
           this.mutasiLoading = true;
           try {
-            const mutasiResp = await fetch(`/api/inv-barang/${id}/riwayat-mutasi?per_page=10`, {
-              headers: { Accept: 'application/json', ...(window.Auth?.getHeaders?.() || {}) },
-            });
-            const mutasiJson = await mutasiResp.json();
-            this.mutasiItems = mutasiJson.data?.data || mutasiJson.data || [];
+            const payload = await window.barangApi.riwayatMutasi(id, { perPage: 10 });
+            this.mutasiItems = payload.data?.data || payload.data || [];
           } catch (e) {
             this.mutasiItems = [];
           } finally {
             this.mutasiLoading = false;
           }
         } catch (e) {
-          this.error = 'Gagal memuat detail barang.';
+          this.error = e.message || 'Gagal memuat detail barang.';
         } finally {
           this.loading = false;
         }

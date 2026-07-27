@@ -13,31 +13,31 @@
         {{-- Header --}}
         <div class="flex items-start justify-between">
           <div>
-            <h2 class="text-lg font-semibold text-slate-800" x-text="'Mutasi: ' + item.nomor"></h2>
-            <p class="text-sm text-slate-500" x-text="item.tanggal"></p>
+            <h2 class="text-lg font-semibold text-slate-800" x-text="'Mutasi: ' + (item?.nomor ?? '')"></h2>
+            <p class="text-sm text-slate-500" x-text="item?.tanggal ?? ''"></p>
           </div>
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-            :class="jenisBadge(item.jenis)"
-            x-text="jenisLabel(item.jenis)"></span>
+            :class="jenisBadge(item?.jenis)"
+            x-text="jenisLabel(item?.jenis)"></span>
         </div>
 
         {{-- Info --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
             <span class="text-slate-500">No. Mutasi:</span>
-            <span class="ml-2 font-medium" x-text="item.nomor"></span>
+            <span class="ml-2 font-medium" x-text="item?.nomor ?? ''"></span>
           </div>
           <div>
             <span class="text-slate-500">Tanggal:</span>
-            <span class="ml-2 font-medium" x-text="item.tanggal"></span>
+            <span class="ml-2 font-medium" x-text="item?.tanggal ?? ''"></span>
           </div>
-          <div x-show="item.peminjaman">
+          <div x-show="item?.peminjaman">
             <span class="text-slate-500">No. Peminjaman:</span>
-            <span class="ml-2 font-medium" x-text="item.peminjaman?.nomor"></span>
+            <span class="ml-2 font-medium" x-text="item?.peminjaman?.nomor"></span>
           </div>
-          <div class="md:col-span-2" x-show="item.keterangan">
+          <div class="md:col-span-2" x-show="item?.keterangan">
             <span class="text-slate-500">Keterangan:</span>
-            <p class="mt-1 text-slate-700" x-text="item.keterangan"></p>
+            <p class="mt-1 text-slate-700" x-text="item?.keterangan"></p>
           </div>
         </div>
 
@@ -52,7 +52,7 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100">
-              <template x-for="det in item.details" :key="det.id">
+              <template x-for="det in item?.details || []" :key="det.id">
                 <tr>
                   <td class="px-4 py-2" x-text="det.barang?.nama_barang || '—'"></td>
                   <td class="px-4 py-2 text-right font-medium" x-text="det.jumlah"></td>
@@ -83,10 +83,9 @@
         if (!id) return;
 
         try {
-          const { mutasiApi } = await import('{{ Vite::asset('resources/js/services/mutasiApi.js') }}');
-          this.item = await mutasiApi.getById(id);
+          this.item = await window.mutasiApi.getById(id);
         } catch (e) {
-          this.error = 'Gagal memuat detail mutasi.';
+          this.error = e.message || 'Gagal memuat detail mutasi.';
         } finally {
           this.loading = false;
         }
