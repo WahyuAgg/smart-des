@@ -13,8 +13,8 @@ Dokumentasi: bruno\CURUG_API_DOC\Data Inventaris
 | Entitas | API Prefix | Kategori UI | Catatan |
 |---------|-----------|-------------|---------|
 | **Barang** | `inv-barang` | CRUD + Aksi Khusus | Halaman utama inventaris: daftar barang, tambah/edit, stok. Aksi: pengadaan, hilang, ketemu, opname, hapus stok. |
-| **Kategori Barang** | `inv-kategori-barang` | CRUD Sederhana | Referensi, mirip seperti Pendidikan. |
-| **Lokasi** | `inv-lokasi` | CRUD Sederhana | Referensi, mirip seperti Pendidikan. |
+| **Kategori Barang** | `inv-kategori-barang` | CRUD Sederhana | Referensi, mirip seperti Pendidikan. ✅ **SELESAI** |
+| **Lokasi** | `inv-lokasi` | CRUD Sederhana | Referensi, mirip seperti Pendidikan. ✅ **SELESAI** |
 | **Peminjaman** | `inv-peminjaman` | CRUD + Aksi Khusus | Header-detail: peminjam + barang dipinjam. Aksi: kembalikan, batalkan. |
 | **Mutasi** | `inv-mutasi` | Read-only (Index/Show) | Buku besar stock ledger, hanya lihat riwayat. |
 | **Detail Peminjaman** | `inv-detail-peminjaman` | (via Peminjaman) | Tidak perlu halaman sendiri — dikelola lewat form Peminjaman. |
@@ -41,16 +41,16 @@ resources/views/
 │   │       └── modal-ketemu.blade.php    # Modal aksi ketemu
 │   │
 │   ├── kategori-barang/
-│   │   ├── index.blade.php              # CRUD sederhana (mirip Pendidikan)
+│   │   ├── index.blade.php              # CRUD sederhana (mirip Pendidikan) ✅
 │   │   └── partials/
-│   │       ├── table.blade.php
-│   │       └── form.blade.php
+│   │       ├── table.blade.php ✅
+│   │       └── form.blade.php ✅
 │   │
 │   ├── lokasi/
-│   │   ├── index.blade.php              # CRUD sederhana (mirip Pendidikan)
+│   │   ├── index.blade.php              # CRUD sederhana (mirip Pendidikan) ✅
 │   │   └── partials/
-│   │       ├── table.blade.php
-│   │       └── form.blade.php
+│   │       ├── table.blade.php ✅
+│   │       └── form.blade.php ✅
 │   │
 │   ├── peminjaman/
 │   │   ├── index.blade.php              # Daftar peminjaman
@@ -75,24 +75,24 @@ resources/js/
 ├── pages/
 │   ├── (existing: kk.js, pendidikan.js, penduduk.js, ...)
 │   ├── barang.js                        # ← NEW
-│   ├── kategori-barang.js               # ← NEW
-│   ├── lokasi.js                        # ← NEW
+│   ├── kategori-barang.js               # ← NEW ✅
+│   ├── lokasi.js                        # ← NEW ✅
 │   ├── peminjaman.js                    # ← NEW
 │   └── mutasi.js                        # ← NEW
 │
 ├── services/
 │   ├── (existing: kkApi.js, pendudukApi.js, ...)
 │   ├── barangApi.js                     # ← NEW
-│   ├── kategoriBarangApi.js             # ← NEW
-│   ├── lokasiApi.js                     # ← NEW
+│   ├── kategoriBarangApi.js             # ← NEW ✅
+│   ├── lokasiApi.js                     # ← NEW ✅
 │   ├── peminjamanApi.js                 # ← NEW
 │   └── mutasiApi.js                     # ← NEW
 │
 ├── mappers/
 │   ├── (existing: kkMapper.js, ...)
 │   ├── barangMapper.js                  # ← NEW
-│   ├── kategoriBarangMapper.js          # ← NEW
-│   ├── lokasiMapper.js                  # ← NEW
+│   ├── kategoriBarangMapper.js          # ← NEW ✅
+│   ├── lokasiMapper.js                  # ← NEW ✅
 │   ├── peminjamanMapper.js              # ← NEW
 │   └── mutasiMapper.js                  # ← NEW
 │

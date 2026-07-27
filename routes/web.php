@@ -31,3 +31,12 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/penduduk', fn() => view('master-data.penduduk.index'))->name('penduduk.index');
     // more master data routes can be added here
 });
+
+// Inventaris Routes
+Route::prefix('inventaris')->name('inventaris.')->group(function () {
+    Route::get('/kategori-barang', fn() => view('inventaris.kategori-barang.index'))->name('kategori-barang.index');
+    Route::get('/lokasi', fn() => view('inventaris.lokasi.index'))->name('lokasi.index');
+    Route::get('/barang', fn() => view('inventaris.barang.index'))->name('barang.index');
+    Route::get('/peminjaman', fn() => view('inventaris.peminjaman.index'))->name('peminjaman.index');
+    Route::get('/mutasi', fn() => view('inventaris.mutasi.index'))->name('mutasi.index');
+});

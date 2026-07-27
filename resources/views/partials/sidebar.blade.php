@@ -18,12 +18,23 @@
     ];
     $masterDataActive = collect($masterData)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
+    // Inventaris: kelompok menu baru
+    $inventaris = [
+        ['label' => 'Kategori Barang', 'route' => 'inventaris.kategori-barang.index'],
+        ['label' => 'Lokasi', 'route' => 'inventaris.lokasi.index'],
+        ['label' => 'Daftar Barang', 'route' => 'inventaris.barang.index'],
+        ['label' => 'Peminjaman', 'route' => 'inventaris.peminjaman.index'],
+        ['label' => 'Mutasi / Buku Besar', 'route' => 'inventaris.mutasi.index'],
+    ];
+    $inventarisActive = collect($inventaris)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
+
     $icons = [
         'home' => 'M3 11.5 12 4l9 7.5M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9',
         'document' => 'M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm7 0v5h5M9 13h6M9 17h6M9 9h2',
         'history' => 'M4 4v5h5M4.6 12A8 8 0 1 0 6 6.3L4 9M12 8v4l3 2',
         'database' =>
             'M12 4c4.4 0 8 1.1 8 2.5S16.4 9 12 9s-8-1.1-8-2.5S7.6 4 12 4Zm-8 2.5V17c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V6.5M4 11.75c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5',
+        'box' => 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM3.27 6.96 12 12.01l8.73-5.05M12 22.08V12',
     ];
 @endphp
 
@@ -65,6 +76,34 @@
 
             <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
                 @foreach ($masterData as $item)
+                    @php $subActive = request()->routeIs($item['route'].'*'); @endphp
+                    <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                        class="block px-2 py-1.5 rounded-md text-sm transition
+                    {{ $subActive ? 'text-accent font-medium' : 'text-slate-400 hover:text-white' }}">
+                        {{ $item['label'] }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- grup inventaris: baru --}}
+        <div x-data="{ open: {{ $inventarisActive ? 'true' : 'false' }} }">
+            <button type="button" @click="open = !open"
+                class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                     {{ $inventarisActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
+                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="{{ $icons['box'] }}" />
+                </svg>
+                <span class="flex-1 text-left">Inventaris Desa</span>
+                <svg class="w-4 h-4 shrink-0 transition-transform" :class="open && 'rotate-180'" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+
+            <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
+                @foreach ($inventaris as $item)
                     @php $subActive = request()->routeIs($item['route'].'*'); @endphp
                     <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
                         class="block px-2 py-1.5 rounded-md text-sm transition

@@ -17,6 +17,10 @@ import perangkatDesaCrud from './pages/perangkat-desa';
 import pendudukCrud from './pages/penduduk';
 import suratWizard from './components/surat-wizard';
 
+// Inventaris Pages
+import kategoriBarangCrud from './pages/kategori-barang';
+import lokasiCrud from './pages/lokasi';
+
 // Alpine configuration
 Alpine.plugin(collapse);
 
@@ -28,6 +32,8 @@ Alpine.data('jabatanPerangkatCrud', jabatanPerangkatCrud);
 Alpine.data('perangkatDesaCrud', perangkatDesaCrud);
 Alpine.data('pendudukCrud', pendudukCrud);
 Alpine.data('suratWizard', suratWizard);
+Alpine.data('kategoriBarangCrud', kategoriBarangCrud);
+Alpine.data('lokasiCrud', lokasiCrud);
 
 window.Alpine = Alpine;
 Alpine.start();

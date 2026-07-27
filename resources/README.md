@@ -48,6 +48,17 @@ Halaman CRUD untuk setiap entitas master data. **Semua pakai pola modular**:
 | `master-field-surat/` | Field Surat | `/api/srt-master-field-surat` | Form sedang |
 | `penduduk/` | Penduduk | `/api/penduduk` | Form kompleks, dipisah jadi 5 partial: `form-identitas`, `form-keluarga`, `form-kontak`, `form-alamat`, `form-lookup` |
 
+### `inventaris/`
+Halaman CRUD untuk modul **Inventaris Desa**. Mengikuti pola modular yang sama seperti `master-data/`.
+
+| Direktori | Entitas | API Endpoint | Catatan |
+|-----------|---------|-------------|---------|
+| `kategori-barang/` | Kategori Barang | `/api/inv-kategori-barang` | CRUD sederhana (2 field) — mirip Pendidikan |
+| `lokasi/` | Lokasi Barang | `/api/inv-lokasi` | CRUD sederhana (2 field) — mirip Pendidikan |
+| `barang/` | Barang Inventaris | `/api/inv-barang` | CRUD + aksi stok (pengadaan, hilang, ketemu, opname, hapus stok) |
+| `peminjaman/` | Peminjaman Barang | `/api/inv-peminjaman` | Header-detail + workflow (kembalikan, batalkan) |
+| `mutasi/` | Mutasi / Buku Besar | `/api/inv-mutasi` | Read-only (index + show) + filter |
+
 ### `partials/`
 Fragment layout yang **spesifik** dan hanya dipasang sekali di layout (`app.blade.php`).
 
@@ -93,6 +104,11 @@ Setiap file mengekspor satu fungsi pabrik (`() => ({...})`) yang didaftarkan di 
 | `pendidikan.js` | `pendidikanCrud` | Pendidikan |
 | `master-field-surat.js` | `masterFieldSurat` | Field Surat |
 | `penduduk.js` | `pendudukCrud` | Penduduk |
+| `kategori-barang.js` | `kategoriBarangCrud` | Kategori Barang |
+| `lokasi.js` | `lokasiCrud` | Lokasi Barang |
+| `barang.js` | `barangCrud` | Barang Inventaris |
+| `peminjaman.js` | `peminjamanCrud` | Peminjaman Barang |
+| `mutasi.js` | `mutasiCrud` | Mutasi / Buku Besar |
 
 ### `services/`
 Layer **API communication**. Setiap file berisi object dengan method `list`, `create`, `update`, `remove`.
@@ -105,6 +121,11 @@ Layer **API communication**. Setiap file berisi object dengan method `list`, `cr
 | `pendidikanApi.js` | CRUD Pendidikan via `/api/pendidikan` |
 | `masterFieldSuratApi.js` | CRUD Field Surat via `/api/srt-master-field-surat` |
 | `pendudukApi.js` | CRUD Penduduk via `/api/penduduk` |
+| `kategoriBarangApi.js` | CRUD Kategori Barang via `/api/inv-kategori-barang` |
+| `lokasiApi.js` | CRUD Lokasi via `/api/inv-lokasi` |
+| `barangApi.js` | CRUD Barang + aksi stok via `/api/inv-barang` |
+| `peminjamanApi.js` | CRUD Peminjaman + aksi kembalikan/batalkan via `/api/inv-peminjaman` |
+| `mutasiApi.js` | Read-only Mutasi via `/api/inv-mutasi` |
 
 ### `composables/`
 **Composable** — fungsi yang mengembalikan state + method untuk di-*spread* ke Alpine component.  
@@ -114,6 +135,9 @@ Mengikuti konvensi Vue 3: `useXxx`.
 |------|--------|
 | `useKKLookup.js` | Autocomplete lookup KK (search, dropdown, select). |
 | `usePendidikanLookup.js` | Autocomplete lookup Pendidikan (search, dropdown, select). |
+| `useBarangLookup.js` | Autocomplete lookup Barang untuk form peminjaman. |
+| `useKategoriLookup.js` | Load daftar kategori untuk select dropdown. |
+| `useLokasiLookup.js` | Load daftar lokasi untuk select dropdown. |
 
 ### `mappers/`
 **Mapper** — fungsi untuk transformasi data antara API dan form.
@@ -124,6 +148,11 @@ Mengikuti konvensi Vue 3: `useXxx`.
 | `pendidikanMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
 | `masterFieldSuratMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
 | `pendudukMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
+| `kategoriBarangMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
+| `lokasiMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
+| `barangMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
+| `peminjamanMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` (termasuk details array) |
+| `mutasiMapper.js` | (read-only, tidak perlu) |
 
 ### `utils/`
 Fungsi utilitas murni, tanpa state.
@@ -144,6 +173,8 @@ Komponen Alpine **spesifik** (bukan komponen Blade).
 |------|--------|
 | `login.js` | Form login. |
 | `surat-wizard.js` | Wizard pengajuan surat (4 langkah). |
+| `barang-detail.js` | Halaman detail barang — info barang, stok, riwayat mutasi, peminjaman aktif. |
+| `peminjaman-detail.js` | Halaman detail peminjaman — header + daftar barang yang dipinjam + form pengembalian. |
 
 ---
 
@@ -241,10 +272,6 @@ Blade (index.blade.php)
 - Keep small, pure utility functions inside utils.
 - Let pages orchestrate; don't let them own every responsibility.
 
-# Rule of Modification
-
-- If theres modification to the code, update this file together with the related files.
-- If this documentation becomes outdated, please update this file.
 
 # summary of current resources complete structure
 
@@ -261,22 +288,36 @@ Blade (index.blade.php)
 │   ├───components
 │   │       login.js
 │   │       surat-wizard.js
+│   │       barang-detail.js
+│   │       peminjaman-detail.js
 │   │       
 │   ├───composables
 │   │       useKKLookup.js
 │   │       usePendidikanLookup.js
+│   │       useBarangLookup.js
+│   │       useKategoriLookup.js
+│   │       useLokasiLookup.js
 │   │       
 │   ├───mappers
 │   │       kkMapper.js
 │   │       masterFieldSuratMapper.js
 │   │       pendidikanMapper.js
 │   │       pendudukMapper.js
+│   │       kategoriBarangMapper.js
+│   │       lokasiMapper.js
+│   │       barangMapper.js
+│   │       peminjamanMapper.js
 │   │       
 │   ├───pages
 │   │       kk.js
 │   │       master-field-surat.js
 │   │       pendidikan.js
 │   │       penduduk.js
+│   │       kategori-barang.js
+│   │       lokasi.js
+│   │       barang.js
+│   │       peminjaman.js
+│   │       mutasi.js
 │   │       
 │   ├───services
 │   │       auth.js
@@ -285,6 +326,11 @@ Blade (index.blade.php)
 │   │       masterFieldSuratApi.js
 │   │       pendidikanApi.js
 │   │       pendudukApi.js
+│   │       kategoriBarangApi.js
+│   │       lokasiApi.js
+│   │       barangApi.js
+│   │       peminjamanApi.js
+│   │       mutasiApi.js
 │   │       
 │   └───utils
 │           date.js
@@ -347,6 +393,50 @@ Blade (index.blade.php)
     │               form-kontak.blade.php
     │               form-lookup.blade.php
     │               table.blade.php
+    │               
+    ├───inventaris
+    │   ├───kategori-barang
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   ├───lokasi
+    │   │   │   index.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           form.blade.php
+    │   │           table.blade.php
+    │   │           
+    │   ├───barang
+    │   │   │   index.blade.php
+    │   │   │   detail.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           table.blade.php
+    │   │           form.blade.php
+    │   │           modal-pengadaan.blade.php
+    │   │           modal-opname.blade.php
+    │   │           modal-hilang.blade.php
+    │   │           modal-ketemu.blade.php
+    │   │           
+    │   ├───peminjaman
+    │   │   │   index.blade.php
+    │   │   │   detail.blade.php
+    │   │   │   
+    │   │   └───partials
+    │   │           table.blade.php
+    │   │           form.blade.php
+    │   │           modal-batal.blade.php
+    │   │           
+    │   └───mutasi
+    │       │   index.blade.php
+    │       │   show.blade.php
+    │       │   
+    │       └───partials
+    │               table.blade.php
+    │               filter.blade.php
     │               
     ├───partials
     │       footer.blade.php
