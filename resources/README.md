@@ -154,18 +154,41 @@ Gunakan Bruno untuk menguji endpoint tanpa perlu membaca kode backend.
 
 ```
 bruno/CURUG_API_DOC/
-├── KK/                  # CRUD Kartu Keluarga
-├── Pendidikan/          # CRUD Pendidikan
-├── Penduduk/            # CRUD Penduduk
-├── Master Field Surat/  # CRUD Master Field Surat
-├── CURUG_API_DOC.yml    # Dokumen utama Bruno
-└── CURUG_API_DOC.html   # Export HTML (baca tanpa Bruno)
+├── Auth/                          # Autentikasi
+│   └── Login.yml                  # POST /login
+│
+├── Data Desa/                     # Master data kependudukan & desa
+│   ├── KK/                        # CRUD Kartu Keluarga
+│   ├── Pendidikan/                # CRUD Tingkat Pendidikan
+│   ├── Penduduk/                  # CRUD Penduduk
+│   ├── Jabatan Perangkat/         # CRUD Jabatan Perangkat Desa
+│   ├── Perangkat Desa/            # CRUD Perangkat Desa
+│   ├── Profil Desa/               # CRUD Profil Desa
+│   └── Wilayah/                   # Data wilayah (Provinsi, Kabupaten, Kecamatan, Desa)
+│
+├── Data Inventaris/               # Manajemen inventaris barang
+│   ├── Barang/                    # CRUD Barang + riwayat mutasi/peminjaman
+│   ├── Kategori Barang/           # CRUD Kategori Barang
+│   ├── Lokasi/                    # CRUD Lokasi Barang
+│   ├── Mutasi/                    # Riwayat mutasi barang (read-only)
+│   └── Peminjaman/                # CRUD + pembatalan/pengembalian peminjaman
+│
+├── Data Surat/                    # Manajemen surat
+│   ├── Master Field Surat/        # CRUD Master Field Surat
+│   └── Surat Wizard Steps/        # Generate & pengajuan surat
+│
+├── Testing/                       # Uji coba endpoint
+│   └── Surat/                     # Testing surat
+│
+├── environments/                  # Environment variables (kosong — siap diisi)
+├── opencollection.yml             # Dokumen utama Bruno
+└── CURUG_API_DOC.html            # Export HTML (baca tanpa Bruno)
 ```
 
-Setiap direktori berisi file `.yml` untuk setiap method HTTP:
+Setiap direktori CRUD biasanya berisi file `.yml` untuk setiap method HTTP:
 - `Create.yml` — POST
-- `Get all, search, pagination.yml` — GET (list)
-- `Get by ID.yml` — GET (single)
+- `Index.yml` — GET (list, search, pagination)
+- `Show by ID.yml` — GET (single)
 - `Update by ID.yml` — PUT
 - `Delete by ID.yml` — DELETE
 
