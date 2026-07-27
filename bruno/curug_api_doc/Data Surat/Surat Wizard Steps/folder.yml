@@ -1,7 +1,7 @@
 info:
-  name: Perangkat Desa
+  name: Surat Wizard Steps
   type: folder
-  seq: 11
+  seq: 3
 
 request:
   auth: inherit
