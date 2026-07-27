@@ -13,14 +13,14 @@ http:
     type: json
     data: |-
       {
-        "nama_peminjam": "Budi Santoso",
+        "nama_peminjam": "Budi Pengarep",
         "tanggal_pinjam": "2026-07-27",
         "tanggal_rencana_kembali": "2026-08-03",
-        "keterangan": "Peminjaman untuk acara desa",
+        "keterangan": "Peminjaman untuk acara pengajian",
         "details": [
           {
             "barang_id": 17,
-            "jumlah": 0
+            "jumlah": 2
           },
           {
             "barang_id": 18,

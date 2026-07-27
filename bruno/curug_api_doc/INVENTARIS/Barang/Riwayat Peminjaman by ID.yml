@@ -1,11 +1,11 @@
 info:
-  name: Riwayat Pinjam by ID
+  name: Riwayat Peminjaman by ID
   type: http
   seq: 12
 
 http:
   method: GET
-  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/riwayat-pinjam?page=1&per_page=4"
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/riwayat-peminjaman?page=1&per_page=4"
   headers:
     - name: Accept
       value: application/json
@@ -39,7 +39,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/riwayat-pinjam?page=1&per_page=4"
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/riwayat-peminjaman?page=1&per_page=4"
       method: GET
       headers:
         - name: Accept
@@ -71,13 +71,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Mon, 27 Jul 2026 06:58:31 GMT
+          value: Mon, 27 Jul 2026 07:15:00 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYH5WDPKBGVC6RYJ1NNPNG2C
+          value: 01KYH6TM2ZW3E8KFWTF2300EQK
       body:
         type: json
         data: |-
@@ -87,6 +87,29 @@ examples:
             "data": {
               "current_page": 1,
               "data": [
+                {
+                  "id": 30,
+                  "peminjaman_id": 17,
+                  "barang_id": 17,
+                  "jumlah_pinjam": 2,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T07:01:33.000000Z",
+                  "updated_at": "2026-07-27T07:01:33.000000Z",
+                  "peminjaman": {
+                    "id": 17,
+                    "nomor": "PJM-20260727-009",
+                    "nama_peminjam": "Budi Santoso edited",
+                    "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+                    "tanggal_rencana_kembali": "2026-09-03T00:00:00.000000Z",
+                    "tanggal_kembali": null,
+                    "status": "dipinjam",
+                    "keterangan": "Peminjaman acara pengajian edited",
+                    "created_at": "2026-07-27T07:01:33.000000Z",
+                    "updated_at": "2026-07-27T07:08:25.000000Z"
+                  }
+                },
                 {
                   "id": 28,
                   "peminjaman_id": 16,
@@ -127,10 +150,10 @@ examples:
                     "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
                     "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
                     "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
-                    "status": "dipinjam",
+                    "status": "dikembalikan",
                     "keterangan": "Peminjaman untuk acara desa",
                     "created_at": "2026-07-27T06:28:37.000000Z",
-                    "updated_at": "2026-07-27T06:32:15.000000Z"
+                    "updated_at": "2026-07-27T07:05:38.000000Z"
                   }
                 },
                 {
@@ -155,35 +178,12 @@ examples:
                     "created_at": "2026-07-27T05:12:41.000000Z",
                     "updated_at": "2026-07-27T05:14:21.000000Z"
                   }
-                },
-                {
-                  "id": 21,
-                  "peminjaman_id": 12,
-                  "barang_id": 17,
-                  "jumlah_pinjam": 1,
-                  "jumlah_kembali": 1,
-                  "jumlah_hilang": 0,
-                  "keterangan": null,
-                  "created_at": "2026-07-27T05:12:31.000000Z",
-                  "updated_at": "2026-07-27T05:23:37.000000Z",
-                  "peminjaman": {
-                    "id": 12,
-                    "nomor": "PJM-20260727-005",
-                    "nama_peminjam": "Budi Santoso",
-                    "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
-                    "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
-                    "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
-                    "status": "dikembalikan",
-                    "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 7",
-                    "created_at": "2026-07-27T05:12:31.000000Z",
-                    "updated_at": "2026-07-27T05:23:37.000000Z"
-                  }
                 }
               ],
-              "first_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=1",
+              "first_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=1",
               "from": 1,
               "last_page": 2,
-              "last_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=2",
+              "last_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=2",
               "links": [
                 {
                   "url": null,
@@ -192,29 +192,29 @@ examples:
                   "active": false
                 },
                 {
-                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=1",
+                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=1",
                   "label": "1",
                   "page": 1,
                   "active": true
                 },
                 {
-                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=2",
+                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=2",
                   "label": "2",
                   "page": 2,
                   "active": false
                 },
                 {
-                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=2",
+                  "url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=2",
                   "label": "Next &raquo;",
                   "page": 2,
                   "active": false
                 }
               ],
-              "next_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam?page=2",
-              "path": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-pinjam",
+              "next_page_url": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman?page=2",
+              "path": "http://127.0.0.1:8000/api/inv-barang/17/riwayat-peminjaman",
               "per_page": 4,
               "prev_page_url": null,
               "to": 4,
-              "total": 6
+              "total": 7
             }
           }

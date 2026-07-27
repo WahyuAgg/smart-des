@@ -11,7 +11,7 @@ http:
 runtime:
   variables:
     - name: id_peminjaman
-      value: "4"
+      value: "15"
 
 settings:
   encodeUrl: true
@@ -145,5 +145,37 @@ examples:
           {
             "success": false,
             "message": "Peminjaman dengan status dikembalikan tidak dapat dibatalkan.",
+            "errors": null
+          }
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/batalkan"
+      method: POST
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 07:02:14 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH6385JM5H10KQ9XX537F7Y
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Peminjaman yang sudah memiliki riwayat pengembalian tidak dapat dibatalkan.",
             "errors": null
           }

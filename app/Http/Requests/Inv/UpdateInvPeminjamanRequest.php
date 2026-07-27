@@ -16,7 +16,7 @@ class UpdateInvPeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor'                  => ['sometimes', 'string', 'max:50', Rule::unique(InvPeminjaman::class)->ignore($this->route('inv_peminjaman'))],
+            'nomor'                  => 'prohibited',
             'nama_peminjam'          => 'sometimes|string|max:150',
             'tanggal_pinjam'         => 'sometimes|date',
             'tanggal_rencana_kembali' => 'sometimes|date|after_or_equal:tanggal_pinjam',
