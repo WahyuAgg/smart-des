@@ -22,9 +22,9 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div><span class="text-slate-500">Tanggal Pinjam:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_pinjam ?? ''"></span></div>
-          <div><span class="text-slate-500">Rencana Kembali:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_rencana_kembali || '—'"></span></div>
-          <div x-show="item?.tanggal_kembali"><span class="text-slate-500">Tgl. Kembali:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_kembali"></span></div>
+          <div><span class="text-slate-500">Tanggal Pinjam:</span> <span class="ml-1 font-medium" x-text="$formatDate(item?.tanggal_pinjam)"></span></div>
+          <div><span class="text-slate-500">Rencana Kembali:</span> <span class="ml-1 font-medium" x-text="$formatDate(item?.tanggal_rencana_kembali)"></span></div>
+          <div x-show="item?.tanggal_kembali"><span class="text-slate-500">Tgl. Kembali:</span> <span class="ml-1 font-medium" x-text="$formatDate(item?.tanggal_kembali)"></span></div>
         </div>
 
         <div x-show="item?.keterangan" class="text-sm">

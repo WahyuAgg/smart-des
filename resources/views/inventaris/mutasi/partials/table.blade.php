@@ -21,7 +21,7 @@
         <template x-for="item in items" :key="item.id">
           <tr class="hover:bg-slate-50">
             <td class="px-4 py-3 font-mono text-xs text-slate-500" x-text="item.nomor"></td>
-            <td class="px-4 py-3 text-slate-600" x-text="item.tanggal"></td>
+            <td class="px-4 py-3 text-slate-600" x-text="$formatDate(item.tanggal)"></td>
             <td class="px-4 py-3">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                 :class="jenisBadge(item.jenis)"

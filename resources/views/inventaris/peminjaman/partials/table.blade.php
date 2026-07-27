@@ -23,8 +23,8 @@
           <tr class="hover:bg-slate-50">
             <td class="px-4 py-3 font-mono text-xs text-slate-500" x-text="item.nomor"></td>
             <td class="px-4 py-3 font-medium text-slate-800" x-text="item.nama_peminjam"></td>
-            <td class="px-4 py-3 text-slate-600" x-text="item.tanggal_pinjam"></td>
-            <td class="px-4 py-3 text-slate-600" x-text="item.tanggal_rencana_kembali || '—'"></td>
+            <td class="px-4 py-3 text-slate-600" x-text="$formatDate(item.tanggal_pinjam)"></td>
+            <td class="px-4 py-3 text-slate-600" x-text="$formatDate(item.tanggal_rencana_kembali)"></td>
             <td class="px-4 py-3">
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                 :class="statusBadge(item.status)"

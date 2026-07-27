@@ -14,7 +14,7 @@
         <div class="flex items-start justify-between">
           <div>
             <h2 class="text-lg font-semibold text-slate-800" x-text="'Mutasi: ' + (item?.nomor ?? '')"></h2>
-            <p class="text-sm text-slate-500" x-text="item?.tanggal ?? ''"></p>
+            <p class="text-sm text-slate-500" x-text="$formatDate(item?.tanggal)"></p>
           </div>
           <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
             :class="jenisBadge(item?.jenis)"
@@ -29,7 +29,7 @@
           </div>
           <div>
             <span class="text-slate-500">Tanggal:</span>
-            <span class="ml-2 font-medium" x-text="item?.tanggal ?? ''"></span>
+            <span class="ml-2 font-medium" x-text="$formatDate(item?.tanggal)"></span>
           </div>
           <div x-show="item?.peminjaman">
             <span class="text-slate-500">No. Peminjaman:</span>

@@ -35,6 +35,10 @@ import mutasiCrud from './pages/mutasi';
 // Alpine configuration
 Alpine.plugin(collapse);
 
+// Global date formatter — accessible as $formatDate(value) in any Alpine expression
+import { formatDate } from './utils/date';
+Alpine.magic('formatDate', () => formatDate);
+
 Alpine.data('loginForm', loginForm);
 Alpine.data('masterFieldSurat', masterFieldSurat);
 Alpine.data('kkCrud', kkCrud);

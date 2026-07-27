@@ -25,7 +25,7 @@
           <div><span class="text-slate-500">Kategori:</span> <span class="ml-1 font-medium" x-text="item?.kategori?.nama || '—'"></span></div>
           <div><span class="text-slate-500">Lokasi:</span> <span class="ml-1 font-medium" x-text="item?.lokasi?.nama || '—'"></span></div>
           <div><span class="text-slate-500">Satuan:</span> <span class="ml-1 font-medium" x-text="item?.satuan || '—'"></span></div>
-          <div><span class="text-slate-500">Tanggal Perolehan:</span> <span class="ml-1 font-medium" x-text="item?.tanggal_perolehan || '—'"></span></div>
+          <div><span class="text-slate-500">Tanggal Perolehan:</span> <span class="ml-1 font-medium" x-text="$formatDate(item?.tanggal_perolehan)"></span></div>
           <div><span class="text-slate-500">Total Stok:</span> <span class="ml-1 font-medium" x-text="item?.jumlah_total ?? 0"></span></div>
           <div><span class="text-slate-500">Sedang Dipinjam:</span> <span class="ml-1 font-medium" x-text="item?.jumlah_dipinjam ?? 0"></span></div>
         </div>
@@ -53,7 +53,7 @@
           <tbody class="divide-y divide-slate-100">
             <template x-for="m in mutasiItems" :key="m.id">
               <tr>
-                <td class="px-3 py-2 text-slate-600" x-text="m.tanggal"></td>
+                <td class="px-3 py-2 text-slate-600" x-text="$formatDate(m.tanggal)"></td>
                 <td class="px-3 py-2">
                   <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
                     :class="jenisBadge(m.jenis)" x-text="jenisLabel(m.jenis)"></span>
