@@ -14,9 +14,14 @@ http:
     data: |-
       {
         "returns": [
-              {
+          {
             "barang_id": 17,
-            "jumlah_kembali": 5,
+            "jumlah_kembali": 4,
+            "jumlah_hilang": 0
+          },
+          {
+            "barang_id": 18,
+            "jumlah_kembali": 0,
             "jumlah_hilang": 0
           }
         ]
@@ -26,7 +31,7 @@ http:
 runtime:
   variables:
     - name: id_peminjaman
-      value: "10"
+      value: "15"
 
 settings:
   encodeUrl: true
@@ -35,283 +40,6 @@ settings:
   maxRedirects: 5
 
 examples:
-  - name: example (fail)
-    request:
-      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
-      method: POST
-      headers:
-        - name: Accept
-          value: application/json
-      body:
-        type: json
-        data: |-
-          {
-            "returns": [
-              {
-                "barang_id": 15,
-                "jumlah_kembali": 1,
-                "jumlah_hilang": 0
-              },
-                  {
-                "barang_id": 17,
-                "jumlah_kembali": 3,
-                "jumlah_hilang": 0
-              }
-            ]
-          }
-    response:
-      status: 422
-      statusText: Unprocessable Entity
-      headers:
-        - name: host
-          value: 127.0.0.1:8000
-        - name: connection
-          value: close
-        - name: x-powered-by
-          value: PHP/8.2.29
-        - name: cache-control
-          value: no-cache, private
-        - name: date
-          value: Mon, 27 Jul 2026 05:23:07 GMT
-        - name: content-type
-          value: application/json
-        - name: access-control-allow-origin
-          value: "*"
-        - name: phpdebugbar-id
-          value: 01KYH0DQWXVDVWSN8PHJRFKW6G
-      body:
-        type: json
-        data: |-
-          {
-            "success": false,
-            "message": "Total kembali melebihi jumlah pinjam untuk barang ini.",
-            "errors": null
-          }
-  - name: example (barang baru dikembalikan sebgian)
-    description: jika barang belum dikembalikan secara penuh maka status nya masih "dipinjam"
-    request:
-      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
-      method: POST
-      headers:
-        - name: Accept
-          value: application/json
-      body:
-        type: json
-        data: |-
-          {
-            "returns": [
-              {
-                "barang_id": 15,
-                "jumlah_kembali": 1,
-                "jumlah_hilang": 0
-              },
-                  {
-                "barang_id": 17,
-                "jumlah_kembali": 1,
-                "jumlah_hilang": 0
-              }
-            ]
-          }
-    response:
-      status: 201
-      statusText: Created
-      headers:
-        - name: host
-          value: 127.0.0.1:8000
-        - name: connection
-          value: close
-        - name: x-powered-by
-          value: PHP/8.2.29
-        - name: cache-control
-          value: no-cache, private
-        - name: date
-          value: Mon, 27 Jul 2026 05:26:46 GMT
-        - name: content-type
-          value: application/json
-        - name: access-control-allow-origin
-          value: "*"
-        - name: phpdebugbar-id
-          value: 01KYH0ME59P80ADRAT9JFYFE44
-      body:
-        type: json
-        data: |-
-          {
-            "success": true,
-            "message": "Pengembalian barang berhasil dicatat.",
-            "data": {
-              "peminjaman": {
-                "id": 11,
-                "nomor": "DOC-20260727-001",
-                "nama_peminjam": "Budi Santoso",
-                "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
-                "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
-                "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
-                "status": "dipinjam",
-                "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 7",
-                "created_at": "2026-07-27T05:11:31.000000Z",
-                "updated_at": "2026-07-27T05:26:46.000000Z",
-                "details": [
-                  {
-                    "id": 18,
-                    "peminjaman_id": 11,
-                    "barang_id": 15,
-                    "jumlah_pinjam": 1,
-                    "jumlah_kembali": 1,
-                    "jumlah_hilang": 0,
-                    "keterangan": null,
-                    "created_at": "2026-07-27T05:11:31.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "barang": {
-                      "id": 15,
-                      "kode_barang": "BRG-00015",
-                      "nama_barang": "Laptop Lenovo ThinkPad E14",
-                      "kategori_id": 1,
-                      "lokasi_id": 1,
-                      "satuan": "Unit",
-                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                      "keterangan": "Laptop untuk staf administrasi",
-                      "jumlah_total": 15,
-                      "jumlah_dipinjam": 10,
-                      "created_at": "2026-07-26T19:50:57.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "jumlah_tersedia": 5
-                    }
-                  },
-                  {
-                    "id": 19,
-                    "peminjaman_id": 11,
-                    "barang_id": 17,
-                    "jumlah_pinjam": 2,
-                    "jumlah_kembali": 1,
-                    "jumlah_hilang": 0,
-                    "keterangan": null,
-                    "created_at": "2026-07-27T05:11:31.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "barang": {
-                      "id": 17,
-                      "kode_barang": "BRG-00017",
-                      "nama_barang": "Lampu Cas LED",
-                      "kategori_id": 1,
-                      "lokasi_id": 2,
-                      "satuan": "Unit",
-                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                      "keterangan": "lampu untuk keperluan acara desa",
-                      "jumlah_total": 16,
-                      "jumlah_dipinjam": 6,
-                      "created_at": "2026-07-27T05:00:50.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "jumlah_tersedia": 10
-                    }
-                  }
-                ]
-              },
-              "mutasi": {
-                "peminjaman_id": 11,
-                "nomor": "KMB-20260727-004",
-                "jenis": "KEMBALI",
-                "tanggal": "2026-07-27T00:00:00.000000Z",
-                "keterangan": "Pengembalian Peminjaman: DOC-20260727-001",
-                "updated_at": "2026-07-27T05:26:46.000000Z",
-                "created_at": "2026-07-27T05:26:46.000000Z",
-                "id": 55,
-                "details": [
-                  {
-                    "id": 69,
-                    "mutasi_id": 55,
-                    "barang_id": 15,
-                    "jumlah": 1,
-                    "created_at": "2026-07-27T05:26:46.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "barang": {
-                      "id": 15,
-                      "kode_barang": "BRG-00015",
-                      "nama_barang": "Laptop Lenovo ThinkPad E14",
-                      "kategori_id": 1,
-                      "lokasi_id": 1,
-                      "satuan": "Unit",
-                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                      "keterangan": "Laptop untuk staf administrasi",
-                      "jumlah_total": 15,
-                      "jumlah_dipinjam": 10,
-                      "created_at": "2026-07-26T19:50:57.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "jumlah_tersedia": 5
-                    }
-                  },
-                  {
-                    "id": 70,
-                    "mutasi_id": 55,
-                    "barang_id": 17,
-                    "jumlah": 1,
-                    "created_at": "2026-07-27T05:26:46.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "barang": {
-                      "id": 17,
-                      "kode_barang": "BRG-00017",
-                      "nama_barang": "Lampu Cas LED",
-                      "kategori_id": 1,
-                      "lokasi_id": 2,
-                      "satuan": "Unit",
-                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                      "keterangan": "lampu untuk keperluan acara desa",
-                      "jumlah_total": 16,
-                      "jumlah_dipinjam": 6,
-                      "created_at": "2026-07-27T05:00:50.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "jumlah_tersedia": 10
-                    }
-                  }
-                ]
-              }
-            }
-          }
-  - name: example (fail)
-    request:
-      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
-      method: POST
-      headers:
-        - name: Accept
-          value: application/json
-      body:
-        type: json
-        data: |-
-          {
-            "returns": [
-                  {
-                "barang_id": 17,
-                "jumlah_kembali": 1,
-                "jumlah_hilang": 0
-              }
-            ]
-          }
-    response:
-      status: 422
-      statusText: Unprocessable Entity
-      headers:
-        - name: host
-          value: 127.0.0.1:8000
-        - name: connection
-          value: close
-        - name: x-powered-by
-          value: PHP/8.2.29
-        - name: cache-control
-          value: no-cache, private
-        - name: date
-          value: Mon, 27 Jul 2026 05:29:32 GMT
-        - name: content-type
-          value: application/json
-        - name: access-control-allow-origin
-          value: "*"
-        - name: phpdebugbar-id
-          value: 01KYH0SFX6RFTSM9476THKTHWW
-      body:
-        type: json
-        data: |-
-          {
-            "success": false,
-            "message": "Jumlah kembali harus lebih dari 0.",
-            "errors": null
-          }
   - name: example (barang sudah dikembalikan sepenuhnya)
     request:
       url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
@@ -460,4 +188,263 @@ examples:
                 ]
               }
             }
+          }
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "returns": [
+              {
+                "barang_id": 17,
+                "jumlah_kembali": 10,
+                "jumlah_hilang": 0
+              },
+              {
+                "barang_id": 18,
+                "jumlah_kembali": 3,
+                "jumlah_hilang": 0
+              }
+            ]
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 06:30:38 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH49C1FH8RE5C62WB811QMQ
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Total kembali melebihi jumlah pinjam untuk barang ini.",
+            "errors": null
+          }
+  - name: example (barang baru dikembalikan sebagian)
+    description: "status: dipinjam"
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "returns": [
+              {
+                "barang_id": 17,
+                "jumlah_kembali": 0,
+                "jumlah_hilang": 0
+              },
+              {
+                "barang_id": 18,
+                "jumlah_kembali": 1,
+                "jumlah_hilang": 0
+              }
+            ]
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 06:33:42 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH4F06BYN228J3SV3X910D0
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Pengembalian barang berhasil dicatat.",
+            "data": {
+              "peminjaman": {
+                "id": 15,
+                "nomor": "PJM-20260727-007",
+                "nama_peminjam": "Budi Santoso",
+                "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+                "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+                "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
+                "status": "dipinjam",
+                "keterangan": "Peminjaman untuk acara desa",
+                "created_at": "2026-07-27T06:28:37.000000Z",
+                "updated_at": "2026-07-27T06:32:15.000000Z",
+                "details": [
+                  {
+                    "id": 26,
+                    "peminjaman_id": 15,
+                    "barang_id": 17,
+                    "jumlah_pinjam": 5,
+                    "jumlah_kembali": 1,
+                    "jumlah_hilang": 0,
+                    "keterangan": null,
+                    "created_at": "2026-07-27T06:28:37.000000Z",
+                    "updated_at": "2026-07-27T06:32:15.000000Z",
+                    "barang": {
+                      "id": 17,
+                      "kode_barang": "BRG-00017",
+                      "nama_barang": "Lampu Cas LED",
+                      "kategori_id": 1,
+                      "lokasi_id": 2,
+                      "satuan": "Unit",
+                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                      "keterangan": "lampu untuk keperluan acara desa",
+                      "jumlah_total": 16,
+                      "jumlah_dipinjam": 6,
+                      "created_at": "2026-07-27T05:00:50.000000Z",
+                      "updated_at": "2026-07-27T06:32:15.000000Z",
+                      "jumlah_tersedia": 10
+                    }
+                  },
+                  {
+                    "id": 27,
+                    "peminjaman_id": 15,
+                    "barang_id": 18,
+                    "jumlah_pinjam": 6,
+                    "jumlah_kembali": 2,
+                    "jumlah_hilang": 0,
+                    "keterangan": null,
+                    "created_at": "2026-07-27T06:28:37.000000Z",
+                    "updated_at": "2026-07-27T06:33:42.000000Z",
+                    "barang": {
+                      "id": 18,
+                      "kode_barang": "BRG-00018",
+                      "nama_barang": "Piring",
+                      "kategori_id": 2,
+                      "lokasi_id": 2,
+                      "satuan": "Unit",
+                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                      "keterangan": "Piring untuk keperluan acara desa",
+                      "jumlah_total": 20,
+                      "jumlah_dipinjam": 6,
+                      "created_at": "2026-07-27T06:27:32.000000Z",
+                      "updated_at": "2026-07-27T06:33:42.000000Z",
+                      "jumlah_tersedia": 14
+                    }
+                  }
+                ]
+              },
+              "mutasi": {
+                "peminjaman_id": 15,
+                "nomor": "KMB-20260727-008",
+                "jenis": "KEMBALI",
+                "tanggal": "2026-07-27T00:00:00.000000Z",
+                "keterangan": "Pengembalian Peminjaman: PJM-20260727-007",
+                "updated_at": "2026-07-27T06:33:42.000000Z",
+                "created_at": "2026-07-27T06:33:42.000000Z",
+                "id": 66,
+                "details": [
+                  {
+                    "id": 81,
+                    "mutasi_id": 66,
+                    "barang_id": 18,
+                    "jumlah": 1,
+                    "created_at": "2026-07-27T06:33:42.000000Z",
+                    "updated_at": "2026-07-27T06:33:42.000000Z",
+                    "barang": {
+                      "id": 18,
+                      "kode_barang": "BRG-00018",
+                      "nama_barang": "Piring",
+                      "kategori_id": 2,
+                      "lokasi_id": 2,
+                      "satuan": "Unit",
+                      "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                      "keterangan": "Piring untuk keperluan acara desa",
+                      "jumlah_total": 20,
+                      "jumlah_dipinjam": 6,
+                      "created_at": "2026-07-27T06:27:32.000000Z",
+                      "updated_at": "2026-07-27T06:33:42.000000Z",
+                      "jumlah_tersedia": 14
+                    }
+                  }
+                ]
+              }
+            }
+          }
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/kembalikan"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "returns": [
+              {
+                "barang_id": 17,
+                "jumlah_kembali": 0,
+                "jumlah_hilang": 0
+              },
+              {
+                "barang_id": 18,
+                "jumlah_kembali": 0,
+                "jumlah_hilang": 0
+              }
+            ]
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 06:34:53 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH4H4VPGH305BBV85T5EPDE
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Jumlah kembali harus lebih dari 0.",
+            "errors": null
           }

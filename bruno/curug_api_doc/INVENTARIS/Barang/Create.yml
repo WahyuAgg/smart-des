@@ -13,14 +13,14 @@ http:
     type: json
     data: |-
       {
-        "kode_barang": "BRG-00017",
-        "nama_barang": "Lampu Cas LED",
-        "kategori_id": 1,
+        "kode_barang": "BRG-00018",
+        "nama_barang": "Piring",
+        "kategori_id": 2,
         "lokasi_id": 2,
         "satuan": "Unit",
         "tanggal_perolehan": "2026-07-26",
-        "keterangan": "lampu untuk keperluan acara desa",
-        "jumlah_total": 16
+        "keterangan": "Piring untuk keperluan acara desa",
+        "jumlah_total": 20
         }
   auth: inherit
 

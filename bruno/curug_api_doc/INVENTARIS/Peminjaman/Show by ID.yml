@@ -14,7 +14,7 @@ http:
 runtime:
   variables:
     - name: id_peminjaman
-      value: "11"
+      value: "15"
 
 settings:
   encodeUrl: true
@@ -24,7 +24,6 @@ settings:
 
 examples:
   - name: example (barang baru dikembalikan sebagian)
-    description: status masih dipinjam
     request:
       url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}"
       method: GET
@@ -44,13 +43,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Mon, 27 Jul 2026 05:28:02 GMT
+          value: Mon, 27 Jul 2026 06:35:37 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYH0PR5BEXFYSFJW5GXD770S
+          value: 01KYH4JGKJ08N9EHDMW9PEN2QZ
       body:
         type: json
         data: |-
@@ -58,53 +57,27 @@ examples:
             "success": true,
             "message": "Success",
             "data": {
-              "id": 11,
-              "nomor": "DOC-20260727-001",
+              "id": 15,
+              "nomor": "PJM-20260727-007",
               "nama_peminjam": "Budi Santoso",
               "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
               "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
               "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
               "status": "dipinjam",
-              "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 7",
-              "created_at": "2026-07-27T05:11:31.000000Z",
-              "updated_at": "2026-07-27T05:26:46.000000Z",
+              "keterangan": "Peminjaman untuk acara desa",
+              "created_at": "2026-07-27T06:28:37.000000Z",
+              "updated_at": "2026-07-27T06:32:15.000000Z",
               "details": [
                 {
-                  "id": 18,
-                  "peminjaman_id": 11,
-                  "barang_id": 15,
-                  "jumlah_pinjam": 1,
-                  "jumlah_kembali": 1,
-                  "jumlah_hilang": 0,
-                  "keterangan": null,
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:26:46.000000Z",
-                  "barang": {
-                    "id": 15,
-                    "kode_barang": "BRG-00015",
-                    "nama_barang": "Laptop Lenovo ThinkPad E14",
-                    "kategori_id": 1,
-                    "lokasi_id": 1,
-                    "satuan": "Unit",
-                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                    "keterangan": "Laptop untuk staf administrasi",
-                    "jumlah_total": 15,
-                    "jumlah_dipinjam": 10,
-                    "created_at": "2026-07-26T19:50:57.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "jumlah_tersedia": 5
-                  }
-                },
-                {
-                  "id": 19,
-                  "peminjaman_id": 11,
+                  "id": 26,
+                  "peminjaman_id": 15,
                   "barang_id": 17,
-                  "jumlah_pinjam": 2,
+                  "jumlah_pinjam": 5,
                   "jumlah_kembali": 1,
                   "jumlah_hilang": 0,
                   "keterangan": null,
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:26:46.000000Z",
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:32:15.000000Z",
                   "barang": {
                     "id": 17,
                     "kode_barang": "BRG-00017",
@@ -117,270 +90,55 @@ examples:
                     "jumlah_total": 16,
                     "jumlah_dipinjam": 6,
                     "created_at": "2026-07-27T05:00:50.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
+                    "updated_at": "2026-07-27T06:32:15.000000Z",
                     "jumlah_tersedia": 10
                   }
-                }
-              ],
-              "mutasis": [
-                {
-                  "id": 49,
-                  "peminjaman_id": 11,
-                  "nomor": "PJM-20260727-004",
-                  "jenis": "PINJAM",
-                  "tanggal": "2026-07-27T00:00:00.000000Z",
-                  "keterangan": "Peminjaman: DOC-20260727-001",
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:11:31.000000Z",
-                  "details": [
-                    {
-                      "id": 58,
-                      "mutasi_id": 49,
-                      "barang_id": 15,
-                      "jumlah": 1,
-                      "created_at": "2026-07-27T05:11:31.000000Z",
-                      "updated_at": "2026-07-27T05:11:31.000000Z",
-                      "barang": {
-                        "id": 15,
-                        "kode_barang": "BRG-00015",
-                        "nama_barang": "Laptop Lenovo ThinkPad E14",
-                        "kategori_id": 1,
-                        "lokasi_id": 1,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "Laptop untuk staf administrasi",
-                        "jumlah_total": 15,
-                        "jumlah_dipinjam": 10,
-                        "created_at": "2026-07-26T19:50:57.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 5
-                      }
-                    },
-                    {
-                      "id": 59,
-                      "mutasi_id": 49,
-                      "barang_id": 17,
-                      "jumlah": 2,
-                      "created_at": "2026-07-27T05:11:31.000000Z",
-                      "updated_at": "2026-07-27T05:11:31.000000Z",
-                      "barang": {
-                        "id": 17,
-                        "kode_barang": "BRG-00017",
-                        "nama_barang": "Lampu Cas LED",
-                        "kategori_id": 1,
-                        "lokasi_id": 2,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "lampu untuk keperluan acara desa",
-                        "jumlah_total": 16,
-                        "jumlah_dipinjam": 6,
-                        "created_at": "2026-07-27T05:00:50.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 10
-                      }
-                    }
-                  ]
                 },
                 {
-                  "id": 55,
-                  "peminjaman_id": 11,
-                  "nomor": "KMB-20260727-004",
-                  "jenis": "KEMBALI",
-                  "tanggal": "2026-07-27T00:00:00.000000Z",
-                  "keterangan": "Pengembalian Peminjaman: DOC-20260727-001",
-                  "created_at": "2026-07-27T05:26:46.000000Z",
-                  "updated_at": "2026-07-27T05:26:46.000000Z",
-                  "details": [
-                    {
-                      "id": 69,
-                      "mutasi_id": 55,
-                      "barang_id": 15,
-                      "jumlah": 1,
-                      "created_at": "2026-07-27T05:26:46.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "barang": {
-                        "id": 15,
-                        "kode_barang": "BRG-00015",
-                        "nama_barang": "Laptop Lenovo ThinkPad E14",
-                        "kategori_id": 1,
-                        "lokasi_id": 1,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "Laptop untuk staf administrasi",
-                        "jumlah_total": 15,
-                        "jumlah_dipinjam": 10,
-                        "created_at": "2026-07-26T19:50:57.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 5
-                      }
-                    },
-                    {
-                      "id": 70,
-                      "mutasi_id": 55,
-                      "barang_id": 17,
-                      "jumlah": 1,
-                      "created_at": "2026-07-27T05:26:46.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "barang": {
-                        "id": 17,
-                        "kode_barang": "BRG-00017",
-                        "nama_barang": "Lampu Cas LED",
-                        "kategori_id": 1,
-                        "lokasi_id": 2,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "lampu untuk keperluan acara desa",
-                        "jumlah_total": 16,
-                        "jumlah_dipinjam": 6,
-                        "created_at": "2026-07-27T05:00:50.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 10
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-  - name: example (barang sudah dikembalikan sepenuhnya)
-    request:
-      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}"
-      method: GET
-      headers:
-        - name: Accept
-          value: application/json
-    response:
-      status: 200
-      statusText: OK
-      headers:
-        - name: host
-          value: 127.0.0.1:8000
-        - name: connection
-          value: close
-        - name: x-powered-by
-          value: PHP/8.2.29
-        - name: cache-control
-          value: no-cache, private
-        - name: date
-          value: Mon, 27 Jul 2026 05:31:39 GMT
-        - name: content-type
-          value: application/json
-        - name: access-control-allow-origin
-          value: "*"
-        - name: phpdebugbar-id
-          value: 01KYH0XC6G4BRWYAQW9902CA2J
-      body:
-        type: json
-        data: |-
-          {
-            "success": true,
-            "message": "Success",
-            "data": {
-              "id": 11,
-              "nomor": "DOC-20260727-001",
-              "nama_peminjam": "Budi Santoso",
-              "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
-              "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
-              "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
-              "status": "dikembalikan",
-              "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 7",
-              "created_at": "2026-07-27T05:11:31.000000Z",
-              "updated_at": "2026-07-27T05:30:09.000000Z",
-              "details": [
-                {
-                  "id": 18,
-                  "peminjaman_id": 11,
-                  "barang_id": 15,
-                  "jumlah_pinjam": 1,
-                  "jumlah_kembali": 1,
-                  "jumlah_hilang": 0,
-                  "keterangan": null,
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:26:46.000000Z",
-                  "barang": {
-                    "id": 15,
-                    "kode_barang": "BRG-00015",
-                    "nama_barang": "Laptop Lenovo ThinkPad E14",
-                    "kategori_id": 1,
-                    "lokasi_id": 1,
-                    "satuan": "Unit",
-                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                    "keterangan": "Laptop untuk staf administrasi",
-                    "jumlah_total": 15,
-                    "jumlah_dipinjam": 10,
-                    "created_at": "2026-07-26T19:50:57.000000Z",
-                    "updated_at": "2026-07-27T05:26:46.000000Z",
-                    "jumlah_tersedia": 5
-                  }
-                },
-                {
-                  "id": 19,
-                  "peminjaman_id": 11,
-                  "barang_id": 17,
-                  "jumlah_pinjam": 2,
+                  "id": 27,
+                  "peminjaman_id": 15,
+                  "barang_id": 18,
+                  "jumlah_pinjam": 6,
                   "jumlah_kembali": 2,
                   "jumlah_hilang": 0,
                   "keterangan": null,
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:30:09.000000Z",
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:33:42.000000Z",
                   "barang": {
-                    "id": 17,
-                    "kode_barang": "BRG-00017",
-                    "nama_barang": "Lampu Cas LED",
-                    "kategori_id": 1,
+                    "id": 18,
+                    "kode_barang": "BRG-00018",
+                    "nama_barang": "Piring",
+                    "kategori_id": 2,
                     "lokasi_id": 2,
                     "satuan": "Unit",
                     "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                    "keterangan": "lampu untuk keperluan acara desa",
-                    "jumlah_total": 16,
-                    "jumlah_dipinjam": 5,
-                    "created_at": "2026-07-27T05:00:50.000000Z",
-                    "updated_at": "2026-07-27T05:30:09.000000Z",
-                    "jumlah_tersedia": 11
+                    "keterangan": "Piring untuk keperluan acara desa",
+                    "jumlah_total": 20,
+                    "jumlah_dipinjam": 6,
+                    "created_at": "2026-07-27T06:27:32.000000Z",
+                    "updated_at": "2026-07-27T06:33:42.000000Z",
+                    "jumlah_tersedia": 14
                   }
                 }
               ],
               "mutasis": [
                 {
-                  "id": 49,
-                  "peminjaman_id": 11,
-                  "nomor": "PJM-20260727-004",
+                  "id": 62,
+                  "peminjaman_id": 15,
+                  "nomor": "PJM-20260727-007",
                   "jenis": "PINJAM",
                   "tanggal": "2026-07-27T00:00:00.000000Z",
-                  "keterangan": "Peminjaman: DOC-20260727-001",
-                  "created_at": "2026-07-27T05:11:31.000000Z",
-                  "updated_at": "2026-07-27T05:11:31.000000Z",
+                  "keterangan": "Peminjaman: PJM-20260727-007",
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:28:37.000000Z",
                   "details": [
                     {
-                      "id": 58,
-                      "mutasi_id": 49,
-                      "barang_id": 15,
-                      "jumlah": 1,
-                      "created_at": "2026-07-27T05:11:31.000000Z",
-                      "updated_at": "2026-07-27T05:11:31.000000Z",
-                      "barang": {
-                        "id": 15,
-                        "kode_barang": "BRG-00015",
-                        "nama_barang": "Laptop Lenovo ThinkPad E14",
-                        "kategori_id": 1,
-                        "lokasi_id": 1,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "Laptop untuk staf administrasi",
-                        "jumlah_total": 15,
-                        "jumlah_dipinjam": 10,
-                        "created_at": "2026-07-26T19:50:57.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 5
-                      }
-                    },
-                    {
-                      "id": 59,
-                      "mutasi_id": 49,
+                      "id": 75,
+                      "mutasi_id": 62,
                       "barang_id": 17,
-                      "jumlah": 2,
-                      "created_at": "2026-07-27T05:11:31.000000Z",
-                      "updated_at": "2026-07-27T05:11:31.000000Z",
+                      "jumlah": 5,
+                      "created_at": "2026-07-27T06:28:37.000000Z",
+                      "updated_at": "2026-07-27T06:28:37.000000Z",
                       "barang": {
                         "id": 17,
                         "kode_barang": "BRG-00017",
@@ -391,54 +149,54 @@ examples:
                         "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
                         "keterangan": "lampu untuk keperluan acara desa",
                         "jumlah_total": 16,
-                        "jumlah_dipinjam": 5,
+                        "jumlah_dipinjam": 6,
                         "created_at": "2026-07-27T05:00:50.000000Z",
-                        "updated_at": "2026-07-27T05:30:09.000000Z",
-                        "jumlah_tersedia": 11
+                        "updated_at": "2026-07-27T06:32:15.000000Z",
+                        "jumlah_tersedia": 10
+                      }
+                    },
+                    {
+                      "id": 76,
+                      "mutasi_id": 62,
+                      "barang_id": 18,
+                      "jumlah": 6,
+                      "created_at": "2026-07-27T06:28:37.000000Z",
+                      "updated_at": "2026-07-27T06:28:37.000000Z",
+                      "barang": {
+                        "id": 18,
+                        "kode_barang": "BRG-00018",
+                        "nama_barang": "Piring",
+                        "kategori_id": 2,
+                        "lokasi_id": 2,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "Piring untuk keperluan acara desa",
+                        "jumlah_total": 20,
+                        "jumlah_dipinjam": 6,
+                        "created_at": "2026-07-27T06:27:32.000000Z",
+                        "updated_at": "2026-07-27T06:33:42.000000Z",
+                        "jumlah_tersedia": 14
                       }
                     }
                   ]
                 },
                 {
-                  "id": 55,
-                  "peminjaman_id": 11,
-                  "nomor": "KMB-20260727-004",
+                  "id": 65,
+                  "peminjaman_id": 15,
+                  "nomor": "KMB-20260727-007",
                   "jenis": "KEMBALI",
                   "tanggal": "2026-07-27T00:00:00.000000Z",
-                  "keterangan": "Pengembalian Peminjaman: DOC-20260727-001",
-                  "created_at": "2026-07-27T05:26:46.000000Z",
-                  "updated_at": "2026-07-27T05:26:46.000000Z",
+                  "keterangan": "Pengembalian Peminjaman: PJM-20260727-007",
+                  "created_at": "2026-07-27T06:32:15.000000Z",
+                  "updated_at": "2026-07-27T06:32:15.000000Z",
                   "details": [
                     {
-                      "id": 69,
-                      "mutasi_id": 55,
-                      "barang_id": 15,
-                      "jumlah": 1,
-                      "created_at": "2026-07-27T05:26:46.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
-                      "barang": {
-                        "id": 15,
-                        "kode_barang": "BRG-00015",
-                        "nama_barang": "Laptop Lenovo ThinkPad E14",
-                        "kategori_id": 1,
-                        "lokasi_id": 1,
-                        "satuan": "Unit",
-                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "Laptop untuk staf administrasi",
-                        "jumlah_total": 15,
-                        "jumlah_dipinjam": 10,
-                        "created_at": "2026-07-26T19:50:57.000000Z",
-                        "updated_at": "2026-07-27T05:26:46.000000Z",
-                        "jumlah_tersedia": 5
-                      }
-                    },
-                    {
-                      "id": 70,
-                      "mutasi_id": 55,
+                      "id": 79,
+                      "mutasi_id": 65,
                       "barang_id": 17,
                       "jumlah": 1,
-                      "created_at": "2026-07-27T05:26:46.000000Z",
-                      "updated_at": "2026-07-27T05:26:46.000000Z",
+                      "created_at": "2026-07-27T06:32:15.000000Z",
+                      "updated_at": "2026-07-27T06:32:15.000000Z",
                       "barang": {
                         "id": 17,
                         "kode_barang": "BRG-00017",
@@ -449,45 +207,68 @@ examples:
                         "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
                         "keterangan": "lampu untuk keperluan acara desa",
                         "jumlah_total": 16,
-                        "jumlah_dipinjam": 5,
+                        "jumlah_dipinjam": 6,
                         "created_at": "2026-07-27T05:00:50.000000Z",
-                        "updated_at": "2026-07-27T05:30:09.000000Z",
-                        "jumlah_tersedia": 11
+                        "updated_at": "2026-07-27T06:32:15.000000Z",
+                        "jumlah_tersedia": 10
+                      }
+                    },
+                    {
+                      "id": 80,
+                      "mutasi_id": 65,
+                      "barang_id": 18,
+                      "jumlah": 1,
+                      "created_at": "2026-07-27T06:32:15.000000Z",
+                      "updated_at": "2026-07-27T06:32:15.000000Z",
+                      "barang": {
+                        "id": 18,
+                        "kode_barang": "BRG-00018",
+                        "nama_barang": "Piring",
+                        "kategori_id": 2,
+                        "lokasi_id": 2,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "Piring untuk keperluan acara desa",
+                        "jumlah_total": 20,
+                        "jumlah_dipinjam": 6,
+                        "created_at": "2026-07-27T06:27:32.000000Z",
+                        "updated_at": "2026-07-27T06:33:42.000000Z",
+                        "jumlah_tersedia": 14
                       }
                     }
                   ]
                 },
                 {
-                  "id": 57,
-                  "peminjaman_id": 11,
-                  "nomor": "KMB-20260727-005",
+                  "id": 66,
+                  "peminjaman_id": 15,
+                  "nomor": "KMB-20260727-008",
                   "jenis": "KEMBALI",
                   "tanggal": "2026-07-27T00:00:00.000000Z",
-                  "keterangan": "Pengembalian Peminjaman: DOC-20260727-001",
-                  "created_at": "2026-07-27T05:30:09.000000Z",
-                  "updated_at": "2026-07-27T05:30:09.000000Z",
+                  "keterangan": "Pengembalian Peminjaman: PJM-20260727-007",
+                  "created_at": "2026-07-27T06:33:42.000000Z",
+                  "updated_at": "2026-07-27T06:33:42.000000Z",
                   "details": [
                     {
-                      "id": 71,
-                      "mutasi_id": 57,
-                      "barang_id": 17,
+                      "id": 81,
+                      "mutasi_id": 66,
+                      "barang_id": 18,
                       "jumlah": 1,
-                      "created_at": "2026-07-27T05:30:09.000000Z",
-                      "updated_at": "2026-07-27T05:30:09.000000Z",
+                      "created_at": "2026-07-27T06:33:42.000000Z",
+                      "updated_at": "2026-07-27T06:33:42.000000Z",
                       "barang": {
-                        "id": 17,
-                        "kode_barang": "BRG-00017",
-                        "nama_barang": "Lampu Cas LED",
-                        "kategori_id": 1,
+                        "id": 18,
+                        "kode_barang": "BRG-00018",
+                        "nama_barang": "Piring",
+                        "kategori_id": 2,
                         "lokasi_id": 2,
                         "satuan": "Unit",
                         "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-                        "keterangan": "lampu untuk keperluan acara desa",
-                        "jumlah_total": 16,
-                        "jumlah_dipinjam": 5,
-                        "created_at": "2026-07-27T05:00:50.000000Z",
-                        "updated_at": "2026-07-27T05:30:09.000000Z",
-                        "jumlah_tersedia": 11
+                        "keterangan": "Piring untuk keperluan acara desa",
+                        "jumlah_total": 20,
+                        "jumlah_dipinjam": 6,
+                        "created_at": "2026-07-27T06:27:32.000000Z",
+                        "updated_at": "2026-07-27T06:33:42.000000Z",
+                        "jumlah_tersedia": 14
                       }
                     }
                   ]

@@ -14,7 +14,7 @@ http:
 runtime:
   variables:
     - name: id_inv_barang
-      value: "15"
+      value: "17"
 
 settings:
   encodeUrl: true
@@ -43,13 +43,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Mon, 27 Jul 2026 04:44:13 GMT
+          value: Mon, 27 Jul 2026 06:53:30 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYGY6GVY4JVQZPSD1V7JBGD1
+          value: 01KYH5K87G9R9CTN482WN55C1F
       body:
         type: json
         data: |-
@@ -57,19 +57,19 @@ examples:
             "success": true,
             "message": "Success",
             "data": {
-              "id": 15,
-              "kode_barang": "BRG-00015",
-              "nama_barang": "Laptop Lenovo ThinkPad E14",
+              "id": 17,
+              "kode_barang": "BRG-00017",
+              "nama_barang": "Lampu Cas LED",
               "kategori_id": 1,
-              "lokasi_id": 1,
+              "lokasi_id": 2,
               "satuan": "Unit",
               "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
-              "keterangan": "Laptop untuk staf administrasi",
-              "jumlah_total": 13,
-              "jumlah_dipinjam": 9,
-              "created_at": "2026-07-26T19:50:57.000000Z",
-              "updated_at": "2026-07-27T02:17:46.000000Z",
-              "jumlah_tersedia": 4,
+              "keterangan": "lampu untuk keperluan acara desa",
+              "jumlah_total": 16,
+              "jumlah_dipinjam": 2,
+              "created_at": "2026-07-27T05:00:50.000000Z",
+              "updated_at": "2026-07-27T06:36:38.000000Z",
+              "jumlah_tersedia": 14,
               "jumlah_masih_hilang": 0,
               "kategori": {
                 "id": 1,
@@ -77,55 +77,55 @@ examples:
                 "keterangan": "Barang elektronik milik desa"
               },
               "lokasi": {
-                "id": 1,
-                "nama": "Gudang Balai desa",
-                "keterangan": "Tempat simpan barang desa edited"
+                "id": 2,
+                "nama": "Gudang PKK",
+                "keterangan": "Tempat simpan barang-barang PKK"
               },
               "detail_peminjamans": [
                 {
-                  "id": 13,
-                  "peminjaman_id": 7,
-                  "barang_id": 15,
+                  "id": 26,
+                  "peminjaman_id": 15,
+                  "barang_id": 17,
+                  "jumlah_pinjam": 5,
+                  "jumlah_kembali": 5,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:36:38.000000Z",
+                  "peminjaman": {
+                    "id": 15,
+                    "nomor": "PJM-20260727-007",
+                    "nama_peminjam": "Budi Santoso",
+                    "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+                    "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+                    "tanggal_kembali": "2026-07-27T00:00:00.000000Z",
+                    "status": "dipinjam",
+                    "keterangan": "Peminjaman untuk acara desa",
+                    "created_at": "2026-07-27T06:28:37.000000Z",
+                    "updated_at": "2026-07-27T06:32:15.000000Z"
+                  }
+                },
+                {
+                  "id": 28,
+                  "peminjaman_id": 16,
+                  "barang_id": 17,
                   "jumlah_pinjam": 2,
                   "jumlah_kembali": 0,
                   "jumlah_hilang": 0,
                   "keterangan": null,
-                  "created_at": "2026-07-27T02:16:08.000000Z",
-                  "updated_at": "2026-07-27T02:16:08.000000Z",
+                  "created_at": "2026-07-27T06:31:38.000000Z",
+                  "updated_at": "2026-07-27T06:31:38.000000Z",
                   "peminjaman": {
-                    "id": 7,
-                    "nomor": "PJM-20260727-0005",
+                    "id": 16,
+                    "nomor": "PJM-20260727-008",
                     "nama_peminjam": "Budi Santoso",
                     "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
                     "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
                     "tanggal_kembali": null,
                     "status": "dipinjam",
-                    "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 5",
-                    "created_at": "2026-07-27T02:16:08.000000Z",
-                    "updated_at": "2026-07-27T02:16:08.000000Z"
-                  }
-                },
-                {
-                  "id": 15,
-                  "peminjaman_id": 9,
-                  "barang_id": 15,
-                  "jumlah_pinjam": 1,
-                  "jumlah_kembali": 0,
-                  "jumlah_hilang": 0,
-                  "keterangan": null,
-                  "created_at": "2026-07-27T02:17:46.000000Z",
-                  "updated_at": "2026-07-27T02:17:46.000000Z",
-                  "peminjaman": {
-                    "id": 9,
-                    "nomor": "PJM-20260727-0006",
-                    "nama_peminjam": "Budi Santoso",
-                    "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
-                    "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
-                    "tanggal_kembali": null,
-                    "status": "dipinjam",
-                    "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 7",
-                    "created_at": "2026-07-27T02:17:46.000000Z",
-                    "updated_at": "2026-07-27T02:17:46.000000Z"
+                    "keterangan": "Peminjaman untuk acara desa",
+                    "created_at": "2026-07-27T06:31:38.000000Z",
+                    "updated_at": "2026-07-27T06:31:38.000000Z"
                   }
                 }
               ]

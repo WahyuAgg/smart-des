@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Inv\StoreInvBarangRequest;
 use App\Http\Requests\Inv\UpdateInvBarangRequest;
 use App\Models\InvBarang;
+use App\Models\InvDetailMutasi;
 use App\Services\InvMutasiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -224,5 +225,35 @@ class InvBarangController extends ApiController
         } catch (\InvalidArgumentException $e) {
             return $this->error($e->getMessage(), null, 422);
         }
+    }
+
+    // ──────────────────────────────────────────────
+    //  ENDPOINT RIWAYAT & MUTASI PER BARANG
+    // ──────────────────────────────────────────────
+
+    /** GET /inv-barang/{id}/mutasi — daftar mutasi untuk barang tertentu */
+    public function mutasi(Request $request, int $id): JsonResponse
+    {
+        $perPage = (int) min($request->input('per_page', 20), 100);
+
+        $records = InvDetailMutasi::with('mutasi')
+            ->where('barang_id', $id)
+            ->latest()
+            ->paginate($perPage);
+
+        return $this->success($records);
+    }
+
+    /** GET /inv-barang/{id}/riwayat — riwayat peminjaman barang */
+    public function riwayat(Request $request, int $id): JsonResponse
+    {
+        $perPage = (int) min($request->input('per_page', 20), 100);
+
+        $records = \App\Models\InvDetailPeminjaman::with('peminjaman')
+            ->where('barang_id', $id)
+            ->latest()
+            ->paginate($perPage);
+
+        return $this->success($records);
     }
 }

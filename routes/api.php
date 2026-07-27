@@ -58,6 +58,9 @@ Route::middleware([
 
     Route::post('inv-barang/{id}/opname', [App\Http\Controllers\Api\InvBarangController::class, 'opname']);
     Route::post('inv-barang/{id}/hapus-stok', [App\Http\Controllers\Api\InvBarangController::class, 'hapusStok']);
+    // Riwayat & mutasi per barang
+    Route::get('inv-barang/{id}/riwayat-mutasi', [App\Http\Controllers\Api\InvBarangController::class, 'mutasi']);
+    Route::get('inv-barang/{id}/riwayat-pinjam', [App\Http\Controllers\Api\InvBarangController::class, 'riwayat']);
 
     Route::apiResource('inv-detail-peminjaman', App\Http\Controllers\Api\InvDetailPeminjamanController::class);
 

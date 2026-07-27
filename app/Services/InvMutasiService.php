@@ -83,9 +83,11 @@ class InvMutasiService
                 );
             }
 
-            $totalDikembalikan = 0;
-            $totalDipinjam = 0;
-            $semuaLengkap = true;
+            // Validasi: minimal satu item memiliki jumlah kembali > 0
+            $totalKembaliRequest = collect($detailsReturns)->sum(fn($r) => (int) ($r['jumlah_kembali'] ?? 0) + (int) ($r['jumlah_hilang'] ?? 0));
+            if ($totalKembaliRequest <= 0) {
+                throw new InvalidArgumentException("Jumlah kembali harus lebih dari 0.");
+            }
 
             $mutasi = self::createMutasi(
                 'KEMBALI',
@@ -100,8 +102,9 @@ class InvMutasiService
                 $hilang = (int) ($return['jumlah_hilang'] ?? 0);
                 $jumlahKembali = $kembali + $hilang;
 
+                // Skip item yang tidak dikembalikan dalam request ini
                 if ($jumlahKembali <= 0) {
-                    throw new InvalidArgumentException("Jumlah kembali harus lebih dari 0.");
+                    continue;
                 }
 
                 $detailPinjam = InvDetailPeminjaman::where('peminjaman_id', $peminjamanId)
@@ -132,17 +135,12 @@ class InvMutasiService
                 $detailPinjam->increment('jumlah_hilang', $hilang);
 
                 self::createDetailMutasi($mutasi->id, $barangId, $jumlahKembali);
-
-                $totalDikembalikan += $jumlahKembali;
-                $totalDipinjam += $detailPinjam->jumlah_pinjam;
-
-                // Cek apakah detail ini sudah lengkap kembali
-                $sudahLengkap = ($detailPinjam->fresh()->jumlah_kembali
-                    + $detailPinjam->fresh()->jumlah_hilang) >= $detailPinjam->jumlah_pinjam;
-                if (!$sudahLengkap) {
-                    $semuaLengkap = false;
-                }
             }
+
+            // Cek apakah SEMUA detail peminjaman sudah kembali penuh
+            $semuaLengkap = InvDetailPeminjaman::where('peminjaman_id', $peminjamanId)
+                ->get()
+                ->every(fn($dp) => ($dp->fresh()->jumlah_kembali + $dp->fresh()->jumlah_hilang) >= $dp->jumlah_pinjam);
 
             // Update status header peminjaman
             if ($semuaLengkap) {
