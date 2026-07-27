@@ -4,6 +4,7 @@ namespace App\Http\Requests\Inv;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\InvLokasi;
 
 class UpdateInvLokasiRequest extends FormRequest
 {
@@ -14,9 +15,9 @@ class UpdateInvLokasiRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('id');
         return [
-            'nama' => ['sometimes', 'string', 'max:100', Rule::unique('inv_lokasi', 'nama')->ignore($id)],
+            'nama' => ['sometimes', 'string', 'max:100', Rule::unique(InvLokasi::class)
+            ->ignore($this->route('inv_lokasi'))],
             'keterangan' => 'nullable|string',
         ];
     }

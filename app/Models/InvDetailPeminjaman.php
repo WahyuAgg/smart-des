@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $jumlah_pinjam
  * @property int $jumlah_kembali
  * @property int $jumlah_hilang
- * @property int $jumlah_rusak
  * @property string|null $keterangan
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -27,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereJumlahHilang($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereJumlahKembali($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereJumlahPinjam($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereJumlahRusak($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereKeterangan($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman wherePeminjamanId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|InvDetailPeminjaman whereUpdatedAt($value)
@@ -44,16 +42,14 @@ class InvDetailPeminjaman extends Model
         'peminjaman_id',
         'barang_id',
         'jumlah_pinjam',
-        'jumlah_kembali_baik',
-        'jumlah_kembali_rusak',
+        'jumlah_kembali',
         'jumlah_hilang',
         'keterangan',
     ];
 
     protected $casts = [
         'jumlah_pinjam' => 'integer',
-        'jumlah_kembali_baik' => 'integer',
-        'jumlah_kembali_rusak' => 'integer',
+        'jumlah_kembali' => 'integer',
         'jumlah_hilang' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',

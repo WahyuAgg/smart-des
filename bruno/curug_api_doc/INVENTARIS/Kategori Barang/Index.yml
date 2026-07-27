@@ -1,17 +1,15 @@
 info:
-  name: Get by ID
+  name: Index
   type: http
   seq: 2
 
 http:
   method: GET
-  url: "{{base_url}}/api/pendidikan/{{id}}"
+  url: "{{base_url}}/api/inv-kategori-barang"
+  headers:
+    - name: Accept
+      value: application/json
   auth: inherit
-
-runtime:
-  variables:
-    - name: id
-      value: "1"
 
 settings:
   encodeUrl: true
@@ -22,8 +20,11 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/pendidikan/{{id}}"
+      url: "{{base_url}}/api/inv-kategori-barang"
       method: GET
+      headers:
+        - name: Accept
+          value: application/json
     response:
       status: 200
       statusText: OK
@@ -37,21 +38,31 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 19:21:00 GMT
+          value: Sun, 26 Jul 2026 09:16:13 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBWD61TS8FFW9CVTP3PZ195
+          value: 01KYEVBVDPGE9EV8ER27MPCNG2
       body:
         type: json
         data: |-
           {
             "success": true,
             "message": "Success",
-            "data": {
-              "id": 1,
-              "tingkat_pendidikan": "Tidak/Belum Sekolah"
-            }
+            "data": [
+              {
+                "id": 2,
+                "nama": "Meja Kursi",
+                "keterangan": "Barang Meja dan Kursi",
+                "barangs_count": 0
+              },
+              {
+                "id": 1,
+                "nama": "Elektronik",
+                "keterangan": "Barang elektronik",
+                "barangs_count": 0
+              }
+            ]
           }

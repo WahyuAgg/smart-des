@@ -1,5 +1,5 @@
 info:
-  name: Get all
+  name: Index
   type: http
   seq: 2
 

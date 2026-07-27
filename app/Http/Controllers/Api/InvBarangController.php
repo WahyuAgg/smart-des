@@ -8,7 +8,6 @@ use App\Models\InvBarang;
 use App\Services\InvMutasiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class InvBarangController extends ApiController
 {
@@ -43,7 +42,8 @@ class InvBarangController extends ApiController
 
         // Filter stok menipis
         if ($request->boolean('stock_minim')) {
-            $query->whereColumn('jumlah_tersedia', '<=', DB::raw('jumlah_dipinjam'));
+            // jumlah_tersedia dihitung real-time: jumlah_total - jumlah_dipinjam
+            $query->whereRaw('(jumlah_total - jumlah_dipinjam) <= jumlah_dipinjam');
         }
 
         $records = $query->latest()->paginate($perPage);
@@ -57,12 +57,21 @@ class InvBarangController extends ApiController
         $record = InvBarang::with([
             'kategori',
             'lokasi',
-            'detailPeminjamans.peminjaman',
-            'detailMutasis.mutasi',
+            'detailPeminjamans' => function ($query) {
+                $query->whereHas('peminjaman', function ($q) {
+                    $q->where('status', 'dipinjam');
+                })->with('peminjaman');
+            },
         ])->findOrFail($id);
+
+        $record->append([
+            'jumlah_masih_hilang',
+        ]);
+
 
         return $this->success($record);
     }
+
 
     /** Tambah Barang Baru — stok awal bisa langsung diisi via kolom agregat (non-mutasi). */
     public function store(StoreInvBarangRequest $request): JsonResponse
@@ -70,16 +79,16 @@ class InvBarangController extends ApiController
         $data = $request->validated();
 
         $jumlahTotalMutasi = $data['jumlah_total'];
-        $jumlahRusakMutasi = $data['jumlah_rusak'];
-
 
         // Default nilai stok
         $data['jumlah_total'] = 0;
-        $data['jumlah_tersedia'] = 0;
-        $data['jumlah_rusak'] = 0;
         $data['jumlah_dipinjam'] = 0;
 
         $record = InvBarang::create($data);
+
+        $record->append([
+            'jumlah_masih_hilang',
+        ]);
 
         // Catat mutasi pengadaan jika stok awal > 0
         if ($jumlahTotalMutasi > 0) {
@@ -90,16 +99,6 @@ class InvBarangController extends ApiController
             );
         }
 
-        if ($jumlahRusakMutasi > 0) {
-            InvMutasiService::rusak(
-                $record->id,
-                $jumlahRusakMutasi,
-                'Stok awal barang baru'
-            );
-        }
-
-        
-
         return $this->success(
             $record->fresh(['kategori', 'lokasi']),
             'Barang berhasil ditambahkan.',
@@ -108,16 +107,12 @@ class InvBarangController extends ApiController
     }
 
     /** Update data master barang (metadata saja, bukan stok) */
-    public function update(UpdateInvBarangRequest $request, int $id): JsonResponse
+    public function update(UpdateInvBarangRequest $request, InvBarang $inv_barang): JsonResponse
     {
-        $record = InvBarang::findOrFail($id);
-        $data = $request->validated();
-
-        // Hanya update field yang diizinkan (non-stok)
-        $record->update($data);
+        $inv_barang->update($request->validated());
 
         return $this->success(
-            $record->fresh(['kategori', 'lokasi']),
+            $inv_barang->fresh(['kategori', 'lokasi']),
             'Data barang berhasil diperbarui.'
         );
     }
@@ -159,22 +154,6 @@ class InvBarangController extends ApiController
         }
     }
 
-    /** POST /inv-barang/{id}/rusak */
-    public function rusak(Request $request, int $id): JsonResponse
-    {
-        $request->validate([
-            'jumlah'     => 'required|integer|min:1',
-            'keterangan' => 'nullable|string',
-        ]);
-
-        try {
-            $mutasi = InvMutasiService::rusak($id, (int) $request->input('jumlah'), $request->input('keterangan'));
-            return $this->success($mutasi, 'Barang rusak berhasil dicatat.', 201);
-        } catch (\InvalidArgumentException $e) {
-            return $this->error($e->getMessage(), null, 422);
-        }
-    }
-
     /** POST /inv-barang/{id}/hilang */
     public function hilang(Request $request, int $id): JsonResponse
     {
@@ -191,16 +170,36 @@ class InvBarangController extends ApiController
         }
     }
 
+    /** Post /inv-barang/{id}/ketemu */
+    public function ketemu(Request $request, int $id): JsonResponse
+    {
+        $request->validate([
+            'jumlah'     => 'required|integer|min:1',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        try {
+            $mutasi = InvMutasiService::ketemu($id, (int) $request->input('jumlah'), $request->input('keterangan'));
+            return $this->success($mutasi, 'Barang ketemu berhasil dicatat.', 201);
+        } catch (\InvalidArgumentException $e) {
+            return $this->error($e->getMessage(), null, 422);
+        }
+    }
+
     /** POST /inv-barang/{id}/opname */
     public function opname(Request $request, int $id): JsonResponse
     {
         $request->validate([
-            'jumlah_fisik' => 'required|integer|min:0',
-            'keterangan'   => 'nullable|string',
+            'stok_fisik' => 'required|integer|min:0',
+            'keterangan'  => 'nullable|string',
         ]);
 
         try {
-            $mutasi = InvMutasiService::opname($id, (int) $request->input('jumlah_fisik'), $request->input('keterangan'));
+            $mutasi = InvMutasiService::opname(
+                $id,
+                (int) $request->input('stok_fisik'),
+                $request->input('keterangan')
+            );
             return $this->success($mutasi, 'Stock opname berhasil dicatat.', 201);
         } catch (\InvalidArgumentException $e) {
             return $this->error($e->getMessage(), null, 422);
@@ -212,7 +211,6 @@ class InvBarangController extends ApiController
     {
         $request->validate([
             'jumlah'     => 'required|integer|min:1',
-            'dari'       => 'required|string|in:tersedia,rusak',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -220,7 +218,6 @@ class InvBarangController extends ApiController
             $mutasi = InvMutasiService::hapus(
                 $id,
                 (int) $request->input('jumlah'),
-                $request->input('dari'),
                 $request->input('keterangan')
             );
             return $this->success($mutasi, 'Penghapusan stok berhasil dicatat.', 201);

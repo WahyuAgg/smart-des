@@ -1,5 +1,5 @@
 info:
-  name: Get Jenis Surat by ID
+  name: Show by ID
   type: http
   seq: 1
 

@@ -4,4 +4,7 @@ info:
   seq: 12
 
 request:
+  headers:
+    - name: Accept
+      value: application/json
   auth: inherit

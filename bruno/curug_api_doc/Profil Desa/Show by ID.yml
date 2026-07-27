@@ -1,5 +1,5 @@
 info:
-  name: Get Profil Desa by ID 1
+  name: Show by ID
   type: http
   seq: 1
 

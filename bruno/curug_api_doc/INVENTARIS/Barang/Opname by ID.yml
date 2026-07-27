@@ -1,0 +1,107 @@
+info:
+  name: Opname by ID
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/opname"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "stok_fisik" : 10,
+        "keterangan" : "Opname stok barang laptop id 10"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "10"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/opname"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "stok_fisik" : 10,
+            "keterangan" : "Opname stok barang laptop id 10"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 19:27:59 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYFYC0NX0NX3EDQAYWWYPQ6M
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Stock opname berhasil dicatat.",
+            "data": {
+              "peminjaman_id": null,
+              "nomor": "OPN-20260726-001",
+              "jenis": "OPNAME",
+              "tanggal": "2026-07-26T00:00:00.000000Z",
+              "keterangan": "Opname stok barang laptop id 10",
+              "updated_at": "2026-07-26T19:27:59.000000Z",
+              "created_at": "2026-07-26T19:27:59.000000Z",
+              "id": 23,
+              "details": [
+                {
+                  "id": 25,
+                  "mutasi_id": 23,
+                  "barang_id": 10,
+                  "jumlah": 2,
+                  "created_at": "2026-07-26T19:27:59.000000Z",
+                  "updated_at": "2026-07-26T19:27:59.000000Z",
+                  "barang": {
+                    "id": 10,
+                    "kode_barang": "BRG-0001",
+                    "nama_barang": "Laptop Lenovo ThinkPad Edited",
+                    "kategori_id": 2,
+                    "lokasi_id": 2,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staff edited",
+                    "jumlah_total": 10,
+                    "jumlah_dipinjam": 0,
+                    "created_at": "2026-07-26T19:09:56.000000Z",
+                    "updated_at": "2026-07-26T19:27:59.000000Z"
+                  }
+                }
+              ]
+            }
+          }

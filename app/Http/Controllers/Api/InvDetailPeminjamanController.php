@@ -83,7 +83,6 @@ class InvDetailPeminjamanController extends ApiController
         $barang = $record->barang;
         if ($barang) {
             $barang->decrement('jumlah_dipinjam', $record->jumlah_pinjam);
-            $barang->increment('jumlah_tersedia', $record->jumlah_pinjam);
         }
 
         $record->delete();

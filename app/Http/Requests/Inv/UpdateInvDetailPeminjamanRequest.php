@@ -16,8 +16,7 @@ class UpdateInvDetailPeminjamanRequest extends FormRequest
         return [
             'barang_id'         => 'sometimes|integer|exists:inv_barang,id',
             'jumlah_pinjam'     => 'sometimes|integer|min:0',
-            'jumlah_kembali_baik' => 'sometimes|integer|min:0',
-            'jumlah_kembali_rusak' => 'sometimes|integer|min:0',
+            'jumlah_kembali'    => 'sometimes|integer|min:0',
             'jumlah_hilang'     => 'sometimes|integer|min:0',
             'keterangan'        => 'nullable|string',
         ];

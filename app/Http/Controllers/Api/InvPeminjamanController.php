@@ -6,6 +6,7 @@ use App\Http\Requests\Inv\StoreInvPeminjamanRequest;
 use App\Http\Requests\Inv\UpdateInvPeminjamanRequest;
 use App\Models\InvPeminjaman;
 use App\Services\InvMutasiService;
+use App\Services\NomorService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,7 @@ class InvPeminjamanController extends ApiController
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('nomor', 'like', "%{$search}%")
-                  ->orWhere('nama_peminjam', 'like', "%{$search}%");
+                    ->orWhere('nama_peminjam', 'like', "%{$search}%");
             });
         }
 
@@ -59,6 +60,8 @@ class InvPeminjamanController extends ApiController
     public function store(StoreInvPeminjamanRequest $request): JsonResponse
     {
         $data = $request->validated();
+
+        $data['nomor'] = NomorService::generate('PINJAM');
 
         $result = DB::transaction(function () use ($data) {
             // Buat header peminjaman
@@ -126,7 +129,6 @@ class InvPeminjamanController extends ApiController
                 foreach ($mutasiPinjam->details as $detail) {
                     $barang = $detail->barang;
                     if ($barang) {
-                        $barang->increment('jumlah_tersedia', $detail->jumlah);
                         $barang->decrement('jumlah_dipinjam', $detail->jumlah);
                     }
                 }
@@ -144,21 +146,28 @@ class InvPeminjamanController extends ApiController
     /**
      * Proses Pengembalian Barang — via endpoint khusus.
      * POST /inv-peminjaman/{id}/kembalikan
-     * Body: { returns: [{barang_id, jumlah_kembali_baik, jumlah_kembali_rusak, jumlah_hilang}] }
+     * Body: { returns: [{barang_id, jumlah_kembali, jumlah_hilang}] }
      */
     public function kembalikan(Request $request, int $id): JsonResponse
     {
         $request->validate([
             'returns'                      => 'required|array|min:1',
             'returns.*.barang_id'          => 'required|integer|exists:inv_barang,id',
-            'returns.*.jumlah_kembali_baik' => 'nullable|integer|min:0',
-            'returns.*.jumlah_kembali_rusak' => 'nullable|integer|min:0',
+            'returns.*.jumlah_kembali'     => 'nullable|integer|min:0',
             'returns.*.jumlah_hilang'      => 'nullable|integer|min:0',
         ]);
 
+        $record = InvPeminjaman::findOrFail($id);
+
         try {
             $mutasi = InvMutasiService::kembalikan($id, $request->input('returns'));
-            return $this->success($mutasi, 'Pengembalian barang berhasil dicatat.', 201);
+
+            return $this->success([
+                'peminjaman' => $record->fresh([
+                    'details.barang',
+                ]),
+                'mutasi' => $mutasi,
+            ], 'Pengembalian barang berhasil dicatat.', 201);
         } catch (\InvalidArgumentException $e) {
             return $this->error($e->getMessage(), null, 422);
         }
@@ -178,12 +187,19 @@ class InvPeminjamanController extends ApiController
                 );
             }
 
+            if ($record->mutasis()->where('jenis', 'KEMBALI')->exists()) {
+                return $this->error(
+                    'Peminjaman yang sudah memiliki riwayat pengembalian tidak dapat dibatalkan.',
+                    null,
+                    422
+                );
+            }
+
             // Kembalikan stok
             foreach ($record->details as $detail) {
                 $barang = $detail->barang;
                 if ($barang) {
                     $barang->decrement('jumlah_dipinjam', $detail->jumlah_pinjam);
-                    $barang->increment('jumlah_tersedia', $detail->jumlah_pinjam);
                 }
             }
 

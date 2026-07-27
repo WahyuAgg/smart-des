@@ -14,7 +14,6 @@ class StoreInvPeminjamanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor'                  => 'required|string|max:50|unique:inv_peminjaman,nomor',
             'nama_peminjam'          => 'required|string|max:150',
             'tanggal_pinjam'         => 'required|date',
             'tanggal_rencana_kembali' => 'required|date|after_or_equal:tanggal_pinjam',

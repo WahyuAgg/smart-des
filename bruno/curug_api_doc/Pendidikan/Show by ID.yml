@@ -1,17 +1,17 @@
 info:
-  name: Get by ID
+  name: Show by ID
   type: http
-  seq: 3
+  seq: 2
 
 http:
   method: GET
-  url: "{{base_url}}/api/ref-jabatan-perangkat/{{id_jabatan_perangkat}}"
+  url: "{{base_url}}/api/pendidikan/{{id}}"
   auth: inherit
 
 runtime:
   variables:
-    - name: id_jabatan_perangkat
-      value: "17"
+    - name: id
+      value: "1"
 
 settings:
   encodeUrl: true
@@ -22,7 +22,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/ref-jabatan-perangkat/{{id_jabatan_perangkat}}"
+      url: "{{base_url}}/api/pendidikan/{{id}}"
       method: GET
     response:
       status: 200
@@ -37,13 +37,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sat, 25 Jul 2026 03:20:27 GMT
+          value: Sun, 12 Jul 2026 19:21:00 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYBMKQ2S2CJ57K0NQQTBCHH4
+          value: 01KXBWD61TS8FFW9CVTP3PZ195
       body:
         type: json
         data: |-
@@ -52,9 +52,6 @@ examples:
             "message": "Success",
             "data": {
               "id": 1,
-              "kode": "kades",
-              "nama": "Kepala Desa",
-              "urutan": 33,
-              "aktif": true
+              "tingkat_pendidikan": "Tidak/Belum Sekolah"
             }
           }

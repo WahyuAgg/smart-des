@@ -4,6 +4,7 @@ namespace App\Http\Requests\Inv;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\InvPeminjaman;
 
 class UpdateInvPeminjamanRequest extends FormRequest
 {
@@ -14,14 +15,13 @@ class UpdateInvPeminjamanRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('id');
         return [
-            'nomor'                  => ['sometimes', 'string', 'max:50', Rule::unique('inv_peminjaman', 'nomor')->ignore($id)],
+            'nomor'                  => ['sometimes', 'string', 'max:50', Rule::unique(InvPeminjaman::class)->ignore($this->route('inv_peminjaman'))],
             'nama_peminjam'          => 'sometimes|string|max:150',
             'tanggal_pinjam'         => 'sometimes|date',
             'tanggal_rencana_kembali' => 'sometimes|date|after_or_equal:tanggal_pinjam',
             'keterangan'             => 'nullable|string',
-            'status'                 => 'sometimes|string|in:dipinjam,dikembalikan,dibatalkan',
+            'status'                 => 'prohibited',
         ];
     }
 }

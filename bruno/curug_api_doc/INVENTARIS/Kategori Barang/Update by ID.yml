@@ -13,7 +13,7 @@ http:
     type: json
     data: |-
       {
-        "nama" : "Barang Elektronik",
+        "nama" : "Barang Elektronik edited",
         "keterangan" : "Barang elektronik milik desa"
       }
   auth: inherit

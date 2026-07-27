@@ -1,0 +1,109 @@
+info:
+  name: Hapus stock by ID
+  type: http
+  seq: 9
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/hapus-stok"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "jumlah" : 2,
+        "keterangan" : "hapus stok barang laptop"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    description: Mengurangi jumlah_total barang dengan jumlah maximun yang bisa dikurangi adalah jumlah_tersedia
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/hapus-stok"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jumlah" : 2,
+            "keterangan" : "hapus stok barang laptop"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 05:56:51 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH2BG9ZF6HWX0FCRHZVQ2XP
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Penghapusan stok berhasil dicatat.",
+            "data": {
+              "peminjaman_id": null,
+              "nomor": "HPS-20260727-002",
+              "jenis": "HAPUS",
+              "tanggal": "2026-07-27T00:00:00.000000Z",
+              "keterangan": "hapus stok barang laptop",
+              "updated_at": "2026-07-27T05:56:51.000000Z",
+              "created_at": "2026-07-27T05:56:51.000000Z",
+              "id": 58,
+              "details": [
+                {
+                  "id": 72,
+                  "mutasi_id": 58,
+                  "barang_id": 15,
+                  "jumlah": 2,
+                  "created_at": "2026-07-27T05:56:51.000000Z",
+                  "updated_at": "2026-07-27T05:56:51.000000Z",
+                  "barang": {
+                    "id": 15,
+                    "kode_barang": "BRG-00015",
+                    "nama_barang": "Laptop Lenovo ThinkPad E14",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staf administrasi",
+                    "jumlah_total": 13,
+                    "jumlah_dipinjam": 10,
+                    "created_at": "2026-07-26T19:50:57.000000Z",
+                    "updated_at": "2026-07-27T05:56:51.000000Z",
+                    "jumlah_tersedia": 3
+                  }
+                }
+              ]
+            }
+          }

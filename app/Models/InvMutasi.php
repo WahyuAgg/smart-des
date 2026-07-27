@@ -13,7 +13,7 @@ class InvMutasi extends Model
     protected $table = 'inv_mutasi';
 
     protected $fillable = [
-        'peminjaman_id',
+        'peminjaman_id', //nullable, exist jika mutasi terjadi karena peminjaman
         'nomor',
         'jenis',
         'tanggal',

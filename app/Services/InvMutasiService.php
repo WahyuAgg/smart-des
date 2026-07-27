@@ -14,15 +14,13 @@ class InvMutasiService
 {
     /**
      * Pengadaan Barang — menambah stok baru.
-     * Efek: jumlah_total ↑, jumlah_tersedia ↑
+     * Efek: jumlah_total ↑
      */
     public static function pengadaan(int $barangId, int $jumlah, ?string $keterangan = null): InvMutasi
     {
         return DB::transaction(function () use ($barangId, $jumlah, $keterangan) {
             $barang = InvBarang::findOrFail($barangId);
-
             $barang->increment('jumlah_total', $jumlah);
-            $barang->increment('jumlah_tersedia', $jumlah);
 
             $mutasi = self::createMutasi('PENGADAAN', now(), $keterangan);
             self::createDetailMutasi($mutasi->id, $barangId, $jumlah);
@@ -33,8 +31,8 @@ class InvMutasiService
 
     /**
      * Peminjaman — dipanggil otomatis saat transaksi peminjaman dibuat.
-     * Efek: jumlah_tersedia ↓, jumlah_dipinjam ↑
-     * Rule: jumlah <= jumlah_tersedia
+     * Efek: jumlah_dipinjam ↑
+     * Rule: jumlah <= jumlah_total - jumlah_dipinjam (tersedia real-time)
      */
     public static function pinjam(int $peminjamanId, array $details): InvMutasi
     {
@@ -50,15 +48,15 @@ class InvMutasiService
 
             foreach ($details as $detail) {
                 $barang = InvBarang::findOrFail($detail['barang_id']);
+                $tersedia = $barang->jumlah_total - $barang->jumlah_dipinjam;
 
-                if ($detail['jumlah'] > $barang->jumlah_tersedia) {
+                if ($detail['jumlah'] > $tersedia) {
                     throw new InvalidArgumentException(
                         "Stok {$barang->nama_barang} tidak mencukupi. " .
-                        "Tersedia: {$barang->jumlah_tersedia}, diminta: {$detail['jumlah']}"
+                            "Tersedia: {$tersedia}, diminta: {$detail['jumlah']}"
                     );
                 }
 
-                $barang->decrement('jumlah_tersedia', $detail['jumlah']);
                 $barang->increment('jumlah_dipinjam', $detail['jumlah']);
 
                 self::createDetailMutasi($mutasi->id, $detail['barang_id'], $detail['jumlah']);
@@ -70,9 +68,8 @@ class InvMutasiService
 
     /**
      * Pengembalian Barang — mencatat barang yang dikembalikan dari peminjaman.
-     * Efek: jumlah_dipinjam ↓, jumlah_tersedia ↑ (baik), jumlah_rusak ↑ (rusak),
-     *       jumlah_total ↓ & jumlah_tersedia ↓ (hilang)
-     * Rule: (baik + rusak + hilang) <= jumlah_pinjam
+     * Efek: jumlah_dipinjam ↓, jumlah_total ↓ (jika hilang)
+     * Rule: (jumlah_kembali + jumlah_hilang) <= jumlah_pinjam
      * Otomasi: status peminjaman → 'dikembalikan' jika semua barang kembali.
      */
     public static function kembalikan(int $peminjamanId, array $detailsReturns): InvMutasi
@@ -99,10 +96,9 @@ class InvMutasiService
 
             foreach ($detailsReturns as $return) {
                 $barangId = $return['barang_id'];
-                $baik = (int) ($return['jumlah_kembali_baik'] ?? 0);
-                $rusak = (int) ($return['jumlah_kembali_rusak'] ?? 0);
+                $kembali = (int) ($return['jumlah_kembali'] ?? 0);
                 $hilang = (int) ($return['jumlah_hilang'] ?? 0);
-                $jumlahKembali = $baik + $rusak + $hilang;
+                $jumlahKembali = $kembali + $hilang;
 
                 if ($jumlahKembali <= 0) {
                     throw new InvalidArgumentException("Jumlah kembali harus lebih dari 0.");
@@ -112,8 +108,7 @@ class InvMutasiService
                     ->where('barang_id', $barangId)
                     ->firstOrFail();
 
-                $totalKembaliSebelum = $detailPinjam->jumlah_kembali_baik
-                    + $detailPinjam->jumlah_kembali_rusak
+                $totalKembaliSebelum = $detailPinjam->jumlah_kembali
                     + $detailPinjam->jumlah_hilang;
 
                 if (($totalKembaliSebelum + $jumlahKembali) > $detailPinjam->jumlah_pinjam) {
@@ -124,18 +119,16 @@ class InvMutasiService
 
                 $barang = InvBarang::findOrFail($barangId);
 
-                // Update stok agregat
+                // Barang kembali (fisik) → kurangi jumlah_dipinjam
                 $barang->decrement('jumlah_dipinjam', $jumlahKembali);
-                $barang->increment('jumlah_tersedia', $baik);
-                $barang->increment('jumlah_rusak', $rusak);
 
+                // Barang hilang → kurangi jumlah_total juga
                 if ($hilang > 0) {
                     $barang->decrement('jumlah_total', $hilang);
                 }
 
                 // Update detail peminjaman
-                $detailPinjam->increment('jumlah_kembali_baik', $baik);
-                $detailPinjam->increment('jumlah_kembali_rusak', $rusak);
+                $detailPinjam->increment('jumlah_kembali', $kembali);
                 $detailPinjam->increment('jumlah_hilang', $hilang);
 
                 self::createDetailMutasi($mutasi->id, $barangId, $jumlahKembali);
@@ -144,8 +137,7 @@ class InvMutasiService
                 $totalDipinjam += $detailPinjam->jumlah_pinjam;
 
                 // Cek apakah detail ini sudah lengkap kembali
-                $sudahLengkap = ($detailPinjam->fresh()->jumlah_kembali_baik
-                    + $detailPinjam->fresh()->jumlah_kembali_rusak
+                $sudahLengkap = ($detailPinjam->fresh()->jumlah_kembali
                     + $detailPinjam->fresh()->jumlah_hilang) >= $detailPinjam->jumlah_pinjam;
                 if (!$sudahLengkap) {
                     $semuaLengkap = false;
@@ -169,48 +161,22 @@ class InvMutasiService
     }
 
     /**
-     * Kerusakan Barang — memindahkan stok baik ke stok rusak.
-     * Efek: jumlah_tersedia ↓, jumlah_rusak ↑ (jumlah_total tetap)
-     * Rule: jumlah <= jumlah_tersedia
-     */
-    public static function rusak(int $barangId, int $jumlah, ?string $keterangan = null): InvMutasi
-    {
-        return DB::transaction(function () use ($barangId, $jumlah, $keterangan) {
-            $barang = InvBarang::findOrFail($barangId);
-
-            if ($jumlah > $barang->jumlah_tersedia) {
-                throw new InvalidArgumentException(
-                    "Stok tersedia tidak mencukupi. Tersedia: {$barang->jumlah_tersedia}"
-                );
-            }
-
-            $barang->decrement('jumlah_tersedia', $jumlah);
-            $barang->increment('jumlah_rusak', $jumlah);
-
-            $mutasi = self::createMutasi('RUSAK', now(), $keterangan);
-            self::createDetailMutasi($mutasi->id, $barangId, $jumlah);
-
-            return $mutasi->load('details.barang');
-        });
-    }
-
-    /**
      * Kehilangan Barang — menghapus barang dari sistem karena hilang.
-     * Efek: jumlah_tersedia ↓, jumlah_total ↓
-     * Rule: jumlah <= jumlah_tersedia
+     * Efek: jumlah_total ↓
+     * Rule: jumlah <= jumlah_total - jumlah_dipinjam (tersedia real-time)
      */
     public static function hilang(int $barangId, int $jumlah, ?string $keterangan = null): InvMutasi
     {
         return DB::transaction(function () use ($barangId, $jumlah, $keterangan) {
             $barang = InvBarang::findOrFail($barangId);
+            $tersedia = $barang->jumlah_total - $barang->jumlah_dipinjam;
 
-            if ($jumlah > $barang->jumlah_tersedia) {
+            if ($jumlah > $tersedia) {
                 throw new InvalidArgumentException(
-                    "Stok tersedia tidak mencukupi. Tersedia: {$barang->jumlah_tersedia}"
+                    "Stok tersedia tidak mencukupi. Tersedia: {$tersedia}"
                 );
             }
 
-            $barang->decrement('jumlah_tersedia', $jumlah);
             $barang->decrement('jumlah_total', $jumlah);
 
             $mutasi = self::createMutasi('HILANG', now(), $keterangan);
@@ -221,54 +187,85 @@ class InvMutasiService
     }
 
     /**
-     * Stock Opname — penyesuaian stok fisik.
-     * Efek: jumlah_tersedia disesuaikan (+/-), jumlah_total ikut berubah.
+     * Barang ditemukan kembali, kalau tadinya hilang.
+     * Efek: jumlah_total ↑
      */
-    public static function opname(int $barangId, int $jumlahFisik, ?string $keterangan = null): InvMutasi
+    public static function ketemu(int $barangId, int $jumlahKetemu, ?string $keterangan = null): InvMutasi
     {
-        return DB::transaction(function () use ($barangId, $jumlahFisik, $keterangan) {
+        $jumlahHistoryHilang = InvDetailMutasi::whereHas('mutasi', function ($query) {
+            $query->where('jenis', 'HILANG');
+        })
+            ->where('barang_id', $barangId)
+            ->sum('jumlah');
+
+        $jumlahHistoryKetemu = InvDetailMutasi::whereHas('mutasi', function ($query) {
+            $query->where('jenis', 'KETEMU');
+        })
+            ->where('barang_id', $barangId)
+            ->sum('jumlah');
+
+        $jumlahMasihHilang = $jumlahHistoryHilang - $jumlahHistoryKetemu;
+
+        if ($jumlahKetemu > $jumlahMasihHilang) {
+            throw new InvalidArgumentException(
+                "Jumlah ditemukan ({$jumlahKetemu}) melebihi jumlah barang yang masih tercatat hilang ({$jumlahMasihHilang}).",
+                422
+            );
+        }
+
+        return DB::transaction(function () use ($barangId, $jumlahKetemu, $keterangan) {
             $barang = InvBarang::findOrFail($barangId);
+            $barang->increment('jumlah_total', $jumlahKetemu);
 
-            $selisih = $jumlahFisik - $barang->jumlah_tersedia;
-
-            if ($selisih !== 0) {
-                $barang->increment('jumlah_tersedia', $selisih);
-                $barang->increment('jumlah_total', $selisih);
-            }
-
-            $mutasi = self::createMutasi('OPNAME', now(), $keterangan);
-            self::createDetailMutasi($mutasi->id, $barangId, abs($selisih));
+            $mutasi = self::createMutasi('KETEMU', now(), $keterangan);
+            self::createDetailMutasi($mutasi->id, $barangId, $jumlahKetemu);
 
             return $mutasi->load('details.barang');
         });
     }
 
     /**
-     * Penghapusan Barang — menghapus barang dari stok (tersedia atau rusak).
-     * Efek: jumlah_total ↓, jumlah_tersedia ↓ (jika dari tersedia)
-     *       atau jumlah_rusak ↓ (jika dari rusak)
+     * Stock Opname — penyesuaian stok fisik.
+     * Efek: jumlah_total = stokFisik + jumlah_dipinjam
      */
-    public static function hapus(int $barangId, int $jumlah, string $dari = 'tersedia', ?string $keterangan = null): InvMutasi
+    public static function opname(int $barangId, int $stokFisik, ?string $keterangan = null): InvMutasi
     {
-        return DB::transaction(function () use ($barangId, $jumlah, $dari, $keterangan) {
+        return DB::transaction(function () use ($barangId, $stokFisik, $keterangan) {
             $barang = InvBarang::findOrFail($barangId);
 
-            if ($dari === 'tersedia') {
-                if ($jumlah > $barang->jumlah_tersedia) {
-                    throw new InvalidArgumentException(
-                        "Stok tersedia tidak mencukupi. Tersedia: {$barang->jumlah_tersedia}"
-                    );
-                }
-                $barang->decrement('jumlah_tersedia', $jumlah);
-            } elseif ($dari === 'rusak') {
-                if ($jumlah > $barang->jumlah_rusak) {
-                    throw new InvalidArgumentException(
-                        "Stok rusak tidak mencukupi. Rusak: {$barang->jumlah_rusak}"
-                    );
-                }
-                $barang->decrement('jumlah_rusak', $jumlah);
-            } else {
-                throw new InvalidArgumentException("Sumber stok harus 'tersedia' atau 'rusak'.");
+            $totalBaru = $stokFisik + $barang->jumlah_dipinjam;
+            $selisihTotal = $totalBaru - $barang->jumlah_total;
+
+            $barang->update([
+                'jumlah_total' => $totalBaru,
+            ]);
+
+            $mutasi = self::createMutasi('OPNAME', now(), $keterangan);
+
+            self::createDetailMutasi(
+                $mutasi->id,
+                $barangId,
+                abs($selisihTotal)
+            );
+
+            return $mutasi->load('details.barang');
+        });
+    }
+
+    /**
+     * Penghapusan Barang — menghapus barang dari stok.
+     * Efek: jumlah_total ↓
+     */
+    public static function hapus(int $barangId, int $jumlah, ?string $keterangan = null): InvMutasi
+    {
+        return DB::transaction(function () use ($barangId, $jumlah, $keterangan) {
+            $barang = InvBarang::findOrFail($barangId);
+            $tersedia = $barang->jumlah_total - $barang->jumlah_dipinjam;
+
+            if ($jumlah > $tersedia) {
+                throw new InvalidArgumentException(
+                    "Stok tersedia tidak mencukupi. Tersedia: {$tersedia}"
+                );
             }
 
             $barang->decrement('jumlah_total', $jumlah);
@@ -311,9 +308,9 @@ class InvMutasiService
             'PINJAM'    => 'PJM',
             'KEMBALI'   => 'KMB',
             'HILANG'    => 'HLG',
-            'RUSAK'     => 'RSK',
             'OPNAME'    => 'OPN',
             'HAPUS'     => 'HPS',
+            'KETEMU'    => 'KTM',
             default     => 'MUT',
         };
 

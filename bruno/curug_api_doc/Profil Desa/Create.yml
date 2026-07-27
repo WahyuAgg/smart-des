@@ -1,11 +1,11 @@
 info:
-  name: Update Profil Desa by ID
+  name: Create
   type: http
-  seq: 2
+  seq: 3
 
 http:
-  method: PUT
-  url: "{{base_url}}/api/ref-profil-desa/1"
+  method: POST
+  url: "{{base_url}}/api/ref-profil-desa"
   headers:
     - name: Accept
       value: application/json
@@ -13,21 +13,17 @@ http:
     type: json
     data: |-
       {
-          "provinsi_code": "33",
-          "kabupaten_code": "3306",
-          "kecamatan_code": "330602",
-          "desa_code": "3306022050",
-          "nama": "Curug",
-          "kode": "3306022050",
+          "nama": "Curugs",
+          "kode": "3306022052",
           "kode_pos": "111111",
-          "alamat": "Jln.Lingkar Utara Desa Curug.",
+          "alamat": "Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.",
           "telepon": "081234567890",
           "email": "desa_curug@example.com",
           "website": "https://desacurug.co.id",
           "logo": null,
           "visi": "-",
           "misi": "-",
-          "deskripsi": "Desa Curug (seed)",
+          "deskripsi": "Desa Curug merupakan desa fiktif yang digunakan sebagai data awal (seed) pada aplikasi Sistem Pelayanan Surat Desa.",
           "nama_provinsi": "Jawa Tengah",
           "nama_kabupaten": "Kabupaten Purworejo",
           "nama_kecamatan": "Ngombol",

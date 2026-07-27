@@ -55,7 +55,7 @@ class InvMutasiController extends ApiController
     }
 
     /**
-     * Buat mutasi manual (umumnya untuk PENGADAAN, OPNAME, RUSAK, HILANG, HAPUS).
+     * Buat mutasi manual (umumnya untuk PENGADAAN, OPNAME, HILANG, HAPUS).
      * Untuk PINJAM & KEMBALI sebaiknya via endpoint peminjaman.
      */
     public function store(StoreInvMutasiRequest $request): JsonResponse

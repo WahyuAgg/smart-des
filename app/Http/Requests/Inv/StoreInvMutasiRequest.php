@@ -14,9 +14,9 @@ class StoreInvMutasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'peminjaman_id' => 'nullable|integer|exists:inv_peminjaman,id',
+            'peminjaman_id' => 'prohibited', // ini hanya boleh jika mutasi berasal dari peminjaman
             'nomor'         => 'required|string|max:50|unique:inv_mutasi,nomor',
-            'jenis'         => 'required|string|in:PENGADAAN,PINJAM,KEMBALI,HILANG,RUSAK,OPNAME,HAPUS',
+            'jenis'         => 'required|string|in:PENGADAAN,PINJAM,KEMBALI,HILANG,OPNAME,HAPUS',
             'tanggal'       => 'required|date',
             'keterangan'    => 'nullable|string',
             'details'       => 'required|array|min:1',

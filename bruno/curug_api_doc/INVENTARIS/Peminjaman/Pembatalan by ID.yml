@@ -1,0 +1,149 @@
+info:
+  name: Pembatalan by ID
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/batalkan"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_peminjaman
+      value: "4"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/batalkan"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 20:36:48 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYG2A129515A8B4SQ0WC0EEZ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Peminjaman berhasil dibatalkan.",
+            "data": {
+              "id": 3,
+              "nomor": "PJM-20260727-0003",
+              "nama_peminjam": "Budi Santoso",
+              "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+              "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+              "tanggal_kembali": null,
+              "status": "dibatalkan",
+              "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 3",
+              "created_at": "2026-07-26T20:33:45.000000Z",
+              "updated_at": "2026-07-26T20:36:48.000000Z",
+              "details": [
+                {
+                  "id": 5,
+                  "peminjaman_id": 3,
+                  "barang_id": 15,
+                  "jumlah_pinjam": 6,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-26T20:33:45.000000Z",
+                  "updated_at": "2026-07-26T20:33:45.000000Z",
+                  "barang": {
+                    "id": 15,
+                    "kode_barang": "BRG-00015",
+                    "nama_barang": "Laptop Lenovo ThinkPad E14",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staf administrasi",
+                    "jumlah_total": 8,
+                    "jumlah_dipinjam": 0,
+                    "created_at": "2026-07-26T19:50:57.000000Z",
+                    "updated_at": "2026-07-26T20:36:48.000000Z"
+                  }
+                },
+                {
+                  "id": 6,
+                  "peminjaman_id": 3,
+                  "barang_id": 14,
+                  "jumlah_pinjam": 2,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-26T20:33:45.000000Z",
+                  "updated_at": "2026-07-26T20:33:45.000000Z",
+                  "barang": {
+                    "id": 14,
+                    "kode_barang": "BRG-0005",
+                    "nama_barang": "Proyektor EPSON",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-28T00:00:00.000000Z",
+                    "keterangan": "Proyektor untuk meeting staf",
+                    "jumlah_total": 6,
+                    "jumlah_dipinjam": 0,
+                    "created_at": "2026-07-26T19:48:46.000000Z",
+                    "updated_at": "2026-07-26T20:36:48.000000Z"
+                  }
+                }
+              ]
+            }
+          }
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}/batalkan"
+      method: POST
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 01:40:54 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYGKPVKAJQ4M53XYJ55RA8JR
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Peminjaman dengan status dikembalikan tidak dapat dibatalkan.",
+            "errors": null
+          }

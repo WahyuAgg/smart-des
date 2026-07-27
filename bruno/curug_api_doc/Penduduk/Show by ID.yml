@@ -1,5 +1,5 @@
 info:
-  name: Get by ID
+  name: Show by ID
   type: http
   seq: 2
 
