@@ -50,8 +50,6 @@ class RefPerangkatDesa extends Model
         'nip',
         'telepon',
         'email',
-        'foto',
-        'tanda_tangan',
         'tanggal_mulai',
         'tanggal_selesai',
         'aktif',
@@ -63,7 +61,7 @@ class RefPerangkatDesa extends Model
         'aktif' => 'boolean',
     ];
 
-    protected $hidden = ['created_at', 'updated_at', 'aktif', 'tanggal_selesai'];
+    protected $hidden = ['created_at', 'updated_at', 'aktif', 'tanggal_selesai', 'foto', 'tanda_tangan'];
 
     public function jabatanPerangkat()
     {

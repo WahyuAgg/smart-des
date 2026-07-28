@@ -30,6 +30,8 @@ use App\Http\Controllers\Api\RefRtController;
 use App\Http\Controllers\Api\RefRwController;
 use App\Http\Controllers\Api\SrtKategoriSuratController;
 use App\Http\Controllers\Api\SrtMasterFieldSuratController;
+use App\Http\Controllers\Api\BackupController;
+use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
 
 
@@ -57,7 +59,7 @@ Route::middleware([
      */
     Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']);
     Route::put('ref-profil-desa', [RefProfilDesaController::class, 'updateProfilDesa']);
-    Route::post('ref-profil-desa', [RefProfilDesaController::class, 'store']);
+    Route::post('ref-profil-desa', [RefProfilDesaController::class, 'storeProfilDesa']);
     Route::delete('ref-profil-desa', [RefProfilDesaController::class, 'deleteProfilDesa']);
 
     Route::post('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'update']);
@@ -123,6 +125,17 @@ Route::middleware([
     Route::apiResource('users', UserController::class);
 
     /**
+     * Route for Backup
+     */
+    Route::get('backup', [BackupController::class, 'backup']);
+    Route::get('backup/download', [BackupController::class, 'download']);
+
+    /**
+     * Route for Paper
+     */
+    Route::apiResource('papers', PaperController::class);
+
+    /**
      * Currently this route is not used, but it can be used in the future if needed.
      * Directly accessing alamat data is not recommended, because alamat data should be managed through penduduk and other related data.
      * So, this route is commented out for now.
@@ -175,7 +188,11 @@ Route::get('/testing', [TestingController::class, 'testing']);
 Route::get('/wilayah', [WilayahController::class, 'index']);
 Route::get('/wilayah/level/{level}/id/{id}', [WilayahController::class, 'showById']);
 Route::get('/wilayah/level/{level}/code/{code}', [WilayahController::class, 'showByCode']);
-
+/**
+ * Route for Paper — public read access
+ */
+Route::get('/papers', [PaperController::class, 'index']);
+Route::get('/papers/{id}', [PaperController::class, 'show']);
 
 /**
  * Route Ini digunakan untuk pengajuan surat wizard. 

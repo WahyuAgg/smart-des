@@ -18,8 +18,6 @@ http:
         "nip": "3829292929292929",
         "telepon": "081234567890",
         "email": "budi@gmail.com",
-        "foto": null,
-        "tanda_tangan": null,
         "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
       }
   auth: inherit
@@ -52,8 +50,6 @@ examples:
             "nip": "3829292929292929",
             "telepon": "081234567890",
             "email": "budi@gmail.com",
-            "foto": null,
-            "tanda_tangan": null,
             "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
           }
     response:
@@ -69,13 +65,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sat, 25 Jul 2026 03:47:42 GMT
+          value: Tue, 28 Jul 2026 22:25:05 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYBP5K6T871V1HVK8SREQW5X
+          value: 01KYND9RETSYYWAHNCBN2M51YM
       body:
         type: json
         data: |-
@@ -94,8 +90,6 @@ examples:
                 "nip": "3829292929292929",
                 "telepon": "081234567890",
                 "email": "budi@gmail.com",
-                "foto": null,
-                "tanda_tangan": null,
                 "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
               }
             }

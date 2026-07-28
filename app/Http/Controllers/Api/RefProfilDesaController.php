@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\RefProfilDesa;
+use App\Http\Requests\StoreRefProfilDesaRequest;
+use App\Http\Requests\UpdateRefProfilDesaRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Laravolt\Indonesia\Models\Village;
 use App\Models\RefKecamatan;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * TODO: Edit this Controller to extend from ApiController instead of CrudController
@@ -91,50 +93,8 @@ class RefProfilDesaController extends CrudController
         return $data;
     }
 
-    public function store(Request $request): JsonResponse
+    public function storeProfilDesa(StoreRefProfilDesaRequest $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'kode' => 'nullable|string|max:20',
-            'kode_pos' => 'nullable|string|max:10',
-            'alamat' => 'nullable|string|max:500',
-            'telepon' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
-            'website' => 'nullable|url|max:255',
-
-            'logo' => 'nullable|file|image|max:2048',
-
-            'visi' => 'nullable|string|max:1000',
-            'misi' => 'nullable|array|max:20',
-            'misi.*' => 'required|string|max:255',
-
-            'deskripsi' => 'nullable|string|max:2000',
-
-            'peta_pdf' => 'nullable|file|mimes:pdf|max:10240',
-
-            'nama_provinsi' => 'nullable|string|max:100',
-            'nama_kabupaten' => 'nullable|string|max:100',
-            'nama_kecamatan' => 'nullable|string|max:100',
-            'nama_desa' => 'nullable|string|max:100',
-
-            'profil_kecamatan' => 'nullable|array',
-
-            'profil_kecamatan.camat' => 'nullable|string|max:100',
-            'profil_kecamatan.nip' => 'nullable|string|max:50',
-            'profil_kecamatan.telepon' => 'nullable|string|max:20',
-            'profil_kecamatan.email' => 'nullable|email|max:100',
-            'profil_kecamatan.foto' => 'nullable|file|image|max:2048',
-            'profil_kecamatan.tanda_tangan' => 'nullable|file|image|max:2048',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->error(
-                'Validasi gagal.',
-                $validator->errors()->toArray(),
-                422
-            );
-        }
-
         $profilDesa = $this->resolveModel();
 
         // Only allow one record
@@ -146,20 +106,51 @@ class RefProfilDesaController extends CrudController
             );
         }
 
-        // TODO: Wrap the transaction in a DB transaction to ensure both records are created successfully
-        $profilDesa = $profilDesa->newQuery()->create(
-            $request->only($profilDesa->getFillable())
-        );
+        try {
+            $result = DB::transaction(function () use ($request, $profilDesa) {
+                // Handle file uploads for ProfilDesa
+                $dataDesa = $request->only($profilDesa->getFillable());
 
-        $profilKecamatan = RefKecamatan::query()->create(
-            $request->input('profil_kecamatan', [])
-        );
+                if ($request->hasFile('logo')) {
+                    $dataDesa['logo'] = $request->file('logo')->store('logo', 'public');
+                }
 
-        return $this->success(
-            $this->buildResponse($profilDesa->fresh()),
-            'Profil desa berhasil ditambahkan.',
-            201
-        );
+                if ($request->hasFile('peta_pdf')) {
+                    $dataDesa['peta_pdf'] = $request->file('peta_pdf')->store('peta_pdf', 'public');
+                }
+
+                $profilDesaBaru = $profilDesa->newQuery()->create($dataDesa);
+
+                // Handle file uploads for RefKecamatan
+                $dataKecamatan = $request->input('profil_kecamatan', []);
+
+                if ($request->hasFile('profil_kecamatan.foto')) {
+                    $dataKecamatan['foto'] = $request->file('profil_kecamatan.foto')
+                        ->store('kecamatan', 'public');
+                }
+
+                if ($request->hasFile('profil_kecamatan.tanda_tangan')) {
+                    $dataKecamatan['tanda_tangan'] = $request->file('profil_kecamatan.tanda_tangan')
+                        ->store('kecamatan', 'public');
+                }
+
+                RefKecamatan::query()->create($dataKecamatan);
+
+                return $profilDesaBaru;
+            });
+
+            return $this->success(
+                $this->buildResponse($result->fresh()),
+                'Profil desa berhasil ditambahkan.',
+                201
+            );
+        } catch (\Throwable $e) {
+            return $this->error(
+                'Gagal menyimpan profil desa: ' . $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
     public function showProfilDesa(): JsonResponse
@@ -171,49 +162,113 @@ class RefProfilDesaController extends CrudController
         return $this->success($this->buildResponse($record));
     }
 
-    // TODO: Add validator just like in the store() method
-    public function updateProfilDesa(Request $request): JsonResponse
+    public function updateProfilDesa(UpdateRefProfilDesaRequest $request): JsonResponse
     {
         $record = $this->resolveModel()
             ->newQuery()
             ->firstOrFail();
 
-        $data = $request->only($record->getFillable());
-        $record->update($data);
+        try {
+            DB::transaction(function () use ($request, $record) {
+                // Handle file uploads for ProfilDesa
+                $dataDesa = $request->only($record->getFillable());
 
-        $profilKecamatan = RefKecamatan::query()->first();
-        if ($profilKecamatan) {
-            $profilKecamatan->update($request->input('profil_kecamatan', []));
+                if ($request->hasFile('logo')) {
+                    // Delete old file if exists
+                    if ($record->logo && Storage::disk('public')->exists($record->logo)) {
+                        Storage::disk('public')->delete($record->logo);
+                    }
+                    $dataDesa['logo'] = $request->file('logo')->store('logo', 'public');
+                }
+
+                if ($request->hasFile('peta_pdf')) {
+                    if ($record->peta_pdf && Storage::disk('public')->exists($record->peta_pdf)) {
+                        Storage::disk('public')->delete($record->peta_pdf);
+                    }
+                    $dataDesa['peta_pdf'] = $request->file('peta_pdf')->store('peta_pdf', 'public');
+                }
+
+                $record->update($dataDesa);
+
+                // Handle file uploads for RefKecamatan
+                $profilKecamatan = RefKecamatan::query()->first();
+                if ($profilKecamatan) {
+                    $dataKecamatan = $request->input('profil_kecamatan', []);
+
+                    if ($request->hasFile('profil_kecamatan.foto')) {
+                        if ($profilKecamatan->foto && Storage::disk('public')->exists($profilKecamatan->foto)) {
+                            Storage::disk('public')->delete($profilKecamatan->foto);
+                        }
+                        $dataKecamatan['foto'] = $request->file('profil_kecamatan.foto')
+                            ->store('kecamatan', 'public');
+                    }
+
+                    if ($request->hasFile('profil_kecamatan.tanda_tangan')) {
+                        if ($profilKecamatan->tanda_tangan && Storage::disk('public')->exists($profilKecamatan->tanda_tangan)) {
+                            Storage::disk('public')->delete($profilKecamatan->tanda_tangan);
+                        }
+                        $dataKecamatan['tanda_tangan'] = $request->file('profil_kecamatan.tanda_tangan')
+                            ->store('kecamatan', 'public');
+                    }
+
+                    $profilKecamatan->update($dataKecamatan);
+                }
+            });
+
+            return $this->success(
+                $this->buildResponse($record->fresh()),
+                'Profil desa berhasil diperbarui.'
+            );
+        } catch (\Throwable $e) {
+            return $this->error(
+                'Gagal memperbarui profil desa: ' . $e->getMessage(),
+                null,
+                500
+            );
         }
-
-        return $this->success(
-            $this->buildResponse($record->fresh()),
-            'Profil desa berhasil diperbarui.'
-        );
     }
 
     public function deleteProfilDesa(): JsonResponse
     {
-        RefProfilDesa::query()->delete();
-        RefKecamatan::query()->delete();
+        try {
+            DB::transaction(function () {
+                $profilDesa = RefProfilDesa::query()->first();
+                $profilKecamatan = RefKecamatan::query()->first();
 
-        return $this->success(
-            null,
-            'Profil desa berhasil dihapus.'
-        );
+                // Delete stored files for ProfilDesa
+                if ($profilDesa) {
+                    if ($profilDesa->logo && Storage::disk('public')->exists($profilDesa->logo)) {
+                        Storage::disk('public')->delete($profilDesa->logo);
+                    }
+                    if ($profilDesa->peta_pdf && Storage::disk('public')->exists($profilDesa->peta_pdf)) {
+                        Storage::disk('public')->delete($profilDesa->peta_pdf);
+                    }
+                    $profilDesa->delete();
+                }
+
+                // Delete stored files for RefKecamatan
+                if ($profilKecamatan) {
+                    if ($profilKecamatan->foto && Storage::disk('public')->exists($profilKecamatan->foto)) {
+                        Storage::disk('public')->delete($profilKecamatan->foto);
+                    }
+                    if ($profilKecamatan->tanda_tangan && Storage::disk('public')->exists($profilKecamatan->tanda_tangan)) {
+                        Storage::disk('public')->delete($profilKecamatan->tanda_tangan);
+                    }
+                    $profilKecamatan->delete();
+                }
+            });
+
+            return $this->success(
+                null,
+                'Profil desa berhasil dihapus.'
+            );
+        } catch (\Throwable $e) {
+            return $this->error(
+                'Gagal menghapus profil desa: ' . $e->getMessage(),
+                null,
+                500
+            );
+        }
     }
 
-    // Method index is disabled
-    // public function index(Request $request): JsonResponse
-    // {
-    //     $record = $this->resolveModel()
-    //         ->newQuery()
-    //         ->first();
-
-    //     if (!$record) {
-    //         return $this->success(null, 'Profil desa belum tersedia.');
-    //     }
-
-    //     return $this->success($this->buildResponse($record));
-    // }
 }

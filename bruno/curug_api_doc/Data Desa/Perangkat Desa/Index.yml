@@ -52,13 +52,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sat, 25 Jul 2026 05:33:44 GMT
+          value: Tue, 28 Jul 2026 22:24:32 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYBW7R9CJHRX058RXPYCKWJ7
+          value: 01KYND8QXKEFFB737JDQVE28RC
       body:
         type: json
         data: |-
@@ -80,9 +80,22 @@ examples:
                     "nip": "19900303003",
                     "telepon": "081234567805",
                     "email": "staf_IT@desa.id",
-                    "foto": null,
-                    "tanda_tangan": null,
                     "tanggal_mulai": "2021-05-15T00:00:00.000000Z"
+                  }
+                },
+                {
+                  "kode": "umum",
+                  "nama": "Staf Umum",
+                  "aktif": true,
+                  "urutan": 17,
+                  "perangkat": {
+                    "id": 25,
+                    "jabatan_perangkat_id": 17,
+                    "nama": "Danang Perangkat Desa Baru",
+                    "nip": "3829292929292929",
+                    "telepon": "081234567890",
+                    "email": "budi@gmail.com",
+                    "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
                   }
                 }
               ],
@@ -120,7 +133,7 @@ examples:
               "path": "http://127.0.0.1:8000/api/ref-perangkat-desa",
               "per_page": 15,
               "prev_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=1",
-              "to": 16,
-              "total": 16
+              "to": 17,
+              "total": 17
             }
           }

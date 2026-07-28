@@ -9,6 +9,7 @@ use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Village;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
@@ -93,7 +94,12 @@ class RefProfilDesa extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     protected $casts = [
-        'misi'=> 'array',
+        'misi' => 'array',
+    ];
+
+    protected $appends = [
+        'logo_url',
+        'peta_pdf_url',
     ];
 
     /**
@@ -137,6 +143,24 @@ class RefProfilDesa extends Model
     }
 
 
+    /**
+     * Getter file url
+     */
+    public function getLogoUrlAttribute(): ?string
+    {
+        return $this->logo
+            ? Storage::disk('public')->url($this->logo)
+            : null;
+    }
+
+    public function getPetaPdfUrlAttribute(): ?string
+    {
+        return $this->peta_pdf
+            ? Storage::disk('public')->url($this->peta_pdf)
+            : null;
+    }
+
+
 
     /**
      * Getters untuk nama wilayah
@@ -170,7 +194,6 @@ class RefProfilDesa extends Model
             get: fn() => ucwords(strtolower($this->desa?->name))
         );
     }
-
 
     protected function profilKecamatan(): Attribute
     {

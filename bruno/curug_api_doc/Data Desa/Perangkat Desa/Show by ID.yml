@@ -43,13 +43,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sat, 25 Jul 2026 03:46:59 GMT
+          value: Tue, 28 Jul 2026 22:24:49 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYBP49JP5F49AHF5ZJXF71B8
+          value: 01KYND98468F6FRHSJD4RYYPKZ
       body:
         type: json
         data: |-
@@ -68,8 +68,6 @@ examples:
                 "nip": "3829292929292929",
                 "telepon": "081234567890",
                 "email": "budi@gmail.com",
-                "foto": null,
-                "tanda_tangan": null,
                 "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
               }
             }

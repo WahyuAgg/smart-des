@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Illuminate\Support\Facades\Storage;
 
 class Paper extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'judul',
@@ -24,12 +27,25 @@ class Paper extends Model
 
     protected $casts = [
         'tahun' => 'integer',
-        'published_at' => 'datetime', // If using published_at field
+        'published_at' => 'datetime',
     ];
 
-    /**
-     * Get the author of the paper.
-     */
-    // Removed relationship method as we are now storing name directly
+    protected $appends = [
+        'pdf_url',
+        'thumbnail_url',
+    ];
 
+    public function getPdfUrlAttribute(): ?string
+    {
+        return $this->pdf_path
+            ? Storage::disk('public')->url($this->pdf_path)
+            : null;
+    }
+
+    public function getThumbnailUrlAttribute(): ?string
+    {
+        return $this->thumbnail_path
+            ? Storage::disk('public')->url($this->thumbnail_path)
+            : null;
+    }
 }

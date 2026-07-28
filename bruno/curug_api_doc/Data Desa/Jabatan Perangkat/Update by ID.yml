@@ -16,7 +16,7 @@ http:
           "kode": "umum",
           "nama": "Staf Umum",
           "urutan": 17,
-          "aktif": false
+          "aktif": true
         }
   auth: inherit
 

@@ -14,7 +14,7 @@ http:
 runtime:
   variables:
     - name: id_perangkat_desa
-      value: "19"
+      value: "17"
 
 settings:
   encodeUrl: true
