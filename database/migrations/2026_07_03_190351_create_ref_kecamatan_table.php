@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('nama');
 
-            $table->string('nama_pejabat')->nullable();
+            $table->string('camat')->nullable();
             $table->string('nip')->nullable();
             $table->string('telepon')->nullable();
             $table->string('email')->nullable();

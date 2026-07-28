@@ -5,13 +5,13 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/wilayah?level=kecamatan&parent={{code_kecamatan}}&search={{keywords}}"
+  url: "{{base_url}}/api/wilayah?level=kecamatan&parent={{code_kabupated}}&search={{keywords}}"
   params:
     - name: level
       value: kecamatan
       type: query
     - name: parent
-      value: "{{code_kecamatan}}"
+      value: "{{code_kabupated}}"
       type: query
     - name: search
       value: "{{keywords}}"
@@ -26,6 +26,8 @@ runtime:
       value: "1105"
     - name: keywords
       value: ""
+    - name: code_kabupated
+      value: "3306"
 
 settings:
   encodeUrl: true
@@ -36,17 +38,17 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/wilayah?level=kecamatan&parent={{code_kecamatan}}&search="
+      url: "{{base_url}}/api/wilayah?level=kecamatan&parent={{code_kabupated}}&search={{keywords}}"
       method: GET
       params:
         - name: level
           value: kecamatan
           type: query
         - name: parent
-          value: "{{code_kecamatan}}"
+          value: "{{code_kabupated}}"
           type: query
         - name: search
-          value: ""
+          value: "{{keywords}}"
           type: query
     response:
       status: 200
@@ -61,13 +63,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Sun, 12 Jul 2026 15:52:57 GMT
+          value: Tue, 28 Jul 2026 20:28:17 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KXBGG77VXKYGT5KNA8Z14GEZ
+          value: 01KYN6KWNZZQS292TGKZ640P3C
       body:
         type: json
         data: |-
@@ -76,16 +78,68 @@ examples:
             "message": "Success",
             "data": [
               {
-                "value": "110507",
-                "label": "ARONGAN LAMBALEK"
+                "value": "330604",
+                "label": "BAGELEN"
               },
               {
-                "value": "110506",
-                "label": "BUBON"
+                "value": "330607",
+                "label": "BANYUURIP"
               },
               {
-                "value": "110501",
-                "label": "JOHAN PAHLAWAN"
+                "value": "330608",
+                "label": "BAYAN"
+              },
+              {
+                "value": "330616",
+                "label": "BENER"
+              },
+              {
+                "value": "330613",
+                "label": "BRUNO"
+              },
+              {
+                "value": "330610",
+                "label": "BUTUH"
+              },
+              {
+                "value": "330614",
+                "label": "GEBANG"
+              },
+              {
+                "value": "330601",
+                "label": "GRABAG"
+              },
+              {
+                "value": "330605",
+                "label": "KALIGESING"
+              },
+              {
+                "value": "330612",
+                "label": "KEMIRI"
+              },
+              {
+                "value": "330609",
+                "label": "KUTOARJO"
+              },
+              {
+                "value": "330615",
+                "label": "LOANO"
+              },
+              {
+                "value": "330602",
+                "label": "NGOMBOL"
+              },
+              {
+                "value": "330611",
+                "label": "PITURUH"
+              },
+              {
+                "value": "330603",
+                "label": "PURWODADI"
+              },
+              {
+                "value": "330606",
+                "label": "PURWOREJO"
               }
             ]
           }

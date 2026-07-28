@@ -21,7 +21,7 @@ http:
 runtime:
   variables:
     - name: code_provinsi
-      value: "31"
+      value: "33"
     - name: keywords
       value: ""
 

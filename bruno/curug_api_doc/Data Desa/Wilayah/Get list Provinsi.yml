@@ -20,7 +20,7 @@ runtime:
     - name: level
       value: provinsi
     - name: keywords
-      value: jak
+      value: ""
 
 settings:
   encodeUrl: true

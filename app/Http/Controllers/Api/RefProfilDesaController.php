@@ -96,18 +96,35 @@ class RefProfilDesaController extends CrudController
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'kode' => 'nullable|string|max:20',
+            'kode_pos' => 'nullable|string|max:10',
             'alamat' => 'nullable|string|max:500',
             'telepon' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:100',
-            'website' => 'nullable|url|max:100',
-            'logo' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
+
+            'logo' => 'nullable|file|image|max:2048',
+
             'visi' => 'nullable|string|max:1000',
-            'misi' => 'nullable|string|max:1000',
+            'misi' => 'nullable|array|max:20',
+            'misi.*' => 'required|string|max:255',
+
             'deskripsi' => 'nullable|string|max:2000',
-            'profil_kecamatan.nama_pejabat' => 'nullable|string|max:1000',
-            'profil_kecamatan.nip' => 'nullable|string|max:1000',
-            'profil_kecamatan.telepon' => 'nullable|string|max:100',
-            'profil_kecamatan.email' => 'nullable|string|max:100',
+
+            'peta_pdf' => 'nullable|file|mimes:pdf|max:10240',
+
+            'nama_provinsi' => 'nullable|string|max:100',
+            'nama_kabupaten' => 'nullable|string|max:100',
+            'nama_kecamatan' => 'nullable|string|max:100',
+            'nama_desa' => 'nullable|string|max:100',
+
+            'profil_kecamatan' => 'nullable|array',
+
+            'profil_kecamatan.camat' => 'nullable|string|max:100',
+            'profil_kecamatan.nip' => 'nullable|string|max:50',
+            'profil_kecamatan.telepon' => 'nullable|string|max:20',
+            'profil_kecamatan.email' => 'nullable|email|max:100',
+            'profil_kecamatan.foto' => 'nullable|file|image|max:2048',
+            'profil_kecamatan.tanda_tangan' => 'nullable|file|image|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -129,6 +146,7 @@ class RefProfilDesaController extends CrudController
             );
         }
 
+        // TODO: Wrap the transaction in a DB transaction to ensure both records are created successfully
         $profilDesa = $profilDesa->newQuery()->create(
             $request->only($profilDesa->getFillable())
         );
@@ -153,11 +171,8 @@ class RefProfilDesaController extends CrudController
         return $this->success($this->buildResponse($record));
     }
 
-    /**
-     * id is not used in this method because there should only be one record of RefProfilDesa.
-     * but the route still requires an id parameter, so we keep it in the method signature.
-     */
-    public function updateProfilDesa(Request $request, string $id): JsonResponse
+    // TODO: Add validator just like in the store() method
+    public function updateProfilDesa(Request $request): JsonResponse
     {
         $record = $this->resolveModel()
             ->newQuery()
@@ -166,13 +181,18 @@ class RefProfilDesaController extends CrudController
         $data = $request->only($record->getFillable());
         $record->update($data);
 
+        $profilKecamatan = RefKecamatan::query()->first();
+        if ($profilKecamatan) {
+            $profilKecamatan->update($request->input('profil_kecamatan', []));
+        }
+
         return $this->success(
             $this->buildResponse($record->fresh()),
             'Profil desa berhasil diperbarui.'
         );
     }
 
-    public function deleteProfilDesa() : JsonResponse
+    public function deleteProfilDesa(): JsonResponse
     {
         RefProfilDesa::query()->delete();
         RefKecamatan::query()->delete();

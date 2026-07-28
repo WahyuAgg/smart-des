@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('srt_pengajuan_surat', function (Blueprint $table) {
             $table->foreign('jenis_surat_id')->references('id')->on('srt_jenis_surat')->restrictOnDelete();
-            // $table->foreign('penduduk_id')->references('id')->on('penduduk')->restrictOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
 

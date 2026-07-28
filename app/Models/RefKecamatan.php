@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $nama
- * @property string|null $nama_pejabat
+ * @property string|null $camat
  * @property string|null $nip
  * @property string|null $telepon
  * @property string|null $email
@@ -23,8 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereFoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereNama($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereNamaPejabat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereCamat($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereNip($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereTandaTangan($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefKecamatan whereTelepon($value)
@@ -38,7 +36,7 @@ class RefKecamatan extends Model
     protected $table = 'ref_kecamatan';
 
     protected $fillable = [
-        'nama_pejabat',
+        'camat',
         'nip',
         'telepon',
         'email',
@@ -47,6 +45,5 @@ class RefKecamatan extends Model
     ];
     
 
-    protected $hidden = ['created_at', 'updated_at', 'nama'
-    ];
+    protected $hidden = ['created_at', 'updated_at'];
 }

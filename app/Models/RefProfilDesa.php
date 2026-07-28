@@ -92,6 +92,10 @@ class RefProfilDesa extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    protected $casts = [
+        'misi'=> 'array',
+    ];
+
     /**
      * Getter untuk Wilayah
      */

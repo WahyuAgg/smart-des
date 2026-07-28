@@ -15,7 +15,7 @@ class RefKecamatanSeeder extends Seeder
         $data = [
             [
                 'nama' => 'Ngombol',
-                'nama_pejabat' => 'Drs. Bambang Suryono',
+                'camat' => 'Drs. Bambang Suryono',
                 'nip' => '196804121990031001',
                 'telepon' => '0287-123456',
                 'email' => 'kecamatan.ngombol@example.go.id',

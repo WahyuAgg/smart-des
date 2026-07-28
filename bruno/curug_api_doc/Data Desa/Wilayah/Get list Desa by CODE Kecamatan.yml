@@ -23,7 +23,7 @@ runtime:
     - name: level
       value: desa
     - name: code_kecamatan
-      value: "110507"
+      value: "330602"
     - name: keywords
       value: ""
 

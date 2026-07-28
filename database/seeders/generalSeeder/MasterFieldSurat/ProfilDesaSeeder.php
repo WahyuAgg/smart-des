@@ -30,7 +30,7 @@ class ProfilDesaSeeder extends Seeder
 
             // KECAMATAN CAMAT
             ['nama' => 'nama_kecamatan', 'label' => 'Nama Kecamatan', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.nama', 'input_mode' => 'auto'],
-            ['nama' => 'nama_camat', 'label' => 'Nama Camat', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.nama_pejabat', 'input_mode' => 'auto'],
+            ['nama' => 'nama_camat', 'label' => 'Nama Camat', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.camat', 'input_mode' => 'auto'],
             ['nama' => 'nip_camat', 'label' => 'NIP Camat', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.nip', 'input_mode' => 'auto'],
             ['nama' => 'telepon_camat', 'label' => 'Telepon Camat', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.telepon', 'input_mode' => 'auto'],
             ['nama' => 'email_camat', 'label' => 'Email Camat', 'source' => 'profil_desa', 'source_field' => 'profile_kecamatan.email', 'input_mode' => 'auto'],
