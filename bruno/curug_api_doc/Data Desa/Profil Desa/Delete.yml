@@ -1,10 +1,10 @@
 info:
-  name: Show by ID
+  name: Delete
   type: http
-  seq: 1
+  seq: 4
 
 http:
-  method: GET
+  method: DELETE
   url: "{{base_url}}/api/ref-profil-desa"
   headers:
     - name: Accept

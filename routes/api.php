@@ -9,6 +9,173 @@ use App\Http\Controllers\Api\SrtJenisSuratController;
 
 use App\Http\Controllers\TestingController;
 
+// use App\Http\Controllers\Api\AlamatController;
+use App\Http\Controllers\Api\InvBarangController;
+use App\Http\Controllers\Api\InvDetailMutasiController;
+use App\Http\Controllers\Api\InvDetailPeminjamanController;
+use App\Http\Controllers\Api\InvKategoriBarangController;
+use App\Http\Controllers\Api\InvLokasiController;
+use App\Http\Controllers\Api\InvMutasiController;
+use App\Http\Controllers\Api\InvPeminjamanController;
+use App\Http\Controllers\Api\KkController;
+use App\Http\Controllers\Api\PekerjaanController;
+use App\Http\Controllers\Api\PendidikanController;
+use App\Http\Controllers\Api\PendudukController;
+use App\Http\Controllers\Api\RefDusunController;
+use App\Http\Controllers\Api\RefJabatanPerangkatController;
+use App\Http\Controllers\Api\RefPerangkatDesaController;
+use App\Http\Controllers\Api\RefProfilDesaController;
+use App\Http\Controllers\Api\RefProfilDesaPdfController;
+use App\Http\Controllers\Api\RefRtController;
+use App\Http\Controllers\Api\RefRwController;
+use App\Http\Controllers\Api\SrtKategoriSuratController;
+use App\Http\Controllers\Api\SrtMasterFieldSuratController;
+use App\Http\Controllers\Api\UserController;
+
+
+
+// -----------------------------------------------------------------
+// Protected route
+// This route is protected by auth:sanctum and role middleware.
+// -----------------------------------------------------------------
+
+/**
+ * This is protected by auth:sanctum and role middleware.
+ * Only users with roles 'admin', 'petugas', or 'kepala_desa' can access these routes.
+ */
+Route::middleware([
+    'auth:sanctum',
+    'role:admin|petugas|kepala_desa',
+])->group(function () {
+
+    /**
+     * Route for ref-profile-desa
+     * This route does not use ID since supposedly there's only one object of prfil desa
+     * and this system will only manage one desa. So, the ID is not needed.
+     * 
+     * TODO: If in the future, this system will manage multiple desa, then we need to add ID to these routes.
+     */
+    Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']);
+    Route::put('ref-profil-desa', [RefProfilDesaController::class, 'updateProfilDesa']);
+    Route::post('ref-profil-desa', [RefProfilDesaController::class, 'store']);
+    Route::delete('ref-profil-desa', [RefProfilDesaController::class, 'deleteProfilDesa']);
+
+    Route::post('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'update']);
+    Route::get('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'show']);
+    Route::delete('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'destroy']);
+
+    /**
+     * Route for managing master data Desa
+     * Like arious reference data like KK, pekerjaan, pendidikan, dusun, jabatan perangkat, perangkat desa, RT, RW.
+     */
+    Route::apiResource('penduduk', PendudukController::class);
+    Route::apiResource('kk', KkController::class);
+    Route::apiResource('pekerjaan', PekerjaanController::class);
+    Route::apiResource('pendidikan', PendidikanController::class);
+    Route::apiResource('ref-dusun', RefDusunController::class);
+    Route::apiResource('ref-jabatan-perangkat', RefJabatanPerangkatController::class);
+    Route::apiResource('ref-perangkat-desa', RefPerangkatDesaController::class);
+    Route::apiResource('ref-rt', RefRtController::class);
+    Route::apiResource('ref-rw', RefRwController::class);
+
+
+    Route::apiResource('srt-jenis-surat', SrtJenisSuratController::class);
+    Route::apiResource('srt-kategori-surat', SrtKategoriSuratController::class);
+    Route::apiResource('srt-pengajuan-surat', SrtPengajuanSuratController::class);
+    Route::apiResource('srt-master-field-surat', SrtMasterFieldSuratController::class);
+
+
+    /**
+     * Route for managing inventory data
+     * Like various reference data like kategori barang, lokasi, barang, peminjaman, mutasi, detail peminjaman, detail mutasi.
+     */
+
+    // Endpoints for kategori barang dan lokasi
+    Route::apiResource('inv-kategori-barang', InvKategoriBarangController::class);
+    Route::apiResource('inv-lokasi', InvLokasiController::class);
+    Route::apiResource('inv-barang', InvBarangController::class);
+
+    // Endpoint mutasi stok pada barang
+    Route::post('inv-barang/{id}/pengadaan', [InvBarangController::class, 'pengadaan']);
+    Route::post('inv-barang/{id}/hilang', [InvBarangController::class, 'hilang']);
+    Route::post('inv-barang/{id}/ketemu', [InvBarangController::class, 'ketemu']);
+    Route::post('inv-barang/{id}/opname', [InvBarangController::class, 'opname']);
+    Route::post('inv-barang/{id}/hapus-stok', [InvBarangController::class, 'hapusStok']);
+
+    // Riwayat & mutasi per barang
+    Route::get('inv-barang/{id}/riwayat-mutasi', [InvBarangController::class, 'mutasi']);
+    Route::get('inv-barang/{id}/riwayat-peminjaman', [InvBarangController::class, 'riwayat']);
+
+    // Endpoint khusus peminjaman
+    Route::apiResource('inv-detail-peminjaman', InvDetailPeminjamanController::class);
+    Route::apiResource('inv-peminjaman', InvPeminjamanController::class);
+    Route::post('inv-peminjaman/{id}/kembalikan', [InvPeminjamanController::class, 'kembalikan']);
+    Route::post('inv-peminjaman/{id}/batalkan', [InvPeminjamanController::class, 'batalkan']);
+
+    // Buku Besar Mutasi (Stock Ledger)
+    Route::apiResource('inv-mutasi', InvMutasiController::class)->only(['index', 'show', 'store', 'destroy']);
+    Route::apiResource('inv-detail-mutasi', InvDetailMutasiController::class)->only(['index', 'show']);
+
+    /**
+     * Route for managing system data, like User as user in this system is considered as part of the system setting separate from reference data like "penduduk".
+     * More utility for this route will be added  later
+     */
+    Route::apiResource('users', UserController::class);
+
+    /**
+     * Currently this route is not used, but it can be used in the future if needed.
+     * Directly accessing alamat data is not recommended, because alamat data should be managed through penduduk and other related data.
+     * So, this route is commented out for now.
+     */
+    // Route::apiResource('alamat', AlamatController::class);
+
+});
+
+
+/**
+ * These routes are for authentication and user management.
+ * They include login, logout, refresh token, and getting the authenticated user's information.
+ * This route only protected by sanctun and NOT by role middleware, because this route is used for authentication and user management, and it should be accessible to all authenticated users regardless of their role.
+ */
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/user', function (Request $request) {
+    return $request->user();
+    });
+
+    Route::get('/me', [AuthController::class, 'me']);
+
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+});
+
+
+
+// -----------------------------------------------------------------
+// Public route
+// This route is not protected, and does not require token to access them
+// -----------------------------------------------------------------
+
+
+/** Route for login 
+ * As for logout route in the protected group as it needs user token to logout, and it will be handled by the AuthController.
+ */
+Route::post('/login', [AuthController::class, 'login']);
+
+/** Route for testing purposes */
+Route::get('/testing', [TestingController::class, 'testing']);
+
+
+/**
+ * Route for accessing data Wilayah in indonesia
+ * This route typically be used for references only when filling data that require data wilayah such as address (alamat)
+ */
+Route::get('/wilayah', [WilayahController::class, 'index']);
+Route::get('/wilayah/level/{level}/id/{id}', [WilayahController::class, 'showById']);
+Route::get('/wilayah/level/{level}/code/{code}', [WilayahController::class, 'showByCode']);
+
 
 /**
  * Route Ini digunakan untuk pengajuan surat wizard. 
@@ -20,110 +187,3 @@ Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
 Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
 
 
-/** 
- * Route Override
- */
-
-Route::middleware([
-    'auth:sanctum',
-    'role:admin|petugas|kepala_desa',
-])->group(function () {
-
-    // Route::apiResource('ref-profil-desa', App\Http\Controllers\Api\RefProfilDesaController::class);
-    // Route::get('ref-prifil-desa', [App\Http\Controllers\Api\RefProfilDesaController::class, 'show']);
-});
-
-
-
-
-/**
- * This route is user for managing master data, and it is protected by auth:sanctum and role middleware.
- * Only users with roles 'admin', 'petugas', or 'kepala_desa' can access these routes.
- */
-Route::middleware([
-    'auth:sanctum',
-    'role:admin|petugas|kepala_desa',
-])->group(function () {
-    Route::apiResource('srt-master-field-surat', App\Http\Controllers\Api\SrtMasterFieldSuratController::class);
-
-
-    Route::apiResource('penduduk', App\Http\Controllers\Api\PendudukController::class);
-
-    Route::apiResource('alamat', App\Http\Controllers\Api\AlamatController::class);
-    Route::apiResource('inv-barang', App\Http\Controllers\Api\InvBarangController::class);
-    // Endpoint mutasi stok pada barang
-    Route::post('inv-barang/{id}/pengadaan', [App\Http\Controllers\Api\InvBarangController::class, 'pengadaan']);
-    Route::post('inv-barang/{id}/hilang', [App\Http\Controllers\Api\InvBarangController::class, 'hilang']);
-        Route::post('inv-barang/{id}/ketemu', [App\Http\Controllers\Api\InvBarangController::class, 'ketemu']);
-
-    Route::post('inv-barang/{id}/opname', [App\Http\Controllers\Api\InvBarangController::class, 'opname']);
-    Route::post('inv-barang/{id}/hapus-stok', [App\Http\Controllers\Api\InvBarangController::class, 'hapusStok']);
-    // Riwayat & mutasi per barang
-    Route::get('inv-barang/{id}/riwayat-mutasi', [App\Http\Controllers\Api\InvBarangController::class, 'mutasi']);
-    Route::get('inv-barang/{id}/riwayat-peminjaman', [App\Http\Controllers\Api\InvBarangController::class, 'riwayat']);
-
-    Route::apiResource('inv-detail-peminjaman', App\Http\Controllers\Api\InvDetailPeminjamanController::class);
-
-    Route::apiResource('inv-kategori-barang', App\Http\Controllers\Api\InvKategoriBarangController::class);
-    Route::apiResource('inv-lokasi', App\Http\Controllers\Api\InvLokasiController::class);
-
-    Route::apiResource('inv-peminjaman', App\Http\Controllers\Api\InvPeminjamanController::class);
-    // Endpoint khusus peminjaman
-    Route::post('inv-peminjaman/{id}/kembalikan', [App\Http\Controllers\Api\InvPeminjamanController::class, 'kembalikan']);
-    Route::post('inv-peminjaman/{id}/batalkan', [App\Http\Controllers\Api\InvPeminjamanController::class, 'batalkan']);
-
-    // Buku Besar Mutasi (Stock Ledger)
-    Route::apiResource('inv-mutasi', App\Http\Controllers\Api\InvMutasiController::class)->only(['index', 'show', 'store', 'destroy']);
-    Route::apiResource('inv-detail-mutasi', App\Http\Controllers\Api\InvDetailMutasiController::class)->only(['index', 'show']);
-
-
-    Route::apiResource('kk', App\Http\Controllers\Api\KkController::class);
-    Route::apiResource('pekerjaan', App\Http\Controllers\Api\PekerjaanController::class);
-    Route::apiResource('pendidikan', App\Http\Controllers\Api\PendidikanController::class);
-    Route::apiResource('ref-dusun', App\Http\Controllers\Api\RefDusunController::class);
-    Route::apiResource('ref-jabatan-perangkat', App\Http\Controllers\Api\RefJabatanPerangkatController::class);
-    Route::apiResource('ref-perangkat-desa', App\Http\Controllers\Api\RefPerangkatDesaController::class);
-    Route::apiResource('ref-profil-desa', App\Http\Controllers\Api\RefProfilDesaController::class);
-    Route::apiResource('ref-rt', App\Http\Controllers\Api\RefRtController::class);
-    Route::apiResource('ref-rw', App\Http\Controllers\Api\RefRwController::class);
-    Route::apiResource('srt-jenis-surat', App\Http\Controllers\Api\SrtJenisSuratController::class);
-    Route::apiResource('srt-kategori-surat', App\Http\Controllers\Api\SrtKategoriSuratController::class);
-    Route::apiResource('srt-pengajuan-surat', App\Http\Controllers\Api\SrtPengajuanSuratController::class);
-    Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
-});
-
-
-
-
-
-/**
- * These routes are for authentication and user management.
- * They include login, logout, refresh token, and getting the authenticated user's information.
- */
-Route::middleware('auth:sanctum')->group(function () {
-    
-    Route::get('/user', function (Request $request) {
-    return $request->user();
-    });
-
-    Route::get('/me', [AuthController::class, 'me']);
-
-    Route::post('/logout', [AuthController::class, 'logout']);
-
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-});
-
-
-/**
- * These routes are for public access and do not require authentication.
- */
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/testing', [TestingController::class, 'testing']);
-
-
-// Route Wilayah
-
-Route::get('/wilayah', [WilayahController::class, 'index']);
-Route::get('/wilayah/level/{level}/id/{id}', [WilayahController::class, 'showById']);
-Route::get('/wilayah/level/{level}/code/{code}', [WilayahController::class, 'showByCode']);

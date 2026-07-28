@@ -5,8 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Models\RefProfilDesa;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Laravolt\Indonesia\Models\Village;
+use App\Models\RefKecamatan;
 
+/**
+ * TODO: Edit this Controller to extend from ApiController instead of CrudController
+ * Dev 29/07/26: well i'm stil conflicted about that since it use array $with* that is very useful
+ */
 class RefProfilDesaController extends CrudController
 {
     protected string $modelClass = RefProfilDesa::class;
@@ -23,22 +29,6 @@ class RefProfilDesaController extends CrudController
         'nama_desa',
         'profil_kecamatan',
         'kades',
-        'sekdes',
-        'kaur_tu',
-        'kaur_keu',
-        'kaur_per',
-        'kasi_pem',
-        'kasi_kes',
-        'kasi_pel',
-        'kepala_dusun',
-        'staf_adm',
-        'staf_keu',
-        'staf_per',
-        'staf_pel',
-        'operator_desa',
-        'bendahara',
-        'pengelola_arsip',
-        'staf_umum',
     ];
 
     private function formatWilayah(RefProfilDesa $record): array
@@ -101,33 +91,77 @@ class RefProfilDesaController extends CrudController
         return $data;
     }
 
-    public function show(string $id): JsonResponse
+    public function store(Request $request): JsonResponse
     {
-        $record = $this->resolveModel()
-            ->newQuery()
-            ->findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'kode' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:500',
+            'telepon' => 'nullable|string|max:20',
+            'email' => 'nullable|email|max:100',
+            'website' => 'nullable|url|max:100',
+            'logo' => 'nullable|string|max:255',
+            'visi' => 'nullable|string|max:1000',
+            'misi' => 'nullable|string|max:1000',
+            'deskripsi' => 'nullable|string|max:2000',
+            'profil_kecamatan.nama_pejabat' => 'nullable|string|max:1000',
+            'profil_kecamatan.nip' => 'nullable|string|max:1000',
+            'profil_kecamatan.telepon' => 'nullable|string|max:100',
+            'profil_kecamatan.email' => 'nullable|string|max:100',
+        ]);
 
-        return $this->success($this->buildResponse($record));
-    }
-
-    public function index(Request $request): JsonResponse
-    {
-        $record = $this->resolveModel()
-            ->newQuery()
-            ->first();
-
-        if (!$record) {
-            return $this->success(null, 'Profil desa belum tersedia.');
+        if ($validator->fails()) {
+            return $this->error(
+                'Validasi gagal.',
+                $validator->errors()->toArray(),
+                422
+            );
         }
 
-        return $this->success($this->buildResponse($record));
+        $profilDesa = $this->resolveModel();
+
+        // Only allow one record
+        if ($profilDesa->newQuery()->exists()) {
+            return $this->error(
+                'Profil desa sudah ada. Gunakan endpoint update untuk mengubah data.',
+                null,
+                409
+            );
+        }
+
+        $profilDesa = $profilDesa->newQuery()->create(
+            $request->only($profilDesa->getFillable())
+        );
+
+        $profilKecamatan = RefKecamatan::query()->create(
+            $request->input('profil_kecamatan', [])
+        );
+
+        return $this->success(
+            $this->buildResponse($profilDesa->fresh()),
+            'Profil desa berhasil ditambahkan.',
+            201
+        );
     }
 
-    public function update(Request $request, string $id): JsonResponse
+    public function showProfilDesa(): JsonResponse
     {
         $record = $this->resolveModel()
             ->newQuery()
-            ->findOrFail($id);
+            ->firstOrFail();
+
+        return $this->success($this->buildResponse($record));
+    }
+
+    /**
+     * id is not used in this method because there should only be one record of RefProfilDesa.
+     * but the route still requires an id parameter, so we keep it in the method signature.
+     */
+    public function updateProfilDesa(Request $request, string $id): JsonResponse
+    {
+        $record = $this->resolveModel()
+            ->newQuery()
+            ->firstOrFail();
 
         $data = $request->only($record->getFillable());
         $record->update($data);
@@ -137,4 +171,29 @@ class RefProfilDesaController extends CrudController
             'Profil desa berhasil diperbarui.'
         );
     }
+
+    public function deleteProfilDesa() : JsonResponse
+    {
+        RefProfilDesa::query()->delete();
+        RefKecamatan::query()->delete();
+
+        return $this->success(
+            null,
+            'Profil desa berhasil dihapus.'
+        );
+    }
+
+    // Method index is disabled
+    // public function index(Request $request): JsonResponse
+    // {
+    //     $record = $this->resolveModel()
+    //         ->newQuery()
+    //         ->first();
+
+    //     if (!$record) {
+    //         return $this->success(null, 'Profil desa belum tersedia.');
+    //     }
+
+    //     return $this->success($this->buildResponse($record));
+    // }
 }

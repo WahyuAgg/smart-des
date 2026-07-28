@@ -38,7 +38,6 @@ class RefKecamatan extends Model
     protected $table = 'ref_kecamatan';
 
     protected $fillable = [
-        'nama',
         'nama_pejabat',
         'nip',
         'telepon',

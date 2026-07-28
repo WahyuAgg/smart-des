@@ -13,22 +13,28 @@ http:
     type: json
     data: |-
       {
-          "nama": "Curugs",
-          "kode": "3306022052",
-          "kode_pos": "111111",
-          "alamat": "Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.",
+        "nama": "Curugs",
+        "kode": "3306022052",
+        "kode_pos": "111111",
+        "alamat": "Jln.Lingkar Utara Desa Curug",
+        "telepon": "081234567890",
+        "email": "desa_curug@example.com",
+        "website": "https://desacurug.co.id",
+        "logo": null,
+        "visi": "-",
+        "misi": "-",
+        "deskripsi": "Desa Curug adalah desa curug.",
+        "nama_provinsi": "Jawa Tengah",
+        "nama_kabupaten": "Kabupaten Purworejo",
+        "nama_kecamatan": "Ngombol",
+        "nama_desa": "Curug",
+        "profil_kecamatan": {
+          "nama_pejabat": "Budi Santoso",
+          "nip": "198501012010011001",
           "telepon": "081234567890",
-          "email": "desa_curug@example.com",
-          "website": "https://desacurug.co.id",
-          "logo": null,
-          "visi": "-",
-          "misi": "-",
-          "deskripsi": "Desa Curug merupakan desa fiktif yang digunakan sebagai data awal (seed) pada aplikasi Sistem Pelayanan Surat Desa.",
-          "nama_provinsi": "Jawa Tengah",
-          "nama_kabupaten": "Kabupaten Purworejo",
-          "nama_kecamatan": "Ngombol",
-          "nama_desa": "Curug"
-          }
+          "email": "camat.depoksleman@slemankab.go.id"
+        }
+      }
   auth: inherit
 
 settings:

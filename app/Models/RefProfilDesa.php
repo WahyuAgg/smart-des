@@ -87,6 +87,7 @@ class RefProfilDesa extends Model
         'visi',
         'misi',
         'deskripsi',
+        'peta_pdf',
     ];
 
     protected $hidden = ['created_at', 'updated_at'];

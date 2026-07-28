@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Pekerjaan;
+// use App\Models\Pekerjaan;
 
 class PekerjaanController extends CrudController
 {
-    protected string $modelClass = Pekerjaan::class;
+    // protected string $modelClass = Pekerjaan::class;
 }
