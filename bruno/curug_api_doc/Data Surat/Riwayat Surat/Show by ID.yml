@@ -1,0 +1,188 @@
+info:
+  name: Show by ID
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/srt-pengajuan-surat/{{pengajuan-surat_ID}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: pengajuan-surat_ID
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-pengajuan-surat/{{pengajuan-surat_ID}}"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 19:02:52 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQM466XEHW58DGY2FKRPR0P
+      body:
+        type: json
+        data: |-
+          {
+            "id": 15,
+            "jenis_surat_id": 1,
+            "nomor_surat": null,
+            "keperluan": null,
+            "status": "diajukan",
+            "catatan": null,
+            "file_hasil": null,
+            "tanggal_diajukan": "2026-07-15T04:16:37.000000Z",
+            "tanggal_diproses": null,
+            "tanggal_selesai": null,
+            "user_id": null,
+            "data_surat": {
+              "nik": {
+                "mode": "auto",
+                "type": "text",
+                "label": "NIK",
+                "value": "33060242343243545126"
+              },
+              "nama": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama",
+                "value": "SITI MUBAIDAH MM"
+              },
+              "agama": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Agama",
+                "value": "Islam"
+              },
+              "pekerjaan": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Pekerjaan",
+                "value": "Petani/Pekebun"
+              },
+              "nama_kades": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama Kepala Desa",
+                "value": "Budi Santoso"
+              },
+              "nomor_surat": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Nomor Surat",
+                "value": null
+              },
+              "tempat_lahir": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Tempat Lahir",
+                "value": "Purworejo"
+              },
+              "jenis_kelamin": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Jenis Kelamin",
+                "value": "Perempuan"
+              },
+              "tanggal_lahir": {
+                "mode": "auto",
+                "type": "date",
+                "label": "Tanggal Lahir",
+                "value": "01-Jan-1971"
+              },
+              "tanggal_surat": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Tanggal Surat",
+                "value": "15 Juli 2026"
+              },
+              "alamat_lengkap": {
+                "mode": "auto",
+                "type": "textarea",
+                "label": "Alamat Lengkap",
+                "value": "Desa Curug, RT 001 RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah."
+              },
+              "kewarganegaraan": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Kewarganegaraan",
+                "value": "Indonesia"
+              },
+              "status_perkawinan": {
+                "mode": "auto",
+                "type": "text",
+                "label": "Status Perkawinan",
+                "value": "Belum Kawin"
+              },
+              "tanggal_domisili_f": {
+                "mode": "auto_editable",
+                "type": "date",
+                "label": "Tanggal Tercatat",
+                "value": "01 Januari 1971"
+              }
+            },
+            "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+            "jenis_surat": {
+              "id": 1,
+              "kategori_surat_id": 1,
+              "kode_jenis_surat": "SKP",
+              "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+              "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+              "is_active": true,
+              "template_pdf_url": null
+            },
+            "penduduks": [
+              {
+                "id": 1,
+                "nik": "3306024234324354",
+                "nama_lengkap": "SITI MUBAIDAH MMN",
+                "kk_id": 1,
+                "nama_ayah_kandung": "SITI CHIPTIYAH MM",
+                "nama_ibu_kandung": "MARGO UTOMO UTOMO",
+                "jenis_kelamin": "Perempuan",
+                "tanggal_lahir": "1971-01-01T00:00:00.000000Z",
+                "tempat_lahir": "Purworejo",
+                "agama": "Islam",
+                "pekerjaan": "Petani/Pekebun",
+                "status_perkawinan": "Belum Kawin",
+                "kewarganegaraan": "Indonesia",
+                "golongan_darah": "B",
+                "no_hp": "081904703153",
+                "email": "example@example.com",
+                "status_hidup": "HIDUP",
+                "tanggal_meninggal": null,
+                "alamat_id": 3,
+                "pendidikan_id": 5,
+                "pivot": {
+                  "pengajuan_surat_id": 15,
+                  "penduduk_id": 1,
+                  "urutan": 1
+                }
+              }
+            ],
+            "user": null
+          }

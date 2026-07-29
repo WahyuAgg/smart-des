@@ -19,6 +19,7 @@ Route::get('/', fn() => view('dashboard.index'))->name('dashboard');
 // Surat Wizard Routes
 Route::prefix('surat')->name('surat.')->group(function () {
     Route::get('/', fn() => view('surat.index'))->name('index');
+    Route::get('/riwayat', fn() => view('surat.riwayat.index'))->name('riwayat');
 });
 
 // Peta Desa

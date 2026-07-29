@@ -1,0 +1,441 @@
+info:
+  name: Index
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/srt-pengajuan-surat?page=1"
+  params:
+    - name: page
+      value: "1"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-pengajuan-surat?page=1&per_page=4"
+      method: GET
+      params:
+        - name: page
+          value: "1"
+          type: query
+        - name: per_page
+          value: "4"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 19:02:07 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQM2TS872R9BHRN0F3TYCXH
+      body:
+        type: json
+        data: |-
+          {
+            "current_page": 1,
+            "data": [
+              {
+                "id": 29,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "selesai",
+                "catatan": null,
+                "file_hasil": "generated_surat/pdf/SKP_20260729125104.pdf",
+                "tanggal_diajukan": "2026-07-29T12:45:00.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": "2026-07-29T12:51:07.000000Z",
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 28,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "selesai",
+                "catatan": null,
+                "file_hasil": "generated_surat/pdf/SKP_20260724105500.pdf",
+                "tanggal_diajukan": "2026-07-24T10:54:53.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": "2026-07-24T10:55:04.000000Z",
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 27,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "selesai",
+                "catatan": null,
+                "file_hasil": "generated_surat/pdf/SKP_20260724100412.pdf",
+                "tanggal_diajukan": "2026-07-24T09:57:51.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": "2026-07-24T10:04:16.000000Z",
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 26,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "selesai",
+                "catatan": null,
+                "file_hasil": "generated_surat/pdf/SKP_20260724095415.pdf",
+                "tanggal_diajukan": "2026-07-24T09:54:05.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": "2026-07-24T09:54:27.000000Z",
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 25,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": "ewfew",
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T05:18:21.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 24,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": "wfew",
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:27:19.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 23,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": "wfew",
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:22:19.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 22,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:21:30.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 21,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:21:15.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 20,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:20:42.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 19,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:18:01.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 18,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:17:51.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 17,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:17:19.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 16,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:16:40.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              },
+              {
+                "id": 15,
+                "jenis_surat_id": 1,
+                "nomor_surat": null,
+                "keperluan": null,
+                "status": "diajukan",
+                "catatan": null,
+                "file_hasil": null,
+                "tanggal_diajukan": "2026-07-15T04:16:37.000000Z",
+                "tanggal_diproses": null,
+                "tanggal_selesai": null,
+                "user_id": null,
+                "jenis_surat_nama": "Surat Keterangan Domisili Penduduk",
+                "jenis_surat": {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "is_active": true,
+                  "template_pdf_url": null
+                }
+              }
+            ],
+            "first_page_url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=1",
+            "from": 1,
+            "last_page": 2,
+            "last_page_url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=2",
+            "links": [
+              {
+                "url": null,
+                "label": "&laquo; Previous",
+                "page": null,
+                "active": false
+              },
+              {
+                "url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=1",
+                "label": "1",
+                "page": 1,
+                "active": true
+              },
+              {
+                "url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=2",
+                "label": "2",
+                "page": 2,
+                "active": false
+              },
+              {
+                "url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=2",
+                "label": "Next &raquo;",
+                "page": 2,
+                "active": false
+              }
+            ],
+            "next_page_url": "http://127.0.0.1:8000/api/srt-pengajuan-surat?page=2",
+            "path": "http://127.0.0.1:8000/api/srt-pengajuan-surat",
+            "per_page": 15,
+            "prev_page_url": null,
+            "to": 15,
+            "total": 29
+          }

@@ -5,22 +5,21 @@
 
 ## 🔴 High Priority
 
+- Insert data penduduk 
 - fix FE alamat penduduk 
 
-- FE riwayat pengajuan surat
-- FE revisi UI remove unwanted placeholder // pending 
-- Insert data penduduk 
-
-- Implementasi Sqlite 
-- Deployment
-- API UI backup 
 
 
 ---
 
 ## 🟡 Medium Priority
 
-- Docker Docker
+
+- FE revisi UI remove unwanted placeholder // pending 
+
+- Implementasi Sqlite 
+- Deployment
+- API UI backup 
 
 
 ---

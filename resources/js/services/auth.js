@@ -104,4 +104,32 @@ export const Auth = {
     this.clear();
     window.location.href = '/login';
   },
+
+  /**
+   * Fetch user data from /api/me and update localStorage.
+   * Call after login or when user data may have changed (role, name, etc).
+   * Returns the user object, or null if unauthhenticated.
+   */
+  async fetchUser(baseUrl) {
+    const url = (baseUrl || window.API_BASE_URL || '/api') + '/me';
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: this.headers(),
+      });
+      if (res.status === 401) {
+        this.clear();
+        return null;
+      }
+      const data = await res.json();
+      // Update localStorage with fresh user data
+      const token = this.getToken();
+      if (token) {
+        this.setSession(token, data);
+      }
+      return data;
+    } catch {
+      return this.getUser(); // fallback ke cache
+    }
+  },
 };

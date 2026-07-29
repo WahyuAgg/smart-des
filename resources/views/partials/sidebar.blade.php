@@ -229,7 +229,7 @@
         </div>
     </nav>
 
-    <div x-data="{ user: Auth.getUser() }" class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
+    <div x-data="{ user: Auth.getUser(), init() { Auth.fetchUser().then(u => { if (u) this.user = u; }) } }" class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
         Masuk sebagai <span class="text-slate-200 font-medium" x-text="user?.name || 'Petugas'"></span>
     </div>
 </aside>

@@ -48,6 +48,7 @@ import bacaanDetail from './pages/bacaan-detail';
 import artikelCrud from './pages/artikel-crud';
 import galeri from './pages/galeri';
 import galeriCrud from './pages/galeri-crud';
+import riwayatSurat from './pages/riwayat-surat';
 import userCrud from './pages/user-crud';
 import about from './pages/about';
 
@@ -81,6 +82,7 @@ Alpine.data('bacaanDetail', bacaanDetail);
 Alpine.data('artikelCrud', artikelCrud);
 Alpine.data('galeri', galeri);
 Alpine.data('galeriCrud', galeriCrud);
+Alpine.data('riwayatSurat', riwayatSurat);
 Alpine.data('userCrud', userCrud);
 Alpine.data('about', about);
 

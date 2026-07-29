@@ -32,7 +32,14 @@ class SrtPengajuanSuratController extends Controller
     public function index(): JsonResponse
     {
         $records = SrtPengajuanSurat::query()
+            ->orderBy('tanggal_diajukan', 'desc')
             ->paginate(15);
+
+        // Exclude data_surat from each record
+        $records->through(function ($item) {
+            unset($item->data_surat);
+            return $item;
+        });
 
         return response()->json($records);
     }
