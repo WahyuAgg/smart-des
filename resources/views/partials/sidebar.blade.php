@@ -2,6 +2,7 @@
     $menu = [
         ['label' => 'Dashboard', 'route' => 'dashboard', 'icon' => 'home'],
         ['label' => 'Pengajuan Surat', 'route' => 'surat.index', 'icon' => 'document'],
+        ['label' => 'Peta Desa', 'route' => 'peta-desa', 'icon' => 'map'],
     ];
 
     // Master data desa: kelompok menu dengan submenu
@@ -44,6 +45,7 @@
         'database' =>
             'M12 4c4.4 0 8 1.1 8 2.5S16.4 9 12 9s-8-1.1-8-2.5S7.6 4 12 4Zm-8 2.5V17c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V6.5M4 11.75c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5',
         'box' => 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM3.27 6.96 12 12.01l8.73-5.05M12 22.08V12',
+        'map' => 'M9 20 4 17V5l5 3m0 0 5-3m-5 3v12m5-9 5-3v12l-5 3m0-12-5 3',
     ];
 @endphp
 

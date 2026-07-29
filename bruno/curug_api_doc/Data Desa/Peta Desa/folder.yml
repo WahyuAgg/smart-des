@@ -1,7 +1,0 @@
-info:
-  name: Peta Desa
-  type: folder
-  seq: 11
-
-request:
-  auth: inherit

@@ -41,6 +41,7 @@ import mutasiCrud from './pages/mutasi';
 // Dashboard
 import dashboard from './pages/dashboard';
 import profilDesa from './pages/profil-desa';
+import petaDesa from './pages/peta-desa';
 
 // Alpine configuration
 Alpine.plugin(collapse);
@@ -66,6 +67,7 @@ Alpine.data('mutasiCrud', mutasiCrud);
 // Dashboard
 Alpine.data('dashboard', dashboard);
 Alpine.data('profilDesa', profilDesa);
+Alpine.data('petaDesa', petaDesa);
 
 // Master Data Baru
 Alpine.data('kategoriSuratCrud', kategoriSuratCrud);

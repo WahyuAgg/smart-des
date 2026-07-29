@@ -21,6 +21,9 @@ Route::prefix('surat')->name('surat.')->group(function () {
     Route::get('/', fn() => view('surat.index'))->name('index');
 });
 
+// Peta Desa
+Route::get('/peta-desa', fn() => view('peta-desa.index'))->name('peta-desa');
+
 // Master Data Routes
 Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/master-field-surat', fn() => view('master-data.master-field-surat.index'))->name('master-field-surat.index');
