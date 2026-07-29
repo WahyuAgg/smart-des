@@ -1,18 +1,19 @@
 # TODO
 
-# DO NOT READ THIS FILES
-- This is not guide for development, do not read this file
+- This is not guide for development, do not use this as a reference
 
 
 ## 🔴 High Priority
 
-- fix FE alamat penduduk | hard
-- API galery | easy
-- API UI User | hard
+- fix FE alamat penduduk 
+- API galery
+- API UI User 
 
-- FE galery | easy
-- FE revisi UI remove unwanted placeholder // pending | hard
-- Insert data penduduk | super hard
+- FE riwayat pengajuan surat
+- FE galery 
+- FE revisi UI remove unwanted placeholder // pending 
+- FE User
+- Insert data penduduk 
 
 - Implementasi Sqlite 
 - Deployment

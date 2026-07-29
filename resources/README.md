@@ -1,7 +1,7 @@
-# Project Resource Structure
+# Project Resource Structure, overview, reference dan convension
 
-> **Purpose:** AI & developer reference for navigating all frontend resources.  
-> **Do not update this file** update will be done manually by human developer.
+> **Purpose:** developer reference for navigating all frontend resources.  
+> **Do not update this file** update will be done manually by developer.
 
 ---
 

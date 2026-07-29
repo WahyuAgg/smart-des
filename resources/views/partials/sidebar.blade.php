@@ -2,7 +2,9 @@
     $menu = [
         ['label' => 'Dashboard', 'route' => 'dashboard', 'icon' => 'home'],
         ['label' => 'Pengajuan Surat', 'route' => 'surat.index', 'icon' => 'document'],
-        ['label' => 'Peta Desa', 'route' => 'peta-desa', 'icon' => 'map'],        ['label' => 'Bacaan Edukatif', 'route' => 'bacaan.index', 'icon' => 'book'],        /** Menu Bacaan Edukatif disini */
+        ['label' => 'Peta Desa', 'route' => 'peta-desa', 'icon' => 'map'], 
+        ['label' => 'Galeri Foto', 'route' => 'galeri', 'icon' => 'camera'],     
+        ['label' => 'Bacaan Edukatif', 'route' => 'bacaan.index', 'icon' => 'book'],      
     ];
 
     // Master data desa: kelompok menu dengan submenu
@@ -41,6 +43,7 @@
     // Manajemen Konten
     $manajemenKonten = [
         ['label' => 'Artikel', 'route' => 'manajemen-konten.artikel.index'],
+        ['label' => 'Galeri', 'route' => 'manajemen-konten.galeri.index'],
     ];
     $manajemenKontenActive = collect($manajemenKonten)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
@@ -54,6 +57,7 @@
         'map' => 'M9 20 4 17V5l5 3m0 0 5-3m-5 3v12m5-9 5-3v12l-5 3m0-12-5 3',
         'book' => 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 19.5ZM12 7v8M8 7v2m8-2v2',
         'edit' => 'M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-9 3 9-9 3 3-9 9H9v-3Z',
+        'camera' => 'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11ZM9 13a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z',
     ];
 @endphp
 

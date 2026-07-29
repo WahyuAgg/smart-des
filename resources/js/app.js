@@ -46,6 +46,8 @@ import petaDesa from './pages/peta-desa';
 import bacaanEdukatif from './pages/bacaan-edukatif';
 import bacaanDetail from './pages/bacaan-detail';
 import artikelCrud from './pages/artikel-crud';
+import galeri from './pages/galeri';
+import galeriCrud from './pages/galeri-crud';
 import about from './pages/about';
 
 // Alpine configuration
@@ -76,6 +78,8 @@ Alpine.data('petaDesa', petaDesa);
 Alpine.data('bacaanEdukatif', bacaanEdukatif);
 Alpine.data('bacaanDetail', bacaanDetail);
 Alpine.data('artikelCrud', artikelCrud);
+Alpine.data('galeri', galeri);
+Alpine.data('galeriCrud', galeriCrud);
 Alpine.data('about', about);
 
 // Master Data Baru

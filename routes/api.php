@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\GaleriController;
 
 
 
@@ -131,6 +132,11 @@ Route::middleware([
      * Route for Paper
      */
     Route::apiResource('papers', PaperController::class);
+
+    /**
+     * Route for Galeri (Gallery)
+     */
+    Route::apiResource('galeri', GaleriController::class);
 
     /**
      * Route for Dashboard

@@ -33,9 +33,13 @@ Route::prefix('bacaan')->name('bacaan.')->group(function () {
     Route::get('/{id}', fn($id) => view('bacaan.show', ['id' => $id]))->name('show');
 });
 
+// Galeri Foto
+Route::get('/galeri', fn() => view('galeri.index'))->name('galeri');
+
 // Manajemen Konten
 Route::prefix('manajemen-konten')->name('manajemen-konten.')->group(function () {
     Route::get('/artikel', fn() => view('manajemen-konten.artikel.index'))->name('artikel.index');
+    Route::get('/galeri', fn() => view('manajemen-konten.galeri.index'))->name('galeri.index');
 });
 
 // Master Data Routes

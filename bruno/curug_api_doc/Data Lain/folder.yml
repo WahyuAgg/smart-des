@@ -4,4 +4,7 @@ info:
   seq: 6
 
 request:
+  headers:
+    - name: ""
+      value: ""
   auth: inherit

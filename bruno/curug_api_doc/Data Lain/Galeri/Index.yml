@@ -1,0 +1,125 @@
+info:
+  name: Index
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{base_url}}/api/galeri?search=ha&page=1&per_page=2"
+  params:
+    - name: search
+      value: ha
+      type: query
+    - name: page
+      value: "1"
+      type: query
+    - name: per_page
+      value: "2"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/galeri?search=ha&page=1&per_page=2"
+      method: GET
+      params:
+        - name: search
+          value: ha
+          type: query
+        - name: page
+          value: "1"
+          type: query
+        - name: per_page
+          value: "2"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 16:22:04 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQAXR2BSG6CFH3RE9F7HW6R
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 3,
+                  "judul": "17 agustus 2026",
+                  "deskripsi": "hari kemerdekaan",
+                  "tanggal": "2026-07-29T00:00:00.000000Z",
+                  "is_published": true,
+                  "image_url": "http://localhost:8000/storage/galeri/m7iArixZmHXguwBG1VXkMLhYzEaMG4dLLqa5gjdc.jpg"
+                },
+                {
+                  "id": 2,
+                  "judul": "khataman",
+                  "deskripsi": "khatman masal",
+                  "tanggal": "2026-07-29T00:00:00.000000Z",
+                  "is_published": true,
+                  "image_url": "http://localhost:8000/storage/galeri/MH824I6zhIyUns5uI2FniTEp0nxgTl8qXV0MpSRg.jpg"
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/galeri?page=1",
+              "from": 1,
+              "last_page": 2,
+              "last_page_url": "http://127.0.0.1:8000/api/galeri?page=2",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/galeri?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/galeri?page=2",
+                  "label": "2",
+                  "page": 2,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/galeri?page=2",
+                  "label": "Next &raquo;",
+                  "page": 2,
+                  "active": false
+                }
+              ],
+              "next_page_url": "http://127.0.0.1:8000/api/galeri?page=2",
+              "path": "http://127.0.0.1:8000/api/galeri",
+              "per_page": 2,
+              "prev_page_url": null,
+              "to": 2,
+              "total": 3
+            }
+          }
