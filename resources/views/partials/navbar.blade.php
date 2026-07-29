@@ -5,7 +5,7 @@
     this.loggingOut = true;
     await Auth.logout(window.API_BASE_URL);
   }
-}" class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
+}" class="h-16 bg-slate-200 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
   <div class="flex items-center gap-3">
     {{-- Toggle sidebar --}}
     <button type="button" @click="$store.sidebar.toggle()"

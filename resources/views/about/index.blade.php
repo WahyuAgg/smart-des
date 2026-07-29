@@ -2,7 +2,7 @@
 
 @section('title', 'Tentang Aplikasi')
 @section('page-title', 'Tentang Aplikasi')
-@section('page-subtitle', 'Informasi mengenai SIAK Desa')
+@section('page-subtitle', 'Informasi mengenai SmartDes')
 
 @section('content')
 <div x-data="about" class="max-w-3xl mx-auto">

@@ -67,8 +67,12 @@
     :class="$store.sidebar.open ? 'translate-x-0' : '-translate-x-full'"
     style="transition-duration: 200ms;">
     <div class="h-16 flex items-center gap-2 px-5 border-b border-white/10">
-        <div class="w-8 h-8 rounded-md bg-accent flex items-center justify-center font-bold text-white">S</div>
-        <span class="font-semibold text-white tracking-tight">SIAK Desa</span>
+        <div class="w-8 h-8 rounded-md bg-accent flex items-center justify-center">
+<svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+    <text x="12" y="17" font-family="Georgia, 'Times New Roman', serif" font-size="14" font-weight="bold" text-anchor="middle" fill="currentColor">SD</text>
+</svg>
+        </div>
+        <span class="font-semibold text-white tracking-tight">SmartDes</span>
         <button type="button" @click="$store.sidebar.toggle()"
             class="ml-auto w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-white hover:bg-navy-700 transition">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

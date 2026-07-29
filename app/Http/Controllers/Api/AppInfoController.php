@@ -12,7 +12,7 @@ class AppInfoController extends ApiController
             'success' => true,
             'message' => 'Informasi aplikasi berhasil diambil.',
             'data' => [
-                'nama' => 'SIAK Desa',
+                'nama' => 'SmartDes',
                 'versi' => '1.0.0',
                 'developer' => 'Wahyu',
                 'institusi' => 'Sekolah Vokasi Universitas Gadjah Mada',

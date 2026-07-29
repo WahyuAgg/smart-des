@@ -6,7 +6,6 @@
 ## 🔴 High Priority
 
 - Insert data penduduk 
-- fix FE alamat penduduk 
 
 
 

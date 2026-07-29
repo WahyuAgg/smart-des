@@ -12,7 +12,7 @@
         <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center font-bold text-white text-xl">S
         </div>
       </div>
-      <h1 class="text-2xl font-bold text-white tracking-tight">SIAK Desa</h1>
+      <h1 class="text-2xl font-bold text-white tracking-tight">SmartDes</h1>
       <p class="text-sm text-slate-400 mt-1">Sistem Informasi Administrasi Kependudukan</p>
     </div>
 
@@ -99,7 +99,7 @@
     </div>
 
     {{-- Footer --}}
-    <p class="text-center text-xs text-slate-500 mt-6">&copy; {{ date('Y') }} SIAK Desa &mdash; Sistem Informasi
+    <p class="text-center text-xs text-slate-500 mt-6">&copy; {{ date('Y') }} SmartDes &mdash; Sistem Informasi
       Administrasi Kependudukan</p>
   </div>
 @endsection
