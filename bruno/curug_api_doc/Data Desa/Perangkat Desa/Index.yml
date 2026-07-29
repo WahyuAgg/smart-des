@@ -5,16 +5,16 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/ref-perangkat-desa/?per_page=15&page=2"
+  url: "{{base_url}}/api/ref-perangkat-desa/?per_page=5&page=1"
   headers:
     - name: Accept
       value: application/json
   params:
     - name: per_page
-      value: "15"
+      value: "5"
       type: query
     - name: page
-      value: "2"
+      value: "1"
       type: query
   auth: inherit
 
@@ -27,17 +27,17 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/ref-perangkat-desa/?per_page=15&page=2"
+      url: "{{base_url}}/api/ref-perangkat-desa/?per_page=5&page=1"
       method: GET
       headers:
         - name: Accept
           value: application/json
       params:
         - name: per_page
-          value: "15"
+          value: "5"
           type: query
         - name: page
-          value: "2"
+          value: "1"
           type: query
     response:
       status: 200
@@ -52,13 +52,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Tue, 28 Jul 2026 22:24:32 GMT
+          value: Wed, 29 Jul 2026 21:20:16 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYND8QXKEFFB737JDQVE28RC
+          value: 01KYQVZRP8QHT09NT1681KW7FR
       body:
         type: json
         data: |-
@@ -66,74 +66,131 @@ examples:
             "success": true,
             "message": "Success",
             "data": {
-              "current_page": 2,
+              "current_page": 1,
               "data": [
                 {
-                  "kode": "arsip",
-                  "nama": "Pengelola Arsip",
+                  "kode": "kades",
+                  "nama": "Kepala Desa",
                   "aktif": true,
-                  "urutan": 16,
+                  "urutan": 1,
                   "perangkat": {
-                    "id": 16,
-                    "jabatan_perangkat_id": 16,
-                    "nama": "Joko Widodo",
-                    "nip": "19900303003",
-                    "telepon": "081234567805",
-                    "email": "staf_IT@desa.id",
-                    "tanggal_mulai": "2021-05-15T00:00:00.000000Z"
-                  }
-                },
-                {
-                  "kode": "umum",
-                  "nama": "Staf Umum",
-                  "aktif": true,
-                  "urutan": 17,
-                  "perangkat": {
-                    "id": 25,
-                    "jabatan_perangkat_id": 17,
-                    "nama": "Danang Perangkat Desa Baru",
+                    "id": 22,
+                    "jabatan_perangkat_id": 1,
+                    "nama": "Joko Andi Perangkat Desa",
                     "nip": "3829292929292929",
                     "telepon": "081234567890",
                     "email": "budi@gmail.com",
                     "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
                   }
+                },
+                {
+                  "kode": "sekdes",
+                  "nama": "Sekretaris Desa",
+                  "aktif": true,
+                  "urutan": 2,
+                  "perangkat": {
+                    "id": 1,
+                    "jabatan_perangkat_id": 2,
+                    "nama": "Pak Bayu Perangkat Desa",
+                    "nip": "3829292929292929",
+                    "telepon": "081234567890",
+                    "email": "budi@gmail.com",
+                    "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+                  }
+                },
+                {
+                  "kode": "kaur_tu",
+                  "nama": "Kepala Urusan Tata Usaha dan Umum",
+                  "aktif": true,
+                  "urutan": 3,
+                  "perangkat": {
+                    "id": 3,
+                    "jabatan_perangkat_id": 3,
+                    "nama": "Ahmad Fauzi",
+                    "nip": "19820303003",
+                    "telepon": "081234567892",
+                    "email": "kasi_pemerintahan@desa.id",
+                    "tanggal_mulai": "2020-03-01T00:00:00.000000Z"
+                  }
+                },
+                {
+                  "kode": "kaur_keu",
+                  "nama": "Kepala Urusan Keuangan",
+                  "aktif": true,
+                  "urutan": 4,
+                  "perangkat": {
+                    "id": 4,
+                    "jabatan_perangkat_id": 4,
+                    "nama": "Dewi Lestari",
+                    "nip": "19880404004",
+                    "telepon": "081234567893",
+                    "email": "kasi_kesra@desa.id",
+                    "tanggal_mulai": "2020-04-01T00:00:00.000000Z"
+                  }
+                },
+                {
+                  "kode": "kaur_per",
+                  "nama": "Kepala Urusan Perencanaan",
+                  "aktif": true,
+                  "urutan": 5,
+                  "perangkat": {
+                    "id": 5,
+                    "jabatan_perangkat_id": 5,
+                    "nama": "Bambang S.",
+                    "nip": "19750505005",
+                    "telepon": "081234567894",
+                    "email": "kasi_pelayanan@desa.id",
+                    "tanggal_mulai": "2020-05-01T00:00:00.000000Z"
+                  }
                 }
               ],
               "first_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=1",
-              "from": 16,
-              "last_page": 2,
-              "last_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=2",
+              "from": 1,
+              "last_page": 4,
+              "last_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=4",
               "links": [
                 {
-                  "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=1",
+                  "url": null,
                   "label": "&laquo; Previous",
-                  "page": 1,
+                  "page": null,
                   "active": false
                 },
                 {
                   "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=1",
                   "label": "1",
                   "page": 1,
-                  "active": false
+                  "active": true
                 },
                 {
                   "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=2",
                   "label": "2",
                   "page": 2,
-                  "active": true
+                  "active": false
                 },
                 {
-                  "url": null,
+                  "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=3",
+                  "label": "3",
+                  "page": 3,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=4",
+                  "label": "4",
+                  "page": 4,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=2",
                   "label": "Next &raquo;",
-                  "page": null,
+                  "page": 2,
                   "active": false
                 }
               ],
-              "next_page_url": null,
+              "next_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=2",
               "path": "http://127.0.0.1:8000/api/ref-perangkat-desa",
-              "per_page": 15,
-              "prev_page_url": "http://127.0.0.1:8000/api/ref-perangkat-desa?page=1",
-              "to": 17,
-              "total": 17
+              "per_page": 5,
+              "prev_page_url": null,
+              "to": 5,
+              "total": 18
             }
           }

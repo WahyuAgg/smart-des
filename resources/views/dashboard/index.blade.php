@@ -5,8 +5,7 @@
 @section('page-subtitle', 'Ringkasan data kependudukan dan profil desa')
 
 @section('content')
-<div x-data="dashboard" class="max-w-7xl mx-auto space-y-6">
-
+<div x-data="dashboard" class="-mx-6 -mt-6">
   {{-- Loading state --}}
   <div x-show="loading" x-cloak class="flex items-center justify-center py-20">
     <svg class="animate-spin h-10 w-10 text-accent" viewBox="0 0 24 24" fill="none">
@@ -29,24 +28,30 @@
 
   {{-- Content --}}
   <template x-if="!loading && !error">
-    <div class="space-y-6">
+    <div class="space-y-0">
 
-      {{-- Header Profil Desa --}}
+      {{-- Hero / Profil Desa Banner --}}
       @include('dashboard.partials.profile-header')
 
-      {{-- Statistik Cards --}}
+      {{-- Stat Cards --}}
       @include('dashboard.partials.stat-cards')
 
-      {{-- Charts Row --}}
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        @include('dashboard.partials.chart-umur')
-        @include('dashboard.partials.chart-pendidikan')
-      </div>
-
-      {{-- Charts Row 2 --}}
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        @include('dashboard.partials.chart-pekerjaan')
-        @include('dashboard.partials.chart-agama')
+      {{-- Charts Section --}}
+      <div class="px-6 py-6 space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-5">
+          @include('dashboard.partials.chart-umur')
+          @include('dashboard.partials.chart-pendidikan')
+          @include('dashboard.partials.chart-pekerjaan')
+          @include('dashboard.partials.chart-agama')
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-5">
+          @include('dashboard.partials.chart-gender')
+          <div class="xl:col-span-3 grid grid-cols-1 xl:grid-cols-3 gap-5">
+            @include('dashboard.partials.visi-misi')
+            @include('dashboard.partials.perangkat-desa')
+            @include('dashboard.partials.riwayat-surat')
+          </div>
+        </div>
       </div>
 
     </div>
