@@ -27,7 +27,7 @@
       {{-- Header Card --}}
       <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 text-center">
         <div class="w-16 h-16 rounded-full bg-accent flex items-center justify-center mx-auto mb-4">
-          <span class="text-2xl font-bold text-white">S</span>
+          <span class="text-2xl font-bold text-white">SD</span>
         </div>
         <h1 class="text-2xl font-bold text-slate-800" x-text="info.nama"></h1>
         <p class="text-sm text-slate-500 mt-1" x-text="info.tujuan"></p>

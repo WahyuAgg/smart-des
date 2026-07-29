@@ -42,11 +42,12 @@
       required
       hint="Status aktif jabatan." />
 
-    <x-form.select
+    {{-- <x-form.select
       label="Dapat Menandatangani"
+      display="none"
       model="form.dapat_menandatangani"
       :options="[['label' => 'Ya', 'value' => 1], ['label' => 'Tidak', 'value' => 0]]"
       required
-      hint="Apakah jabatan ini bisa menandatangani surat." />
+      hint="Apakah jabatan ini bisa menandatangani surat." /> --}}
   </div>
 </section>

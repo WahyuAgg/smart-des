@@ -21,9 +21,9 @@
             700: '#183156',
           },
           accent: {
-            DEFAULT: '#0D9488',
-            hover: '#0F766E',
-            light: '#CCFBF1',
+            DEFAULT: '#ed8137',
+            hover: '#EA580C',
+            light: '#FFEDD5',
           },
         },
       },
@@ -33,9 +33,13 @@
 
 
 <style>
-  [x-cloak] { display: none !important; }
-  body { background-color: #EEF2F6; }
+  [x-cloak] {
+    display: none !important;
+  }
+
+  body {
+    background-color: #EEF2F6;
+  }
 </style>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-

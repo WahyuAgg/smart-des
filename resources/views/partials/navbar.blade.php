@@ -31,8 +31,12 @@
     </button>
 
     {{-- User avatar --}}
-    <div class="w-9 h-9 rounded-full bg-accent-light text-accent-hover flex items-center justify-center font-semibold text-sm"
-         x-text="(user?.name || 'P').charAt(0).toUpperCase()"></div>
+    <div class="w-9 h-9 rounded-full bg-accent-light text-accent-hover flex items-center justify-center">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    </div>
 
     {{-- Logout button --}}
     <button @click="doLogout()"
