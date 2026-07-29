@@ -48,6 +48,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/penduduk', fn() => view('master-data.penduduk.index'))->name('penduduk.index');
     // — additional master data —
     Route::get('/kategori-surat', fn() => view('master-data.kategori-surat.index'))->name('kategori-surat.index');
+    Route::get('/jenis-surat', fn() => view('master-data.jenis-surat.index'))->name('jenis-surat.index');
     Route::get('/dusun', fn() => view('master-data.dusun.index'))->name('dusun.index');
     Route::get('/rw', fn() => view('master-data.rw.index'))->name('rw.index');
     Route::get('/rt', fn() => view('master-data.rt.index'))->name('rt.index');

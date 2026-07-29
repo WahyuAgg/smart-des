@@ -27,6 +27,7 @@ import suratWizard from './components/surat-wizard';
 
 // Master Data Baru
 import kategoriSuratCrud from './pages/kategori-surat';
+import jenisSuratCrud from './pages/jenis-surat';
 import dusunCrud from './pages/dusun';
 import rwCrud from './pages/rw';
 import rtCrud from './pages/rt';
@@ -79,6 +80,7 @@ Alpine.data('about', about);
 
 // Master Data Baru
 Alpine.data('kategoriSuratCrud', kategoriSuratCrud);
+Alpine.data('jenisSuratCrud', jenisSuratCrud);
 Alpine.data('dusunCrud', dusunCrud);
 Alpine.data('rwCrud', rwCrud);
 Alpine.data('rtCrud', rtCrud);
