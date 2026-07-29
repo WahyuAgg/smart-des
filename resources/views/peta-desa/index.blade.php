@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Lihat peta desa dalam tampilan penuh dengan zoom dan rotasi')
 
 @section('content')
-<div x-data="petaDesa" class="max-w-7xl mx-auto space-y-5">
+<div x-data="petaDesa" class="mx-0 space-y-0">
 
   {{-- Loading --}}
   <div x-show="loading" x-cloak class="flex items-center justify-center py-24">
@@ -17,7 +17,7 @@
 
   {{-- Error / No PDF --}}
   <div x-show="!loading && error" x-cloak
-       class="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+       class="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center max-w-7xl mx-auto mt-6">
     <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" />
       <path d="M14 2v6h6" />
@@ -32,7 +32,7 @@
 
   {{-- PDF Viewer --}}
   <template x-if="!loading && !error && pdfUrl">
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+    <div class="bg-white shadow-sm border border-slate-200 overflow-hidden rounded-none">
 
       {{-- Toolbar --}}
       <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-200">
@@ -77,11 +77,11 @@
         </div>
       </div>
 
-      {{-- PDF Viewer --}}
-      <div class="flex items-center justify-center bg-slate-100 p-4" style="min-height: 75vh;">
+      {{-- PDF Viewer — full bleed --}}
+      <div class="w-full bg-slate-100" style="height: calc(100vh - 140px);">
         <iframe
-          :src="pdfUrl"
-          class="w-full h-[75vh] bg-white shadow-lg transition-transform duration-200"
+          :src="`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`"
+          class="w-full h-full bg-white transition-transform duration-200"
           :style="`transform: scale(${zoom}) rotate(${rotation}deg); transform-origin: center center;`"
           style="border: none;"
           title="Peta Desa"

@@ -25,7 +25,6 @@ use App\Http\Controllers\Api\RefDusunController;
 use App\Http\Controllers\Api\RefJabatanPerangkatController;
 use App\Http\Controllers\Api\RefPerangkatDesaController;
 use App\Http\Controllers\Api\RefProfilDesaController;
-use App\Http\Controllers\Api\RefProfilDesaPdfController;
 use App\Http\Controllers\Api\RefRtController;
 use App\Http\Controllers\Api\RefRwController;
 use App\Http\Controllers\Api\SrtKategoriSuratController;
@@ -63,9 +62,6 @@ Route::middleware([
     Route::post('ref-profil-desa', [RefProfilDesaController::class, 'storeProfilDesa']);
     Route::delete('ref-profil-desa', [RefProfilDesaController::class, 'deleteProfilDesa']);
 
-    Route::post('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'update']);
-    Route::get('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'show']);
-    Route::delete('ref-profil-desa/peta-pdf', [RefProfilDesaPdfController::class, 'destroy']);
 
     /**
      * Route for managing master data Desa
