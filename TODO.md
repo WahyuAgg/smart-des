@@ -3,28 +3,28 @@
 ## 🔴 High Priority
 
 - API galery
-- API UI Dashboard
-- API UI artikel
-- API UI user
 - API UI jenis surat
-- API UI backup  // pending
-- API UI setting
 - API UI User
+
+- FE jenis surat
+- FE galery
+- FE Artikel
 - FE Paper
 - FE dashboard
 - FE peta
-- FE revisi UI remove unwanted placeholder
+- FE revisi UI remove unwanted placeholder // pending
 - FE Copyright
 - Insert data penduduk
 - Implementasi Sqlite 
 - Deployment
-- Documentation
 
 ---
 
 ## 🟡 Medium Priority
 
 - Docker Docker
+- API UI backup  // pending
+
 
 ---
 
@@ -40,4 +40,3 @@ ___________________
 - Jumlah Penduduk
 - jimlah laki laki
 - jumlah perempuan
-- Backup terakhir

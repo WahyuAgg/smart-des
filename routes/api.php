@@ -31,6 +31,7 @@ use App\Http\Controllers\Api\RefRwController;
 use App\Http\Controllers\Api\SrtKategoriSuratController;
 use App\Http\Controllers\Api\SrtMasterFieldSuratController;
 use App\Http\Controllers\Api\BackupController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
 
@@ -134,6 +135,11 @@ Route::middleware([
      * Route for Paper
      */
     Route::apiResource('papers', PaperController::class);
+
+    /**
+     * Route for Dashboard
+     */
+    Route::get('dashboard', [DashboardController::class, 'index']);
 
     /**
      * Currently this route is not used, but it can be used in the future if needed.
