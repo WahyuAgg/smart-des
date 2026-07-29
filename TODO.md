@@ -2,16 +2,14 @@
 
 ## 🔴 High Priority
 
-- fix alamat penduduk
+- fix FE alamat penduduk
 - API galery
 - API UI jenis surat
 - API UI User
 
 - FE jenis surat
 - FE galery
-- FE Artikel
 - FE Paper
-- FE dashboard
 - FE peta
 - FE revisi UI remove unwanted placeholder // pending
 - FE Copyright

@@ -1,4 +1,7 @@
 import { Auth } from '../services/auth';
+import { dashboardApi } from '../services/dashboardApi';
+import { profilDesaApi } from '../services/profilDesaApi';
+import { UnauthorizedError } from '../services/httpClient';
 
 export default () => ({
   /** Data dari API */
@@ -8,6 +11,7 @@ export default () => ({
   error: null,
 
   async init() {
+    if (!Auth.requireAuth()) return;
     await this.fetchAll();
   },
 
@@ -16,28 +20,16 @@ export default () => ({
     this.error = null;
 
     try {
-      const token = Auth.getToken();
-      const headers = {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      };
-
-      const [profilRes, dashRes] = await Promise.all([
-        fetch(`${window.API_BASE_URL}/ref-profil-desa`, { headers }),
-        fetch(`${window.API_BASE_URL}/dashboard`, { headers }),
+      const [profilData, dashData] = await Promise.all([
+        profilDesaApi.get(),
+        dashboardApi.get(),
       ]);
 
-      if (!profilRes.ok || !dashRes.ok) {
-        throw new Error('Gagal memuat data dashboard');
-      }
-
-      const profilJson = await profilRes.json();
-      const dashJson = await dashRes.json();
-
-      this.profilDesa = profilJson.data;
-      this.dashboard = dashJson.data;
+      this.profilDesa = profilData;
+      this.dashboard = dashData;
     } catch (e) {
-      this.error = e.message;
+      if (e instanceof UnauthorizedError) return;
+      this.error = e.message || 'Gagal memuat data dashboard';
     } finally {
       this.loading = false;
     }
