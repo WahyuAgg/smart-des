@@ -58,6 +58,7 @@
         'book' => 'M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 19.5ZM12 7v8M8 7v2m8-2v2',
         'edit' => 'M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5m-9 3 9-9 3 3-9 9H9v-3Z',
         'camera' => 'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2v11ZM9 13a3 3 0 1 0 6 0 3 3 0 0 0-6 0Z',
+        'settings' => 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0h0M8.3 21l-.9-1.6a10.5 10.5 0 0 1-1.3-.5l-1.7.5-1.4-2.4 1.3-1.2a9.5 9.5 0 0 1-.2-1.8 9.5 9.5 0 0 1 .2-1.8L3.4 11l1.4-2.4 1.7.5c.4-.2.8-.4 1.3-.5L8.3 7l1.4-2.4 1.7.5c.4-.3.8-.5 1.3-.6l.7-1.5h2.8l.7 1.5c.5.1.9.3 1.3.6l1.7-.5L20.6 7l-1.3 1.2c.3.6.5 1.1.6 1.8l1.7.5-1.4 2.4-1.7-.5c-.1.6-.3 1.2-.5 1.8l1.3 1.2-1.4 2.4-1.7-.5c-.4.2-.8.4-1.3.5l-.7 1.5H12l-.7-1.5a10.5 10.5 0 0 1-1.3-.5l-1.7.5L6.9 19l1.3-1.2a9.5 9.5 0 0 1-.2-1.8Z',
     ];
 @endphp
 
@@ -183,6 +184,40 @@
 
             <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
                 @foreach ($manajemenKonten as $item)
+                    @php $subActive = request()->routeIs($item['route'].'*'); @endphp
+                    <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                        class="block px-2 py-1.5 rounded-md text-sm transition
+                    {{ $subActive ? 'text-accent font-medium' : 'text-slate-400 hover:text-white' }}">
+                        {{ $item['label'] }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- grup admin sistem --}}
+        @php
+            $adminSistem = [
+                ['label' => 'User', 'route' => 'admin-sistem.user.index'],
+            ];
+            $adminSistemActive = collect($adminSistem)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
+        @endphp
+        <div x-data="{ open: {{ $adminSistemActive ? 'true' : 'false' }} }">
+            <button type="button" @click="open = !open"
+                class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
+                     {{ $adminSistemActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
+                <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="{{ $icons['settings'] }}" />
+                </svg>
+                <span class="flex-1 text-left">Admin Sistem</span>
+                <svg class="w-4 h-4 shrink-0 transition-transform" :class="open && 'rotate-180'" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                </svg>
+            </button>
+
+            <div x-show="open" x-collapse class="ml-11 mt-1 space-y-1 border-l border-white/10 pl-3">
+                @foreach ($adminSistem as $item)
                     @php $subActive = request()->routeIs($item['route'].'*'); @endphp
                     <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
                         class="block px-2 py-1.5 rounded-md text-sm transition

@@ -70,3 +70,8 @@ Route::prefix('inventaris')->name('inventaris.')->group(function () {
     Route::get('/mutasi', fn() => view('inventaris.mutasi.index'))->name('mutasi.index');
     Route::get('/mutasi/{id}', fn($id) => view('inventaris.mutasi.show', ['id' => $id]))->name('mutasi.show');
 });
+
+// Admin Sistem Routes
+Route::prefix('admin-sistem')->name('admin-sistem.')->group(function () {
+    Route::get('/user', fn() => view('admin-sistem.user.index'))->name('user.index');
+});

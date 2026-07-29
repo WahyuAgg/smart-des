@@ -9,7 +9,6 @@
 
 - FE riwayat pengajuan surat
 - FE revisi UI remove unwanted placeholder // pending 
-- FE User
 - Insert data penduduk 
 
 - Implementasi Sqlite 
