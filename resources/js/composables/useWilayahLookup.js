@@ -108,6 +108,14 @@ export function useWilayahLookup() {
       this.desaOptions = [];
     },
 
+    /**
+     * HACK: Karena data wilayah dari API (Laravolt/Indonesia) kadang tidak konsisten
+     * dengan data yang tersimpan di DB (misal "Jawa Tengah" vs "Jawa Tengah "),
+     * syncWilayahSelection mencocokkan label secara case-insensitive & trim.
+     *
+     * Jika tetap gagal cocok, form.alamat.provinsi dkk tetap berisi nilai lama.
+     * Fallback visual ditangani di Blade (option placeholder dinamis).
+     */
     async syncWilayahSelection() {
       this.resetWilayahState();
 
