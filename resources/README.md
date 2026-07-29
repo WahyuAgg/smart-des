@@ -1,256 +1,267 @@
 # Project Resource Structure
 
-Note: This document is too old and need to be updated
+> **Purpose of this file:** Guide maintainers to quickly locate the correct file type when adding or modifying features. Update this file whenever a new directory, page, or module is added.
 
-Proyek ini menggunakan **Laravel** (backend) + **Alpine.js** (frontend interaktivitas) + **Vite** (bundler).  
-Seluruh UI diorganisir dalam dua direktori utama: `resources/views/` (Blade template) dan `resources/js/` (JavaScript/Alpine).
+---
 
-## Purpose
+## Tech Stack
 
-This document is meant to help future maintainers quickly locate the correct file type and avoid mixing concerns.
+| Layer | Technology |
+|-------|-----------|
+| Backend | Laravel |
+| Frontend | Alpine.js (interactivity) |
+| Bundler | Vite |
+| Styling | Blade templates + CSS |
 
 ---
 
 ## 📁 `resources/views/` — Blade Templates
 
 ### `layouts/`
-Template layout utama yang dipakai oleh semua halaman.
+Base layouts extended by all pages.
 
-| File | Fungsi |
-|------|--------|
-| `app.blade.php` | Layout utama untuk halaman yang sudah login. Menyusun sidebar, navbar, footer, dan yield section (`title`, `content`, dll). |
-| `auth.blade.php` | Layout khusus halaman autentikasi (login), tanpa sidebar. |
-
-### `components/`
-Komponen Blade **reusable** yang bisa dipakai lintas halaman.  
-Cara pakai: `<x-nama-komponen :props="..." />` atau `@include('components.nama-komponen')`.
-
-| File | Fungsi |
-|------|--------|
-| `alert.blade.php` | Notifikasi sukses/error. Mengakses `error` dan `success` dari Alpine scope. |
-| `master-data-toolbar.blade.php` | Toolbar generik untuk halaman master-data: judul, deskripsi, search input, tombol tambah. **Props:** `title`, `description`, `searchPlaceholder`, `buttonLabel`, `searchWidth`. |
-| `modal.blade.php` | Modal dialog generik. **Props:** `show` (default: `showModal`), `title`, `maxWidth`. |
-| `confirm-dialog.blade.php` | Dialog konfirmasi untuk aksi hapus. **Props:** `show` (default: `confirmShow`), `title`, `confirm`, `danger`. |
-| `pagination.blade.php` | Navigasi halaman. Mengakses `meta.current_page`, `meta.last_page`, `meta.total` dari Alpine. |
-| `step-indicator.blade.php` | Indikator langkah untuk wizard surat (4 langkah). Mengakses `step` dari Alpine. |
-| `form/input.blade.php` | Input teks generik. **Props:** `label`, `model`, `type`, `placeholder`, `required`, `hint`, `error`. |
-| `form/select.blade.php` | Select dropdown generik. **Props:** `label`, `model`, `options`, `placeholder`, `nullable`, `required`, `hint`, `error`. |
-| `form/textarea.blade.php` | Textarea generik. **Props:** `label`, `model`, `placeholder`, `required`, `rows`, `hint`, `error`. |
-
-### `master-data/`
-Halaman CRUD untuk setiap entitas master data. **Semua pakai pola modular**:
-- `index.blade.php` — halaman utama, wiring komponen dan partials
-- `partials/table.blade.php` — tabel data + pagination
-- `partials/form.blade.php` (atau `form-*.blade.php`) — form input di dalam modal
-
-| Direktori | Entitas | API Endpoint | Catatan |
-|-----------|---------|-------------|---------|
-| `kk/` | Kartu Keluarga | `/api/kk` | Form sederhana (2 field) |
-| `pendidikan/` | Tingkat Pendidikan | `/api/pendidikan` | Form sederhana (1 field) |
-| `master-field-surat/` | Field Surat | `/api/srt-master-field-surat` | Form sedang |
-| `penduduk/` | Penduduk | `/api/penduduk` | Form kompleks, dipisah jadi 5 partial: `form-identitas`, `form-keluarga`, `form-kontak`, `form-alamat`, `form-lookup` |
-
-### `inventaris/`
-Halaman CRUD untuk modul **Inventaris Desa**. Mengikuti pola modular yang sama seperti `master-data/`.
-
-| Direktori | Entitas | API Endpoint | Catatan |
-|-----------|---------|-------------|---------|
-| `kategori-barang/` | Kategori Barang | `/api/inv-kategori-barang` | CRUD sederhana (2 field) — mirip Pendidikan |
-| `lokasi/` | Lokasi Barang | `/api/inv-lokasi` | CRUD sederhana (2 field) — mirip Pendidikan |
-| `barang/` | Barang Inventaris | `/api/inv-barang` | CRUD + aksi stok (pengadaan, hilang, ketemu, opname, hapus stok) |
-| `peminjaman/` | Peminjaman Barang | `/api/inv-peminjaman` | Header-detail + workflow (kembalikan, batalkan) |
-| `mutasi/` | Mutasi / Buku Besar | `/api/inv-mutasi` | Read-only (index + show) + filter |
+| File | Purpose |
+|------|---------|
+| `app.blade.php` | Main layout (logged-in) — sidebar, navbar, footer, `@yield('title', 'content', etc.)` |
+| `auth.blade.php` | Auth layout (login) — no sidebar |
 
 ### `partials/`
-Fragment layout yang **spesifik** dan hanya dipasang sekali di layout (`app.blade.php`).
+Layout fragments included once in `app.blade.php`.
 
-| File | Fungsi |
-|------|--------|
-| `sidebar.blade.php` | Sidebar navigasi — menu utama + master data dropdown. |
-| `navbar.blade.php` | Top navigation bar. |
-| `footer.blade.php` | Footer halaman. |
-| `head.blade.php` | Elemen `<head>` — meta, title, asset CSS. |
+| File | Purpose |
+|------|---------|
+| `sidebar.blade.php` | Sidebar navigation menu |
+| `navbar.blade.php` | Top navbar |
+| `footer.blade.php` | Footer |
+| `head.blade.php` | `<head>` — meta, title, CSS assets |
+
+### `components/`
+Reusable Blade components (`<x-nama-komponent ... />` or `@include`).
+
+| File | Purpose |
+|------|---------|
+| `alert.blade.php` | Success/error notification |
+| `master-data-toolbar.blade.php` | Generic toolbar (title, search, add button) |
+| `modal.blade.php` | Generic modal dialog |
+| `confirm-dialog.blade.php` | Delete confirmation dialog |
+| `pagination.blade.php` | Pagination navigation |
+| `step-indicator.blade.php` | Step indicator for surat wizard (4 steps) |
+| `form/input.blade.php` | Generic text input |
+| `form/select.blade.php` | Generic select dropdown |
+| `form/textarea.blade.php` | Generic textarea |
 
 ### `auth/`
-Halaman autentikasi.
+| File | Purpose |
+|------|---------|
+| `login.blade.php` | Login page |
 
-| File | Fungsi |
-|------|--------|
-| `login.blade.php` | Halaman login. |
+### `dashboard/`
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | Dashboard homepage |
+| `partials/` | Charts & stat cards (agama, pekerjaan, pendidikan, umur, profile-header, stat-cards) |
 
-### `surat/`
-Wizard multi-langkah untuk pengajuan surat, **bukan CRUD biasa**.
+### `about/`
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | About page |
 
-| File | Fungsi |
-|------|--------|
-| `index.blade.php` | Halaman utama wizard — wiring 4 step. |
-| `steps/pilih-jenis-surat.blade.php` | Langkah 1: pilih jenis surat. |
-| `steps/isi-nik.blade.php` | Langkah 2: isi NIK penduduk. |
-| `steps/isi-data-manual.blade.php` | Langkah 3: isi data tambahan. |
-| `steps/preview-download.blade.php` | Langkah 4: pratinjau dan unduh surat. |
+### `bacaan/`
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | Bacaan edukatif list |
+| `show.blade.php` | Bacaan edukatif detail |
+
+### `peta-desa/`
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | Village map page |
+
+### `manajemen-konten/artikel/`
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | Artikel CRUD management |
+| `partials/` | Table & form partials |
+
+---
+
+#### Master Data (`master-data/`)
+CRUD pages. Each entity follows the same pattern: `index.blade.php` + `partials/table.blade.php` + `partials/form.blade.php` (or `form-*.blade.php`).
+
+| Directory | Entity | API Endpoint |
+|-----------|--------|-------------|
+| `kk/` | Kartu Keluarga | `/api/kk` |
+| `pendidikan/` | Pendidikan | `/api/pendidikan` |
+| `master-field-surat/` | Field Surat | `/api/srt-master-field-surat` |
+| `penduduk/` | Penduduk | `/api/penduduk` |
+| `kategori-surat/` | Kategori Surat | `/api/srt-kategori-surat` |
+| `dusun/` | Dusun | `/api/ref-dusun` |
+| `rw/` | RW | `/api/ref-rw` |
+| `rt/` | RT | `/api/ref-rt` |
+| `jabatan-perangkat/` | Jabatan Perangkat Desa | `/api/ref-jabatan-perangkat` |
+| `perangkat-desa/` | Perangkat Desa | `/api/ref-perangkat-desa` |
+| `profil-desa/` | Profil Desa | `/api/ref-profil-desa` |
+
+#### Inventaris (`inventaris/`)
+
+| Directory | Entity | API Endpoint |
+|-----------|--------|-------------|
+| `kategori-barang/` | Kategori Barang | `/api/inv-kategori-barang` |
+| `lokasi/` | Lokasi Barang | `/api/inv-lokasi` |
+| `barang/` | Barang Inventaris | `/api/inv-barang` |
+| `peminjaman/` | Peminjaman Barang | `/api/inv-peminjaman` |
+| `mutasi/` | Mutasi / Buku Besar | `/api/inv-mutasi` |
+
+#### Surat (`surat/`)
+Multi-step wizard (not CRUD).
+
+| File | Purpose |
+|------|---------|
+| `index.blade.php` | Main wizard page (4 steps) |
+| `steps/pilih-jenis-surat.blade.php` | Step 1: choose letter type |
+| `steps/isi-nik.blade.php` | Step 2: enter NIK |
+| `steps/isi-data-manual.blade.php` | Step 3: fill additional data |
+| `steps/preview-download.blade.php` | Step 4: preview & download |
 
 ---
 
 ## 📁 `resources/js/` — JavaScript / Alpine.js
 
 ### `app.js`
-**Entry point.** Mendaftarkan semua komponen Alpine dan service global.
+Entry point. Registers all Alpine components, plugins (`@alpinejs/collapse`), and global services (`Auth`, `barangApi`, `peminjamanApi`, `mutasiApi`), plus a global `$formatDate` magic.
 
 ### `pages/`
-Halaman CRUD dalam bentuk **Alpine component**.
-Setiap file mengekspor satu fungsi pabrik (`() => ({...})`) yang didaftarkan di `app.js` via `Alpine.data()`.
+Alpine components — each exports a factory function registered via `Alpine.data()` in `app.js`.
 
-| File | Nama Alpine | Entitas |
-|------|-------------|---------|
+| File | Alpine Name | Entity |
+|------|-------------|--------|
 | `kk.js` | `kkCrud` | Kartu Keluarga |
 | `pendidikan.js` | `pendidikanCrud` | Pendidikan |
 | `master-field-surat.js` | `masterFieldSurat` | Field Surat |
 | `penduduk.js` | `pendudukCrud` | Penduduk |
+| `kategori-surat.js` | `kategoriSuratCrud` | Kategori Surat |
+| `dusun.js` | `dusunCrud` | Dusun |
+| `rw.js` | `rwCrud` | RW |
+| `rt.js` | `rtCrud` | RT |
+| `jabatan-perangkat.js` | `jabatanPerangkatCrud` | Jabatan Perangkat |
+| `perangkat-desa.js` | `perangkatDesaCrud` | Perangkat Desa |
+| `profil-desa.js` | `profilDesa` | Profil Desa |
 | `kategori-barang.js` | `kategoriBarangCrud` | Kategori Barang |
 | `lokasi.js` | `lokasiCrud` | Lokasi Barang |
 | `barang.js` | `barangCrud` | Barang Inventaris |
 | `peminjaman.js` | `peminjamanCrud` | Peminjaman Barang |
 | `mutasi.js` | `mutasiCrud` | Mutasi / Buku Besar |
+| `dashboard.js` | `dashboard` | Dashboard |
+| `peta-desa.js` | `petaDesa` | Village Map |
+| `bacaan-edukatif.js` | `bacaanEdukatif` | Bacaan Edukatif |
+| `bacaan-detail.js` | `bacaanDetail` | Bacaan Detail |
+| `artikel-crud.js` | `artikelCrud` | Artikel Management |
+| `about.js` | `about` | About Page |
 
 ### `services/`
-Layer **API communication**. Setiap file berisi object dengan method `list`, `create`, `update`, `remove`.
+API communication layer. Each file exports an object with `list`, `create`, `update`, `remove` (and custom methods where applicable).
 
-| File | Fungsi |
-|------|--------|
-| `httpClient.js` | Dasar: `apiFetch()` (unwrap otomatis) dan `apiFetchJson()` (raw JSON). |
-| `auth.js` | Autentikasi — login, logout, token, headers. |
-| `kkApi.js` | CRUD KK via `/api/kk` |
-| `pendidikanApi.js` | CRUD Pendidikan via `/api/pendidikan` |
-| `masterFieldSuratApi.js` | CRUD Field Surat via `/api/srt-master-field-surat` |
-| `pendudukApi.js` | CRUD Penduduk via `/api/penduduk` |
-| `kategoriBarangApi.js` | CRUD Kategori Barang via `/api/inv-kategori-barang` |
-| `lokasiApi.js` | CRUD Lokasi via `/api/inv-lokasi` |
-| `barangApi.js` | CRUD Barang + aksi stok via `/api/inv-barang` |
-| `peminjamanApi.js` | CRUD Peminjaman + aksi kembalikan/batalkan via `/api/inv-peminjaman` |
-| `mutasiApi.js` | Read-only Mutasi via `/api/inv-mutasi` |
+| File | Entity / Purpose |
+|------|-----------------|
+| `httpClient.js` | Base: `apiFetch()` (auto-unwrap) & `apiFetchJson()` (raw JSON) |
+| `auth.js` | Auth — login, logout, token, headers |
+| `kkApi.js` | Kartu Keluarga |
+| `pendidikanApi.js` | Pendidikan |
+| `masterFieldSuratApi.js` | Field Surat |
+| `pendudukApi.js` | Penduduk |
+| `kategoriSuratApi.js` | Kategori Surat |
+| `dusunApi.js` | Dusun |
+| `rwApi.js` | RW |
+| `rtApi.js` | RT |
+| `jabatanPerangkatApi.js` | Jabatan Perangkat |
+| `perangkatDesaApi.js` | Perangkat Desa |
+| `profilDesaApi.js` | Profil Desa |
+| `kategoriBarangApi.js` | Kategori Barang |
+| `lokasiApi.js` | Lokasi Barang |
+| `barangApi.js` | Barang + stock actions |
+| `peminjamanApi.js` | Peminjaman + return/cancel |
+| `mutasiApi.js` | Mutasi (read-only) |
+| `dashboardApi.js` | Dashboard data |
+| `wilayahApi.js` | Wilayah (province/district) |
+| `paperApi.js` | Paper / documents |
 
 ### `composables/`
-**Composable** — fungsi yang mengembalikan state + method untuk di-*spread* ke Alpine component.  
-Mengikuti konvensi Vue 3: `useXxx`.
+Reusable stateful logic (Vue 3 `useXxx` convention). Spread into Alpine components.
 
-| File | Fungsi |
-|------|--------|
-| `useKKLookup.js` | Autocomplete lookup KK (search, dropdown, select). |
-| `usePendidikanLookup.js` | Autocomplete lookup Pendidikan (search, dropdown, select). |
-| `useBarangLookup.js` | Autocomplete lookup Barang untuk form peminjaman. |
-| `useKategoriLookup.js` | Load daftar kategori untuk select dropdown. |
-| `useLokasiLookup.js` | Load daftar lokasi untuk select dropdown. |
+| File | Purpose |
+|------|---------|
+| `useKKLookup.js` | Autocomplete KK lookup |
+| `usePendidikanLookup.js` | Autocomplete Pendidikan lookup |
+| `useBarangLookup.js` | Autocomplete Barang lookup |
+| `useKategoriLookup.js` | Kategori select loader |
+| `useLokasiLookup.js` | Lokasi select loader |
+| `useWilayahLookup.js` | Wilayah select loader |
 
 ### `mappers/`
-**Mapper** — fungsi untuk transformasi data antara API dan form.
+Data transformation between API and form. Each exports `emptyForm()`, `mapItemToForm()`, `buildPayload()`.
 
-| File | Fungsi |
+| File | Entity |
 |------|--------|
-| `kkMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `pendidikanMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `masterFieldSuratMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `pendudukMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `kategoriBarangMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `lokasiMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `barangMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` |
-| `peminjamanMapper.js` | `emptyForm()`, `mapItemToForm()`, `buildPayload()` (termasuk details array) |
-| `mutasiMapper.js` | (read-only, tidak perlu) |
-
-### `utils/`
-Fungsi utilitas murni, tanpa state.
-
-| File | Fungsi |
-|------|--------|
-| `pagination.js` | `normalizePaginatedResponse()`, `normalizeCollectionResponse()` — normalisasi respons paginasi. |
-| `validation.js` | `isRequired()`, `isEmail()`, `isNik()`. |
-| `date.js` | `formatDate()`, `dateToInputValue()`. |
-| `format.js` | `genderLabel()`, `statusBadge()`, `statusLabel()`. |
-| `inputMode.js` | `inputModeLabel()`, `inputModeBadge()`. |
-| `number.js` | `toNullableNumber()`. |
+| `kkMapper.js` | Kartu Keluarga |
+| `pendidikanMapper.js` | Pendidikan |
+| `masterFieldSuratMapper.js` | Field Surat |
+| `pendudukMapper.js` | Penduduk |
+| `kategoriSuratMapper.js` | Kategori Surat |
+| `dusunMapper.js` | Dusun |
+| `rwMapper.js` | RW |
+| `rtMapper.js` | RT |
+| `jabatanPerangkatMapper.js` | Jabatan Perangkat |
+| `perangkatDesaMapper.js` | Perangkat Desa |
+| `paperMapper.js` | Paper / documents |
+| `kategoriBarangMapper.js` | Kategori Barang |
+| `lokasiMapper.js` | Lokasi Barang |
+| `barangMapper.js` | Barang Inventaris |
+| `peminjamanMapper.js` | Peminjaman (incl. details array) |
 
 ### `components/`
-Komponen Alpine **spesifik** (bukan komponen Blade).
+Specific Alpine components (not Blade).
 
-| File | Fungsi |
-|------|--------|
-| `login.js` | Form login. |
-| `surat-wizard.js` | Wizard pengajuan surat (4 langkah). |
-| `barang-detail.js` | Halaman detail barang — info barang, stok, riwayat mutasi, peminjaman aktif. |
-| `peminjaman-detail.js` | Halaman detail peminjaman — header + daftar barang yang dipinjam + form pengembalian. |
+| File | Alpine Name | Purpose |
+|------|-------------|---------|
+| `login.js` | `loginForm` | Login form |
+| `surat-wizard.js` | `suratWizard` | Surat wizard (4 steps) |
+
+### `utils/`
+Pure utility functions, no state.
+
+| File | Exports |
+|------|---------|
+| `pagination.js` | `normalizePaginatedResponse()`, `normalizeCollectionResponse()` |
+| `validation.js` | `isRequired()`, `isEmail()`, `isNik()` |
+| `date.js` | `formatDate()`, `dateToInputValue()` |
+| `format.js` | `genderLabel()`, `statusBadge()`, `statusLabel()` |
+| `inputMode.js` | `inputModeLabel()`, `inputModeBadge()` |
+| `number.js` | `toNullableNumber()` |
 
 ---
 
 ## 📁 `bruno/CURUG_API_DOC/`
 
-Dokumentasi API lengkap dalam format **Bruno** (API client).  
-Gunakan Bruno untuk menguji endpoint tanpa perlu membaca kode backend.
+API documentation in **Bruno** format. Use the Bruno desktop app or read the HTML export.
 
 ```
 bruno/CURUG_API_DOC/
-├── Auth/                          # Autentikasi
-│   └── Login.yml                  # POST /login
-│
-├── Data Desa/                     # Master data kependudukan & desa
-│   ├── KK/                        # CRUD Kartu Keluarga
-│   ├── Pendidikan/                # CRUD Tingkat Pendidikan
-│   ├── Penduduk/                  # CRUD Penduduk
-│   ├── Jabatan Perangkat/         # CRUD Jabatan Perangkat Desa
-│   ├── Perangkat Desa/            # CRUD Perangkat Desa
-│   ├── Profil Desa/               # CRUD Profil Desa
-│   └── Wilayah/                   # Data wilayah (Provinsi, Kabupaten, Kecamatan, Desa)
-│
-├── Data Inventaris/               # Manajemen inventaris barang
-│   ├── Barang/                    # CRUD Barang + riwayat mutasi/peminjaman
-│   ├── Kategori Barang/           # CRUD Kategori Barang
-│   ├── Lokasi/                    # CRUD Lokasi Barang
-│   ├── Mutasi/                    # Riwayat mutasi barang (read-only)
-│   └── Peminjaman/                # CRUD + pembatalan/pengembalian peminjaman
-│
-├── Data Surat/                    # Manajemen surat
-│   ├── Master Field Surat/        # CRUD Master Field Surat
-│   └── Surat Wizard Steps/        # Generate & pengajuan surat
-│
-├── Testing/                       # Uji coba endpoint
-│   └── Surat/                     # Testing surat
-│
-├── environments/                  # Environment variables (kosong — siap diisi)
-├── opencollection.yml             # Dokumen utama Bruno
-└── CURUG_API_DOC.html            # Export HTML (baca tanpa Bruno)
+├── Auth/                          # POST /login
+├── Data Desa/                     # KK, Pendidikan, Penduduk, Jabatan Perangkat,
+│                                  # Perangkat Desa, Profil Desa, Wilayah
+├── Data Inventaris/               # Barang, Kategori Barang, Lokasi, Mutasi, Peminjaman
+├── Data Surat/                    # Master Field Surat, Surat Wizard Steps
+├── Testing/Surat/                 # Endpoint testing
+├── environments/                  # Environment variables (fill in)
+├── opencollection.yml
+└── CURUG_API_DOC.html            # HTML export (read without Bruno)
 ```
 
-Setiap direktori CRUD biasanya berisi file `.yml` untuk setiap method HTTP:
-- `Create.yml` — POST
-- `Index.yml` — GET (list, search, pagination)
-- `Show by ID.yml` — GET (single)
-- `Update by ID.yml` — PUT
-- `Delete by ID.yml` — DELETE
+Each CRUD directory typically contains: `Create.yml` (POST), `Index.yml` (GET list), `Show by ID.yml` (GET single), `Update by ID.yml` (PUT), `Delete by ID.yml` (DELETE).
 
 ---
 
-## 📐 Konvensi Penamaan
-
-### Blade Views
-- **Layout:** `*.blade.php` → `layouts/app.blade.php`
-- **Komponen:** kebab-case → `master-data-toolbar.blade.php`
-- **Partial:** `*.blade.php` → `partials/table.blade.php`
-- **Form partial:** `form-*.blade.php` untuk form kompleks, `form.blade.php` untuk form sederhana
-
-### JavaScript
-- **Service:** `xxxApi.js` → `kkApi.js`, `pendudukApi.js`
-- **Page/Alpine:** `xxx.js` → `kk.js`, `penduduk.js`
-- **Composable:** `useXxx.js` → `useKKLookup.js`
-- **Mapper:** `xxxMapper.js` → `kkMapper.js`
-- **Utility:** `xxx.js` → `pagination.js`, `validation.js`
-
-### Route Names
-```
-master-data.{entity}.index
-```
-Contoh: `master-data.kk.index`, `master-data.penduduk.index`, `master-data.pendidikan.index`.
-
----
-
-## 🚀 Alur CRUD (Pola Umum)
+## 🚀 CRUD Flow (Common Pattern)
 
 ```
 Blade (index.blade.php)
@@ -260,197 +271,45 @@ Blade (index.blade.php)
                               └── composables/useXxx.js  →  shared logic
 ```
 
-1. `index.blade.php` — `x-data="xxxCrud"` mengaktifkan Alpine component
-2. `pages/xxx.js` — method `load()` memanggil API via service
-3. `services/xxxApi.js` — `apiFetch()` / `apiFetchJson()` dari `httpClient.js`
+1. `index.blade.php` — `x-data="xxxCrud"` activates the Alpine component
+2. `pages/xxx.js` — `load()` calls API via service
+3. `services/xxxApi.js` — `apiFetch()` / `apiFetchJson()` from `httpClient.js`
 4. `mappers/xxxMapper.js` — `emptyForm()`, `mapItemToForm()`, `buildPayload()`
-5. `utils/pagination.js` — `normalizePaginatedResponse()` untuk parsing pagination
+5. `utils/pagination.js` — `normalizePaginatedResponse()` for pagination parsing
 
-# Rule of thumb
-- Prefer reusable components over duplicated markup.
-- Keep DOM manipulation inside components.
-- Keep network/API logic inside services.
-- Keep data transformation inside mappers.
-- Keep small, pure utility functions inside utils.
-- Let pages orchestrate; don't let them own every responsibility.
+---
+
+## 📐 Naming Conventions
+
+| Layer | Convention | Example |
+|-------|-----------|---------|
+| Blade view | `*.blade.php` | `layouts/app.blade.php` |
+| Blade component | kebab-case | `master-data-toolbar.blade.php` |
+| Form partial | `form-*.blade.php` (complex), `form.blade.php` (simple) | `form-identitas.blade.php` |
+| Service | `xxxApi.js` | `kkApi.js` |
+| Page/Alpine | `xxx.js` | `kk.js` |
+| Composable | `useXxx.js` | `useKKLookup.js` |
+| Mapper | `xxxMapper.js` | `kkMapper.js` |
+| Utility | `xxx.js` | `pagination.js` |
+| Route | `master-data.{entity}.index` | `master-data.kk.index` |
+
+---
+
+## 📂 Where to Create New Files
+
+| If you want to... | Create file in... |
+|---|---|
+| Add a new Blade page/view | `resources/views/{module-name}/` |
+| Add a reusable UI component | `resources/views/components/` |
+| Add form fields | `resources/views/components/form/` |
+| Add an Alpine page component | `resources/js/pages/{name}.js` |
+| Add an API service | `resources/js/services/{name}Api.js` |
+| Add a mapper | `resources/js/mappers/{name}Mapper.js` |
+| Add a composable (shared logic) | `resources/js/composables/use{Name}.js` |
+| Add a utility function | `resources/js/utils/{name}.js` |
+| Document an API endpoint | `bruno/CURUG_API_DOC/{category}/` |
+
+---
 
 
-# summary of current resources complete structure
 
-
-│   README.md
-│   
-├───css
-│       app.css
-│       
-├───js
-│   │   app.js
-│   │   bootstrap.js
-│   │   
-│   ├───components
-│   │       login.js
-│   │       surat-wizard.js
-│   │       barang-detail.js
-│   │       peminjaman-detail.js
-│   │       
-│   ├───composables
-│   │       useKKLookup.js
-│   │       usePendidikanLookup.js
-│   │       useBarangLookup.js
-│   │       useKategoriLookup.js
-│   │       useLokasiLookup.js
-│   │       
-│   ├───mappers
-│   │       kkMapper.js
-│   │       masterFieldSuratMapper.js
-│   │       pendidikanMapper.js
-│   │       pendudukMapper.js
-│   │       kategoriBarangMapper.js
-│   │       lokasiMapper.js
-│   │       barangMapper.js
-│   │       peminjamanMapper.js
-│   │       
-│   ├───pages
-│   │       kk.js
-│   │       master-field-surat.js
-│   │       pendidikan.js
-│   │       penduduk.js
-│   │       kategori-barang.js
-│   │       lokasi.js
-│   │       barang.js
-│   │       peminjaman.js
-│   │       mutasi.js
-│   │       
-│   ├───services
-│   │       auth.js
-│   │       httpClient.js
-│   │       kkApi.js
-│   │       masterFieldSuratApi.js
-│   │       pendidikanApi.js
-│   │       pendudukApi.js
-│   │       kategoriBarangApi.js
-│   │       lokasiApi.js
-│   │       barangApi.js
-│   │       peminjamanApi.js
-│   │       mutasiApi.js
-│   │       
-│   └───utils
-│           date.js
-│           format.js
-│           inputMode.js
-│           number.js
-│           pagination.js
-│           validation.js
-│           
-└───views
-    ├───auth
-    │       login.blade.php
-    │       
-    ├───components
-    │   │   alert.blade.php
-    │   │   confirm-dialog.blade.php
-    │   │   master-data-toolbar.blade.php
-    │   │   modal.blade.php
-    │   │   pagination.blade.php
-    │   │   step-indicator.blade.php
-    │   │   
-    │   └───form
-    │           input.blade.php
-    │           select.blade.php
-    │           textarea.blade.php
-    │           
-    ├───layouts
-    │       app.blade.php
-    │       auth.blade.php
-    │       
-    ├───master-data
-    │   ├───kk
-    │   │   │   index.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           form.blade.php
-    │   │           table.blade.php
-    │   │           
-    │   ├───master-field-surat
-    │   │   │   index.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           form.blade.php
-    │   │           table.blade.php
-    │   │           
-    │   ├───pendidikan
-    │   │   │   index.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           form.blade.php
-    │   │           table.blade.php
-    │   │           
-    │   └───penduduk
-    │       │   index.blade.php
-    │       │   
-    │       └───partials
-    │               form-alamat.blade.php
-    │               form-identitas.blade.php
-    │               form-keluarga.blade.php
-    │               form-kontak.blade.php
-    │               form-lookup.blade.php
-    │               table.blade.php
-    │               
-    ├───inventaris
-    │   ├───kategori-barang
-    │   │   │   index.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           form.blade.php
-    │   │           table.blade.php
-    │   │           
-    │   ├───lokasi
-    │   │   │   index.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           form.blade.php
-    │   │           table.blade.php
-    │   │           
-    │   ├───barang
-    │   │   │   index.blade.php
-    │   │   │   detail.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           table.blade.php
-    │   │           form.blade.php
-    │   │           modal-pengadaan.blade.php
-    │   │           modal-opname.blade.php
-    │   │           modal-hilang.blade.php
-    │   │           modal-ketemu.blade.php
-    │   │           
-    │   ├───peminjaman
-    │   │   │   index.blade.php
-    │   │   │   detail.blade.php
-    │   │   │   
-    │   │   └───partials
-    │   │           table.blade.php
-    │   │           form.blade.php
-    │   │           modal-batal.blade.php
-    │   │           
-    │   └───mutasi
-    │       │   index.blade.php
-    │       │   show.blade.php
-    │       │   
-    │       └───partials
-    │               table.blade.php
-    │               filter.blade.php
-    │               
-    ├───partials
-    │       footer.blade.php
-    │       head.blade.php
-    │       navbar.blade.php
-    │       sidebar.blade.php
-    │       
-    └───surat
-        │   index.blade.php
-        │   
-        └───steps
-                isi-data-manual.blade.php
-                isi-nik.blade.php
-                pilih-jenis-surat.blade.php
-                preview-download.blade.php
