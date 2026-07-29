@@ -97,7 +97,7 @@ class Penduduk extends Model
         'alamat_id',
         'pendidikan_id',
         'pekerjaan',
-        'kk_id',
+        'kk_id', // nullable - penduduk boleh belum punya KK
         'nama_ayah_kandung',
         'nama_ibu_kandung',
     ];
@@ -212,7 +212,7 @@ class Penduduk extends Model
 
     public function kk()
     {
-        return $this->belongsTo(Kk::class);
+        return $this->belongsTo(Kk::class)->withDefault();
     }
 
 
