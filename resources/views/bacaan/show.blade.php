@@ -65,7 +65,7 @@
             </a>
           </div>
           <div class="bg-slate-100 p-2">
-            <iframe :src="`${item.pdf_url}#toolbar=0&navpanes=0`" class="w-full h-[70vh] bg-white rounded-lg" style="border: none;" title="PDF"></iframe>
+            <iframe :src="`${item.pdf_url}#toolbar=0&navpanes=0`" class="w-full h-screen bg-white rounded-lg" style="border: none;" title="PDF"></iframe>
           </div>
         </div>
       </template>
