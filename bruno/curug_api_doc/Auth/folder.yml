@@ -4,6 +4,7 @@ info:
   seq: 1
 
 request:
-  auth:
-    type: bearer
-    token: "{{access_toke}}"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit

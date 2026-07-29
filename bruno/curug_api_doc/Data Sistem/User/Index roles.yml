@@ -1,0 +1,62 @@
+info:
+  name: Index roles
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/roles"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/roles"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 17:53:04 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQG4CWA7S2TAY0GMN73BCR3
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": [
+              {
+                "id": 1,
+                "name": "admin"
+              },
+              {
+                "id": 3,
+                "name": "kepala_desa"
+              },
+              {
+                "id": 2,
+                "name": "petugas"
+              }
+            ]
+          }

@@ -1,0 +1,49 @@
+info:
+  name: Refresh
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{base_url}}/api/refresh"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/refresh"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 18:03:33 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQGQJB46486ZQPTS505Q2R1
+      body:
+        type: json
+        data: |-
+          {
+            "message": "Token berhasil diperbarui.",
+            "token": "15|zpN1jmpxhJpGfbUXZiYzwcresbMYp2de4NAIOW4Nbf80b946",
+            "token_type": "Bearer"
+          }

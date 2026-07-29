@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\SrtJenisSuratController;
 use App\Http\Controllers\TestingController;
 
 // use App\Http\Controllers\Api\AlamatController;
+use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\InvBarangController;
 use App\Http\Controllers\Api\InvDetailMutasiController;
 use App\Http\Controllers\Api\InvDetailPeminjamanController;
@@ -27,16 +28,14 @@ use App\Http\Controllers\Api\RefPerangkatDesaController;
 use App\Http\Controllers\Api\RefProfilDesaController;
 use App\Http\Controllers\Api\RefRtController;
 use App\Http\Controllers\Api\RefRwController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\SrtKategoriSuratController;
-use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\SrtMasterFieldSuratController;
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GaleriController;
-
-
 
 // -----------------------------------------------------------------
 // Protected route
@@ -51,6 +50,9 @@ Route::middleware([
     'auth:sanctum',
     'role:admin|petugas|kepala_desa',
 ])->group(function () {
+
+    // Helper: list all available roles for dropdowns
+    Route::get('roles', [RoleController::class, 'index']);
 
     /**
      * Route for ref-profile-desa
@@ -121,6 +123,7 @@ Route::middleware([
      * More utility for this route will be added  later
      */
     Route::apiResource('users', UserController::class);
+    Route::post('users/{user}/toggle-active', [UserController::class, 'toggleActive']);
 
     /**
      * Route for Backup
@@ -150,11 +153,17 @@ Route::middleware([
      */
     // Route::apiResource('alamat', AlamatController::class);
 
+
+    /** Route for managing user and roles */
+    Route::get('/roles', [RoleController::class, 'index']);
+
+
+
 });
 
 
 /**
- * These routes are for authentication and user management.
+ * These routes are for authentication.
  * They include login, logout, refresh token, and getting the authenticated user's information.
  * This route only protected by sanctun and NOT by role middleware, because this route is used for authentication and user management, and it should be accessible to all authenticated users regardless of their role.
  */

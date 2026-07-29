@@ -1,0 +1,131 @@
+info:
+  name: "Index "
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/users?search=min&role=admin&page=1&per_page=15"
+  params:
+    - name: search
+      value: min
+      type: query
+    - name: role
+      value: admin
+      type: query
+    - name: page
+      value: "1"
+      type: query
+    - name: per_page
+      value: "15"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/users?search=min&role=admin&page=1&per_page=15"
+      method: GET
+      params:
+        - name: search
+          value: min
+          type: query
+        - name: role
+          value: admin
+          type: query
+        - name: page
+          value: "1"
+          type: query
+        - name: per_page
+          value: "15"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 18:09:25 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQH2ADQ7EZTHR6WXNQ28TE5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 1,
+                  "name": "Administrator",
+                  "email": "admin@desa.id",
+                  "email_verified_at": null,
+                  "is_active": true,
+                  "role_name": "admin",
+                  "roles": [
+                    {
+                      "id": 1,
+                      "name": "admin",
+                      "guard_name": "web",
+                      "created_at": "2026-07-12T19:50:59.000000Z",
+                      "updated_at": "2026-07-12T19:50:59.000000Z",
+                      "pivot": {
+                        "model_type": "App\\Models\\User",
+                        "model_id": 1,
+                        "role_id": 1
+                      }
+                    }
+                  ]
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/users?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/users?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/users?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/users",
+              "per_page": 15,
+              "prev_page_url": null,
+              "to": 1,
+              "total": 1
+            }
+          }

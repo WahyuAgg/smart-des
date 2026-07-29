@@ -28,6 +28,14 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
+        // Cek apakah user aktif
+        if (! $user->is_active) {
+            Auth::logout();
+            return response()->json([
+                'message' => 'Akun Anda telah dinonaktifkan. Silakan hubungi administrator.',
+            ], 403);
+        }
+
         // Hapus token lama (opsional)
         // $user->tokens()->delete();
 
