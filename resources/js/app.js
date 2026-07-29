@@ -15,6 +15,19 @@ window.barangApi = barangApi;
 window.peminjamanApi = peminjamanApi;
 window.mutasiApi = mutasiApi;
 
+// ── Sidebar global store ──────────────────────────────────────────
+document.addEventListener('alpine:init', () => {
+    Alpine.store('sidebar', {
+        open: window.innerWidth >= 1024,
+        toggle() {
+            this.open = !this.open;
+        },
+        close() {
+            this.open = false;
+        },
+    });
+});
+
 // Components
 import loginForm from './components/login';
 import masterFieldSurat from './pages/master-field-surat';

@@ -7,7 +7,7 @@
 
   @include('partials.sidebar')
 
-  <div class="ml-64 min-h-screen flex flex-col">
+  <div x-data :class="$store.sidebar.open ? 'ml-64' : 'ml-0'" class="min-h-screen flex flex-col transition-all" style="transition-duration: 200ms;">
     @include('partials.navbar')
 
     <main class="flex-1 p-6">

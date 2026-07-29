@@ -62,10 +62,20 @@
     ];
 @endphp
 
-<aside class="fixed inset-y-0 left-0 w-64 bg-navy-900 text-slate-200 flex flex-col">
+<aside x-data x-show="$store.sidebar.open" x-cloak
+    class="fixed inset-y-0 left-0 w-64 bg-navy-900 text-slate-200 flex flex-col z-30 transition-transform"
+    :class="$store.sidebar.open ? 'translate-x-0' : '-translate-x-full'"
+    style="transition-duration: 200ms;">
     <div class="h-16 flex items-center gap-2 px-5 border-b border-white/10">
         <div class="w-8 h-8 rounded-md bg-accent flex items-center justify-center font-bold text-white">S</div>
         <span class="font-semibold text-white tracking-tight">SIAK Desa</span>
+        <button type="button" @click="$store.sidebar.toggle()"
+            class="ml-auto w-7 h-7 rounded-md flex items-center justify-center text-slate-400 hover:text-white hover:bg-navy-700 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+            </svg>
+        </button>
     </div>
 
     <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
@@ -233,3 +243,8 @@
         Masuk sebagai <span class="text-slate-200 font-medium" x-text="user?.name || 'Petugas'"></span>
     </div>
 </aside>
+
+{{-- Backdrop untuk mobile --}}
+<div x-data x-show="$store.sidebar.open" x-cloak
+    @click="$store.sidebar.close()"
+    class="fixed inset-0 z-20 bg-black/50 lg:hidden"></div>
