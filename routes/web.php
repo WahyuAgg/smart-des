@@ -24,6 +24,9 @@ Route::prefix('surat')->name('surat.')->group(function () {
 // Peta Desa
 Route::get('/peta-desa', fn() => view('peta-desa.index'))->name('peta-desa');
 
+// About
+Route::get('/about', fn() => view('about.index'))->name('about');
+
 // Bacaan Edukatif
 Route::prefix('bacaan')->name('bacaan.')->group(function () {
     Route::get('/', fn() => view('bacaan.index'))->name('index');

@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\RefProfilDesaController;
 use App\Http\Controllers\Api\RefRtController;
 use App\Http\Controllers\Api\RefRwController;
 use App\Http\Controllers\Api\SrtKategoriSuratController;
+use App\Http\Controllers\Api\AppInfoController;
 use App\Http\Controllers\Api\SrtMasterFieldSuratController;
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\DashboardController;
@@ -181,6 +182,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 /** Route for testing purposes */
 Route::get('/testing', [TestingController::class, 'testing']);
+
+/** Route for app info */
+Route::get('/app-info', [AppInfoController::class, 'info']);
 
 
 /**
