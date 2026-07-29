@@ -2,6 +2,7 @@
 
 ## 🔴 High Priority
 
+- fix alamat penduduk
 - API galery
 - API UI jenis surat
 - API UI User

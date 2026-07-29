@@ -6,6 +6,7 @@
 
     // Master data desa: kelompok menu dengan submenu
     $masterDataDesa = [
+        ['label' => 'Profil Desa', 'route' => 'master-data.profil-desa.index'],
         ['label' => 'Dusun', 'route' => 'master-data.dusun.index'],
         ['label' => 'RW', 'route' => 'master-data.rw.index'],
         ['label' => 'RT', 'route' => 'master-data.rt.index'],

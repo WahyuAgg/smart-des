@@ -38,6 +38,10 @@ import barangCrud from './pages/barang';
 import peminjamanCrud from './pages/peminjaman';
 import mutasiCrud from './pages/mutasi';
 
+// Dashboard
+import dashboard from './pages/dashboard';
+import profilDesa from './pages/profil-desa';
+
 // Alpine configuration
 Alpine.plugin(collapse);
 
@@ -58,6 +62,10 @@ Alpine.data('lokasiCrud', lokasiCrud);
 Alpine.data('barangCrud', barangCrud);
 Alpine.data('peminjamanCrud', peminjamanCrud);
 Alpine.data('mutasiCrud', mutasiCrud);
+
+// Dashboard
+Alpine.data('dashboard', dashboard);
+Alpine.data('profilDesa', profilDesa);
 
 // Master Data Baru
 Alpine.data('kategoriSuratCrud', kategoriSuratCrud);

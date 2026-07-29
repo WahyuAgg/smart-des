@@ -12,7 +12,7 @@ Route::get('/login', fn() => view('auth.login'))->name('login');
 // ---------------------------------------------------------------
 // Dashboard & Protected Pages
 // ---------------------------------------------------------------
-Route::get('/', fn() => redirect()->route('surat.index'))->name('dashboard');
+Route::get('/', fn() => view('dashboard.index'))->name('dashboard');
 
 
 
@@ -34,6 +34,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/dusun', fn() => view('master-data.dusun.index'))->name('dusun.index');
     Route::get('/rw', fn() => view('master-data.rw.index'))->name('rw.index');
     Route::get('/rt', fn() => view('master-data.rt.index'))->name('rt.index');
+    Route::get('/profil-desa', fn() => view('master-data.profil-desa.index'))->name('profil-desa.index');
 });
 
 // Inventaris Routes

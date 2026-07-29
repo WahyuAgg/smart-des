@@ -1,7 +1,7 @@
 info:
   name: Data Lain
   type: folder
-  seq: 7
+  seq: 6
 
 request:
   auth: inherit
