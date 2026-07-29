@@ -38,7 +38,7 @@ export default () => ({
         this.loading = true;
         this.error = null;
         try {
-            const res = await fetch(`${this.baseUrl}/jenis-surat`, {
+            const res = await fetch(`${this.baseUrl}/srt-jenis-surat`, {
                 headers: Auth.headers(),
             });
             if (Auth.handleUnauthorized(res)) return;
@@ -58,18 +58,21 @@ export default () => ({
         this.loading = true;
         this.error = null;
         try {
-            const res = await fetch(`${this.baseUrl}/jenis-surat/${item.id}`, {
+            const res = await fetch(`${this.baseUrl}/srt-jenis-surat/${item.id}`, {
                 headers: Auth.headers(),
             });
             if (Auth.handleUnauthorized(res)) return;
 
             const json = await res.json();
-            if (!json.jenis_surat)
+
+            // console.log("Detail jenis surat response:", json);
+
+            if (!json.data)
                 throw new Error("Detail jenis surat tidak ditemukan.");
 
-            this.selectedJenisSurat = json.jenis_surat;
+            this.selectedJenisSurat = json.data;
             this.nikByRole = {};
-            (json.jenis_surat.srt_jenis_surat_penduduks || [])
+            (json.data.srt_jenis_surat_penduduks || [])
                 .sort((a, b) => a.urutan - b.urutan)
                 .forEach((role) => {
                     this.nikByRole[role.kode] = "";

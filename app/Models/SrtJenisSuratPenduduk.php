@@ -43,6 +43,7 @@ class SrtJenisSuratPenduduk extends Model
         'kode',
         'label',
         'deskripsi',
+        'wajib',
     ];
 
     protected $casts = [

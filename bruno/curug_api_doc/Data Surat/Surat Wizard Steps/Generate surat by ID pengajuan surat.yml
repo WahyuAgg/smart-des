@@ -1,11 +1,11 @@
 info:
-  name: Generate
+  name: Generate surat by ID pengajuan surat
   type: http
   seq: 4
 
 http:
   method: POST
-  url: "{{base_url}}/api/pengajuan-surat/28"
+  url: "{{base_url}}/api/pengajuan-surat/{{pengajuan_surat_id}}"
   headers:
     - name: Accept
       value: application/json
@@ -41,6 +41,11 @@ http:
       }
   auth: inherit
 
+runtime:
+  variables:
+    - name: pengajuan_surat_id
+      value: "29"
+
 settings:
   encodeUrl: true
   timeout: 0
@@ -50,7 +55,7 @@ settings:
 examples:
   - name: example
     request:
-      url: "{{base_url}}/api/pengajuan-surat/26"
+      url: "{{base_url}}/api/pengajuan-surat/{{pengajuan_surat_id}}"
       method: POST
       headers:
         - name: Accept
@@ -98,13 +103,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Fri, 24 Jul 2026 09:54:27 GMT
+          value: Wed, 29 Jul 2026 12:51:07 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KY9RRDM9V18FA8T6W7PJQPP8
+          value: 01KYPYVFW6TRHVRCS6QPNAG54W
       body:
         type: json
         data: |-
@@ -112,12 +117,12 @@ examples:
             "success": true,
             "message": "Surat berhasil diproses dan preview berhasil dibuat.",
             "data": {
-              "id": 26,
+              "id": 29,
               "status": "selesai",
               "nomor_surat": null,
-              "tanggal_diajukan": "2026-07-24T09:54:05.000000Z",
-              "tanggal_selesai": "2026-07-24T09:54:27.000000Z",
-              "file_hasil": "generated_surat/pdf/SKP_20260724095415.pdf",
-              "preview_url": "http://127.0.0.1:8000/storage/generated_surat/pdf/SKP_20260724095415.pdf"
+              "tanggal_diajukan": "2026-07-29T12:45:00.000000Z",
+              "tanggal_selesai": "2026-07-29T12:51:07.000000Z",
+              "file_hasil": "generated_surat/pdf/SKP_20260729125104.pdf",
+              "preview_url": "http://127.0.0.1:8000/storage/generated_surat/pdf/SKP_20260729125104.pdf"
             }
           }

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
+
 
 /**
  * @property int $id
@@ -46,6 +49,7 @@ class SrtJenisSurat extends Model
         'nama_jenis_surat',
         'deskripsi',
         'template_path',
+        'template_pdf_path',
         'is_active',
     ];
 
@@ -53,7 +57,30 @@ class SrtJenisSurat extends Model
         'is_active' => 'boolean'
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $appends = [
+        'template_pdf_url',
+    ];
+
+    protected $hidden = ['created_at', 'updated_at', 'template_path', 'template_pdf_path'];
+
+    protected function templateUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->template_path
+                ? Storage::disk('public')->url($this->template_path)
+                : null,
+        );
+    }
+
+    protected function templatePdfUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->template_pdf_path
+                ? Storage::disk('public')->url($this->template_pdf_path)
+                : null,
+        );
+    }
+
 
     public function srtKategoriSurat()
     {

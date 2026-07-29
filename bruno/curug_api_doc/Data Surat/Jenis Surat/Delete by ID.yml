@@ -1,0 +1,56 @@
+info:
+  name: Delete by ID
+  type: http
+  seq: 4
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/srt-jenis-surat/{{jenis_surat_id}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: paper_id
+      value: "4"
+    - name: jenis_surat_id
+      value: "8"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-jenis-surat/{{jenis_surat_id}}"
+      method: DELETE
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 12:58:30 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYPZ90RQ7FWXWYCZ35V0QNP6
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Jenis surat berhasil dihapus.",
+            "data": null
+          }

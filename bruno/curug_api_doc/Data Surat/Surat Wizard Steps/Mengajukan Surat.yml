@@ -95,13 +95,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Fri, 24 Jul 2026 09:57:51 GMT
+          value: Wed, 29 Jul 2026 12:45:01 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KY9RYMPSY8DHPJHX1G99FYFF
+          value: 01KYPYGAN11YBX2YDACHSZYC1Y
       body:
         type: json
         data: |-
@@ -110,7 +110,7 @@ examples:
             "message": "Pengajuan surat berhasil dibuat.",
             "requires_input": true,
             "data": {
-              "id": 27
+              "id": 29
             },
             "fields": [
               {
@@ -156,6 +156,13 @@ examples:
                 "value": null
               },
               {
+                "placeholder": "nip_camat",
+                "mode": "auto",
+                "type": "text",
+                "label": "NIP Camat",
+                "value": null
+              },
+              {
                 "placeholder": "ttd_kades",
                 "mode": "auto",
                 "type": "text",
@@ -170,6 +177,13 @@ examples:
                 "value": null
               },
               {
+                "placeholder": "nama_camat",
+                "mode": "auto",
+                "type": "text",
+                "label": "Nama Camat",
+                "value": null
+              },
+              {
                 "placeholder": "nomor_surat",
                 "mode": "auto",
                 "type": "text",
@@ -177,38 +191,10 @@ examples:
                 "value": null
               },
               {
-                "placeholder": "ref_provinsi",
-                "mode": "auto",
-                "type": "text",
-                "label": "Provinsi",
-                "value": null
-              },
-              {
                 "placeholder": "tanggal_mati",
                 "mode": "manual",
                 "type": "date",
                 "label": "Tanggal Kematian",
-                "value": null
-              },
-              {
-                "placeholder": "ref_kabupaten",
-                "mode": "auto",
-                "type": "text",
-                "label": "Kabupaten",
-                "value": null
-              },
-              {
-                "placeholder": "ref_kecamatan",
-                "mode": "auto",
-                "type": "text",
-                "label": "Kecamatan",
-                "value": null
-              },
-              {
-                "placeholder": "ref_nama_desa",
-                "mode": "auto",
-                "type": "text",
-                "label": "Nama Desa",
                 "value": null
               },
               {

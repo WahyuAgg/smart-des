@@ -1,0 +1,229 @@
+info:
+  name: Create
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/srt-jenis-surat"
+  body:
+    type: multipart-form
+    data:
+      - name: kategori_surat_id
+        type: text
+        value: "1"
+      - name: kode_jenis_surat
+        type: text
+        value: SKK
+      - name: nama_jenis_surat
+        type: text
+        value: Surat Keterangan Kematian
+      - name: deskripsi
+        type: text
+        value: Surat untuk menerangkan kematian penduduk.
+      - name: is_active
+        type: text
+        value: "1"
+      - name: template
+        type: file
+        value:
+          - C:\agg\projects\KKN\web_desa\storage\app\templates\domisili_temp.docx
+        contentType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - name: penduduk_fields[0][urutan]
+        type: text
+        value: "1"
+      - name: penduduk_fields[0][kode]
+        type: text
+        value: telapor
+      - name: penduduk_fields[0][label]
+        type: text
+        value: Pelapor
+      - name: penduduk_fields[0][deskripsi]
+        type: text
+        value: Orang yang melaporkan
+      - name: penduduk_fields[0][wajib]
+        type: text
+        value: "1"
+      - name: penduduk_fields[1][urutan]
+        type: text
+        value: "2"
+      - name: penduduk_fields[1][kode]
+        type: text
+        value: terlapor
+      - name: penduduk_fields[1][label]
+        type: text
+        value: Terlapor
+      - name: penduduk_fields[1][deskripsi]
+        type: text
+        value: Orang yang dilaporkan
+      - name: penduduk_fields[1][wajib]
+        type: text
+        value: "0"
+      - name: penduduk_fields[2][urutan]
+        type: text
+        value: "3"
+      - name: penduduk_fields[2][kode]
+        type: text
+        value: saksi
+      - name: penduduk_fields[2][label]
+        type: text
+        value: Saksi
+      - name: penduduk_fields[2][deskripsi]
+        type: text
+        value: Orang yang melihat kejadian
+      - name: penduduk_fields[2][wajib]
+        type: text
+        value: "0"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-jenis-surat"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: kategori_surat_id
+            type: text
+            value: "1"
+          - name: kode_jenis_surat
+            type: text
+            value: SKD4
+          - name: nama_jenis_surat
+            type: text
+            value: Surat Keterangan Domisili 4
+          - name: deskripsi
+            type: text
+            value: Surat untuk menerangkan domisili penduduk.
+          - name: is_active
+            type: text
+            value: "1"
+          - name: template
+            type: file
+            value:
+              - C:\agg\projects\KKN\web_desa\storage\app\templates\domisili_temp.docx
+            contentType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          - name: penduduk_fields[0][urutan]
+            type: text
+            value: "1"
+          - name: penduduk_fields[0][kode]
+            type: text
+            value: telapor
+          - name: penduduk_fields[0][label]
+            type: text
+            value: Pelapor
+          - name: penduduk_fields[0][deskripsi]
+            type: text
+            value: Orang yang melaporkan
+          - name: penduduk_fields[0][wajib]
+            type: text
+            value: "1"
+          - name: penduduk_fields[1][urutan]
+            type: text
+            value: "2"
+          - name: penduduk_fields[1][kode]
+            type: text
+            value: terlapor
+          - name: penduduk_fields[1][label]
+            type: text
+            value: Terlapor
+          - name: penduduk_fields[1][deskripsi]
+            type: text
+            value: Orang yang dilaporkan
+          - name: penduduk_fields[1][wajib]
+            type: text
+            value: "0"
+          - name: penduduk_fields[2][urutan]
+            type: text
+            value: "3"
+          - name: penduduk_fields[2][kode]
+            type: text
+            value: saksi
+          - name: penduduk_fields[2][label]
+            type: text
+            value: Saksi
+          - name: penduduk_fields[2][deskripsi]
+            type: text
+            value: Orang yang melihat kejadian
+          - name: penduduk_fields[2][wajib]
+            type: text
+            value: "0"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 12:55:50 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYPZ4469481N5P9J7A11BTS9
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Jenis surat berhasil ditambahkan.",
+            "data": {
+              "kategori_surat_id": "1",
+              "kode_jenis_surat": "SKD4",
+              "nama_jenis_surat": "Surat Keterangan Domisili 4",
+              "deskripsi": "Surat untuk menerangkan domisili penduduk.",
+              "is_active": true,
+              "id": 10,
+              "template_pdf_url": "http://localhost:8000/storage/templates_pdf/EFRuCj5GTPXc7poajFbV5VXel2MtPnPANdQLYCEZ.pdf",
+              "srt_kategori_surat": {
+                "id": 1,
+                "kode_kategori_surat": "KET",
+                "nama_kategori_surat": "Surat Keterangan",
+                "deskripsi": "Berbagai surat yang menerangkan suatu kondisi, status, atau keadaan seseorang.",
+                "is_active": true
+              },
+              "srt_jenis_surat_penduduks": [
+                {
+                  "id": 9,
+                  "jenis_surat_id": 10,
+                  "urutan": 1,
+                  "kode": "telapor",
+                  "label": "Pelapor",
+                  "deskripsi": "Orang yang melaporkan",
+                  "wajib": true
+                },
+                {
+                  "id": 10,
+                  "jenis_surat_id": 10,
+                  "urutan": 2,
+                  "kode": "terlapor",
+                  "label": "Terlapor",
+                  "deskripsi": "Orang yang dilaporkan",
+                  "wajib": false
+                },
+                {
+                  "id": 11,
+                  "jenis_surat_id": 10,
+                  "urutan": 3,
+                  "kode": "saksi",
+                  "label": "Saksi",
+                  "deskripsi": "Orang yang melihat kejadian",
+                  "wajib": false
+                }
+              ]
+            }
+          }

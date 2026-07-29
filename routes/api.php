@@ -79,7 +79,6 @@ Route::middleware([
     Route::apiResource('ref-rw', RefRwController::class);
 
 
-    Route::apiResource('srt-jenis-surat', SrtJenisSuratController::class);
     Route::apiResource('srt-kategori-surat', SrtKategoriSuratController::class);
     Route::apiResource('srt-pengajuan-surat', SrtPengajuanSuratController::class);
     Route::apiResource('srt-master-field-surat', SrtMasterFieldSuratController::class);
@@ -204,8 +203,7 @@ Route::get('/papers/{id}', [PaperController::class, 'show']);
  * Route Ini digunakan untuk pengajuan surat wizard. 
  * currently no authentication or role middleware is applied to these routes, but you may want to add them based on your application's requirements.
  */
-Route::get('/jenis-surat', [SrtJenisSuratController::class,'index']);
-Route::get('/jenis-surat/{id}', [SrtJenisSuratController::class,'show']);
+Route::apiResource('srt-jenis-surat', SrtJenisSuratController::class);
 Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
 Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
 

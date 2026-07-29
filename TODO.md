@@ -4,13 +4,11 @@
 
 - fix FE alamat penduduk
 - API galery
-- API UI jenis surat
 - API UI User
 
 - FE jenis surat
 - FE galery
 - FE revisi UI remove unwanted placeholder // pending
-- FE Copyright
 - Insert data penduduk
 - Implementasi Sqlite 
 - Deployment
