@@ -1,5 +1,7 @@
 # Project Resource Structure
 
+Note: This document is too old and need to be updated
+
 Proyek ini menggunakan **Laravel** (backend) + **Alpine.js** (frontend interaktivitas) + **Vite** (bundler).  
 Seluruh UI diorganisir dalam dua direktori utama: `resources/views/` (Blade template) dan `resources/js/` (JavaScript/Alpine).
 

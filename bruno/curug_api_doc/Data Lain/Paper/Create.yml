@@ -11,13 +11,13 @@ http:
     data:
       - name: judul
         type: text
-        value: testing 4 emanfaatan Sistem Informasi Desa untuk Meningkatkan Pelayanan Publik
+        value: testing 5 emanfaatan Sistem Informasi Desa untuk Meningkatkan Pelayanan Publik
       - name: slug
         type: text
-        value: testing 4 pemanfaatan-sistem-informasi-desa-untuk-meningkatkan-pelayanan-publik
+        value: testing 5 pemanfaatan-sistem-informasi-desa-untuk-meningkatkan-pelayanan-publik
       - name: ringkasan
         type: text
-        value: testing 4 Penelitian ini membahas implementasi sistem informasi desa dalam meningkatkan efisiensi administrasi, transparansi, dan kualitas pelayanan kepada masyarakat.
+        value: testing 5 Penelitian ini membahas implementasi sistem informasi desa dalam meningkatkan efisiensi administrasi, transparansi, dan kualitas pelayanan kepada masyarakat.
       - name: nama_penulis
         type: text
         value: Ahmad Fauzan

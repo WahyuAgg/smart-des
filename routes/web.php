@@ -24,6 +24,17 @@ Route::prefix('surat')->name('surat.')->group(function () {
 // Peta Desa
 Route::get('/peta-desa', fn() => view('peta-desa.index'))->name('peta-desa');
 
+// Bacaan Edukatif
+Route::prefix('bacaan')->name('bacaan.')->group(function () {
+    Route::get('/', fn() => view('bacaan.index'))->name('index');
+    Route::get('/{id}', fn($id) => view('bacaan.show', ['id' => $id]))->name('show');
+});
+
+// Manajemen Konten
+Route::prefix('manajemen-konten')->name('manajemen-konten.')->group(function () {
+    Route::get('/artikel', fn() => view('manajemen-konten.artikel.index'))->name('artikel.index');
+});
+
 // Master Data Routes
 Route::prefix('master-data')->name('master-data.')->group(function () {
     Route::get('/master-field-surat', fn() => view('master-data.master-field-surat.index'))->name('master-field-surat.index');

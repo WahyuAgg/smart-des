@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/testing"
+  url: http://localhost:8000/storage/papers/pdf/bKY3yU8HlCy0q9sfOsKlGMTJVklQf5LSTj3UWeqG.pdf
   headers:
     - name: Accept
       value: application/json

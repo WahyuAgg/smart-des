@@ -42,6 +42,9 @@ import mutasiCrud from './pages/mutasi';
 import dashboard from './pages/dashboard';
 import profilDesa from './pages/profil-desa';
 import petaDesa from './pages/peta-desa';
+import bacaanEdukatif from './pages/bacaan-edukatif';
+import bacaanDetail from './pages/bacaan-detail';
+import artikelCrud from './pages/artikel-crud';
 
 // Alpine configuration
 Alpine.plugin(collapse);
@@ -68,6 +71,9 @@ Alpine.data('mutasiCrud', mutasiCrud);
 Alpine.data('dashboard', dashboard);
 Alpine.data('profilDesa', profilDesa);
 Alpine.data('petaDesa', petaDesa);
+Alpine.data('bacaanEdukatif', bacaanEdukatif);
+Alpine.data('bacaanDetail', bacaanDetail);
+Alpine.data('artikelCrud', artikelCrud);
 
 // Master Data Baru
 Alpine.data('kategoriSuratCrud', kategoriSuratCrud);

@@ -9,8 +9,6 @@
 
 - FE jenis surat
 - FE galery
-- FE Paper
-- FE peta
 - FE revisi UI remove unwanted placeholder // pending
 - FE Copyright
 - Insert data penduduk
