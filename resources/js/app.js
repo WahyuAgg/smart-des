@@ -7,6 +7,10 @@ import collapse from '@alpinejs/collapse';
 import { Auth } from './services/auth';
 window.Auth = Auth;
 
+// Access Control Config — single source of truth
+import { canAccess, isStaff, isAdmin, isKades, getRouteLevel, ROLES, ACCESS_LEVELS, ROUTE_ACCESS, SIDEBAR_MENU } from './config/access';
+window.Access = { canAccess, isStaff, isAdmin, isKades, getRouteLevel, ROLES, ACCESS_LEVELS, ROUTE_ACCESS, SIDEBAR_MENU };
+
 // Expose API services globally for inline Alpine components in Blade views
 import { barangApi } from './services/barangApi';
 import { peminjamanApi } from './services/peminjamanApi';

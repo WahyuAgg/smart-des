@@ -4,6 +4,8 @@
  * Menyimpan token & user di localStorage.
  */
 
+import { isStaff, isAdmin, isKades } from '../config/access';
+
 const TOKEN_KEY = 'auth_token';
 const USER_KEY  = 'auth_user';
 
@@ -70,6 +72,47 @@ export const Auth = {
   requireAuth() {
     if (!this.isLoggedIn()) {
       window.location.href = '/login';
+      return false;
+    }
+    return true;
+  },
+
+  /**
+   * Redirect ke / jika user tidak punya role staff (admin/petugas).
+   * Panggil di init() halaman master data.
+   */
+  requireStaff() {
+    if (!this.requireAuth()) return false;
+    const user = this.getUser();
+    if (!isStaff(user?.roles ?? [])) {
+      window.location.href = '/';
+      return false;
+    }
+    return true;
+  },
+
+  /**
+   * Redirect ke / jika user bukan admin.
+   * Panggil di init() halaman admin sistem.
+   */
+  requireAdmin() {
+    if (!this.requireAuth()) return false;
+    const user = this.getUser();
+    if (!isAdmin(user?.roles ?? [])) {
+      window.location.href = '/';
+      return false;
+    }
+    return true;
+  },
+
+  /**
+   * Redirect ke / jika user bukan kepala desa.
+   */
+  requireKades() {
+    if (!this.requireAuth()) return false;
+    const user = this.getUser();
+    if (!isKades(user?.roles ?? [])) {
+      window.location.href = '/';
       return false;
     }
     return true;

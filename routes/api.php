@@ -61,7 +61,6 @@ Route::middleware([
      * 
      * TODO: If in the future, this system will manage multiple desa, then we need to add ID to these routes.
      */
-    Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']);
     Route::put('ref-profil-desa', [RefProfilDesaController::class, 'updateProfilDesa']);
     Route::post('ref-profil-desa', [RefProfilDesaController::class, 'storeProfilDesa']);
     Route::delete('ref-profil-desa', [RefProfilDesaController::class, 'deleteProfilDesa']);
@@ -221,5 +220,7 @@ Route::get('/papers/{id}', [PaperController::class, 'show']);
 Route::apiResource('srt-jenis-surat', SrtJenisSuratController::class);
 Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
 Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
+
+Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']);
 
 

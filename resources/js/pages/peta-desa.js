@@ -10,7 +10,7 @@ export default () => ({
   rotation: 0,
 
   async init() {
-    if (!Auth.requireAuth()) return;
+    // Halaman ini PUBLIC — tidak perlu login
     await this.loadPeta();
   },
 
@@ -25,7 +25,11 @@ export default () => ({
         this.error = 'Belum ada peta desa yang diunggah.';
       }
     } catch (e) {
-      if (e instanceof UnauthorizedError) return;
+      if (e instanceof UnauthorizedError) {
+        // Kalau API butuh login, jangan redirect, kasih info saja
+        this.error = 'Peta desa hanya bisa diakses oleh pengguna yang terdaftar.';
+        return;
+      }
       this.error = e.message || 'Gagal memuat peta desa.';
     } finally {
       this.loading = false;

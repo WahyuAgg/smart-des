@@ -1,51 +1,59 @@
 @php
+  // ── Menu definitions with access level ──────────────────────
+  // level: 'public' | 'auth' | 'staff' | 'admin'
   $menu = [
-      ['label' => 'Dashboard', 'route' => 'dashboard', 'icon' => 'home'],
-      ['label' => 'Pengajuan Surat', 'route' => 'surat.index', 'icon' => 'document'],
-      ['label' => 'Peta Desa', 'route' => 'peta-desa', 'icon' => 'map'],
-      ['label' => 'Galeri Foto', 'route' => 'galeri', 'icon' => 'camera'],
-      ['label' => 'Bacaan Edukatif', 'route' => 'bacaan.index', 'icon' => 'book'],
+      ['label' => 'Dashboard',          'route' => 'dashboard',                         'icon' => 'home',     'level' => 'auth'],
+      ['label' => 'Pengajuan Surat',    'route' => 'surat.index',                       'icon' => 'document', 'level' => 'auth'],
+      ['label' => 'Peta Desa',          'route' => 'peta-desa',                         'icon' => 'map',      'level' => 'public'],
+      ['label' => 'Galeri Foto',        'route' => 'galeri',                            'icon' => 'camera',   'level' => 'public'],
+      ['label' => 'Bacaan Edukatif',    'route' => 'bacaan.index',                      'icon' => 'book',     'level' => 'public'],
   ];
 
-  // Master data desa: kelompok menu dengan submenu
+  // Master data desa
   $masterDataDesa = [
-      ['label' => 'Profil Desa', 'route' => 'master-data.profil-desa.index'],
-      ['label' => 'Dusun', 'route' => 'master-data.dusun.index'],
-      ['label' => 'RW', 'route' => 'master-data.rw.index'],
-      ['label' => 'RT', 'route' => 'master-data.rt.index'],
-      ['label' => 'KK / Kartu Keluarga', 'route' => 'master-data.kk.index'],
-      ['label' => 'Pendidikan', 'route' => 'master-data.pendidikan.index'],
-      ['label' => 'Jabatan Perangkat', 'route' => 'master-data.jabatan-perangkat.index'],
-      ['label' => 'Perangkat Desa', 'route' => 'master-data.perangkat-desa.index'],
-      ['label' => 'Penduduk', 'route' => 'master-data.penduduk.index'],
+      ['label' => 'Profil Desa',        'route' => 'master-data.profil-desa.index'],
+      ['label' => 'Dusun',              'route' => 'master-data.dusun.index'],
+      ['label' => 'RW',                 'route' => 'master-data.rw.index'],
+      ['label' => 'RT',                 'route' => 'master-data.rt.index'],
+      ['label' => 'KK / Kartu Keluarga','route' => 'master-data.kk.index'],
+      ['label' => 'Pendidikan',         'route' => 'master-data.pendidikan.index'],
+      ['label' => 'Jabatan Perangkat',  'route' => 'master-data.jabatan-perangkat.index'],
+      ['label' => 'Perangkat Desa',     'route' => 'master-data.perangkat-desa.index'],
+      ['label' => 'Penduduk',           'route' => 'master-data.penduduk.index'],
   ];
   $masterDataDesaActive = collect($masterDataDesa)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
-  // Master data surat: kelompok menu surat-menyurat
+  // Master data surat
   $masterDataSurat = [
-      ['label' => 'Kategori Surat', 'route' => 'master-data.kategori-surat.index'],
-      ['label' => 'Jenis Surat', 'route' => 'master-data.jenis-surat.index'],
-      ['label' => 'Field Surat', 'route' => 'master-data.master-field-surat.index'],
-      ['label' => 'Riwayat Surat', 'route' => 'surat.riwayat'],
+      ['label' => 'Kategori Surat',     'route' => 'master-data.kategori-surat.index'],
+      ['label' => 'Jenis Surat',        'route' => 'master-data.jenis-surat.index'],
+      ['label' => 'Field Surat',        'route' => 'master-data.master-field-surat.index'],
+      ['label' => 'Riwayat Surat',      'route' => 'surat.riwayat'],
   ];
   $masterDataSuratActive = collect($masterDataSurat)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
-  // Inventaris: kelompok menu baru
+  // Inventaris
   $inventaris = [
-      ['label' => 'Kategori Barang', 'route' => 'inventaris.kategori-barang.index'],
-      ['label' => 'Lokasi', 'route' => 'inventaris.lokasi.index'],
-      ['label' => 'Daftar Barang', 'route' => 'inventaris.barang.index'],
-      ['label' => 'Peminjaman', 'route' => 'inventaris.peminjaman.index'],
-      ['label' => 'Mutasi / Buku Besar', 'route' => 'inventaris.mutasi.index'],
+      ['label' => 'Kategori Barang',    'route' => 'inventaris.kategori-barang.index'],
+      ['label' => 'Lokasi',             'route' => 'inventaris.lokasi.index'],
+      ['label' => 'Daftar Barang',      'route' => 'inventaris.barang.index'],
+      ['label' => 'Peminjaman',         'route' => 'inventaris.peminjaman.index'],
+      ['label' => 'Mutasi / Buku Besar','route' => 'inventaris.mutasi.index'],
   ];
   $inventarisActive = collect($inventaris)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
   // Manajemen Konten
   $manajemenKonten = [
-      ['label' => 'Artikel', 'route' => 'manajemen-konten.artikel.index'],
-      ['label' => 'Galeri', 'route' => 'manajemen-konten.galeri.index'],
+      ['label' => 'Artikel',            'route' => 'manajemen-konten.artikel.index'],
+      ['label' => 'Galeri',             'route' => 'manajemen-konten.galeri.index'],
   ];
   $manajemenKontenActive = collect($manajemenKonten)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
+
+  // Admin Sistem
+  $adminSistem = [
+      ['label' => 'User',               'route' => 'admin-sistem.user.index'],
+  ];
+  $adminSistemActive = collect($adminSistem)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 
   $icons = [
       'home' => 'M3 11.5 12 4l9 7.5M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9',
@@ -88,9 +96,20 @@
   </div>
 
   <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+    {{-- Top-level menu items (filtered by role via Access config) --}}
     @foreach ($menu as $item)
-      @php $active = request()->routeIs($item['route'].'*'); @endphp
+      @php
+        $active = request()->routeIs($item['route'].'*');
+        $showExpr = match ($item['level']) {
+          'public' => 'true',
+          'auth'   => 'Access.canAccess($store.user.roles, \'auth\')',
+          'staff'  => 'Access.canAccess($store.user.roles, \'staff\')',
+          'admin'  => 'Access.canAccess($store.user.roles, \'admin\')',
+          default  => 'true',
+        };
+      @endphp
       <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+        x-show="{{ $showExpr }}"
         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                 {{ $active ? 'bg-navy-700 text-white border-l-2 border-accent' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
         <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -101,8 +120,8 @@
       </a>
     @endforeach
 
-    {{-- grup master data desa --}}
-    <div x-data="{ open: {{ $masterDataDesaActive ? 'true' : 'false' }} }">
+    {{-- grup master data desa — staff only --}}
+    <div x-show="Access.canAccess($store.user.roles, 'staff')" x-data="{ open: {{ $masterDataDesaActive ? 'true' : 'false' }} }">
       <button type="button" @click="open = !open"
         class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                      {{ $masterDataDesaActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
@@ -129,8 +148,8 @@
       </div>
     </div>
 
-    {{-- grup master data surat --}}
-    <div x-data="{ open: {{ $masterDataSuratActive ? 'true' : 'false' }} }">
+    {{-- grup master data surat — staff only --}}
+    <div x-show="Access.canAccess($store.user.roles, 'staff')" x-data="{ open: {{ $masterDataSuratActive ? 'true' : 'false' }} }">
       <button type="button" @click="open = !open"
         class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                      {{ $masterDataSuratActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
@@ -157,8 +176,8 @@
       </div>
     </div>
 
-    {{-- grup inventaris: baru --}}
-    <div x-data="{ open: {{ $inventarisActive ? 'true' : 'false' }} }">
+    {{-- grup inventaris — staff only --}}
+    <div x-show="Access.canAccess($store.user.roles, 'staff')" x-data="{ open: {{ $inventarisActive ? 'true' : 'false' }} }">
       <button type="button" @click="open = !open"
         class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                      {{ $inventarisActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
@@ -185,8 +204,8 @@
       </div>
     </div>
 
-    {{-- grup manajemen konten --}}
-    <div x-data="{ open: {{ $manajemenKontenActive ? 'true' : 'false' }} }">
+    {{-- grup manajemen konten — staff only --}}
+    <div x-show="Access.canAccess($store.user.roles, 'staff')" x-data="{ open: {{ $manajemenKontenActive ? 'true' : 'false' }} }">
       <button type="button" @click="open = !open"
         class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                      {{ $manajemenKontenActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
@@ -213,12 +232,8 @@
       </div>
     </div>
 
-    {{-- grup admin sistem --}}
-    @php
-      $adminSistem = [['label' => 'User', 'route' => 'admin-sistem.user.index']];
-      $adminSistemActive = collect($adminSistem)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
-    @endphp
-    <div x-data="{ open: {{ $adminSistemActive ? 'true' : 'false' }} }">
+    {{-- grup admin sistem — admin only --}}
+    <div x-show="Access.canAccess($store.user.roles, 'admin')" x-data="{ open: {{ $adminSistemActive ? 'true' : 'false' }} }">
       <button type="button" @click="open = !open"
         class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition
                      {{ $adminSistemActive ? 'text-white' : 'text-slate-300 hover:bg-navy-800 hover:text-white' }}">
@@ -246,8 +261,14 @@
     </div>
   </nav>
 
-  <div x-data="{ user: Auth.getUser(), init() { Auth.fetchUser().then(u => { if (u) this.user = u; }) } }" class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
-    Masuk sebagai <span class="text-slate-200 font-medium" x-text="user?.name || 'Petugas'"></span>
+  {{-- User info footer — only show when logged in --}}
+  <div x-show="$store.user.isLoggedIn"
+       class="px-3 py-4 border-t border-white/10 text-xs text-slate-400">
+    Masuk sebagai
+    <span class="text-slate-200 font-medium" x-text="$store.user.current?.name || 'Petugas'"></span>
+    <span x-show="Access.isAdmin($store.user.roles)" class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-accent/20 text-accent">Admin</span>
+    <span x-show="$store.user.hasRole('petugas')" class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-400/20 text-blue-300">Petugas</span>
+    <span x-show="Access.isKades($store.user.roles)" class="ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-400/20 text-green-300">Kepala Desa</span>
   </div>
 </aside>
 

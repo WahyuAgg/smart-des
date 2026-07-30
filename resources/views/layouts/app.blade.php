@@ -18,5 +18,55 @@
   </div>
 
   @stack('scripts')
+
+  {{-- Hydrate user store from localStorage on page load --}}
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('user', {
+        get current() {
+          return Auth.getUser();
+        },
+        get isLoggedIn() {
+          return Auth.isLoggedIn();
+        },
+        get roles() {
+          return this.current?.roles ?? [];
+        },
+        hasRole(role) {
+          return this.roles.includes(role);
+        },
+        get isAdmin() {
+          return Access.isAdmin(this.roles);
+        },
+        get isPetugas() {
+          return this.hasRole('petugas');
+        },
+        get isKades() {
+          return Access.isKades(this.roles);
+        },
+        /** Staff = admin atau petugas (bisa kelola data desa) */
+        get isStaff() {
+          return Access.isStaff(this.roles);
+        },
+      });
+    });
+
+    {{-- Client-side route guard — baca aturan dari Access config --}}
+    (function() {
+      const path = window.location.pathname;
+      const level = Access.getRouteLevel(path);
+      const user = Auth.getUser();
+      const roles = user?.roles ?? [];
+
+      if (!Access.canAccess(roles, level)) {
+        if (level === 'public') return; // seharusnya tidak mungkin
+        if (level === 'auth' && !user) {
+          window.location.href = '/login';
+        } else {
+          window.location.href = user ? '/' : '/login';
+        }
+      }
+    })();
+  </script>
 </body>
 </html>

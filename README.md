@@ -57,3 +57,49 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+# Role-Based Access Architecture
+
+## Access Levels
+| Level | Roles | Description |
+|-------|-------|-------------|
+| `public` | — | Tanpa login (warga/pengunjung) |
+| `auth` | admin, petugas, kepala_desa | Semua user login |
+| `staff` | admin, petugas | Pengelola data desa |
+| `admin` | admin | Manajemen sistem |
+
+## Route Grouping (`routes/web.php`)
+Routes dikelompokkan dengan komentar level akses:
+- `🟢 PUBLIC` — Peta Desa, Galeri, Bacaan, About, Login
+- `🔵 LOGIN REQUIRED` — Dashboard, Surat
+- `🟡 STAFF` — Master Data, Inventaris, Manajemen Konten
+- `🔴 ADMIN ONLY` — Admin Sistem (User)
+
+## Client-Side Guard (`layouts/app.blade.php`)
+- `Alpine.store('user')` — global store membaca `Auth.getUser()` dari localStorage
+- IIFE route guard — redirect otomatis jika akses halaman terlarang
+
+## Sidebar Filter (`partials/sidebar.blade.php`)
+- Menu items punya field `level`: public/auth/staff/admin
+- `x-show="$store.user.isLoggedIn"` / `$store.user.isStaff` / `$store.user.isAdmin`
+- Grup (Master Data, Inventaris, dll) pakai `x-show="$store.user.isStaff"`
+- Admin Sistem pakai `x-show="$store.user.isAdmin"`
+
+## Navbar (`partials/navbar.blade.php`)
+- Avatar + logout hanya muncul jika `$store.user.isLoggedIn`
+- Role badge (Admin/Petugas/Kepala Desa) di samping avatar
+
+## Auth Service (`services/auth.js`)
+- `requireAuth()` — redirect ke /login
+- `requireStaff()` — redirect ke / jika bukan staff
+- `requireAdmin()` — redirect ke / jika bukan admin
+- `requireKades()` — redirect ke / jika bukan kepala desa
+
+## API (`routes/api.php`)
+- `auth:sanctum` + `role:admin|petugas|kepala_desa` — untuk semua CRUD
+- `/api/me` — return user + roles + permissions
+
+
