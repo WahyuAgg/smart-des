@@ -30,7 +30,8 @@ class AppInfoController extends ApiController
 
                 'ucapan_terima_kasih' => [
                     'Universitas Gadjah Mada',
-                    'Pemerintah Desa Curug',
+                    'Pemerintah dan Masyarakat Desa Curug',
+                    'Tim KKN-PPM UGM 2026 JT-155',
                     'Seluruh pihak yang telah mendukung pengembangan aplikasi ini.',
                 ],
 
