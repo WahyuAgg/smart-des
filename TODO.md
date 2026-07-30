@@ -5,9 +5,13 @@
 
 ## 🔴 High Priority
 
-- Insert data penduduk 
+- Insert data penduduk 2
 - fix surat select date
 - Export Data
+- FE revisi UI remove unwanted placeholder // pending 
+- API & UI backup 
+- verifikasi field to attribute name 
+- Deployment
 
 
 
@@ -16,18 +20,13 @@
 ## 🟡 Medium Priority
 
 
-- FE revisi UI remove unwanted placeholder // pending 
 
-- Implementasi Sqlite 
-- Deployment
-- API UI backup 
 
 
 ---
 
 ## 🟢 Low Priority
 
-- Normalisasi jenis kelamin
 
 ___________________
 

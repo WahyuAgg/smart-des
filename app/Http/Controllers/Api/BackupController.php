@@ -236,4 +236,12 @@ class BackupController extends ApiController
             @unlink($file);
         }
     }
+
+    public function downloadSqlite()
+    {
+        return response()->download(
+            database_path('database.sqlite'),
+            'smartdes-' . now()->format('Y-m-d_H-i-s') . '.sqlite'
+        );
+    }
 }

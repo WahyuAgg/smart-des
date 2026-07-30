@@ -36,6 +36,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GaleriController;
+use App\Http\Controllers\Api\FullModelAccessorController;
 
 // -----------------------------------------------------------------
 // Protected route
@@ -126,6 +127,7 @@ Route::middleware([
      */
     Route::get('backup', [BackupController::class, 'backup']);
     Route::get('backup/download', [BackupController::class, 'download']);
+    Route::get('backup/download-sqlite', [BackupController::class, 'downloadSqlite']);
 
     /**
      * Route for Paper
@@ -238,3 +240,12 @@ Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']
 // Fetch Galeri
 Route::get('galeri', [GaleriController::class, 'index']);
 Route::get('galeri/{galeri}', [GaleriController::class, 'show']);
+
+// ─────────────────────────────────────────────────────────────────
+//  FULL MODEL ACCESSOR — untuk testing seeder & verifikasi accessor
+// ─────────────────────────────────────────────────────────────────
+Route::prefix('test-model')->group(function () {
+    Route::get('profil-desa',        [FullModelAccessorController::class, 'profilDesa']);
+    Route::get('penduduk/{id}',      [FullModelAccessorController::class, 'penduduk']);
+    Route::get('perangkat-desa/{id}',[FullModelAccessorController::class, 'perangkatDesa']);
+});
