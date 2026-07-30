@@ -34,7 +34,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Tata Usaha dan Umum',
                 'deskripsi' => 'Mengelola administrasi umum dan tata usaha',
                 'urutan' => 3,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -43,7 +43,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Keuangan',
                 'deskripsi' => 'Mengelola administrasi keuangan desa',
                 'urutan' => 4,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -52,7 +52,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Perencanaan',
                 'deskripsi' => 'Mengelola perencanaan pembangunan desa',
                 'urutan' => 5,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -61,7 +61,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Seksi Pemerintahan',
                 'deskripsi' => 'Menyelenggarakan urusan pemerintahan desa',
                 'urutan' => 6,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -70,7 +70,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Seksi Kesejahteraan',
                 'deskripsi' => 'Mengelola bidang kesejahteraan masyarakat',
                 'urutan' => 7,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -79,7 +79,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Seksi Pelayanan',
                 'deskripsi' => 'Mengelola pelayanan kepada masyarakat',
                 'urutan' => 8,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -88,7 +88,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Dusun',
                 'deskripsi' => 'Memimpin wilayah dusun',
                 'urutan' => 9,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -98,7 +98,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Staf Administrasi',
                 'deskripsi' => 'Membantu administrasi pemerintahan desa',
                 'urutan' => 10,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -107,7 +107,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Staf Keuangan',
                 'deskripsi' => 'Membantu pengelolaan keuangan desa',
                 'urutan' => 11,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -116,7 +116,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Staf Perencanaan',
                 'deskripsi' => 'Membantu penyusunan perencanaan desa',
                 'urutan' => 12,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -125,7 +125,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Staf Pelayanan',
                 'deskripsi' => 'Membantu pelayanan administrasi masyarakat',
                 'urutan' => 13,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -134,7 +134,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Operator Desa',
                 'deskripsi' => 'Mengelola aplikasi dan sistem informasi desa',
                 'urutan' => 14,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -143,7 +143,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Bendahara Desa',
                 'deskripsi' => 'Mengelola kas desa apabila dipisahkan dari Kaur Keuangan',
                 'urutan' => 15,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -152,7 +152,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Pengelola Arsip',
                 'deskripsi' => 'Mengelola arsip dan dokumen desa',
                 'urutan' => 16,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
 
@@ -161,7 +161,7 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Staf Umum',
                 'deskripsi' => 'Membantu tugas umum pemerintahan desa',
                 'urutan' => 17,
-                'aktif' => true,
+                'aktif' => false,
                 'dapat_menandatangani' => false,
             ],
         ];
