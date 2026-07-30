@@ -14,7 +14,8 @@
         "laravolt/indonesia": "^0.41.0",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^1.4",
-        "spatie/laravel-permission": "^6.25"
+        "spatie/laravel-permission": "^6.25",
+        "stechstudio/laravel-zipstream": "^5.10"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^4.3",

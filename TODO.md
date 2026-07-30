@@ -9,9 +9,9 @@
 - fix surat select date
 - Export Data
 - FE revisi UI remove unwanted placeholder // pending 
-- API & UI backup 
 - verifikasi field to attribute name 
 - Deployment
+- FE Backup
 
 
 

@@ -38,11 +38,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
 
-            // LARAVOLT INDONESIA SEEDER
-            ProvincesSeeder::class,
-            CitiesSeeder::class,
-            DistrictsSeeder::class,
-            VillagesSeeder::class,
+            // // LARAVOLT INDONESIA SEEDER
+            // ProvincesSeeder::class,
+            // CitiesSeeder::class,
+            // DistrictsSeeder::class,
+            // VillagesSeeder::class,
 
             // REFERENCE SEEDER
             RefJabatanPerangkatSeeder::class,

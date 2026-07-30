@@ -125,9 +125,8 @@ Route::middleware([
     /**
      * Route for Backup
      */
-    Route::get('backup', [BackupController::class, 'backup']);
-    Route::get('backup/download', [BackupController::class, 'download']);
-    Route::get('backup/download-sqlite', [BackupController::class, 'downloadSqlite']);
+    Route::get('backup/download-storage-files', [BackupController::class, 'downloadBackupFiles']);
+    Route::get('backup/download-database-sqlite', [BackupController::class, 'downloadBackupSqlite']);
 
     /**
      * Route for Paper
