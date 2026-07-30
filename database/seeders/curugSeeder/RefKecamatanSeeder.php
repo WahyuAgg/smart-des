@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\TestingSrtSeeder;
+namespace Database\Seeders\CurugSeeder;
 
 use App\Models\RefKecamatan;
 use Illuminate\Database\Seeder;
@@ -14,13 +14,10 @@ class RefKecamatanSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'Ngombol',
                 'camat' => 'Drs. Bambang Suryono',
                 'nip' => '196804121990031001',
                 'telepon' => '0287-123456',
                 'email' => 'kecamatan.ngombol@example.go.id',
-                'foto' => 'kecamatan/camat.png',
-                'tanda_tangan' => 'kecamatan/camat_ttd.png',
             ],
         ];
 

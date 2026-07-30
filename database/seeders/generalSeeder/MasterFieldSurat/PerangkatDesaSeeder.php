@@ -42,10 +42,10 @@ class PerangkatDesaSeeder extends Seeder
                 ['nama' => "nip_{$kode}", 'label' => "NIP {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.nip", 'input_mode' => 'auto'],
                 ['nama' => "telepon_{$kode}", 'label' => "Telepon {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.telepon", 'input_mode' => 'auto'],
                 ['nama' => "email_{$kode}", 'label' => "Email {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.email", 'input_mode' => 'auto'],
-                ['nama' => "foto_{$kode}", 'label' => "Foto {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.foto", 'input_mode' => 'auto'],
-                ['nama' => "ttd_{$kode}", 'label' => "TTD {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.tanda_tangan", 'input_mode' => 'auto'],
+                // ['nama' => "foto_{$kode}", 'label' => "Foto {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.foto", 'input_mode' => 'auto'],
+                // ['nama' => "ttd_{$kode}", 'label' => "TTD {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.tanda_tangan", 'input_mode' => 'auto'],
                 ['nama' => "tgl_mulai_{$kode}", 'label' => "Tgl Mulai {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.tanggal_mulai", 'input_mode' => 'auto'],
-                ['nama' => "tgl_selesai_{$kode}", 'label' => "Tgl Selesai {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.tanggal_selesai", 'input_mode' => 'auto'],
+                // ['nama' => "tgl_selesai_{$kode}", 'label' => "Tgl Selesai {$label}", 'source' => 'profil_desa', 'source_field' => "{$kode}.tanggal_selesai", 'input_mode' => 'auto'],
             ]);
         }
 

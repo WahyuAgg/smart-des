@@ -53,10 +53,10 @@ class PendudukImport implements ToCollection, WithHeadingRow
                     'jalan' => 'Jln.Lingkar Utara',
                     'rt' => $rt ?: null,
                     'rw' => $rw ?: null,
-                    'desa' => 'Curug',
-                    'kecamatan' => 'Ngombol',
-                    'kabupaten' => 'Purworejo',
-                    'provinsi' => 'Jawa Tengah',
+                    'desa' => 'CURUG',
+                    'kecamatan' => 'NGOMBOL',
+                    'kabupaten' => 'KABUPATEN PURWOREJO',
+                    'provinsi' => 'JAWA TENGAH',
                     'kode_pos' => '54172',
                     'latitude' => -7.783981,
                     'longitude' => 109.961424,
@@ -84,9 +84,9 @@ class PendudukImport implements ToCollection, WithHeadingRow
                 ],
                 [
                     'nama_lengkap' => trim($row['nama']),
-                    'jenis_kelamin' => strtoupper(trim($row['jenis_kelamin'])) === 'LK'
-                        ? 'LAKI-LAKI'
-                        : 'PEREMPUAN',
+                    'jenis_kelamin' => strtoupper(trim($row['jenis_kelamin'])) === 'L'
+                        ? 'L'
+                        : 'P',
 
 
 

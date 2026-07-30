@@ -21,7 +21,7 @@ class RefRwSeeder extends Seeder
 
         RefRw::firstOrCreate([
             'nomor_rw' => '001',
-            'ketua_rw' => 'Slamet Riyadi',
+            'ketua_rw' => 'Nama Ketua RW 001',
             'dusun_id' => $dusunId,
         ]);
 

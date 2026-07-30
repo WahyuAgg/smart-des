@@ -15,7 +15,7 @@ class RefDusunSeeder extends Seeder
     {
         RefDusun::firstOrCreate([
             'nama' => 'Curug',
-            'kepala_dusun' => 'Budi Santoso',
+            'kepala_dusun' => 'Nama Kepala Dusun Curug',
         ]);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 class AlamatSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Helper for create alamat when importing penduduk from excel file. This is to ensure that the alamat data is consistent with the penduduk data.
      */
     public function run(): void
     {

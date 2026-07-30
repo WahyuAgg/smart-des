@@ -19,13 +19,13 @@ class RefRtSeeder extends Seeder
 
         RefRt::firstOrCreate([
             'nomor_rt' => '001',
-            'ketua_rt' => 'Joko Santoso',
+            'ketua_rt' => 'Nama Ketua RT 001',
             'rw_id' => $rw1Id,
         ]);
 
         RefRt::firstOrCreate([
             'nomor_rt' => '002',
-            'ketua_rt' => 'Siti Aminah',
+            'ketua_rt' => 'Nama Ketua RT 002',
             'rw_id' => $rw1Id,
         ]);
     }

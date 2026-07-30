@@ -22,7 +22,7 @@ runtime:
       value: desa
       disabled: true
     - name: code_wilayah
-      value: "110506"
+      value: "3306022028"
 
 settings:
   encodeUrl: true
