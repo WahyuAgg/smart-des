@@ -27,9 +27,12 @@ class PendudukImport implements ToCollection, WithHeadingRow
 
 
             $pendidikan = Pendidikan::query()
-                ->whereRaw('LOWER(tingkat_pendidikan) = ?', [
-                    strtolower(trim($row['pendidikan_terakhir']))
-                ])
+                ->whereRaw(
+                    "LOWER(REGEXP_REPLACE(TRIM(tingkat_pendidikan), '[[:space:]]+', ' ')) = ?",
+                    [
+                        strtolower(preg_replace('/\s+/', ' ', trim($row['pendidikan_terakhir'])))
+                    ]
+                )
                 ->first();
 
             $kk = Kk::query()->where('no_kk', trim($row['kk']))->first();
@@ -94,7 +97,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
 
                     'tempat_lahir' => trim($row['tempat_lahir']),
                     'agama' => strtoupper(trim($row['agama'])),
-                    'status_perkawinan' => null,
+                    'status_perkawinan' => strtoupper(trim($row['status_nikah'])),
                     'kewarganegaraan' => 'INDONESIA',
                     'golongan_darah' => null,
                     'no_hp' => null,
@@ -107,6 +110,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
                     'kk_id' => $kk?->id,
                     'nama_ayah_kandung' => trim($row['ayah']),
                     'nama_ibu_kandung' => trim($row['ibu']),
+
                 ]
             );
         }

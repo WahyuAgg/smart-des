@@ -15,6 +15,7 @@ class AppInfoController extends ApiController
                 'nama' => 'SmartDes',
                 'versi' => '1.0.0',
                 'developer' => 'Wahyu',
+                'contact'=> 'wahyuagungbarokah6@gmail.com',
                 'institusi' => 'Sekolah Vokasi Universitas Gadjah Mada',
                 'program' => 'KKN-PPM UGM 2026',
                 'tujuan' => 'Mendukung digitalisasi administrasi desa.',

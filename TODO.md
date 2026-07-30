@@ -7,11 +7,8 @@
 
 - Insert data penduduk 2
 - fix surat select date
-- Export Data
-- FE revisi UI remove unwanted placeholder // pending 
 - verifikasi field to attribute name 
 - Deployment
-- FE Backup
 
 
 
@@ -20,12 +17,12 @@
 ## 🟡 Medium Priority
 
 
-
-
-
 ---
 
 ## 🟢 Low Priority
+
+
+- Export Data
 
 
 ___________________
