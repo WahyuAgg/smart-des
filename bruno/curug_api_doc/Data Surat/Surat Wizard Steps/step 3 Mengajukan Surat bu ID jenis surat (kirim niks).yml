@@ -1,5 +1,5 @@
 info:
-  name: Mengajukan Surat
+  name: step 3 Mengajukan Surat bu ID jenis surat (kirim niks)
   type: http
   seq: 3
 
@@ -9,33 +9,12 @@ http:
   headers:
     - name: Accept
       value: application/json
-  params:
-    - name: level
-      value: kabupaten
-      type: query
-      disabled: true
-    - name: level
-      value: kecamatan
-      type: query
-      disabled: true
-    - name: level
-      value: desa
-      type: query
-      disabled: true
-    - name: parent
-      value: ""
-      type: query
-      disabled: true
-    - name: search
-      value: ""
-      type: query
-      disabled: true
   body:
     type: json
     data: |
       {
-        "jenis_surat_id": 1,
-        "niks": ["3306024234324354", "3306024234324354"],
+        "jenis_surat_id": 14,
+        "niks": ["3306022904080001", "3306023001850003"],
         "keperluan":null
       }
 

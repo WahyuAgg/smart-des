@@ -59,7 +59,8 @@ class SrtPengajuanSuratController extends Controller
             'data_surat' => ['nullable', 'array'],
         ]);
 
-        // dd($data);
+        $jenisSurat = SrtJenisSurat::findOrFail($data['jenis_surat_id']);
+
 
         $record = SrtPengajuanSurat::create([
             'jenis_surat_id' => $data['jenis_surat_id'],
@@ -107,6 +108,24 @@ class SrtPengajuanSuratController extends Controller
                 ];
             })
             ->values();
+
+        $fields = $fields->transform(function ($field) use ($jenisSurat) {
+            // Jika placeholder diawali angka, misal "1.umur" → urutan = 1
+            if (preg_match('/^(\d+)\./', $field['placeholder'], $matches)) {
+                $urutan = (int) $matches[1];
+
+                $pendudukRole = $jenisSurat
+                    ->srtJenisSuratPenduduks()
+                    ->where('urutan', $urutan)
+                    ->first();
+
+                if ($pendudukRole) {
+                    $field['label'] = $pendudukRole->label . ' — ' . $field['label'];
+                }
+            }
+            // Jika tidak ada angka, label tetap seperti aslinya (tidak perlu diubah)
+            return $field;
+        });
 
         return response()->json([
             'success' => true,
@@ -368,7 +387,8 @@ class SrtPengajuanSuratController extends Controller
 
     private function getTemplatePath(string $path): string
     {
-        return storage_path($path);
+        $storagePath = storage_path( "app/public/".$path);
+        return $storagePath;
     }
 
 

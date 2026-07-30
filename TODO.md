@@ -6,6 +6,7 @@
 ## 🔴 High Priority
 
 - Insert data penduduk 
+- fix surat select date
 
 
 
@@ -25,7 +26,7 @@
 
 ## 🟢 Low Priority
 
-- 
+- Normalisasi jenis kelamin
 
 ___________________
 

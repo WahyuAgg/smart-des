@@ -1,5 +1,5 @@
 info:
-  name: Generate surat by ID pengajuan surat
+  name: Step 4 Generate surat by ID pengajuan surat (kirim data field)
   type: http
   seq: 4
 
@@ -44,7 +44,7 @@ http:
 runtime:
   variables:
     - name: pengajuan_surat_id
-      value: "29"
+      value: "55"
 
 settings:
   encodeUrl: true

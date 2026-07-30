@@ -227,7 +227,7 @@ Route::apiResource('srt-kategori-surat', SrtKategoriSuratController::class);
 Route::apiResource('srt-master-field-surat', SrtMasterFieldSuratController::class);
 
 Route::match(['put', 'patch'], 'srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'update']);
-Route::delete('srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'destroy']);
+// Route::delete('srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'destroy']);
 
 
 

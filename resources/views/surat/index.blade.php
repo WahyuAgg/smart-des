@@ -5,7 +5,7 @@
 @section('page-subtitle', 'Ajukan surat keterangan dalam empat langkah singkat')
 
 @section('content')
-<div x-data="suratWizard" class="max-w-3xl mx-auto">
+<div x-data="suratWizard" class="max-w-7xl mx-auto">
 
   @include('components.step-indicator')
   @include('components.alert')

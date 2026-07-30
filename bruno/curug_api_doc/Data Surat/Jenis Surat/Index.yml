@@ -5,11 +5,12 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/srt-jenis-surat?perPage=2&page=1"
+  url: "{{base_url}}/api/srt-jenis-surat?page=1"
   params:
     - name: perPage
       value: "2"
       type: query
+      disabled: true
     - name: page
       value: "1"
       type: query

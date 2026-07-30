@@ -59,6 +59,7 @@ class SrtJenisSurat extends Model
 
     protected $appends = [
         'template_pdf_url',
+        'template_url',
     ];
 
     protected $hidden = ['created_at', 'updated_at', 'template_path', 'template_pdf_path'];
