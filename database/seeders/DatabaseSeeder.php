@@ -16,7 +16,6 @@ use Laravolt\Indonesia\Seeds\VillagesSeeder;
 use Database\Seeders\GeneralSeeder\RefJabatanPerangkatSeeder;
 use Database\Seeders\GeneralSeeder\PendidikanSeeder;
 use Database\Seeders\GeneralSeeder\KategoriSuratSeeder;
-use Database\Seeders\GeneralSeeder\JenisSuratSeeder;
 use Database\Seeders\GeneralSeeder\MasterFieldSuratSeeder;
 
 
@@ -26,7 +25,6 @@ use Database\Seeders\curugSeeder\RefRwSeeder;
 use Database\Seeders\curugSeeder\RefRtSeeder;
 
 use Database\Seeders\CurugSeeder\RefKecamatanSeeder;
-use Database\Seeders\TestingSrtSeeder\RefPerangkatDesaSeeder;
 
 
 class DatabaseSeeder extends Seeder
@@ -57,7 +55,6 @@ class DatabaseSeeder extends Seeder
 
             // // SURAT SEEDER
             KategoriSuratSeeder::class,
-            JenisSuratSeeder::class,
             MasterFieldSuratSeeder::class,
 
 
@@ -70,7 +67,6 @@ class DatabaseSeeder extends Seeder
 
 
             // // TESTING SEEDER
-            RefPerangkatDesaSeeder::class,
 
 
         ]);
