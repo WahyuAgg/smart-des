@@ -4,7 +4,7 @@
       <thead>
         <tr
           class="bg-slate-50 border-b border-slate-200 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">
-          <th class="px-4 py-3">Nama</th>
+          <th class="px-4 py-3">Code</th>
           <th class="px-4 py-3">Label</th>
           <th class="px-4 py-3">Tipe</th>
           <th class="px-4 py-3">Input Mode</th>

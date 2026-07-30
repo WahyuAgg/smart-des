@@ -11,6 +11,9 @@ export default () => ({
   error: null,
   success: null,
   search: '',
+  filterTipe: '',
+  filterInputMode: '',
+  filterSource: '',
 
   items: [],
   meta: { current_page: 1, last_page: 1, total: 0 },
@@ -32,7 +35,13 @@ export default () => ({
     this.error = null;
 
     try {
-      const { items, meta } = await masterFieldSuratApi.list({ page, search: this.search });
+      const { items, meta } = await masterFieldSuratApi.list({
+        page,
+        search: this.search,
+        tipe: this.filterTipe,
+        input_mode: this.filterInputMode,
+        source: this.filterSource,
+      });
       this.items = items;
       this.meta = meta;
     } catch (error) {
