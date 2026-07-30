@@ -1,9 +1,14 @@
 # Project Resource Structure, overview, reference dan convension
 
-> **Purpose:** developer reference for navigating all frontend resources.  
-> **Do not update this file** update will be done manually by developer.
+> **Purpose:** AI agent reference for navigating all frontend resources.  
+> **user:** For AI agent or LLM only not for human developer
 
 ---
+
+##
+- Thid file must be buld in the way dan dense, short and easy for AI LLM to understand
+- This file is not to be read or used by human developer
+--
 
 ## Tech Stack
 
@@ -225,7 +230,45 @@ Each CRUD directory: `Create.yml` (POST) · `Index.yml` (GET list) · `Show by I
 - **Data transformation** → Mapper (`resources/js/mappers/`)
 - **Pure functions** → Utility (`resources/js/utils/`)
 - **Shared state** → Composable (`resources/js/composables/`)
-- **Pages orchestrate; they don't own every responsibility.**
+- **Pages orchestrate; they don't own every responsibil## 9. Role-Based Access Control (RBAC)itThe application implements a role-based access control system to manage user permissions and access to different parts of the application. The configuration for RBAC is centralized in `resources/js/config/access.js`.
 
+### Overview
 
+The RBAC system consists of:
 
+1. **Role Definitions**: Defines the roles available in the system (admin, petugas, kepala_desa).
+2. **Access Levels**: Defines levels of access (public, auth, staff, admin) and which roles are included in each level.
+3. **Route Access Map**: Maps URL prefixes to required access levels for route protection.
+4. **Sidebar Menu Definitions**: Defines the sidebar menu items and their visibility based on access levels.
+5. **Helper Functions**: Functions to check user access, route levels, and more.
+
+### Key Files
+
+- `resources/js/config/access.js`: The single source of truth for all access control rules.
+
+### Usage
+
+To check if a user has access to a certain level, use the `canAccess` function:
+
+```javascript
+import { canAccess } from '@/config/access';
+
+if (canAccess(userRoles, 'staff')) {
+  // User is staff (admin or petugas)
+}
+```
+
+Helper functions are also provided for common checks:
+
+- `isStaff(userRoles)`: Checks if the user is staff (admin or petugas).
+- `isAdmin(userRoles)`: Checks if the user is an admin.
+- `isKades(userRoles)`: Checks if the user is the kepala desa.
+- `getRouteLevel(path)`: Returns the access level required for a given path.
+
+### Route Protection
+
+The route guard (in the layout) uses `getRouteLevel` to determine the required access level for the current route and then checks the user's roles against that level.
+
+### Sidebar Menu
+
+The sidebar menu is built from the `SIDEBAR_MENU` array in `access.js`. Each menu item has a `level` property that determines who can see it.
