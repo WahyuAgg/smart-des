@@ -15,9 +15,11 @@ window.Access = { canAccess, isStaff, isAdmin, isKades, getRouteLevel, ROLES, AC
 import { barangApi } from './services/barangApi';
 import { peminjamanApi } from './services/peminjamanApi';
 import { mutasiApi } from './services/mutasiApi';
+import { backupApi } from './services/backupApi';
 window.barangApi = barangApi;
 window.peminjamanApi = peminjamanApi;
 window.mutasiApi = mutasiApi;
+window.backupApi = backupApi;
 
 // ── Sidebar global store ──────────────────────────────────────────
 document.addEventListener('alpine:init', () => {
@@ -68,6 +70,7 @@ import galeriCrud from './pages/galeri-crud';
 import riwayatSurat from './pages/riwayat-surat';
 import userCrud from './pages/user-crud';
 import about from './pages/about';
+import backupPage from './pages/backup';
 
 // Alpine configuration
 Alpine.plugin(collapse);
@@ -102,6 +105,7 @@ Alpine.data('galeriCrud', galeriCrud);
 Alpine.data('riwayatSurat', riwayatSurat);
 Alpine.data('userCrud', userCrud);
 Alpine.data('about', about);
+Alpine.data('backupPage', backupPage);
 
 // Master Data Baru
 Alpine.data('kategoriSuratCrud', kategoriSuratCrud);

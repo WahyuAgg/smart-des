@@ -52,6 +52,7 @@
   // Admin Sistem
   $adminSistem = [
       ['label' => 'User',               'route' => 'admin-sistem.user.index'],
+      ['label' => 'Backup',             'route' => 'admin-sistem.backup.index'],
   ];
   $adminSistemActive = collect($adminSistem)->contains(fn($item) => request()->routeIs($item['route'] . '*'));
 

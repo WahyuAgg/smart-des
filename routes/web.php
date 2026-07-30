@@ -66,4 +66,5 @@ Route::prefix('manajemen-konten')->name('manajemen-konten.')->group(function () 
 // ================================================================
 Route::prefix('admin-sistem')->name('admin-sistem.')->group(function () {
     Route::get('/user', fn() => view('admin-sistem.user.index'))->name('user.index');
+    Route::get('/backup', fn() => view('admin-sistem.backup.index'))->name('backup.index');
 });
