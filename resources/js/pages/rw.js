@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { rwApi } from '../services/rwApi';
 import { dusunApi } from '../services/dusunApi';
@@ -26,7 +25,6 @@ export default () => ({
   dusunList: [],
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.loadDusun();
     await this.load();
   },

@@ -4,6 +4,21 @@
 
 ---
 
+## Solver
+
+Revisist API LALYERS kalo ada bug public access need login
+
+async init() {
+    if (!Auth.requireAuth()) return;  // <— INI! redirect ke /login kalau belum login
+    await this.loadPeta();
+},
+
+
+async init() {
+    if (!Auth.requireAuth()) return;  // ← INI biang keroknya!
+    await this.loadPeta();
+},
+
 ## 📐 Arsitektur Dua Layer
 
 Sistem RBAC berjalan di **2 layer**:
@@ -317,9 +332,3 @@ php artisan migrate:fresh --seed
 
 
 
-Revisist kalo ada bug public access need login
-
-async init() {
-    if (!Auth.requireAuth()) return;  // <— INI! redirect ke /login kalau belum login
-    await this.loadPeta();
-},

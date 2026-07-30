@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { paperApi } from '../services/paperApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -13,7 +12,6 @@ export default () => ({
   meta: { current_page: 1, last_page: 1, total: 0 },
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 

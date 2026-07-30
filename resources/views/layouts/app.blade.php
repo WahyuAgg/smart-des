@@ -53,17 +53,29 @@
 
     {{-- Client-side route guard — baca aturan dari Access config --}}
     (function() {
-      const path = window.location.pathname;
-      const level = Access.getRouteLevel(path);
-      const user = Auth.getUser();
-      const roles = user?.roles ?? [];
+      // Tunggu sampai Vite module selesai load (yang mendefine window.Access & window.Auth)
+      if (typeof Access === 'undefined' || typeof Auth === 'undefined') {
+        document.addEventListener('DOMContentLoaded', function () {
+          runRouteGuard();
+        });
+      } else {
+        runRouteGuard();
+      }
 
-      if (!Access.canAccess(roles, level)) {
-        if (level === 'public') return; // seharusnya tidak mungkin
-        if (level === 'auth' && !user) {
-          window.location.href = '/login';
-        } else {
-          window.location.href = user ? '/' : '/login';
+      function runRouteGuard() {
+        if (typeof Access === 'undefined' || typeof Auth === 'undefined') return;
+        const path = window.location.pathname;
+        const level = Access.getRouteLevel(path);
+        const user = Auth.getUser();
+        const roles = user?.roles ?? [];
+
+        if (!Access.canAccess(roles, level)) {
+          if (level === 'public') return;
+          if (level === 'auth' && !user) {
+            window.location.href = '/login';
+          } else {
+            window.location.href = user ? '/' : '/login';
+          }
         }
       }
     })();

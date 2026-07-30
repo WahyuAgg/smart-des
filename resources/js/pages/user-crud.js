@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { userApi } from '../services/userApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -29,8 +28,6 @@ export default () => ({
   deletingItem: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
-    this.currentUserId = Auth.getUser()?.id || null;
     await Promise.all([this.load(), this.loadRoles()]);
   },
 

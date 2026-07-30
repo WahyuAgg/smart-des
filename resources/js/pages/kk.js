@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { kkApi } from '../services/kkApi';
 import { UnauthorizedError } from '../services/httpClient';
@@ -23,7 +22,6 @@ export default () => ({
   deletingItem: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 

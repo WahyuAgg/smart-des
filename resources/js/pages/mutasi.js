@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { mutasiApi } from '../services/mutasiApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -15,7 +14,6 @@ export default () => ({
   filterTanggalTo: '',
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 

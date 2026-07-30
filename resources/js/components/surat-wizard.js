@@ -1,4 +1,3 @@
-import { Auth } from "../services/auth";
 import { isRequired, isNik } from "../utils/validation";
 
 export default () => ({
@@ -39,13 +38,13 @@ export default () => ({
         this.error = null;
         try {
             const res = await fetch(`${this.baseUrl}/srt-jenis-surat`, {
-                headers: Auth.headers(),
+                headers: { Accept: "application/json" },
             });
-            if (Auth.handleUnauthorized(res)) return;
+            if (!res.ok) {
+                throw new Error("Gagal memuat jenis surat.");
+            }
 
             const json = await res.json();
-            if (!json.success)
-                throw new Error(json.message || "Gagal memuat jenis surat.");
             this.jenisSuratList = (json.data && json.data.data) || [];
         } catch (e) {
             this.error = e.message || "Gagal memuat daftar jenis surat.";
@@ -54,18 +53,22 @@ export default () => ({
         }
     },
 
+    // ---------------------------------------------------------------
+    // STEP 1 (lanjutan)
+    // ---------------------------------------------------------------
     async pilihJenisSurat(item) {
         this.loading = true;
         this.error = null;
         try {
             const res = await fetch(`${this.baseUrl}/srt-jenis-surat/${item.id}`, {
-                headers: Auth.headers(),
+                headers: { Accept: "application/json" },
             });
-            if (Auth.handleUnauthorized(res)) return;
+            if (!res.ok) {
+                this.error = "Gagal memuat detail jenis surat.";
+                return;
+            }
 
             const json = await res.json();
-
-            // console.log("Detail jenis surat response:", json);
 
             if (!json.data)
                 throw new Error("Detail jenis surat tidak ditemukan.");
@@ -125,29 +128,23 @@ export default () => ({
                 (this.nikByRole[r.kode] || "").trim(),
             );
 
-            console.log(niks);
-
             const body = {
                 jenis_surat_id: this.selectedJenisSurat.id,
                 niks,
                 keperluan: this.keperluan || null,
             };
 
-            // console.log("Request body:", body);
-            // console.log("Request JSON:", JSON.stringify(body));
-            console.log("testing console")
-
             const res = await fetch(`${this.baseUrl}/pengajuan-surat`, {
                 method: "POST",
-                headers: Auth.headers({ "Content-Type": "application/json" }),
+                headers: { Accept: "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             });
-            if (Auth.handleUnauthorized(res)) return;
+            if (!res.ok) {
+                const errJson = await res.json().catch(() => ({}));
+                throw new Error(errJson.message || "Gagal mengajukan surat.");
+            }
 
             const json = await res.json();
-            if (!json.success)
-                throw new Error(json.message || "Gagal mengajukan surat.");
-
             this.pengajuanId = json.data.id;
             this.fields = (json.fields || []).map((f) => ({ ...f }));
             this.dataSurat = {};
@@ -192,18 +189,16 @@ export default () => ({
                 `${this.baseUrl}/pengajuan-surat/${this.pengajuanId}`,
                 {
                     method: "POST",
-                    headers: Auth.headers({
-                        "Content-Type": "application/json",
-                    }),
+                    headers: { Accept: "application/json", "Content-Type": "application/json" },
                     body: JSON.stringify({ data_surat: this.dataSurat }),
                 },
             );
-            if (Auth.handleUnauthorized(res)) return;
+            if (!res.ok) {
+                const errJson = await res.json().catch(() => ({}));
+                throw new Error(errJson.message || "Gagal membuat surat.");
+            }
 
             const json = await res.json();
-            if (!json.success)
-                throw new Error(json.message || "Gagal membuat surat.");
-
             this.result = json.data;
             this.success = json.message || "Surat berhasil dibuat.";
             this.step = 4;

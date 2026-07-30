@@ -81,9 +81,6 @@ Route::middleware([
     Route::apiResource('ref-rw', RefRwController::class);
 
 
-    Route::apiResource('srt-kategori-surat', SrtKategoriSuratController::class);
-    Route::apiResource('srt-pengajuan-surat', SrtPengajuanSuratController::class);
-    Route::apiResource('srt-master-field-surat', SrtMasterFieldSuratController::class);
 
 
     /**
@@ -133,12 +130,17 @@ Route::middleware([
     /**
      * Route for Paper
      */
-    Route::apiResource('papers', PaperController::class);
+    Route::post('papers', [PaperController::class, 'store']);
 
+    Route::put('papers/{paper}', [PaperController::class, 'update']);
+
+    Route::delete('papers/{paper}', [PaperController::class, 'destroy']);
     /**
      * Route for Galeri (Gallery)
      */
-    Route::apiResource('galeri', GaleriController::class);
+    Route::post('galeri', [GaleriController::class, 'store']);
+    Route::put('galeri/{galeri}', [GaleriController::class, 'update']);
+    Route::delete('galeri/{galeri}', [GaleriController::class, 'destroy']);
 
     /**
      * Route for Dashboard
@@ -155,9 +157,6 @@ Route::middleware([
 
     /** Route for managing user and roles */
     Route::get('/roles', [RoleController::class, 'index']);
-
-
-
 });
 
 
@@ -167,9 +166,9 @@ Route::middleware([
  * This route only protected by sanctun and NOT by role middleware, because this route is used for authentication and user management, and it should be accessible to all authenticated users regardless of their role.
  */
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     Route::get('/user', function (Request $request) {
-    return $request->user();
+        return $request->user();
     });
 
     Route::get('/me', [AuthController::class, 'me']);
@@ -177,7 +176,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/refresh', [AuthController::class, 'refresh']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
-
 });
 
 
@@ -218,9 +216,25 @@ Route::get('/papers/{id}', [PaperController::class, 'show']);
  * currently no authentication or role middleware is applied to these routes, but you may want to add them based on your application's requirements.
  */
 Route::apiResource('srt-jenis-surat', SrtJenisSuratController::class);
-Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class,'store' ]);
-Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class,'update']);
 
+Route::get('srt-pengajuan-surat', [SrtPengajuanSuratController::class, 'index']);
+Route::post('srt-pengajuan-surat', [SrtPengajuanSuratController::class, 'store']);
+Route::get('srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'show']);
+Route::post('/pengajuan-surat', [SrtPengajuanSuratController::class, 'store']);
+Route::post('/pengajuan-surat/{id}', [SrtPengajuanSuratController::class, 'update']);
+
+Route::apiResource('srt-kategori-surat', SrtKategoriSuratController::class);
+Route::apiResource('srt-master-field-surat', SrtMasterFieldSuratController::class);
+
+Route::match(['put', 'patch'], 'srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'update']);
+Route::delete('srt-pengajuan-surat/{srt_pengajuan_surat}', [SrtPengajuanSuratController::class, 'destroy']);
+
+
+
+// Profil desa
 Route::get('ref-profil-desa', [RefProfilDesaController::class, 'showProfilDesa']);
 
 
+// Fetch Galeri
+Route::get('galeri', [GaleriController::class, 'index']);
+Route::get('galeri/{galeri}', [GaleriController::class, 'show']);

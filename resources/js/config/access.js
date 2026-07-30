@@ -66,7 +66,9 @@ export const ROUTE_ACCESS = [
 
   // Auth — semua role login
   { prefix: '/',               level: 'auth' },     // dashboard
-  { prefix: '/surat',          level: 'auth' },
+
+  // Public — semua orang (termasuk tanpa login)
+  { prefix: '/surat',          level: 'public' },
 
   // Staff — admin & petugas
   { prefix: '/master-data',    level: 'staff' },
@@ -84,7 +86,7 @@ export const ROUTE_ACCESS = [
 export const SIDEBAR_MENU = [
   // Top-level menu items
   { label: 'Dashboard',          route: 'dashboard',              icon: 'home',     level: 'auth' },
-  { label: 'Pengajuan Surat',    route: 'surat.index',            icon: 'document', level: 'auth' },
+  { label: 'Pengajuan Surat',    route: 'surat.index',            icon: 'document', level: 'public' },
   { label: 'Peta Desa',          route: 'peta-desa',              icon: 'map',      level: 'public' },
   { label: 'Galeri Foto',        route: 'galeri',                 icon: 'camera',   level: 'public' },
   { label: 'Bacaan Edukatif',    route: 'bacaan.index',           icon: 'book',     level: 'public' },

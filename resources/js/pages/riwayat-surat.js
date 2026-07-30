@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { pengajuanSuratApi } from '../services/pengajuanSuratApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -16,7 +15,6 @@ export default () => ({
   detailLoading: false,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 

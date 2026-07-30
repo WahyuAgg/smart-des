@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { jenisSuratApi } from '../services/jenisSuratApi';
 import { UnauthorizedError } from '../services/httpClient';
@@ -31,7 +30,6 @@ export default () => ({
   kategoriOptions: [],
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.loadKategoriOptions();
     await this.load();
   },

@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { galeriApi } from '../services/galeriApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -16,7 +15,6 @@ export default () => ({
   lightboxItem: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 

@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { appInfoApi } from '../services/appInfoApi';
 
 export default () => ({

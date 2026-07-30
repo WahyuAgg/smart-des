@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { barangApi } from '../services/barangApi';
 import { UnauthorizedError } from '../services/httpClient';
@@ -37,7 +36,6 @@ export default () => ({
   lokasiLookup: useLokasiLookup(),
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await Promise.all([this.kategoriLookup.init(), this.lokasiLookup.init()]);
     await this.load();
   },

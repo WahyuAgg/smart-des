@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { paperApi } from '../services/paperApi';
 import { UnauthorizedError } from '../services/httpClient';
 
@@ -9,7 +8,6 @@ export default () => ({
   id: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     // Get ID from route param
     const el = this.$el;
     this.id = el?.dataset?.id;

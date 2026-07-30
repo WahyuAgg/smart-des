@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { pendudukApi } from '../services/pendudukApi';
 import { UnauthorizedError } from '../services/httpClient';
@@ -32,7 +31,6 @@ export default () => ({
   ...useWilayahLookup(),
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await Promise.all([this.loadKkOptions(), this.loadPendidikanOptions(), this.loadProvinsiOptions()]);
     await this.load();
   },

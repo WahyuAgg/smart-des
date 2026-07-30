@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { jabatanPerangkatApi } from '../services/jabatanPerangkatApi';
 import { perangkatDesaApi } from '../services/perangkatDesaApi';
@@ -26,7 +25,6 @@ export default () => ({
   jabatanOptions: [],
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await Promise.all([this.load(), this.loadJabatanOptions()]);
   },
 

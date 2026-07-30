@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { rtApi } from '../services/rtApi';
 import { rwApi } from '../services/rwApi';
@@ -26,7 +25,6 @@ export default () => ({
   rwList: [],
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.loadRw();
     await this.load();
   },

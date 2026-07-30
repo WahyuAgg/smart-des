@@ -1,4 +1,4 @@
-import { Auth } from '../services/auth';
+
 import { dashboardApi } from '../services/dashboardApi';
 import { profilDesaApi } from '../services/profilDesaApi';
 import { perangkatDesaApi } from '../services/perangkatDesaApi';
@@ -15,7 +15,6 @@ export default () => ({
   error: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.fetchAll();
   },
 

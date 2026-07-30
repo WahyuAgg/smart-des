@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { profilDesaApi } from '../services/profilDesaApi';
 import { UnauthorizedError } from '../services/httpClient';
 

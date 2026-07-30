@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { isRequired } from '../utils/validation';
 import { peminjamanApi } from '../services/peminjamanApi';
 import { UnauthorizedError } from '../services/httpClient';
@@ -35,7 +34,6 @@ export default () => ({
   barangLookup: useBarangLookup(),
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.barangLookup.init();
     await this.load();
   },

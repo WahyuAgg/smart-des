@@ -1,4 +1,3 @@
-import { Auth } from '../services/auth';
 import { paperApi } from '../services/paperApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
@@ -22,7 +21,6 @@ export default () => ({
   deletingItem: null,
 
   async init() {
-    if (!Auth.requireAuth()) return;
     await this.load();
   },
 
