@@ -120,7 +120,7 @@ class SrtPengajuanSuratController extends Controller
                     ->first();
 
                 if ($pendudukRole) {
-                    $field['label'] = $pendudukRole->label . ' — ' . $field['label'];
+                    $field['label'] = $field['label'] . ' — ' .  $pendudukRole->label;
                 }
             }
             // Jika tidak ada angka, label tetap seperti aslinya (tidak perlu diubah)
