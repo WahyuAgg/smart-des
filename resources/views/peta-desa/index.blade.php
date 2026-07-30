@@ -37,8 +37,16 @@
     <template x-if="!loading && !error && pdfUrl">
       <div class="bg-white shadow-sm border border-slate-200 overflow-hidden rounded-none">
 
+        {{-- PDF Viewer — full bleed --}}
+        <div class="w-full bg-slate-100 min-h-screen">
+          <iframe :src="`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`"
+            class="w-full h-screen bg-white transition-transform duration-200"
+            :style="`transform: scale(${zoom}) rotate(${rotation}deg); transform-origin: center center;`"
+            style="border: none;" title="Peta Desa"></iframe>
+        </div>
+
         {{-- Toolbar --}}
-        <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-200">
+        <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-t border-slate-200">
           <div class="flex items-center gap-2">
             <button @click="zoomOut()" title="Perkecil"
               class="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white border border-slate-200 text-slate-600">
@@ -80,14 +88,7 @@
             </a>
           </div>
         </div>
-
-        {{-- PDF Viewer — full bleed --}}
-        <div class="w-full bg-slate-100 min-h-screen">
-          <iframe :src="`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`"
-            class="w-full h-screen bg-white transition-transform duration-200"
-            :style="`transform: scale(${zoom}) rotate(${rotation}deg); transform-origin: center center;`"
-            style="border: none;" title="Peta Desa"></iframe>
-        </div>
+        
       </div>
     </template>
 

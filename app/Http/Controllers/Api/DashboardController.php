@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Penduduk;
 use App\Models\Kk;
-use App\Models\Pendidikan;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends ApiController
 {
@@ -14,57 +14,87 @@ class DashboardController extends ApiController
     {
         // Total Penduduk (status_hidup = 'hidup')
         $totalPenduduk = Penduduk::query()
-            ->where('status_hidup', 'hidup')
+            ->where('status_hidup', 'HIDUP')
             ->count();
+
+        // dd($totalPenduduk);
 
         // Jumlah Laki-laki
         $lakiLaki = Penduduk::query()
-            ->where('status_hidup', 'hidup')
-            ->where('jenis_kelamin', 'Laki-laki')
+            ->where('status_hidup', 'HIDUP')
+            ->where('jenis_kelamin', 'L')
             ->count();
 
         // Jumlah Perempuan
         $perempuan = Penduduk::query()
-            ->where('status_hidup', 'hidup')
-            ->where('jenis_kelamin', 'Perempuan')
+            ->where('status_hidup', 'HIDUP')
+            ->where('jenis_kelamin', 'P')
             ->count();
 
         // Jumlah KK
         $jumlahKk = Kk::query()->count();
 
-        // Distribusi Umur (berdasarkan penduduk yang masih hidup)
-        $distribusiUmur = Penduduk::query()
-            ->select(DB::raw('
-                CASE
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) < 5 THEN "0-4"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 5 AND 9 THEN "5-9"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 10 AND 14 THEN "10-14"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 15 AND 19 THEN "15-19"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 20 AND 24 THEN "20-24"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 25 AND 29 THEN "25-29"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 30 AND 34 THEN "30-34"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 35 AND 39 THEN "35-39"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 40 AND 44 THEN "40-44"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 45 AND 49 THEN "45-49"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 50 AND 54 THEN "50-54"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 55 AND 59 THEN "55-59"
-                    WHEN TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()) BETWEEN 60 AND 64 THEN "60-64"
-                    ELSE "65+"
-                END AS rentang_umur,
-                COUNT(*) AS jumlah
-            '))
-            ->where('status_hidup', 'hidup')
+        // Distribusi Umur (dihitung via PHP agar aman dan kompatibel dengan database apapun)
+        $rentangList = [
+            '0-4', '5-9', '10-14', '15-19', '20-24',
+            '25-29', '30-34', '35-39', '40-44', '45-49',
+            '50-54', '55-59', '60-64', '65+'
+        ];
+
+        $counts = array_fill_keys($rentangList, 0);
+        $today = Carbon::today();
+
+        $tanggalLahirList = Penduduk::query()
+            ->where('status_hidup', 'HIDUP')
             ->whereNotNull('tanggal_lahir')
-            ->groupBy('rentang_umur')
-            ->orderBy(DB::raw('MIN(TIMESTAMPDIFF(YEAR, tanggal_lahir, CURDATE()))'))
-            ->get()
-            ->keyBy('rentang_umur');
+            ->pluck('tanggal_lahir');
+
+        foreach ($tanggalLahirList as $tgl) {
+            $umur = Carbon::parse($tgl)->diffInYears($today);
+
+            if ($umur < 5) {
+                $counts['0-4']++;
+            } elseif ($umur <= 9) {
+                $counts['5-9']++;
+            } elseif ($umur <= 14) {
+                $counts['10-14']++;
+            } elseif ($umur <= 19) {
+                $counts['15-19']++;
+            } elseif ($umur <= 24) {
+                $counts['20-24']++;
+            } elseif ($umur <= 29) {
+                $counts['25-29']++;
+            } elseif ($umur <= 34) {
+                $counts['30-34']++;
+            } elseif ($umur <= 39) {
+                $counts['35-39']++;
+            } elseif ($umur <= 44) {
+                $counts['40-44']++;
+            } elseif ($umur <= 49) {
+                $counts['45-49']++;
+            } elseif ($umur <= 54) {
+                $counts['50-54']++;
+            } elseif ($umur <= 59) {
+                $counts['55-59']++;
+            } elseif ($umur <= 64) {
+                $counts['60-64']++;
+            } else {
+                $counts['65+']++;
+            }
+        }
+
+        $distribusiUmur = collect($counts)
+            ->filter(fn ($jumlah) => $jumlah > 0)
+            ->map(fn ($jumlah, $rentang) => [
+                'rentang_umur' => $rentang,
+                'jumlah' => $jumlah,
+            ]);
 
         // Distribusi Pendidikan (bergabung dengan tabel pendidikan)
         $distribusiPendidikan = DB::table('penduduk')
             ->join('pendidikan', 'penduduk.pendidikan_id', '=', 'pendidikan.id')
             ->select('pendidikan.tingkat_pendidikan', DB::raw('COUNT(*) as jumlah'))
-            ->where('penduduk.status_hidup', 'hidup')
+            ->where('penduduk.status_hidup', 'HIDUP')
             ->groupBy('pendidikan.tingkat_pendidikan')
             ->orderBy('jumlah', 'desc')
             ->get();
@@ -72,7 +102,7 @@ class DashboardController extends ApiController
         // Distribusi Pekerjaan
         $distribusiPekerjaan = Penduduk::query()
             ->select('pekerjaan', DB::raw('COUNT(*) as jumlah'))
-            ->where('status_hidup', 'hidup')
+            ->where('status_hidup', 'HIDUP')
             ->whereNotNull('pekerjaan')
             ->groupBy('pekerjaan')
             ->orderBy('jumlah', 'desc')
@@ -81,17 +111,11 @@ class DashboardController extends ApiController
         // Distribusi Agama
         $distribusiAgama = Penduduk::query()
             ->select('agama', DB::raw('COUNT(*) as jumlah'))
-            ->where('status_hidup', 'hidup')
+            ->where('status_hidup', 'HIDUP')
             ->whereNotNull('agama')
             ->groupBy('agama')
             ->orderBy('jumlah', 'desc')
             ->get();
-
-        // Tambahkan data penduduk yang belum sekolah / tidak punya pendidikan_id
-        $pendudukTanpaPendidikan = Penduduk::query()
-            ->where('status_hidup', 'hidup')
-            ->whereNull('pendidikan_id')
-            ->count();
 
         return $this->success([
             'total_penduduk' => $totalPenduduk,

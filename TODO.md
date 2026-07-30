@@ -5,9 +5,9 @@
 
 ## 🔴 High Priority
 
-- Insert data penduduk 2
 - fix surat select date
 - verifikasi field to attribute name 
+- cleanup
 - Deployment
 
 
@@ -21,8 +21,6 @@
 
 ## 🟢 Low Priority
 
-
-- Export Data
 
 
 ___________________

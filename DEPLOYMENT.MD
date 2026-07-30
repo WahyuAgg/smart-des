@@ -7,7 +7,11 @@ php artisan key:generate
 windows: type nul > database\database.sqlite 
 linux: touch database/database.sqlite
 
+
 php artisan migrate
+
+php artisan laravolt:indonesia:seed
+
 
 php artisan db:seed
 
@@ -15,6 +19,6 @@ php artisan db:seed
 
 php artisan import:kk storage/app/private/imports/data_kk.xlsx
 
-php artisan import:penduduk storage/app/private/imports/data_penduduk.xlsx
+php artisan import:penduduk storage\app\private\imports\data_penduduk_21.xlsx
 
-php artisan import:penduduk storage/app/private/imports/data_penduduk_2.xlsx
+php artisan import:penduduk storage\app\private\imports\data_penduduk_25.xlsx

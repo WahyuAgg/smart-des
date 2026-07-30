@@ -17,13 +17,14 @@ http:
         value: PUT
       - name: nama
         type: text
-        value: Curug
+        value: Curugs
       - name: kode
         type: text
         value: "3306022050"
       - name: alamat
         type: text
-        value: Jln.Lingkar Utara Desa Curug
+        value: alamat lengkap Jln.Lingkar Utara Desa Curug, Kec ngombol, kab purwoejoJln.Lingkar Utara Desa Curug, Kec ngombol
+        description: alamat lengkap
       - name: telepon
         type: text
         value: "081234567890"
@@ -47,15 +48,6 @@ http:
       - name: misi[1]
         type: text
         value: Mengembangkan potensi ekonomi desa.
-      - name: misi[2]
-        type: text
-        value: Meningkatkan kualitas pendidikan masyarakat.
-      - name: misi[3]
-        type: text
-        value: Membangun infrastruktur yang memadai.
-      - name: misi[4]
-        type: text
-        value: Menjaga kebersihan dan kelestarian lingkungan.
       - name: deskripsi
         type: text
         value: Desa Curug adalah desa curug.
@@ -64,18 +56,6 @@ http:
         value:
           - C:\agg\projects\KKN\Peta_Curug_A1_ALL_compressed.pdf
         contentType: application/pdf
-      - name: nama_provinsi
-        type: text
-        value: Jawa Tengah
-      - name: nama_kabupaten
-        type: text
-        value: Kabupaten Purworejo
-      - name: nama_kecamatan
-        type: text
-        value: Ngombol
-      - name: nama_desa
-        type: text
-        value: Curug
       - name: profil_kecamatan[camat]
         type: text
         value: Budi Santoso
@@ -88,16 +68,6 @@ http:
       - name: profil_kecamatan[email]
         type: text
         value: camat.depoksleman@slemankab.go.id
-      - name: profil_kecamatan[foto]
-        type: file
-        value:
-          - C:\agg\projects\KKN\asset\images_1x1.jpg
-        contentType: image/jpeg
-      - name: profil_kecamatan[tanda_tangan]
-        type: file
-        value:
-          - C:\agg\projects\KKN\asset\images_1x1.jpg
-        contentType: image/jpeg
   auth: inherit
 
 settings:
@@ -105,193 +75,3 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
-
-examples:
-  - name: example
-    request:
-      url: "{{base_url}}/api/ref-profil-desa"
-      method: POST
-      headers:
-        - name: Accept
-          value: application/json
-      body:
-        type: multipart-form
-        data:
-          - name: _method
-            type: text
-            value: PUT
-          - name: nama
-            type: text
-            value: Curug
-          - name: kode
-            type: text
-            value: "3306022050"
-          - name: alamat
-            type: text
-            value: Jln.Lingkar Utara Desa Curug
-          - name: telepon
-            type: text
-            value: "081234567890"
-          - name: email
-            type: text
-            value: desa_curug@example.com
-          - name: website
-            type: text
-            value: https://desacurug.co.id
-          - name: logo
-            type: file
-            value:
-              - C:\agg\projects\KKN\asset\images_1x1.jpg
-            contentType: image/jpeg
-          - name: visi
-            type: text
-            value: Menjadi desa yang maju, mandiri, dan sejahtera.
-          - name: misi[0]
-            type: text
-            value: Meningkatkan kualitas pelayanan publik.
-          - name: misi[1]
-            type: text
-            value: Mengembangkan potensi ekonomi desa.
-          - name: misi[2]
-            type: text
-            value: Meningkatkan kualitas pendidikan masyarakat.
-          - name: misi[3]
-            type: text
-            value: Membangun infrastruktur yang memadai.
-          - name: misi[4]
-            type: text
-            value: Menjaga kebersihan dan kelestarian lingkungan.
-          - name: deskripsi
-            type: text
-            value: Desa Curug adalah desa curug.
-          - name: peta_pdf
-            type: file
-            value:
-              - C:\agg\projects\KKN\Peta_Curug_A1_ALL_compressed.pdf
-            contentType: application/pdf
-          - name: nama_provinsi
-            type: text
-            value: Jawa Tengah
-          - name: nama_kabupaten
-            type: text
-            value: Kabupaten Purworejo
-          - name: nama_kecamatan
-            type: text
-            value: Ngombol
-          - name: nama_desa
-            type: text
-            value: Curug
-          - name: profil_kecamatan[camat]
-            type: text
-            value: Budi Santoso
-          - name: profil_kecamatan[nip]
-            type: text
-            value: "198501012010011001"
-          - name: profil_kecamatan[telepon]
-            type: text
-            value: "081234567890"
-          - name: profil_kecamatan[email]
-            type: text
-            value: camat.depoksleman@slemankab.go.id
-          - name: profil_kecamatan[foto]
-            type: file
-            value:
-              - C:\agg\projects\KKN\asset\images_1x1.jpg
-            contentType: image/jpeg
-          - name: profil_kecamatan[tanda_tangan]
-            type: file
-            value:
-              - C:\agg\projects\KKN\asset\images_1x1.jpg
-            contentType: image/jpeg
-    response:
-      status: 200
-      statusText: OK
-      headers:
-        - name: host
-          value: 127.0.0.1:8000
-        - name: connection
-          value: close
-        - name: x-powered-by
-          value: PHP/8.2.29
-        - name: cache-control
-          value: no-cache, private
-        - name: date
-          value: Tue, 28 Jul 2026 23:57:09 GMT
-        - name: content-type
-          value: application/json
-        - name: access-control-allow-origin
-          value: "*"
-        - name: phpdebugbar-id
-          value: 01KYNJJAY28BYB3B1YVF12NZNK
-      body:
-        type: json
-        data: |-
-          {
-            "success": true,
-            "message": "Profil desa berhasil diperbarui.",
-            "data": {
-              "id": 21,
-              "nama": "Curug",
-              "kode": "3306022050",
-              "kode_pos": "54172",
-              "alamat": "Jln.Lingkar Utara Desa Curug",
-              "telepon": "081234567890",
-              "email": "desa_curug@example.com",
-              "website": "https://desacurug.co.id",
-              "logo": "logo/QM9o8ONfXASNmEAsE6UM4IaRtA6dHQNGL6zhIuZy.jpg",
-              "visi": "Menjadi desa yang maju, mandiri, dan sejahtera.",
-              "misi": [
-                "Meningkatkan kualitas pelayanan publik.",
-                "Mengembangkan potensi ekonomi desa.",
-                "Meningkatkan kualitas pendidikan masyarakat.",
-                "Membangun infrastruktur yang memadai.",
-                "Menjaga kebersihan dan kelestarian lingkungan."
-              ],
-              "deskripsi": "Desa Curug adalah desa curug.",
-              "peta_pdf": "peta_pdf/7SaFrboSikK3IOfkyGXVPnDhuTqLgzk8lgDbyFrG.pdf",
-              "logo_url": "http://localhost:8000/storage/logo/QM9o8ONfXASNmEAsE6UM4IaRtA6dHQNGL6zhIuZy.jpg",
-              "peta_pdf_url": "http://localhost:8000/storage/peta_pdf/7SaFrboSikK3IOfkyGXVPnDhuTqLgzk8lgDbyFrG.pdf",
-              "nama_provinsi": "Jawa Tengah",
-              "nama_kabupaten": "Kabupaten Purworejo",
-              "nama_kecamatan": "Ngombol",
-              "nama_desa": "Curug",
-              "profil_kecamatan": {
-                "id": 14,
-                "camat": "Budi Santoso",
-                "nip": "198501012010011001",
-                "telepon": "081234567890",
-                "email": "camat.depoksleman@slemankab.go.id",
-                "foto": "kecamatan/sk4Pt09LLEkDhwMLvIu4A15GeAF3n0qRs1smycEN.jpg",
-                "tanda_tangan": "kecamatan/xfzP4Fc7CvsIsQYplPEhrr5z1I6T0q72ltXjYx0Q.jpg"
-              },
-              "kades": {
-                "id": 22,
-                "jabatan_perangkat_id": 1,
-                "nama": "Joko Andi Perangkat Desa",
-                "nip": "3829292929292929",
-                "telepon": "081234567890",
-                "email": "budi@gmail.com",
-                "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
-              },
-              "desa": {
-                "id": "33455",
-                "code": "3306022050",
-                "name": "CURUG"
-              },
-              "kecamatan": {
-                "id": "2754",
-                "code": "330602",
-                "name": "NGOMBOL"
-              },
-              "kabupaten": {
-                "id": "193",
-                "code": "3306",
-                "name": "KABUPATEN PURWOREJO"
-              },
-              "provinsi": {
-                "id": "13",
-                "code": "33",
-                "name": "JAWA TENGAH"
-              }
-            }
-          }

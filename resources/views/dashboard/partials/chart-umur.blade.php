@@ -12,7 +12,7 @@
           <span class="w-10 text-[11px] font-medium text-slate-500 text-right shrink-0" x-text="item.rentang_umur"></span>
           <div class="flex-1 h-4 bg-slate-100 rounded-full overflow-hidden">
             <div class="h-full rounded-full transition-all duration-700 ease-out group-hover:brightness-110"
-                 :style="`width: ${pct(item.jumlah, totalDistribusiUmur)}%; background-color: ${ageColor(index)}`">
+                 :style="`width: ${barPct(item.jumlah, maxVal(dashboard.distribusi_umur))}%; background-color: ${ageColor(index)}`">
             </div>
           </div>
           <span class="w-6 text-[11px] font-semibold text-slate-600 text-right shrink-0" x-text="item.jumlah"></span>

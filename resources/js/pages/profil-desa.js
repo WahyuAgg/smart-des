@@ -164,10 +164,7 @@ export default () => ({
     try {
       this.record = await profilDesaApi.get();
       this.form = mapItemToForm(this.record);
-      this.existingLogoUrl = this.record.logo_url || null;
-      this.existingPetaPdfUrl = this.record.peta_pdf_url || null;
-      this.existingFotoUrl = this.record.profil_kecamatan?.foto || null;
-      this.existingTandaTanganUrl = this.record.profil_kecamatan?.tanda_tangan || null;
+      this.updateMediaUrls();
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
       // If 404 / no data, it's fine — user can create
@@ -182,6 +179,29 @@ export default () => ({
     }
   },
 
+  updateMediaUrls() {
+    if (!this.record) {
+      this.existingLogoUrl = null;
+      this.existingPetaPdfUrl = null;
+      this.existingFotoUrl = null;
+      this.existingTandaTanganUrl = null;
+      return;
+    }
+
+    const resolveUrl = (path, explicitUrl = null) => {
+      if (explicitUrl) return explicitUrl;
+      if (!path) return null;
+      if (typeof path !== 'string') return null;
+      if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) return path;
+      return `/storage/${path}`;
+    };
+
+    this.existingLogoUrl = resolveUrl(this.record.logo, this.record.logo_url);
+    this.existingPetaPdfUrl = resolveUrl(this.record.peta_pdf, this.record.peta_pdf_url);
+    this.existingFotoUrl = resolveUrl(this.record.profil_kecamatan?.foto);
+    this.existingTandaTanganUrl = resolveUrl(this.record.profil_kecamatan?.tanda_tangan);
+  },
+
   openCreate() {
     this.isEditing = true;
     this.form = emptyForm();
@@ -194,10 +214,7 @@ export default () => ({
   openEdit() {
     this.isEditing = true;
     this.form = mapItemToForm(this.record);
-    this.existingLogoUrl = this.record?.logo_url || null;
-    this.existingPetaPdfUrl = this.record?.peta_pdf_url || null;
-    this.existingFotoUrl = this.record?.profil_kecamatan?.foto || null;
-    this.existingTandaTanganUrl = this.record?.profil_kecamatan?.tanda_tangan || null;
+    this.updateMediaUrls();
   },
 
   cancelEdit() {

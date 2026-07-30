@@ -91,7 +91,7 @@ class RefProfilDesa extends Model
         'peta_pdf',
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['id','created_at', 'updated_at'];
 
     protected $casts = [
         'misi' => 'array',
@@ -116,7 +116,7 @@ class RefProfilDesa extends Model
     public function kodePos(): Attribute
     {
         return Attribute::make(
-            get: fn() => Village::where('code', $this->kode)->first()->meta['pos']
+            get: fn() => Village::where('code', $this->kode)->first()->meta['pos'] ?? null,
         );
     }
 

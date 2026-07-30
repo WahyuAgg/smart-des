@@ -26,14 +26,15 @@ class PendudukImport implements ToCollection, WithHeadingRow
 
 
 
-            $pendidikan = Pendidikan::query()
-                ->whereRaw(
-                    "LOWER(REGEXP_REPLACE(TRIM(tingkat_pendidikan), '[[:space:]]+', ' ')) = ?",
-                    [
-                        strtolower(preg_replace('/\s+/', ' ', trim($row['pendidikan_terakhir'])))
-                    ]
-                )
-                ->first();
+            $pendidikanList = Pendidikan::all();
+
+            $target = strtolower(preg_replace('/\s+/', '', trim($row['pendidikan_terakhir'])));
+
+            $pendidikan = $pendidikanList->first(function ($item) use ($target) {
+                return strtolower(
+                    preg_replace('/\s+/', '', $item->tingkat_pendidikan)
+                ) === $target;
+            });
 
             $kk = Kk::query()->where('no_kk', trim($row['kk']))->first();
 
@@ -80,6 +81,9 @@ class PendudukImport implements ToCollection, WithHeadingRow
                 ]);
             }
 
+            $jenisKelamin = strtoupper(trim($row['jenis_kelamin']));
+
+
 
             Penduduk::updateOrCreate(
                 [
@@ -87,7 +91,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
                 ],
                 [
                     'nama_lengkap' => trim($row['nama']),
-                    'jenis_kelamin' => strtoupper(trim($row['jenis_kelamin'])) === 'L'
+                    'jenis_kelamin' => str_starts_with($jenisKelamin, 'L')
                         ? 'L'
                         : 'P',
 

@@ -54,6 +54,22 @@ export default () => ({
     return ((value / total) * 100).toFixed(1);
   },
 
+  /** Helper: nilai maksimum dari dataset chart */
+  maxVal(list) {
+    if (!list) return 1;
+    const items = Array.isArray(list) ? list : Object.values(list);
+    if (!items.length) return 1;
+    const max = Math.max(...items.map(i => Number(i.jumlah) || 0));
+    return max > 0 ? max : 1;
+  },
+
+  /** Helper: persentase bar relatif terhadap nilai maksimum (dengan min-width agar terlihat) */
+  barPct(value, max) {
+    if (!max || max === 0 || !value) return 0;
+    const p = (value / max) * 100;
+    return Math.max(p, 3).toFixed(1);
+  },
+
   /** Format tanggal ke "29 Jul 2026" */
   formatDate(dateStr) {
     if (!dateStr) return '-';
