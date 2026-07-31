@@ -62,7 +62,7 @@ class FullModelAccessorController extends Controller
      */
     public function penduduk(int $id): JsonResponse
     {
-        $record = Penduduk::with(['kk', 'alamat', 'pendidikan'])->find($id);
+        $record = Penduduk::find($id);
 
         if (! $record) {
             return response()->json(['message' => 'Penduduk tidak ditemukan.'], 404);

@@ -5,6 +5,7 @@
 .env.production
 .phpactor.json
 .phpunit.result.cache
+!storage/app/public/templates/testing.docx
 /.fleet
 /.idea
 /.nova
@@ -20,6 +21,7 @@
 /storage/*.key
 /storage/pail
 /vendor
+!storage/app/public/templates/testing.docx
 Homestead.json
 Homestead.yaml
 Thumbs.db

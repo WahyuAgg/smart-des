@@ -6,9 +6,11 @@
 ## 🔴 High Priority
 
 - fix surat select date
-- verifikasi field to attribute name 
+- add tanggal
+- buat example template
 - cleanup
 - Deployment
+- fix tabel penduduk
 
 
 

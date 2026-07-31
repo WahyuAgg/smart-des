@@ -113,42 +113,18 @@ class Penduduk extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    // NAMA PENDUDUK KAPITAL
+    
+
+
+    /**
+     * Formatter untuk formatting attribute
+     * Jangan di $appeend karena akan return NULL
+     */
+    
     protected function namaLengkap(): Attribute
     {
         return Attribute::make(
             get: fn(?string $value) => mb_strtoupper($value ?? '')
-        );
-    }
-
-
-    protected function tanggalLahirF(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->tanggal_lahir?->translatedFormat('d F Y')
-        );
-    }
-
-
-
-    public function umur(): Attribute
-    {
-        return Attribute::make(
-            get: fn(): ?int =>  $this->tanggal_lahir ? Carbon::parse($this->tanggal_lahir)->age : null
-        );
-    }
-
-    protected function noKk(): Attribute
-    {
-        return Attribute::make(
-            get: fn() :?string => $this->kk?->no_kk
-        );
-    }
-
-    protected function namaPendidikan(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => $this->pendidikan?->tingkat_pendidikan
         );
     }
 
@@ -169,7 +145,11 @@ class Penduduk extends Model
     protected function jenisKelamin(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => $value ? ucfirst(strtolower($value)) : null
+            get: fn(?string $value) => match ($value) {
+                'L' => 'Laki-laki',
+                'P' => 'Perempuan',
+                default => $value,
+            }
         );
     }
 
@@ -187,10 +167,43 @@ class Penduduk extends Model
         );
     }
 
+
+
+
+    /**
+     * Accessors
+     */
+    protected function tanggalLahirF(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->tanggal_lahir?->translatedFormat('d F Y')
+        );
+    }
+
     protected function getAlamat(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->alamat
+        );
+    }
+
+    protected function noKk(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): ?string => $this->kk?->no_kk
+        );
+    }
+    public function umur(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): ?int =>  $this->tanggal_lahir ? Carbon::parse($this->tanggal_lahir)->age : null
+        );
+    }
+
+    protected function namaPendidikan(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->pendidikan?->tingkat_pendidikan
         );
     }
 
@@ -199,7 +212,9 @@ class Penduduk extends Model
 
 
 
-    // FUNSGI RELATIONSHIP
+    /**
+     * Fungsi relasi ke model lain
+     */
     public function alamat()
     {
         return $this->belongsTo(Alamat::class);
@@ -235,6 +250,9 @@ class Penduduk extends Model
     }
 
 
+
+    /** Helper */
+
     private function capitalizeSpecial($str)
     {
         $str = strtolower($str);
@@ -244,6 +262,4 @@ class Penduduk extends Model
             return $matches[1] . strtoupper($matches[2]);
         }, $str);
     }
-
-
 }

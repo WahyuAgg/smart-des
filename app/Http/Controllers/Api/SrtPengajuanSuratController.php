@@ -72,7 +72,26 @@ class SrtPengajuanSuratController extends Controller
         ]);
 
 
-        $penduduks = Penduduk::query()->whereIn('nik', $data['niks'])->get();
+        // 1. Ambil data unik dari DB
+        $pendudukMap = Penduduk::query()
+            ->whereIn('nik', array_unique($data['niks']))
+            ->get()
+            ->keyBy('nik');
+
+        // 2. Cek apakah ada NIK yang tidak ditemukan
+        $foundNiks = $pendudukMap->keys();
+        $missingNiks = collect($data['niks'])->diff($foundNiks);
+
+        if ($missingNiks->isNotEmpty()) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'niks' => 'NIK berikut tidak ditemukan: ' . $missingNiks->implode(', '),
+            ]);
+        }
+
+        // 3. Map kembali sesuai urutan dan duplikasi NIK di array $data['niks']
+        $penduduks = collect($data['niks'])
+            ->map(fn($nik) => $pendudukMap->get($nik))
+            ->values();
 
         foreach ($penduduks as $urutan => $penduduk) {
             $record->srtPengajuanSuratPenduduks()->create([
@@ -266,7 +285,10 @@ class SrtPengajuanSuratController extends Controller
 
     public function getAutoValues(string $pengajuanSuratId)
     {
-        $profilDesa = RefProfilDesa::query()->first();
+        $profilDesa = RefProfilDesa::query()->first()->append([
+            // 'profil_kecamatan',
+
+        ]);
 
         $pengajuan = SrtPengajuanSurat::with([
             'jenisSurat',
@@ -387,7 +409,7 @@ class SrtPengajuanSuratController extends Controller
 
     private function getTemplatePath(string $path): string
     {
-        $storagePath = storage_path( "app/public/".$path);
+        $storagePath = storage_path("app/public/" . $path);
         return $storagePath;
     }
 
@@ -524,6 +546,7 @@ class SrtPengajuanSuratController extends Controller
 
             $value = data_get($penduduk, $sourceField);
         } else {
+            // dd(data_get($profilDesa, "profil_kecamatan.camat"));
 
             $value = match ($field->source) {
                 'pengajuan' => data_get($pengajuan, $field->source_field),

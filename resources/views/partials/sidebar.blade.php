@@ -3,7 +3,7 @@
   // level: 'public' | 'auth' | 'staff' | 'admin'
   $menu = [
       ['label' => 'Dashboard',          'route' => 'dashboard',                         'icon' => 'home',     'level' => 'auth'],
-      ['label' => 'Pengajuan Surat',    'route' => 'surat.index',                       'icon' => 'document', 'level' => 'public'],
+      ['label' => 'Pembuatan Surat',    'route' => 'surat.index',                       'icon' => 'document', 'level' => 'public'],
       ['label' => 'Peta Desa',          'route' => 'peta-desa',                         'icon' => 'map',      'level' => 'public'],
       ['label' => 'Galeri Foto',        'route' => 'galeri',                            'icon' => 'camera',   'level' => 'public'],
       ['label' => 'Bacaan Edukatif',    'route' => 'bacaan.index',                      'icon' => 'book',     'level' => 'public'],

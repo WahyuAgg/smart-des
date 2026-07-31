@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
+
 
 
 /**
@@ -96,6 +98,8 @@ class Alamat extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
+    protected $appends = ['alamat_formatted'];
+
     public function penduduks()
     {
         return $this->hasMany(Penduduk::class, 'alamat_id');
@@ -119,10 +123,10 @@ class Alamat extends Model
                     ($this->rt && $this->rw) ? "RT {$this->rt}/RW {$this->rw}" : null,
 
                     // Wilayah Administratif
-                    $this->desa ? "Desa/Kel. {$this->desa}" : null,
-                    $this->kecamatan ? "Kec. {$this->kecamatan}" : null,
-                    $this->kabupaten ? "Kab./Kota {$this->kabupaten}" : null,
-                    $this->provinsi ? "Prov. {$this->provinsi}" : null,
+                    $this->desa ? 'Desa/Kel. ' . Str::title(strtolower($this->desa)) : null,
+                    $this->kecamatan ? 'Kec. ' . Str::title(strtolower($this->kecamatan)) : null,
+                    $this->kabupaten ? Str::title(strtolower($this->kabupaten)) : null,
+                    $this->provinsi ? 'Prov. ' . Str::title(strtolower($this->provinsi)) : null,
                     $this->kode_pos,
                 ]);
 

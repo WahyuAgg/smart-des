@@ -38,13 +38,13 @@ examples:
         - name: cache-control
           value: no-cache, private
         - name: date
-          value: Thu, 30 Jul 2026 21:25:40 GMT
+          value: Fri, 31 Jul 2026 01:24:15 GMT
         - name: content-type
           value: application/json
         - name: access-control-allow-origin
           value: "*"
         - name: phpdebugbar-id
-          value: 01KYTEPC2YWDH6JE7AS6QTEBN4
+          value: 01KYTWB7WP9XBBRFZ5MSQZNVC0
       body:
         type: json
         data: |-
@@ -55,34 +55,40 @@ examples:
               "nama": "Curugs",
               "kode": "3306022050",
               "kode_pos": "54172",
-              "alamat": "alamat lengkap Jln.Lingkar Utara Desa Curug, Kec ngombol, kab purwoejoJln.Lingkar Utara Desa Curug, Kec ngombol",
+              "alamat": "alamat lengkap Jln.Lingkar Utara Desa Curug, Kec ngombol, kab purwoejo",
               "telepon": "081234567890",
               "email": "desa_curug@example.com",
               "website": "https://desacurug.co.id",
-              "logo": "logo/NH3ztOvH4lJbtEWixSvtpCBjhCdptliU1eNCrKP4.jpg",
+              "logo": "logo/Gi4onr9TYQZnfGkhhEmqEJ3AxJvfVXDpP57LlXwR.jpg",
               "visi": "Menjadi desa yang maju, mandiri, dan sejahtera.",
               "misi": [
                 "Meningkatkan kualitas pelayanan publik.",
                 "Mengembangkan potensi ekonomi desa."
               ],
               "deskripsi": "Desa Curug adalah desa curug.",
-              "peta_pdf": "peta_pdf/RyA2qAejkJQnGfDJE0D42ztCzWKSLQEV9sc6Vsut.pdf",
-              "logo_url": "http://localhost:8000/storage/logo/NH3ztOvH4lJbtEWixSvtpCBjhCdptliU1eNCrKP4.jpg",
-              "peta_pdf_url": "http://localhost:8000/storage/peta_pdf/RyA2qAejkJQnGfDJE0D42ztCzWKSLQEV9sc6Vsut.pdf",
+              "peta_pdf": "peta_pdf/vkiybxtAZVpe3jlWXNK83NgnhmtyDPnBHzQrcfSO.pdf",
+              "logo_url": "http://localhost:8000/storage/logo/Gi4onr9TYQZnfGkhhEmqEJ3AxJvfVXDpP57LlXwR.jpg",
+              "peta_pdf_url": "http://localhost:8000/storage/peta_pdf/vkiybxtAZVpe3jlWXNK83NgnhmtyDPnBHzQrcfSO.pdf",
               "nama_provinsi": "Jawa Tengah",
               "nama_kabupaten": "Kabupaten Purworejo",
               "nama_kecamatan": "Ngombol",
               "nama_desa": "Curug",
               "profil_kecamatan": {
-                "id": 5,
+                "id": 1,
                 "camat": "Budi Santoso",
                 "nip": "198501012010011001",
                 "telepon": "081234567890",
-                "email": "camat.depoksleman@slemankab.go.id",
-                "foto": "kecamatan/Aq4BZuIzGCGL4frM2j1vyXKxSMAYz8uvNr1H2ASa.jpg",
-                "tanda_tangan": "kecamatan/zUERP536WRZaRBBWRhqH9uv0MnUQCKN35mkY85vN.jpg"
+                "email": "camat.depoksleman@slemankab.go.id"
               },
-              "kades": null,
+              "kades": {
+                "id": 1,
+                "jabatan_perangkat_id": 1,
+                "nama": "WAHYU",
+                "nip": "7262777777777777",
+                "telepon": "2378432674",
+                "email": "wahy@hbwehrew",
+                "tanggal_mulai": "2026-07-01T00:00:00.000000Z"
+              },
               "desa": {
                 "id": "33455",
                 "code": "3306022050",

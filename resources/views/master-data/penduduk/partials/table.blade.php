@@ -8,6 +8,7 @@
           <th class="px-4 py-3">JK</th>
           <th class="px-4 py-3">TTL</th>
           <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Perkawinan</th>
           <th class="px-4 py-3">Kontak</th>
           <th class="px-4 py-3 text-right">Aksi</th>
         </tr>
@@ -16,13 +17,13 @@
       <tbody class="divide-y divide-slate-100">
         <template x-if="!loading && items.length === 0">
           <tr>
-            <td colspan="7" class="px-4 py-10 text-center text-slate-400">Belum ada data penduduk.</td>
+            <td colspan="8" class="px-4 py-10 text-center text-slate-400">Belum ada data penduduk.</td>
           </tr>
         </template>
 
         <template x-for="item in items" :key="item.id">
           <tr class="hover:bg-slate-50">
-            <td class="px-4 py-3 font-mono text-xs text-slate-700" x-text="item.nik"></td>
+            <td class="px-4 py-3 font-mono text-s text-slate-700" x-text="item.nik"></td>
             <td class="px-4 py-3">
               <div class="font-medium text-slate-800" x-text="item.nama_lengkap"></div>
               <div class="text-xs text-slate-400" x-text="item.email || '—'"></div>
@@ -33,12 +34,12 @@
               <div class="text-xs text-slate-400" x-text="formatDate(item.tanggal_lahir)"></div>
             </td>
             <td class="px-4 py-3">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium" :class="statusBadge(item.status_hidup)"
+              <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" :class="statusBadge(item.status_hidup)"
                 x-text="statusLabel(item.status_hidup)"></span>
             </td>
+            <td class="px-4 py-3 text-slate-600" x-text="item.status_perkawinan || '—'"></td>
             <td class="px-4 py-3 text-slate-600">
               <div x-text="item.no_hp || '—'"></div>
-              <div class="text-xs text-slate-400" x-text="item.status_perkawinan || '—'"></div>
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center justify-end gap-3">
@@ -61,7 +62,7 @@
 
         <template x-if="loading">
           <tr>
-            <td colspan="7" class="px-4 py-10 text-center text-slate-400">Memuat data...</td>
+            <td colspan="8" class="px-4 py-10 text-center text-slate-400">Memuat data...</td>
           </tr>
         </template>
       </tbody>

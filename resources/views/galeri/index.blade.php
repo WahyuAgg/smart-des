@@ -52,7 +52,7 @@
            class="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
         <template x-for="(item, index) in items" :key="item.id">
           <div @click="openLightbox(item)"
-               class="break-inside-avoid rounded-2xl shadow-md border border-slate-800/80 bg-slate-800/20 overflow-hidden cursor-pointer
+               class="break-inside-avoid rounded-md shadow-md border border-slate-800/80 bg-slate-800/20 overflow-hidden cursor-pointer
                       hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group relative">
 
             {{-- Image Container (Larger Photos) --}}
@@ -74,9 +74,9 @@
             </div>
 
             {{-- Caption Bar: Dark Background, Single Line (Title + Date), End-to-End, Justify Between --}}
-            <div class="w-full px-3.5 py-2.5 bg-slate-800/30 border-t border-slate-800/60 flex items-center justify-between gap-2">
+            <div class="w-full px-3.5 py-1 bg-slate-800/30 border-t border-slate-800/60 flex items-center justify-between gap-2">
               <h3 class="text-xs font-semibold text-slate-100 truncate flex-1 min-w-0" :title="item.judul" x-text="item.judul"></h3>
-              <span class="text-[11px] font-normal text-slate-400 shrink-0 whitespace-nowrap" x-text="$formatDate(item.tanggal)"></span>
+              <span class="text-[11px] font-normal text-slate-100 shrink-0 whitespace-nowrap" x-text="$formatDate(item.tanggal)"></span>
             </div>
           </div>
         </template>

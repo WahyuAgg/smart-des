@@ -256,6 +256,9 @@ class RefProfilDesaController extends CrudController
                     }
                     $profilKecamatan->delete();
                 }
+
+                RefProfilDesa::truncate();
+                RefKecamatan::truncate();
             });
 
             return $this->success(
@@ -270,5 +273,4 @@ class RefProfilDesaController extends CrudController
             );
         }
     }
-
 }

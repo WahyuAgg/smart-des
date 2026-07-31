@@ -4,7 +4,7 @@
     this.loggingOut = true;
     await Auth.logout(window.API_BASE_URL);
   }
-}" class="h-16 bg-slate-200 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
+}" class="h-16 bg-slate-300 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
   <div class="flex items-center gap-3">
     {{-- Toggle sidebar --}}
     <button type="button" @click="$store.sidebar.toggle()"
@@ -50,7 +50,7 @@
       {{-- Logout button --}}
       <button @click="doLogout()"
               :disabled="loggingOut"
-              class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-red-50 text-slate-400 hover:text-red-500 transition disabled:opacity-50"
+              class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-red-50 text-slate-800 hover:text-red-500 transition disabled:opacity-50"
               title="Logout">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />

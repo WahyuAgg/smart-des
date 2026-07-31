@@ -29,7 +29,7 @@ class DataPendudukSeeder extends Seeder
             ['nama' => 'kewarganegaraan', 'label' => 'Kewarganegaraan', 'source' => 'penduduk', 'source_field' => 'kewarganegaraan', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'nama_ayah_kandung', 'label' => 'Nama Ayah Kandung', 'source' => 'penduduk', 'source_field' => 'nama_ayah_kandung', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'nama_ibu_kandung', 'label' => 'Nama Ibu Kandung', 'source' => 'penduduk', 'source_field' => 'nama_ibu_kandung', 'tipe' => 'text', 'input_mode' => 'auto'],
-            ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
+            ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir (date)', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
             ['nama' => 'tanggal_lahir_f', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_f', 'tipe' => 'date', 'input_mode' => 'auto'],
             ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto'],
 
@@ -39,7 +39,7 @@ class DataPendudukSeeder extends Seeder
 
 
             // kasus unik, misal untuk surat kematian, bisa menggunakan tanggal tercatat sebagai tanggal lahir
-            ['nama' => 'tanggal_domisili', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto_editable'],
+            ['nama' => 'tanggal_domisili', 'label' => 'Tanggal Tercatat (date)', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto_editable'],
             ['nama' => 'tanggal_mati', 'label' => 'Tanggal Kematian', 'source' => 'penduduk', 'source_field' => 'tanggal_maninggal', 'tipe' => 'date', 'input_mode' => 'manual'],
             ['nama' => 'tanggal_domisili_f', 'label' => 'Tanggal Tercatat', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_f', 'tipe' => 'date', 'input_mode' => 'auto_editable'],
             ['nama' => 'umur', 'label' => 'Umur', 'source' => 'penduduk', 'source_field' => 'umur', 'tipe' => 'number', 'input_mode' => 'auto_editable'],

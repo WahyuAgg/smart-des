@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Pengajuan Surat')
-@section('page-title', 'Pengajuan Surat')
-@section('page-subtitle', 'Ajukan surat keterangan dalam empat langkah singkat')
+@section('title', 'Pembuatan Surat')
+@section('page-title', 'Pembuatan Surat')
+@section('page-subtitle', 'Buat surat keterangan dalam empat langkah singkat')
 
 @section('content')
 <div x-data="suratWizard" class="max-w-7xl mx-auto">

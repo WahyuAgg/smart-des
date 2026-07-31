@@ -45,5 +45,5 @@ class RefKecamatan extends Model
     ];
     
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'foto', 'tanda_tangan'];
 }

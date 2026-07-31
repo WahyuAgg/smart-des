@@ -23,6 +23,8 @@ class SystemFieldResolver
 
             'bulan' => now()->translatedFormat('F'),
 
+            'tanggal' => now()->translatedFormat('d'),
+
             'hari' => now()->translatedFormat('l'),
 
             default => null,
