@@ -5,12 +5,10 @@
 
 ## 🔴 High Priority
 
-- fix surat select date
-- add tanggal
-- buat example template
+
+- buat example template surat
 - cleanup
 - Deployment
-- fix tabel penduduk
 
 
 

@@ -38,8 +38,13 @@ class PendudukImport implements ToCollection, WithHeadingRow
 
             $kk = Kk::query()->where('no_kk', trim($row['kk']))->first();
 
-            $rt = trim((string) $row['rt']);
-            $rw = trim((string) $row['rw']);
+            $rt = filled($row['rt'])
+                ? str_pad(trim((string) $row['rt']), 3, '0', STR_PAD_LEFT)
+                : null;
+
+            $rw = filled($row['rw'])
+                ? str_pad(trim((string) $row['rw']), 3, '0', STR_PAD_LEFT)
+                : null;
 
             $alamatLengkap = empty($rt) || empty($rw)
                 ? 'Desa Curug, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.'

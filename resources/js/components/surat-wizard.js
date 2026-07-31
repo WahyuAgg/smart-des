@@ -225,6 +225,52 @@ export default () => ({
         this.success = null;
     },
 
+    formatISOToIndonesianDate(isoString) {
+        if (!isoString) return '';
+        const parts = isoString.split('-');
+        if (parts.length !== 3) return isoString;
+
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        const year = parseInt(parts[0], 10);
+        const monthIdx = parseInt(parts[1], 10) - 1;
+        const day = parseInt(parts[2], 10);
+
+        if (isNaN(year) || isNaN(monthIdx) || isNaN(day) || monthIdx < 0 || monthIdx > 11) {
+            return isoString;
+        }
+
+        return `${day} ${months[monthIdx]} ${year}`;
+    },
+
+    parseIndonesianDateToISO(indoString) {
+        if (!indoString || typeof indoString !== 'string') return '';
+        const parts = indoString.trim().split(/\s+/);
+        if (parts.length !== 3) return '';
+
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        const day = parseInt(parts[0], 10);
+        const monthName = parts[1];
+        const year = parseInt(parts[2], 10);
+
+        const monthIdx = months.findIndex(
+            (m) => m.toLowerCase() === monthName.toLowerCase()
+        );
+
+        if (isNaN(day) || monthIdx === -1 || isNaN(year)) {
+            return '';
+        }
+
+        const mm = String(monthIdx + 1).padStart(2, '0');
+        const dd = String(day).padStart(2, '0');
+        return `${year}-${mm}-${dd}`;
+    },
+
     kembali() {
         if (this.step > 1) this.step -= 1;
         this.error = null;

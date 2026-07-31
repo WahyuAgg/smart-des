@@ -29,8 +29,14 @@
             <textarea rows="3" x-model="dataSurat[field.placeholder]"
               class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"></textarea>
           </template>
-          <template x-if="field.type !== 'textarea'">
-            <input :type="field.type === 'number' ? 'number' : (field.type === 'date' ? 'date' : 'text')"
+          <template x-if="field.type === 'date'">
+            <input type="date"
+              :value="parseIndonesianDateToISO(dataSurat[field.placeholder])"
+              @change="dataSurat[field.placeholder] = formatISOToIndonesianDate($event.target.value)"
+              class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" />
+          </template>
+          <template x-if="field.type !== 'textarea' && field.type !== 'date'">
+            <input :type="field.type === 'number' ? 'number' : 'text'"
               x-model="dataSurat[field.placeholder]"
               class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" />
           </template>

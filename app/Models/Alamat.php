@@ -100,6 +100,26 @@ class Alamat extends Model
 
     protected $appends = ['alamat_formatted'];
 
+
+    protected function rt(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => filled($value)
+                ? str_pad($value, 3, '0', STR_PAD_LEFT)
+                : null
+        );
+    }
+
+
+    protected function rw(): Attribute
+    {
+        return Attribute::make(
+            get: fn(?string $value) => filled($value)
+                ? str_pad($value, 3, '0', STR_PAD_LEFT)
+                : null
+        );
+    }
+
     public function penduduks()
     {
         return $this->hasMany(Penduduk::class, 'alamat_id');

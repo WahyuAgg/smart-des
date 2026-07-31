@@ -13,12 +13,12 @@ http:
     type: json
     data: |
       {
-              "nik": "3453464575675677",
+              "nik": "3453464575675678",
               "nama_lengkap": "AMAT",
-              "kk_id": 1,
+              "kk_id": 110,
               "nama_ayah_kandung": "SITI CHIPTIYAH MM",
               "nama_ibu_kandung": "MARGO UTOMO UTOMO",
-              "jenis_kelamin": "Perempuan",
+              "jenis_kelamin": "P",
               "tanggal_lahir": "1971-01-01T00:00:00.000000Z",
               "tempat_lahir": "Purworejo",
               "agama": "Islam",
@@ -41,8 +41,8 @@ http:
                   "blok": 4,
                   "no_lantai": 5,
                   "no_unit": 6,
-                  "rt": "2",
-                  "rw": "2",
+                  "rt": "002",
+                  "rw": "001",
                   "desa": "Bojonegoro",
                   "dusun": "Cagar",
                   "kecamatan": "Kaliuaag",

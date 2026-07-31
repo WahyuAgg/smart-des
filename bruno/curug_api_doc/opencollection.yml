@@ -26,7 +26,7 @@ request:
     - name: id_penduduk
       value: "1"
     - name: per_page
-      value: "2"
+      value: "5"
     - name: keywords
       value: ""
 bundled: false
