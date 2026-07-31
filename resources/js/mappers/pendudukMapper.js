@@ -104,6 +104,11 @@ export function mapItemToForm(item) {
   };
 }
 
+const jenisKelaminMap = {
+  'Laki-laki': 'L',
+  'Perempuan': 'P',
+};
+
 export function buildPayload(form) {
   return {
     nik: form.nik,
@@ -111,7 +116,7 @@ export function buildPayload(form) {
     kk_id: toNullableNumber(form.kk_id),
     nama_ayah_kandung: form.nama_ayah_kandung || null,
     nama_ibu_kandung: form.nama_ibu_kandung || null,
-    jenis_kelamin: form.jenis_kelamin || null,
+    jenis_kelamin: jenisKelaminMap[form.jenis_kelamin] ?? null,
     tanggal_lahir: form.tanggal_lahir || null,
     tempat_lahir: form.tempat_lahir || null,
     agama: form.agama || null,

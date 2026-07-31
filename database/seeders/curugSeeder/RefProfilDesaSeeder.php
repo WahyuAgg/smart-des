@@ -22,7 +22,7 @@ class RefProfilDesaSeeder extends Seeder
 
                 'nama' => 'Curug',
                 'kode' => '3306022050',
-                'kode_pos' => '111111',
+                'kode_pos' => null,
 
                 'alamat' => 'Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.',
                 'telepon' => '081234567890',
@@ -34,7 +34,7 @@ class RefProfilDesaSeeder extends Seeder
 
                 'misi' => "-",
 
-                'deskripsi' => 'Desa Curug merupakan desa fiktif yang digunakan sebagai data awal (seed) pada aplikasi Sistem Pelayanan Surat Desa.',
+                'deskripsi' => 'Desa Curug merupakan desa agraris yang terletak di Kecamatan Ngombol, Kabupaten Purworejo, Provinsi Jawa Tengah.',
             ]
         );
     }

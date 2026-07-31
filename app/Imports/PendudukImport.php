@@ -62,6 +62,7 @@ class PendudukImport implements ToCollection, WithHeadingRow
                     'jalan' => 'Jln.Lingkar Utara',
                     'rt' => $rt ?: null,
                     'rw' => $rw ?: null,
+                    'dusun' => 'CURUG',
                     'desa' => 'CURUG',
                     'kecamatan' => 'NGOMBOL',
                     'kabupaten' => 'KABUPATEN PURWOREJO',
