@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CurugSeeder;
+namespace Database\Seeders\TestingSrtSeeder;
 
 use App\Models\Alamat;
 use Illuminate\Database\Seeder;

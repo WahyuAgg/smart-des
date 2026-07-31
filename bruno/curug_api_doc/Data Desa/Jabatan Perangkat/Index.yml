@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/api/ref-jabatan-perangkat/?per_page=15&page=1&aktif=false&search=umum"
+  url: "{{base_url}}/api/ref-jabatan-perangkat/?per_page=15&page=2"
   headers:
     - name: Accept
       value: application/json
@@ -14,14 +14,16 @@ http:
       value: "15"
       type: query
     - name: page
-      value: "1"
+      value: "2"
       type: query
     - name: aktif
       value: "false"
       type: query
+      disabled: true
     - name: search
       value: umum
       type: query
+      disabled: true
   auth: inherit
 
 settings:

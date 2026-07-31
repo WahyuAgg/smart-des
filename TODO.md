@@ -1,31 +1,23 @@
 # TODO
 
-- This is not guide for development, do not use this as a reference
-
 
 ## 🔴 High Priority
 
-
 - cleanup
-- 
+- Persiapan deplayment
 - Deployment
-- upgrade
-
-
 
 ---
-
 ## 🟡 Medium Priority
-
+- upgrade data quality
 
 ---
-
 ## 🟢 Low Priority
 
-
+- upgrade UI quality
+- refractor code concistency
 
 ___________________
-
 ## Dashboard
 
 - Jumlah KK

@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   @include('partials.head')
+
 </head>
 <body class="font-sans text-slate-800 antialiased">
 

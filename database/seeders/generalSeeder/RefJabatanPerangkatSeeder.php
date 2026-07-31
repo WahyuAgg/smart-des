@@ -34,8 +34,8 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Tata Usaha dan Umum',
                 'deskripsi' => 'Mengelola administrasi umum dan tata usaha',
                 'urutan' => 3,
-                'aktif' => false,
-                'dapat_menandatangani' => false,
+                'aktif' => true,
+                'dapat_menandatangani' => true,
             ],
 
             [
@@ -43,8 +43,8 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Keuangan',
                 'deskripsi' => 'Mengelola administrasi keuangan desa',
                 'urutan' => 4,
-                'aktif' => false,
-                'dapat_menandatangani' => false,
+                'aktif' => true,
+                'dapat_menandatangani' => true,
             ],
 
             [
@@ -52,8 +52,8 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Urusan Perencanaan',
                 'deskripsi' => 'Mengelola perencanaan pembangunan desa',
                 'urutan' => 5,
-                'aktif' => false,
-                'dapat_menandatangani' => false,
+                'aktif' => true,
+                'dapat_menandatangani' => true,
             ],
 
             [
@@ -61,8 +61,8 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Seksi Pemerintahan',
                 'deskripsi' => 'Menyelenggarakan urusan pemerintahan desa',
                 'urutan' => 6,
-                'aktif' => false,
-                'dapat_menandatangani' => false,
+                'aktif' => true,
+                'dapat_menandatangani' => true,
             ],
 
             [
@@ -70,8 +70,8 @@ class RefJabatanPerangkatSeeder extends Seeder
                 'nama' => 'Kepala Seksi Kesejahteraan',
                 'deskripsi' => 'Mengelola bidang kesejahteraan masyarakat',
                 'urutan' => 7,
-                'aktif' => false,
-                'dapat_menandatangani' => false,
+                'aktif' => true,
+                'dapat_menandatangani' => true,
             ],
 
             [

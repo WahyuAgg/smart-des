@@ -22,3 +22,8 @@ php artisan import:kk storage/app/private/imports/data_kk.xlsx
 php artisan import:penduduk storage\app\private\imports\data_penduduk_21.xlsx
 
 php artisan import:penduduk storage\app\private\imports\data_penduduk_25.xlsx
+
+
+### Testing
+
+php artisan db:seed --class="Database\Seeders\TestingSrtSeeder\RefPerangkatDesaSeeder"

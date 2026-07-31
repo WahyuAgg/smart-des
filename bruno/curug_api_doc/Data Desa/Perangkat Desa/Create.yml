@@ -13,8 +13,8 @@ http:
     type: json
     data: |-
       {
-        "jabatan_perangkat_id": 17,
-        "nama": "Danang Perangkat Desa Baru",
+        "jabatan_perangkat_id": 3,
+        "nama": "Diman Aji",
         "nip": "3829292929292929",
         "telepon": "081234567890",
         "email": "budi@gmail.com",

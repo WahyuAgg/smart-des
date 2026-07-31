@@ -26,6 +26,8 @@ use Database\Seeders\curugSeeder\RefRtSeeder;
 
 use Database\Seeders\CurugSeeder\RefKecamatanSeeder;
 
+use Database\Seeders\TestingSrtSeeder\RefPerangkatDesaSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -67,6 +69,7 @@ class DatabaseSeeder extends Seeder
 
 
             // // TESTING SEEDER
+            RefPerangkatDesaSeeder::class,
 
 
         ]);

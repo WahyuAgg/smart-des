@@ -19,7 +19,7 @@
       <p class="text-xs text-slate-500 break-all text-right" x-text="result?.file_hasil"></p>
     </div>
 
-    <iframe :src="`${result?.preview_url}#toolbar=0&navpanes=0&scrollbar=0`" class="w-full h-[70vh] bg-slate-100"
+    <iframe x-ref="previewIframe" :src="`${result?.preview_url}#toolbar=0&navpanes=0&scrollbar=0`" class="w-full h-[70vh] bg-slate-100"
       title="Preview Surat">
     </iframe>
     <div class="px-4 py-2 bg-slate-50 border-t border-slate-200 text-center">
@@ -41,6 +41,13 @@
     <button type="button" @click="mulaiLagi()"
       class="px-5 py-2 rounded-lg text-sm font-medium text-slate-600 border border-slate-300 hover:bg-slate-50">
       Ajukan Surat Lain
+    </button>
+    <button type="button" @click="$refs.previewIframe.contentWindow.print()"
+      class="inline-flex items-center gap-2 px-5 py-2 rounded-lg text-sm font-medium text-slate-600 border border-slate-300 hover:bg-slate-50">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v6H6z" />
+      </svg>
+      Cetak Surat
     </button>
   </div>
 </div>

@@ -1,10 +1,10 @@
 # Proprietary Software License Agreement
 
-**Software Name:** SmartDes  
-**Version:** 1.0.0  
-**Developer:** Wahyu Agung Barokah (<wahyuagungbarokah6@gmail.com>)  
-**Institution:** Vocational College, Universitas Gadjah Mada  
-**Program:** KKN-PPM UGM 2026 (Team JT-155)  
+- **Software Name:** SmartDes  
+- **Version:** 1.0.0  
+- **Developer:** Wahyu Agung Barokah ([wahyuagungbarokah6@gmail.com](mailto:wahyuagungbarokah6@gmail.com)). 
+- **Institution:** Vocational College, Universitas Gadjah Mada  
+- **Program:** KKN-PPM UGM 2026 (Team JT-155)  
 
 ---
 
@@ -29,3 +29,5 @@ Special thanks to:
 - **Government and Community of Curug Village**
 - **KKN-PPM UGM 2026 Team JT-155**
 - All parties who contributed to and supported the development of **SmartDes**.
+
+

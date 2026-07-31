@@ -13,7 +13,7 @@
         </div>
         <div>
           <p class="text-2xl font-bold text-slate-800" x-text="dashboard?.total_penduduk ?? 0"></p>
-          <p class="text-xs text-slate-500">Total Penduduk</p>
+          <p class="text-xs text-slate-500">Total Penduduk Terdata</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
         </div>
         <div>
           <p class="text-2xl font-bold text-slate-800" x-text="dashboard?.jumlah_kk ?? 0"></p>
-          <p class="text-xs text-slate-500">Kartu Keluarga</p>
+          <p class="text-xs text-slate-500">Kartu Keluarga Terdata</p>
         </div>
       </div>
 

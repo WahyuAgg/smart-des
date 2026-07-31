@@ -5,31 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-        },
-        colors: {
-          page: '#EEF2F6',
-          navy: {
-            900: '#0B172A',
-            800: '#12233F',
-            700: '#183156',
-          },
-          accent: {
-            DEFAULT: '#ed8137',
-            hover: '#EA580C',
-            light: '#FFEDD5',
-          },
-        },
-      },
-    },
-  }
-</script>
+
 
 
 <style>

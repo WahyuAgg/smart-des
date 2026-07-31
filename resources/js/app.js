@@ -3,6 +3,7 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 
+
 // Services
 import { Auth } from './services/auth';
 window.Auth = Auth;
