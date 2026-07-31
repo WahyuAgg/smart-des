@@ -13,7 +13,7 @@ http:
     type: json
     data: |
       {
-        "jenis_surat_id": 2,
+        "jenis_surat_id": 3,
         "niks": ["3306024406600003", "3306024406600003"],
         "keperluan":null
       }

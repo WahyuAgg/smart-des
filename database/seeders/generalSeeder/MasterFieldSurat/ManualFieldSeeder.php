@@ -22,7 +22,7 @@ class ManualFieldSeeder extends Seeder
             ['nama' => 'keterangan_lain', 'label' => 'Keterangan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
             ['nama' => 'catatan', 'label' => 'Catatan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
             ['nama' => 'sekolah', 'label' => 'Sekolah', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
-            ['nama' => 'tanggal', 'label' => 'Tanggal', 'source' => null, 'source_field' => null, 'tipe' => 'date', 'input_mode' => 'manual'],
+            // ['nama' => 'tanggal', 'label' => 'Tanggal', 'source' => null, 'source_field' => null, 'tipe' => 'date', 'input_mode' => 'manual'],
             ['nama' => 'nama_usaha', 'label' => 'Nama Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
             ['nama' => 'jenis_usaha', 'label' => 'Jenis Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
             ['nama' => 'alamat_usaha', 'label' => 'Alamat Usaha', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
