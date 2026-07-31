@@ -6,10 +6,10 @@
 ## 🔴 High Priority
 
 
-- buat example template surat
-- fx longitude latitude
 - cleanup
+- 
 - Deployment
+- upgrade
 
 
 
