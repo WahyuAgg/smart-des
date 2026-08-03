@@ -2,7 +2,7 @@ import { apiFetch, apiFetchJson, baseUrl } from './httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
 
 export const mutasiApi = {
-  async paginate({ page = 1, perPage = 20, jenis, tanggalFrom, tanggalTo, barangId } = {}) {
+  async list({ page = 1, perPage = 20, jenis, tanggalFrom, tanggalTo, barangId } = {}) {
     const params = new URLSearchParams({ page, per_page: perPage });
     if (jenis) params.set('jenis', jenis);
     if (tanggalFrom) params.set('tanggal_from', tanggalFrom);
@@ -11,13 +11,12 @@ export const mutasiApi = {
 
     return apiFetchJson(`${baseUrl}/inv-mutasi?${params.toString()}`);
   },
+  /** @deprecated Use list() instead */
+  paginate(opts) { return this.list(opts); },
 
   async getById(id) {
     if (!id) return null;
-    try {
-      return await apiFetch(`${baseUrl}/inv-mutasi/${id}`);
-    } catch {
-      return null;
-    }
+    try { return await apiFetch(`${baseUrl}/inv-mutasi/${id}`); }
+    catch { return null; }
   },
 };

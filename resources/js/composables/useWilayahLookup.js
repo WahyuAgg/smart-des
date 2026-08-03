@@ -30,7 +30,7 @@ export function useWilayahLookup() {
         return this.provinsiOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data provinsi.';
+        this.$store.notify.show(error.message || 'Gagal memuat data provinsi.', 'error');
         return [];
       } finally {
         this.provinsiLoading = false;
@@ -50,7 +50,7 @@ export function useWilayahLookup() {
         return this.kabupatenOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data kabupaten.';
+        this.$store.notify.show(error.message || 'Gagal memuat data kabupaten.', 'error');
         return [];
       } finally {
         this.kabupatenLoading = false;
@@ -70,7 +70,7 @@ export function useWilayahLookup() {
         return this.kecamatanOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data kecamatan.';
+        this.$store.notify.show(error.message || 'Gagal memuat data kecamatan.', 'error');
         return [];
       } finally {
         this.kecamatanLoading = false;
@@ -90,7 +90,7 @@ export function useWilayahLookup() {
         return this.desaOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data desa.';
+        this.$store.notify.show(error.message || 'Gagal memuat data desa.', 'error');
         return [];
       } finally {
         this.desaLoading = false;

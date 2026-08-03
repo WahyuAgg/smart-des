@@ -2,37 +2,30 @@ import { apiFetch, apiFetchJson, baseUrl } from './httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
 
 export const kategoriSuratApi = {
-  async paginate({ page = 1, search = '', perPage = 50 } = {}) {
+  async list({ page = 1, search = '', perPage = 50 } = {}) {
     const params = new URLSearchParams({ page, per_page: perPage, search: search || '' });
     return apiFetchJson(`${baseUrl}/srt-kategori-surat?${params.toString()}`);
   },
+  /** @deprecated Use list() instead */
+  paginate(opts) { return this.list(opts); },
 
-  async list(search = '') {
-    const payload = await this.paginate({ search });
+  async listAll(search = '') {
+    const payload = await this.list({ search });
     return normalizePaginatedResponse(payload).items;
   },
 
   async getById(id) {
     if (!id) return null;
-    try {
-      return await apiFetch(`${baseUrl}/srt-kategori-surat/${id}`);
-    } catch { return null; }
+    try { return await apiFetch(`${baseUrl}/srt-kategori-surat/${id}`); }
+    catch { return null; }
   },
 
   async create(payload) {
-    return apiFetch(`${baseUrl}/srt-kategori-surat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    return apiFetch(`${baseUrl}/srt-kategori-surat`, { method: 'POST', body: JSON.stringify(payload) });
   },
 
   async update(id, payload) {
-    return apiFetch(`${baseUrl}/srt-kategori-surat/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    return apiFetch(`${baseUrl}/srt-kategori-surat/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
   },
 
   async remove(id) {

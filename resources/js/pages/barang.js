@@ -1,29 +1,13 @@
 import { isRequired } from '../utils/validation';
 import { barangApi } from '../services/barangApi';
 import { UnauthorizedError } from '../services/httpClient';
+import { useCrud } from '../composables/useCrud';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/barangMapper';
-import { normalizePaginatedResponse } from '../utils/pagination';
 import { useKategoriLookup } from '../composables/useKategoriLookup';
 import { useLokasiLookup } from '../composables/useLokasiLookup';
 
 export default () => ({
-  loading: false,
-  saving: false,
-  error: null,
-  success: null,
-  search: '',
-
-  items: [],
-  meta: { current_page: 1, last_page: 1, total: 0 },
-
-  // Form CRUD
-  showModal: false,
-  editingId: null,
-  form: emptyForm(),
-
-  // Confirm hapus
-  confirmShow: false,
-  deletingItem: null,
+  ...useCrud({ api: barangApi, mapper: { emptyForm, mapItemToForm, buildPayload }, entityName: 'Barang' }),
 
   // Aksi stok
   stockAction: null, // 'pengadaan' | 'hilang' | 'ketemu' | 'opname' | 'hapus-stok'
@@ -40,43 +24,14 @@ export default () => ({
     await this.load();
   },
 
-  async load(page = 1) {
-    this.loading = true;
-    this.error = null;
-
-    try {
-      const payload = await barangApi.paginate({ page, search: this.search });
-      const { items, meta } = normalizePaginatedResponse(payload);
-      this.items = items;
-      this.meta = meta;
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memuat data barang.';
-    } finally {
-      this.loading = false;
-    }
-  },
-
-  openCreate() {
-    this.editingId = null;
-    this.form = emptyForm();
-    this.showModal = true;
-  },
-
-  openEdit(item) {
-    this.editingId = item.id;
-    this.form = mapItemToForm(item);
-    this.showModal = true;
-  },
-
   async save() {
     if (!isRequired(this.form.nama_barang)) {
-      this.error = 'Nama barang wajib diisi.';
+      this.$store.notify.show('Nama barang wajib diisi.', 'error');
       return;
     }
 
     this.saving = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       const isEdit = !!this.editingId;
@@ -88,39 +43,14 @@ export default () => ({
         await barangApi.create(payload);
       }
 
-      this.success = isEdit ? 'Barang berhasil diperbarui.' : 'Barang berhasil ditambahkan.';
+      this.$store.notify.show(isEdit ? 'Barang berhasil diperbarui.' : 'Barang berhasil ditambahkan.', 'success');
       this.showModal = false;
       await this.load(this.meta.current_page);
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menyimpan data.';
+    } catch (e) {
+      if (e instanceof UnauthorizedError) return;
+      this.$store.notify.show(e.message || 'Gagal menyimpan data.', 'error');
     } finally {
       this.saving = false;
-    }
-  },
-
-  openDelete(item) {
-    this.deletingItem = item;
-    this.confirmShow = true;
-  },
-
-  async remove() {
-    if (!this.deletingItem) return;
-
-    this.loading = true;
-    this.error = null;
-
-    try {
-      await barangApi.remove(this.deletingItem.id);
-      this.success = 'Barang berhasil dihapus.';
-      this.confirmShow = false;
-      this.deletingItem = null;
-      await this.load(this.meta.current_page);
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menghapus data.';
-    } finally {
-      this.loading = false;
     }
   },
 
@@ -143,7 +73,7 @@ export default () => ({
     if (!this.stockItem || !this.stockAction) return;
 
     this.stockSaving = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       const id = this.stockItem.id;
@@ -180,12 +110,12 @@ export default () => ({
         'hapus-stok': 'Hapus Stok',
       };
 
-      this.success = `${actionLabels[this.stockAction]} berhasil dicatat.`;
+      this.$store.notify.show(`${actionLabels[this.stockAction]} berhasil dicatat.`, 'success');
       this.closeStockAction();
       await this.load(this.meta.current_page);
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memproses aksi stok.';
+      this.$store.notify.show(error.message || 'Gagal memproses aksi stok.', 'error');
     } finally {
       this.stockSaving = false;
     }

@@ -2,7 +2,7 @@ import { apiFetch, apiFetchJson, baseUrl } from './httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
 
 export const paperApi = {
-  async paginate({ page = 1, search = '', perPage = 12, status, tahun } = {}) {
+  async list({ page = 1, search = '', perPage = 12, status, tahun } = {}) {
     const params = new URLSearchParams({ page, per_page: perPage });
     if (search) params.set('search', search);
     if (status) params.set('status', status);
@@ -10,6 +10,8 @@ export const paperApi = {
 
     return apiFetchJson(`${baseUrl}/papers?${params.toString()}`);
   },
+  /** @deprecated Use list() instead */
+  paginate(opts) { return this.list(opts); },
 
   async getById(id) {
     if (!id) return null;

@@ -22,7 +22,7 @@ export function useKKLookup() {
         return this.kkOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data KK.';
+        this.$store.notify.show(error.message || 'Gagal memuat data KK.', 'error');
         return [];
       } finally {
         this.kkLoading = false;

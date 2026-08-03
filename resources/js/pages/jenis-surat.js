@@ -3,24 +3,12 @@ import { jenisSuratApi } from '../services/jenisSuratApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm } from '../mappers/jenisSuratMapper';
 import { normalizePaginatedResponse } from '../utils/pagination';
+import { useCrud } from '../composables/useCrud';
 
 export default () => ({
-  loading: false,
-  saving: false,
-  error: null,
-  success: null,
-  search: '',
+  ...useCrud({ api: jenisSuratApi, mapper: { emptyForm, mapItemToForm }, entityName: 'Jenis Surat' }),
 
-  items: [],
-  meta: { current_page: 1, last_page: 1, total: 0 },
-
-  showModal: false,
-  editingId: null,
-  form: emptyForm(),
   templateFile: null,
-
-  confirmShow: false,
-  deletingItem: null,
 
   // PDF preview
   previewUrl: null,
@@ -37,7 +25,7 @@ export default () => ({
   async loadKategoriOptions() {
     try {
       const { kategoriSuratApi } = await import('../services/kategoriSuratApi');
-      const payload = await kategoriSuratApi.paginate({ perPage: 200 });
+      const payload = await kategoriSuratApi.list({ perPage: 200 });
       const { items } = normalizePaginatedResponse(payload);
       this.kategoriOptions = items.map((k) => ({
         value: k.id,
@@ -45,23 +33,6 @@ export default () => ({
       }));
     } catch {
       this.kategoriOptions = [];
-    }
-  },
-
-  async load(page = 1) {
-    this.loading = true;
-    this.error = null;
-
-    try {
-      const payload = await jenisSuratApi.paginate({ page, search: this.search });
-      const { items, meta } = normalizePaginatedResponse(payload);
-      this.items = items;
-      this.meta = meta;
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memuat data jenis surat.';
-    } finally {
-      this.loading = false;
     }
   },
 
@@ -100,20 +71,20 @@ export default () => ({
 
   async save() {
     if (!isRequired(this.form.kategori_surat_id)) {
-      this.error = 'Kategori surat wajib dipilih.';
+      this.$store.notify.show('Kategori surat wajib dipilih.', 'error');
       return;
     }
     if (!isRequired(this.form.kode_jenis_surat)) {
-      this.error = 'Kode jenis surat wajib diisi.';
+      this.$store.notify.show('Kode jenis surat wajib diisi.', 'error');
       return;
     }
     if (!isRequired(this.form.nama_jenis_surat)) {
-      this.error = 'Nama jenis surat wajib diisi.';
+      this.$store.notify.show('Nama jenis surat wajib diisi.', 'error');
       return;
     }
 
     this.saving = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       const isEdit = !!this.editingId;
@@ -124,47 +95,22 @@ export default () => ({
         await jenisSuratApi.create(this.form, this.templateFile);
       }
 
-      this.success = isEdit
+      this.$store.notify.show(isEdit
         ? 'Data jenis surat berhasil diperbarui.'
-        : 'Data jenis surat berhasil ditambahkan.';
+        : 'Data jenis surat berhasil ditambahkan.', 'success');
       this.showModal = false;
       await this.load(this.meta.current_page);
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menyimpan data jenis surat.';
+      this.$store.notify.show(error.message || 'Gagal menyimpan data jenis surat.', 'error');
     } finally {
       this.saving = false;
     }
   },
 
-  openDelete(item) {
-    this.deletingItem = item;
-    this.confirmShow = true;
-  },
-
-  async remove() {
-    if (!this.deletingItem) return;
-
-    this.loading = true;
-    this.error = null;
-
-    try {
-      await jenisSuratApi.remove(this.deletingItem.id);
-      this.success = 'Data jenis surat berhasil dihapus.';
-      this.confirmShow = false;
-      this.deletingItem = null;
-      await this.load(this.meta.current_page);
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menghapus data jenis surat.';
-    } finally {
-      this.loading = false;
-    }
-  },
-
   openPreview(url) {
     if (!url) {
-      this.error = 'Tidak ada file template PDF untuk ditampilkan.';
+      this.$store.notify.show('Tidak ada file template PDF untuk ditampilkan.', 'error');
       return;
     }
     this.previewUrl = url;

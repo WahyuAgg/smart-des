@@ -17,15 +17,24 @@ export class UnauthorizedError extends Error {
 /**
  * Wraps fetch() with the project's conventions:
  * - merges Auth.headers()
+ * - auto-sets Content-Type: application/json for POST/PUT with plain body
  * - detects and short-circuits on 401 via Auth.handleUnauthorized()
  * - parses JSON safely
  * - throws a normal Error with the API's message on failure
  * - unwraps the common `{ success, data, message }` envelope
  */
 export async function apiFetch(url, options = {}) {
+  const method = (options.method || 'GET').toUpperCase();
+
+  // Auto-set Content-Type: application/json for POST/PUT with plain object body
+  let { headers, body } = options;
+  if ((method === 'POST' || method === 'PUT') && body && typeof body === 'string' && !(body instanceof FormData)) {
+    headers = { 'Content-Type': 'application/json', ...headers };
+  }
+
   const response = await fetch(url, {
     ...options,
-    headers: Auth.headers(options.headers),
+    headers: Auth.headers(headers),
   });
 
   if (Auth.handleUnauthorized(response)) {

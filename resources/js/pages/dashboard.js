@@ -6,13 +6,13 @@ import { pengajuanSuratApi } from '../services/pengajuanSuratApi';
 import { UnauthorizedError } from '../services/httpClient';
 
 export default () => ({
+  error: null,
   /** Data dari API */
   profilDesa: null,
   dashboard: null,
   perangkatDesa: [],
   riwayatSurat: [],
   loading: true,
-  error: null,
 
   async init() {
     await this.fetchAll();
@@ -21,13 +21,14 @@ export default () => ({
   async fetchAll() {
     this.loading = true;
     this.error = null;
+    this.$store.notify.clear();
 
     try {
       const [profilData, dashData, perangkatData, suratData] = await Promise.all([
         profilDesaApi.get(),
         dashboardApi.get(),
         perangkatDesaApi.list(),
-        pengajuanSuratApi.paginate({ page: 1, perPage: 10 }),
+        pengajuanSuratApi.list({ page: 1, perPage: 10 }),
       ]);
 
       this.profilDesa = profilData;

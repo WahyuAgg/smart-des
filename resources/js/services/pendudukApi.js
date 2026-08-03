@@ -10,20 +10,18 @@ export const pendudukApi = {
     return normalizePaginatedResponse(payload);
   },
 
+  async getById(id) {
+    if (!id) return null;
+    try { return await apiFetch(`${baseUrl}/${endpoint}/${id}`); }
+    catch { return null; }
+  },
+
   async create(payload) {
-    return apiFetch(`${baseUrl}/${endpoint}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    return apiFetch(`${baseUrl}/${endpoint}`, { method: 'POST', body: JSON.stringify(payload) });
   },
 
   async update(id, payload) {
-    return apiFetch(`${baseUrl}/${endpoint}/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    return apiFetch(`${baseUrl}/${endpoint}/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
   },
 
   async remove(id) {

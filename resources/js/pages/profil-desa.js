@@ -136,8 +136,6 @@ export default () => ({
   loading: false,
   saving: false,
   deleting: false,
-  error: null,
-  success: null,
 
   // Data
   record: null,
@@ -159,7 +157,7 @@ export default () => ({
 
   async load() {
     this.loading = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       this.record = await profilDesaApi.get();
@@ -173,7 +171,7 @@ export default () => ({
         this.form = emptyForm();
         return;
       }
-      this.error = error.message || 'Gagal memuat data profil desa.';
+      this.$store.notify.show(error.message || 'Gagal memuat data profil desa.', 'error');
     } finally {
       this.loading = false;
     }
@@ -220,30 +218,29 @@ export default () => ({
   cancelEdit() {
     this.isEditing = false;
     this.form = this.record ? mapItemToForm(this.record) : emptyForm();
-    this.error = null;
+    this.$store.notify.clear();
   },
 
   async save() {
     this.saving = true;
-    this.error = null;
-    this.success = null;
+    this.$store.notify.clear();
 
     try {
       const fd = buildFormData(this.form);
 
       if (this.record) {
         await profilDesaApi.update(fd);
-        this.success = 'Profil desa berhasil diperbarui.';
+        this.$store.notify.show('Profil desa berhasil diperbarui.', 'success');
       } else {
         await profilDesaApi.create(fd);
-        this.success = 'Profil desa berhasil ditambahkan.';
+        this.$store.notify.show('Profil desa berhasil ditambahkan.', 'success');
       }
 
       this.isEditing = false;
       await this.load();
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menyimpan data.';
+      this.$store.notify.show(error.message || 'Gagal menyimpan data.', 'error');
     } finally {
       this.saving = false;
     }
@@ -255,17 +252,17 @@ export default () => ({
 
   async remove() {
     this.deleting = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       await profilDesaApi.remove();
-      this.success = 'Profil desa berhasil dihapus.';
+      this.$store.notify.show('Profil desa berhasil dihapus.', 'success');
       this.confirmDelete = false;
       this.record = null;
       this.form = emptyForm();
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menghapus data.';
+      this.$store.notify.show(error.message || 'Gagal menghapus data.', 'error');
     } finally {
       this.deleting = false;
     }

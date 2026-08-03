@@ -6,6 +6,9 @@ info:
 http:
   method: GET
   url: "{{base_url}}/api/backup/download-database-sqlite"
+  headers:
+    - name: Content-Type
+      value: application/json
   auth: inherit
 
 settings:

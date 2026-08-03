@@ -4,26 +4,13 @@ import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/pendudukMapper';
 import { formatDate } from '../utils/date';
 import { genderLabel, statusBadge, statusLabel } from '../utils/format';
+import { useCrud } from '../composables/useCrud';
 import { useKKLookup } from '../composables/useKKLookup';
 import { usePendidikanLookup } from '../composables/usePendidikanLookup';
 import { useWilayahLookup } from '../composables/useWilayahLookup';
 
 export default () => ({
-  loading: false,
-  saving: false,
-  error: null,
-  success: null,
-  search: '',
-
-  items: [],
-  meta: { current_page: 1, last_page: 1, total: 0 },
-
-  showModal: false,
-  editingId: null,
-  form: emptyForm(),
-
-  confirmShow: false,
-  deletingItem: null,
+  ...useCrud({ api: pendudukApi, mapper: { emptyForm, mapItemToForm, buildPayload }, entityName: 'Penduduk', useNormalize: false }),
 
   // Autocomplete/lookup state & methods for KK and Pendidikan
   ...useKKLookup(),
@@ -33,22 +20,6 @@ export default () => ({
   async init() {
     await Promise.all([this.loadKkOptions(), this.loadPendidikanOptions(), this.loadProvinsiOptions()]);
     await this.load();
-  },
-
-  async load(page = 1) {
-    this.loading = true;
-    this.error = null;
-
-    try {
-      const { items, meta } = await pendudukApi.list({ page, search: this.search });
-      this.items = items;
-      this.meta = meta;
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memuat data penduduk.';
-    } finally {
-      this.loading = false;
-    }
   },
 
   openCreate() {
@@ -70,12 +41,12 @@ export default () => ({
 
   async save() {
     if (!isRequired(this.form.nik) || !isRequired(this.form.nama_lengkap)) {
-      this.error = 'NIK dan nama lengkap wajib diisi.';
+      this.$store.notify.show('NIK dan nama lengkap wajib diisi.', 'error');
       return;
     }
 
     this.saving = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       const isEdit = !!this.editingId;
@@ -87,41 +58,16 @@ export default () => ({
         await pendudukApi.create(payload);
       }
 
-      this.success = isEdit
+      this.$store.notify.show(isEdit
         ? 'Data penduduk berhasil diperbarui.'
-        : 'Data penduduk berhasil ditambahkan.';
+        : 'Data penduduk berhasil ditambahkan.', 'success');
       this.showModal = false;
       await this.load(this.meta.current_page);
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menyimpan data penduduk.';
+      this.$store.notify.show(error.message || 'Gagal menyimpan data penduduk.', 'error');
     } finally {
       this.saving = false;
-    }
-  },
-
-  openDelete(item) {
-    this.deletingItem = item;
-    this.confirmShow = true;
-  },
-
-  async remove() {
-    if (!this.deletingItem) return;
-
-    this.loading = true;
-    this.error = null;
-
-    try {
-      await pendudukApi.remove(this.deletingItem.id);
-      this.success = 'Data penduduk berhasil dihapus.';
-      this.confirmShow = false;
-      this.deletingItem = null;
-      await this.load(this.meta.current_page);
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menghapus data penduduk.';
-    } finally {
-      this.loading = false;
     }
   },
 

@@ -16,6 +16,7 @@ export default () => ({
   async loadPeta() {
     this.loading = true;
     this.error = null;
+    this.pdfUrl = null;
 
     try {
       const data = await profilDesaApi.get();
@@ -25,7 +26,6 @@ export default () => ({
       }
     } catch (e) {
       if (e instanceof UnauthorizedError) {
-        // Kalau API butuh login, jangan redirect, kasih info saja
         this.error = 'Peta desa hanya bisa diakses oleh pengguna yang terdaftar.';
         return;
       }

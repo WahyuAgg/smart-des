@@ -33,6 +33,31 @@ document.addEventListener('alpine:init', () => {
             this.open = false;
         },
     });
+
+    // ── Global Notification Store ────────────────────────────────
+    Alpine.store('notify', {
+        message: null,
+        type: null, // 'success' | 'error'
+        _timeout: null,
+
+        show(message, type = 'success') {
+            if (this._timeout) clearTimeout(this._timeout);
+            this.message = message;
+            this.type = type;
+            if (message) {
+                this._timeout = setTimeout(() => {
+                    this.message = null;
+                    this.type = null;
+                }, 4000);
+            }
+        },
+
+        clear() {
+            if (this._timeout) clearTimeout(this._timeout);
+            this.message = null;
+            this.type = null;
+        },
+    });
 });
 
 // Components

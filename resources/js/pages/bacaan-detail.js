@@ -17,6 +17,7 @@ export default () => ({
   async load() {
     this.loading = true;
     this.error = null;
+    this.$store.notify.clear();
 
     try {
       this.item = await paperApi.getById(this.id);

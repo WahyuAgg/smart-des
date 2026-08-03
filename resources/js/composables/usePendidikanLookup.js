@@ -22,7 +22,7 @@ export function usePendidikanLookup() {
         return this.pendidikanOptions;
       } catch (error) {
         if (error instanceof UnauthorizedError) return [];
-        this.error = error.message || 'Gagal memuat data pendidikan.';
+        this.$store.notify.show(error.message || 'Gagal memuat data pendidikan.', 'error');
         return [];
       } finally {
         this.pendidikanLoading = false;

@@ -21,9 +21,10 @@ export default () => ({
   async load(page = 1) {
     this.loading = true;
     this.error = null;
+    this.$store.notify.clear();
 
     try {
-      const payload = await galeriApi.paginate({
+      const payload = await galeriApi.list({
         page,
         search: this.search,
         isPublished: true,

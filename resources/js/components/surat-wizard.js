@@ -7,8 +7,6 @@ export default () => ({
     // ---- ui state ----
     step: 1,
     loading: false,
-    error: null,
-    success: null,
 
     // ---- step 1: pilih jenis surat ----
     jenisSuratList: [],
@@ -35,7 +33,7 @@ export default () => ({
     // ---------------------------------------------------------------
     async loadJenisSurat() {
         this.loading = true;
-        this.error = null;
+        this.$store.notify.clear();
         try {
             const res = await fetch(`${this.baseUrl}/srt-jenis-surat`, {
                 headers: { Accept: "application/json" },
@@ -47,7 +45,7 @@ export default () => ({
             const json = await res.json();
             this.jenisSuratList = (json.data && json.data.data) || [];
         } catch (e) {
-            this.error = e.message || "Gagal memuat daftar jenis surat.";
+            this.$store.notify.show(e.message || "Gagal memuat daftar jenis surat.", 'error');
         } finally {
             this.loading = false;
         }
@@ -58,13 +56,13 @@ export default () => ({
     // ---------------------------------------------------------------
     async pilihJenisSurat(item) {
         this.loading = true;
-        this.error = null;
+        this.$store.notify.clear();
         try {
             const res = await fetch(`${this.baseUrl}/srt-jenis-surat/${item.id}`, {
                 headers: { Accept: "application/json" },
             });
             if (!res.ok) {
-                this.error = "Gagal memuat detail jenis surat.";
+                this.$store.notify.show("Gagal memuat detail jenis surat.", 'error');
                 return;
             }
 
@@ -83,7 +81,7 @@ export default () => ({
 
             this.step = 2;
         } catch (e) {
-            this.error = e.message || "Gagal memuat detail jenis surat.";
+            this.$store.notify.show(e.message || "Gagal memuat detail jenis surat.", 'error');
         } finally {
             this.loading = false;
         }
@@ -107,7 +105,7 @@ export default () => ({
 
     async submitNik() {
         if (!this.canSubmitNik) {
-            this.error = "Lengkapi NIK untuk semua peran yang wajib diisi.";
+            this.$store.notify.show("Lengkapi NIK untuk semua peran yang wajib diisi.", 'error');
             return;
         }
 
@@ -116,13 +114,13 @@ export default () => ({
         for (const role of roles) {
             const nikVal = (this.nikByRole[role.kode] || "").trim();
             if (isRequired(nikVal) && !isNik(nikVal)) {
-                this.error = `Format NIK untuk peran "${role.nama}" tidak valid (harus 16 digit angka).`;
+                this.$store.notify.show(`Format NIK untuk peran "${role.nama}" tidak valid (harus 16 digit angka).`, 'error');
                 return;
             }
         }
 
         this.loading = true;
-        this.error = null;
+        this.$store.notify.clear();
         try {
             const niks = this.rolesUrut.map((r) =>
                 (this.nikByRole[r.kode] || "").trim(),
@@ -154,7 +152,7 @@ export default () => ({
 
             this.step = 3;
         } catch (e) {
-            this.error = e.message || "Gagal mengirim data NIK.";
+            this.$store.notify.show(e.message || "Gagal mengirim data NIK.", 'error');
         } finally {
             this.loading = false;
         }
@@ -179,11 +177,11 @@ export default () => ({
 
     async generateSurat() {
         if (!this.canGenerate) {
-            this.error = "Lengkapi seluruh data yang wajib diisi.";
+            this.$store.notify.show("Lengkapi seluruh data yang wajib diisi.", 'error');
             return;
         }
         this.loading = true;
-        this.error = null;
+        this.$store.notify.clear();
         try {
             const res = await fetch(
                 `${this.baseUrl}/pengajuan-surat/${this.pengajuanId}`,
@@ -200,10 +198,10 @@ export default () => ({
 
             const json = await res.json();
             this.result = json.data;
-            this.success = json.message || "Surat berhasil dibuat.";
+            this.$store.notify.show(json.message || "Surat berhasil dibuat.", 'success');
             this.step = 4;
         } catch (e) {
-            this.error = e.message || "Gagal membuat surat.";
+            this.$store.notify.show(e.message || "Gagal membuat surat.", 'error');
         } finally {
             this.loading = false;
         }
@@ -221,8 +219,7 @@ export default () => ({
         this.fields = [];
         this.dataSurat = {};
         this.result = null;
-        this.error = null;
-        this.success = null;
+        this.$store.notify.clear();
     },
 
     formatISOToIndonesianDate(isoString) {
@@ -273,6 +270,6 @@ export default () => ({
 
     kembali() {
         if (this.step > 1) this.step -= 1;
-        this.error = null;
+        this.$store.notify.clear();
     },
 });

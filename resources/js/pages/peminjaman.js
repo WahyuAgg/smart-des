@@ -3,28 +3,13 @@ import { peminjamanApi } from '../services/peminjamanApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/peminjamanMapper';
 import { normalizePaginatedResponse } from '../utils/pagination';
+import { useCrud } from '../composables/useCrud';
 import { useBarangLookup } from '../composables/useBarangLookup';
 
 export default () => ({
-  loading: false,
-  saving: false,
-  error: null,
-  success: null,
-  search: '',
-
-  items: [],
-  meta: { current_page: 1, last_page: 1, total: 0 },
+  ...useCrud({ api: peminjamanApi, mapper: { emptyForm, mapItemToForm, buildPayload }, entityName: 'Peminjaman' }),
 
   filterStatus: '',
-
-  // Form CRUD
-  showModal: false,
-  editingId: null,
-  form: emptyForm(),
-
-  // Confirm hapus
-  confirmShow: false,
-  deletingItem: null,
 
   // Confirm batalkan
   confirmBatalShow: false,
@@ -40,10 +25,10 @@ export default () => ({
 
   async load(page = 1) {
     this.loading = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
-      const payload = await peminjamanApi.paginate({
+      const payload = await peminjamanApi.list({
         page,
         search: this.search,
         status: this.filterStatus || undefined,
@@ -53,22 +38,10 @@ export default () => ({
       this.meta = meta;
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memuat data peminjaman.';
+      this.$store.notify.show(error.message || 'Gagal memuat data peminjaman.', 'error');
     } finally {
       this.loading = false;
     }
-  },
-
-  openCreate() {
-    this.editingId = null;
-    this.form = emptyForm();
-    this.showModal = true;
-  },
-
-  openEdit(item) {
-    this.editingId = item.id;
-    this.form = mapItemToForm(item);
-    this.showModal = true;
   },
 
   addDetailRow() {
@@ -82,17 +55,17 @@ export default () => ({
 
   async save() {
     if (!isRequired(this.form.nama_peminjam)) {
-      this.error = 'Nama peminjam wajib diisi.';
+      this.$store.notify.show('Nama peminjam wajib diisi.', 'error');
       return;
     }
 
     if (this.form.details.filter(d => d.barang_id && d.jumlah).length === 0) {
-      this.error = 'Minimal satu barang harus diisi.';
+      this.$store.notify.show('Minimal satu barang harus diisi.', 'error');
       return;
     }
 
     this.saving = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       const isEdit = !!this.editingId;
@@ -104,38 +77,14 @@ export default () => ({
         await peminjamanApi.create(payload);
       }
 
-      this.success = isEdit ? 'Peminjaman berhasil diperbarui.' : 'Peminjaman berhasil dicatat.';
+      this.$store.notify.show(isEdit ? 'Peminjaman berhasil diperbarui.' : 'Peminjaman berhasil dicatat.', 'success');
       this.showModal = false;
       await this.load(this.meta.current_page);
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menyimpan data.';
+      this.$store.notify.show(error.message || 'Gagal menyimpan data.', 'error');
     } finally {
       this.saving = false;
-    }
-  },
-
-  openDelete(item) {
-    this.deletingItem = item;
-    this.confirmShow = true;
-  },
-
-  async remove() {
-    if (!this.deletingItem) return;
-    this.loading = true;
-    this.error = null;
-
-    try {
-      await peminjamanApi.remove(this.deletingItem.id);
-      this.success = 'Peminjaman berhasil dihapus.';
-      this.confirmShow = false;
-      this.deletingItem = null;
-      await this.load(this.meta.current_page);
-    } catch (error) {
-      if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal menghapus data.';
-    } finally {
-      this.loading = false;
     }
   },
 
@@ -148,17 +97,17 @@ export default () => ({
   async batalkan() {
     if (!this.batalItem) return;
     this.loading = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
       await peminjamanApi.batalkan(this.batalItem.id);
-      this.success = 'Peminjaman berhasil dibatalkan.';
+      this.$store.notify.show('Peminjaman berhasil dibatalkan.', 'success');
       this.confirmBatalShow = false;
       this.batalItem = null;
       await this.load(this.meta.current_page);
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal membatalkan peminjaman.';
+      this.$store.notify.show(error.message || 'Gagal membatalkan peminjaman.', 'error');
     } finally {
       this.loading = false;
     }

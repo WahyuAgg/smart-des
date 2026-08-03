@@ -3,13 +3,15 @@ import { normalizePaginatedResponse } from '../utils/pagination';
 import { buildFormData } from '../mappers/jenisSuratMapper';
 
 export const jenisSuratApi = {
-  async paginate({ page = 1, search = '', perPage = 50 } = {}) {
+  async list({ page = 1, search = '', perPage = 50 } = {}) {
     const params = new URLSearchParams({ page, per_page: perPage, search: search || '' });
     return apiFetchJson(`${baseUrl}/srt-jenis-surat?${params.toString()}`);
   },
+  /** @deprecated Use list() instead */
+  paginate(opts) { return this.list(opts); },
 
-  async list(search = '') {
-    const payload = await this.paginate({ search });
+  async listAll(search = '') {
+    const payload = await this.list({ search });
     return normalizePaginatedResponse(payload).items;
   },
 

@@ -4,7 +4,6 @@ import { normalizePaginatedResponse } from '../utils/pagination';
 
 export default () => ({
   loading: false,
-  error: null,
 
   items: [],
   meta: { current_page: 1, last_page: 1, total: 0 },
@@ -20,16 +19,16 @@ export default () => ({
 
   async load(page = 1) {
     this.loading = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
-      const payload = await pengajuanSuratApi.paginate({ page });
+      const payload = await pengajuanSuratApi.list({ page });
       const { items, meta } = normalizePaginatedResponse(payload);
       this.items = items;
       this.meta = meta;
     } catch (e) {
       if (e instanceof UnauthorizedError) return;
-      this.error = e.message || 'Gagal memuat riwayat surat.';
+      this.$store.notify.show(e.message || 'Gagal memuat riwayat surat.', 'error');
     } finally {
       this.loading = false;
     }
@@ -64,7 +63,7 @@ export default () => ({
       const data = await pengajuanSuratApi.getById(item.id);
       this.detailItem = data;
     } catch (e) {
-      this.error = e.message || 'Gagal memuat detail surat.';
+      this.$store.notify.show(e.message || 'Gagal memuat detail surat.', 'error');
     } finally {
       this.detailLoading = false;
     }

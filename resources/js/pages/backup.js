@@ -3,8 +3,6 @@ import { UnauthorizedError } from '../services/httpClient';
 
 export default () => ({
   loading: false,
-  error: null,
-  success: null,
 
   async downloadStorageFiles() {
     await this.download(() => backupApi.downloadStorageFiles(), 'Backup storage berhasil diunduh.');
@@ -16,15 +14,14 @@ export default () => ({
 
   async download(action, successMessage) {
     this.loading = true;
-    this.error = null;
-    this.success = null;
+    this.$store.notify.clear();
 
     try {
       await action();
-      this.success = successMessage;
+      this.$store.notify.show(successMessage, 'success');
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal mengunduh backup.';
+      this.$store.notify.show(error.message || 'Gagal mengunduh backup.', 'error');
     } finally {
       this.loading = false;
     }

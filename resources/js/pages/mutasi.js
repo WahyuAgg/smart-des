@@ -4,7 +4,6 @@ import { normalizePaginatedResponse } from '../utils/pagination';
 
 export default () => ({
   loading: false,
-  error: null,
 
   items: [],
   meta: { current_page: 1, last_page: 1, total: 0 },
@@ -19,10 +18,10 @@ export default () => ({
 
   async load(page = 1) {
     this.loading = true;
-    this.error = null;
+    this.$store.notify.clear();
 
     try {
-      const payload = await mutasiApi.paginate({
+      const payload = await mutasiApi.list({
         page,
         jenis: this.filterJenis || undefined,
         tanggalFrom: this.filterTanggalFrom || undefined,
@@ -33,7 +32,7 @@ export default () => ({
       this.meta = meta;
     } catch (error) {
       if (error instanceof UnauthorizedError) return;
-      this.error = error.message || 'Gagal memuat data mutasi.';
+      this.$store.notify.show(error.message || 'Gagal memuat data mutasi.', 'error');
     } finally {
       this.loading = false;
     }

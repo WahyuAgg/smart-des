@@ -18,9 +18,10 @@ export default () => ({
   async load(page = 1) {
     this.loading = true;
     this.error = null;
+    this.$store.notify.clear();
 
     try {
-      const payload = await paperApi.paginate({
+      const payload = await paperApi.list({
         page,
         search: this.search,
         status: 'published',

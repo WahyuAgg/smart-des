@@ -12,6 +12,7 @@ export default () => ({
   async load() {
     this.loading = true;
     this.error = null;
+    this.$store.notify.clear();
 
     try {
       this.info = await appInfoApi.get();
