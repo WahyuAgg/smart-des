@@ -62,6 +62,17 @@ export default () => ({
     this.showModal = true;
   },
 
+copyPlaceholder(name) {
+    navigator.clipboard.writeText(`\${${name}}`);
+
+    window.dispatchEvent(new CustomEvent('notify', {
+        detail: {
+            type: 'success',
+            message: 'Placeholder berhasil disalin.',
+        }
+    }));
+},
+
   async save() {
     if (
       !isRequired(this.form.nama) ||

@@ -21,8 +21,12 @@
 
         <template x-for="item in items" :key="item.id">
           <tr class="hover:bg-slate-50">
-            <td class="px-4 py-3 font-mono text-xs text-slate-700" x-text="item.nama"></td>
-            <td class="px-4 py-3 text-slate-700" x-text="item.label"></td>
+<td
+    class="px-4 py-3 font-mono text-xs text-slate-700 cursor-pointer"
+    x-text="`\${${item.nama}}`"
+    @click="copyPlaceholder(item.nama)">
+</td>
+         <td class="px-4 py-3 text-slate-700" x-text="item.label"></td>
             <td class="px-4 py-3 text-slate-500" x-text="item.tipe"></td>
             <td class="px-4 py-3">
               <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium"

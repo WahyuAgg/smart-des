@@ -3,6 +3,8 @@
 
 ## 🔴 High Priority
 
+- add surat template
+- add import
 - cleanup
 - Persiapan deplayment
 - Deployment
@@ -16,15 +18,4 @@
 
 - upgrade UI quality
 - refractor code concistency
-
-___________________
-## Dashboard
-
-- Jumlah KK
-- Jumlah Penduduk
-- jimlah laki laki
-- jumlah perempuan
-
-
-## improvement
 

@@ -35,8 +35,7 @@ http:
     data: |-
       {
           "data_surat": {
-              "tujuan": "Pembuatan BPJS",
-              "catatan": "Mohon diproses secepatnya"
+
           }
       }
   auth: inherit
@@ -44,7 +43,7 @@ http:
 runtime:
   variables:
     - name: pengajuan_surat_id
-      value: "55"
+      value: "12"
 
 settings:
   encodeUrl: true

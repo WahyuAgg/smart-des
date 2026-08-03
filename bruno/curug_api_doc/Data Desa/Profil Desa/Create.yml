@@ -20,7 +20,7 @@ http:
         value: "3306022050"
       - name: alamat
         type: text
-        value: alamat lengkap Jln.Lingkar Utara Desa Curug, Kec ngombol, kab purwoejo
+        value: Jln.Lingkar Utara, Desa Curug, RT 002, RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.
         description: alamat lengkap
       - name: telepon
         type: text

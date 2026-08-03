@@ -31,6 +31,7 @@ class DataPendudukSeeder extends Seeder
             ['nama' => 'nama_ibu_kandung', 'label' => 'Nama Ibu Kandung', 'source' => 'penduduk', 'source_field' => 'nama_ibu_kandung', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir (date)', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_formatted', 'tipe' => 'date', 'input_mode' => 'auto'],
             ['nama' => 'tanggal_lahir_f', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir_f', 'tipe' => 'date', 'input_mode' => 'auto'],
+            ['nama' => 'ttl', 'label' => 'Tempat dan Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'ttl', 'tipe' => 'text', 'input_mode' => 'auto'],
             ['nama' => 'tanggal_lahir', 'label' => 'Tanggal Lahir', 'source' => 'penduduk', 'source_field' => 'tanggal_lahir', 'tipe' => 'date', 'input_mode' => 'auto'],
 
             // Kontak penduduk

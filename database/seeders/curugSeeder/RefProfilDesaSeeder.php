@@ -20,7 +20,7 @@ class RefProfilDesaSeeder extends Seeder
                 'kode' => '3306022050',
                 'kode_pos' => null,
 
-                'alamat' => 'Jln.Lingkar Utara Desa Curug, Rt/Rw 002/001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.',
+                'alamat' => 'Jln.Lingkar Utara, Desa Curug, RT 002, RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.',
                 'telepon' => '081234567890',
                 'email' => 'desa_curug@example.com',
                 'website' => 'https://desacurug.co.id',

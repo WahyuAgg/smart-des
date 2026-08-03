@@ -113,14 +113,14 @@ class Penduduk extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    
+
 
 
     /**
      * Formatter untuk formatting attribute
      * Jangan di $appeend karena akan return NULL
      */
-    
+
     protected function namaLengkap(): Attribute
     {
         return Attribute::make(
@@ -179,6 +179,17 @@ class Penduduk extends Model
             get: fn() => $this->tanggal_lahir?->translatedFormat('d F Y')
         );
     }
+
+    protected function ttl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => collect([
+                $this->tempat_lahir ? $this->capitalizeSpecial($this->tempat_lahir) : null,
+                $this->tanggal_lahir?->translatedFormat('d F Y'),
+            ])->filter()->implode(', ')
+        );
+    }
+
 
     protected function getAlamat(): Attribute
     {

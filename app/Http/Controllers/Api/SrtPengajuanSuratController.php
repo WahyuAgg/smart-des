@@ -179,7 +179,7 @@ class SrtPengajuanSuratController extends Controller
 
 
         $data = $request->validate([
-            'data_surat' => ['required', 'array'],
+            'data_surat' => ['nullable', 'array'],
         ]);
 
         $dataSurat = $pengajuan->data_surat ?? [];
