@@ -1,23 +1,16 @@
+import { useAutocompleteLookup } from './useAutocompleteLookup';
 import { kategoriBarangApi } from '../services/kategoriBarangApi';
-import { normalizePaginatedResponse } from '../utils/pagination';
 
 /**
- * Composable untuk load daftar kategori barang (untuk select dropdown).
+ * Kategori Barang Lookup — wrapped generic (select mode).
+ *
  * Gunakan: const kategoriLookup = useKategoriLookup();
- * Di template: x-init="kategoriLookup.init()"
+ * Template: x-init="kategoriLookup.init()"
+ * Akses: kategoriLookup.items
  */
 export function useKategoriLookup() {
-  return {
-    items: [],
-
-    async init() {
-      try {
-        const payload = await kategoriBarangApi.paginate({ perPage: 200 });
-        const { items } = normalizePaginatedResponse(payload);
-        this.items = items;
-      } catch {
-        this.items = [];
-      }
-    },
-  };
+  return useAutocompleteLookup({
+    api: kategoriBarangApi,
+    mode: 'select',
+  });
 }

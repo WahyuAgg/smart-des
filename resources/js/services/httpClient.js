@@ -1,6 +1,6 @@
 import { Auth } from './auth';
 
-export const baseUrl = window.API_BASE_URL || '/api';
+export const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
 
 /**
  * Thrown when the request was unauthorized and Auth.handleUnauthorized()

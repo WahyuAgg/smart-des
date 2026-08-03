@@ -1,8 +1,8 @@
 import { Auth } from '../services/auth';
 import { isRequired, isEmail } from '../utils/validation';
+import { baseUrl } from '../services/httpClient';
 
 export default () => ({
-  baseUrl: window.API_BASE_URL || '/api',
 
   // ---- form state ----
   email: '',
@@ -36,7 +36,7 @@ export default () => ({
     this.error = null;
 
     try {
-      const res = await fetch(`${this.baseUrl}/login`, {
+      const res = await fetch(`${baseUrl}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

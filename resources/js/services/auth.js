@@ -4,6 +4,8 @@
  * Menyimpan token & user di localStorage.
  */
 
+import { baseUrl } from './httpClient';
+
 const TOKEN_KEY = 'auth_token';
 const USER_KEY  = 'auth_user';
 
@@ -92,8 +94,8 @@ export const Auth = {
   /**
    * Logout: fetch API logout, clear session, redirect.
    */
-  async logout(baseUrl) {
-    const url = (baseUrl || window.API_BASE_URL || '/api') + '/logout';
+  async logout() {
+    const url = baseUrl + '/logout';
     try {
       await fetch(url, {
         method: 'POST',
@@ -111,8 +113,8 @@ export const Auth = {
    * Call after login or when user data may have changed (role, name, etc).
    * Returns the user object, or null if unauthhenticated.
    */
-  async fetchUser(baseUrl) {
-    const url = (baseUrl || window.API_BASE_URL || '/api') + '/me';
+  async fetchUser() {
+    const url = baseUrl + '/me';
     try {
       const res = await fetch(url, {
         method: 'GET',

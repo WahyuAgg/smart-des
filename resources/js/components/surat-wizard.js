@@ -1,8 +1,7 @@
 import { isRequired, isNik } from "../utils/validation";
+import { baseUrl } from "../services/httpClient";
 
 export default () => ({
-    // ---- config ----
-    baseUrl: window.API_BASE_URL || "/api",
 
     // ---- ui state ----
     step: 1,
@@ -35,7 +34,7 @@ export default () => ({
         this.loading = true;
         this.$store.notify.clear();
         try {
-            const res = await fetch(`${this.baseUrl}/srt-jenis-surat`, {
+            const res = await fetch(`${baseUrl}/srt-jenis-surat`, {
                 headers: { Accept: "application/json" },
             });
             if (!res.ok) {
@@ -58,7 +57,7 @@ export default () => ({
         this.loading = true;
         this.$store.notify.clear();
         try {
-            const res = await fetch(`${this.baseUrl}/srt-jenis-surat/${item.id}`, {
+            const res = await fetch(`${baseUrl}/srt-jenis-surat/${item.id}`, {
                 headers: { Accept: "application/json" },
             });
             if (!res.ok) {
@@ -132,7 +131,7 @@ export default () => ({
                 keperluan: this.keperluan || null,
             };
 
-            const res = await fetch(`${this.baseUrl}/pengajuan-surat`, {
+            const res = await fetch(`${baseUrl}/pengajuan-surat`, {
                 method: "POST",
                 headers: { Accept: "application/json", "Content-Type": "application/json" },
                 body: JSON.stringify(body),
@@ -184,7 +183,7 @@ export default () => ({
         this.$store.notify.clear();
         try {
             const res = await fetch(
-                `${this.baseUrl}/pengajuan-surat/${this.pengajuanId}`,
+                `${baseUrl}/pengajuan-surat/${this.pengajuanId}`,
                 {
                     method: "POST",
                     headers: { Accept: "application/json", "Content-Type": "application/json" },

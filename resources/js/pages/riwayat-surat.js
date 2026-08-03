@@ -1,5 +1,5 @@
 import { pengajuanSuratApi } from '../services/pengajuanSuratApi';
-import { UnauthorizedError } from '../services/httpClient';
+import { baseUrl, UnauthorizedError } from '../services/httpClient';
 import { normalizePaginatedResponse } from '../utils/pagination';
 
 export default () => ({
@@ -76,7 +76,7 @@ export default () => ({
 
   previewUrl(item) {
     if (!item.file_hasil) return null;
-    const base = window.API_BASE_URL?.replace('/api', '') || '';
+    const base = baseUrl.replace('/api', '') || '';
     return `${base}/storage/${item.file_hasil}`;
   },
 });

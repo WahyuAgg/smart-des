@@ -1,63 +1,22 @@
+import { useAutocompleteLookup } from './useAutocompleteLookup';
 import { kkApi } from '../services/kkApi';
-import { UnauthorizedError } from '../services/httpClient';
 
 /**
- * Spread this into the Alpine component's data object, e.g.:
+ * KK Autocomplete Lookup — wrapped generic.
+ *
+ * Spread into the Alpine component's data:
  *   export default () => ({ ...useKKLookup(), ...otherStuff })
- * `this` inside these methods refers to the merged Alpine component.
+ *
+ * Provides: kkSearch, kkOptions, kkLoading, kkOpen, kkSelected,
+ *           loadKkOptions(), ensureKkSelection(), searchKk(),
+ *           selectKk(), visibleKkOptions()
  */
 export function useKKLookup() {
-  return {
-    kkSearch: '',
-    kkOptions: [],
-    kkLoading: false,
-    kkOpen: false,
-    kkSelected: null,
-
-    async loadKkOptions(search = '') {
-      this.kkLoading = true;
-
-      try {
-        this.kkOptions = await kkApi.list(search);
-        return this.kkOptions;
-      } catch (error) {
-        if (error instanceof UnauthorizedError) return [];
-        this.$store.notify.show(error.message || 'Gagal memuat data KK.', 'error');
-        return [];
-      } finally {
-        this.kkLoading = false;
-      }
-    },
-
-    async ensureKkSelection() {
-      if (!this.form.kk_id || this.kkSelected?.id === this.form.kk_id) return;
-
-      const selected = await kkApi.getById(this.form.kk_id);
-      if (selected) {
-        this.kkSelected = selected;
-        this.kkSearch = selected.no_kk || '';
-      }
-    },
-
-    async searchKk() {
-      if (this.kkSelected && this.kkSearch !== this.kkSelected.no_kk) {
-        this.form.kk_id = '';
-        this.kkSelected = null;
-      }
-
-      this.kkOpen = true;
-      await this.loadKkOptions(this.kkSearch.trim());
-    },
-
-    selectKk(option) {
-      this.form.kk_id = option.id;
-      this.kkSelected = option;
-      this.kkSearch = option.no_kk || '';
-      this.kkOpen = false;
-    },
-
-    visibleKkOptions() {
-      return this.kkOptions;
-    },
-  };
+  return useAutocompleteLookup({
+    api: kkApi,
+    prefix: 'kk',
+    labelField: 'no_kk',
+    formField: 'kk_id',
+    filterClient: false,
+  });
 }

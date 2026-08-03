@@ -2,7 +2,7 @@
   loggingOut: false,
   async doLogout() {
     this.loggingOut = true;
-    await Auth.logout(window.API_BASE_URL);
+    await Auth.logout();
   }
 }" class="h-16 bg-slate-300 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
   <div class="flex items-center gap-3">
