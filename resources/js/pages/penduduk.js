@@ -2,7 +2,6 @@ import { isRequired } from '../utils/validation';
 import { pendudukApi } from '../services/pendudukApi';
 import { UnauthorizedError } from '../services/httpClient';
 import { emptyForm, mapItemToForm, buildPayload } from '../mappers/pendudukMapper';
-import { formatDate } from '../utils/date';
 import { genderLabel, statusBadge, statusLabel } from '../utils/format';
 import { useCrud } from '../composables/useCrud';
 import { useKKLookup } from '../composables/useKKLookup';
@@ -75,7 +74,6 @@ export default () => ({
   genderLabel,
   statusBadge,
   statusLabel,
-  formatDate,
 
   resetLookupState() {
     this.kkSearch = '';

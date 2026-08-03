@@ -71,12 +71,7 @@ export default () => ({
     return Math.max(p, 3).toFixed(1);
   },
 
-  /** Format tanggal ke "29 Jul 2026" */
-  formatDate(dateStr) {
-    if (!dateStr) return '-';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-  },
+  // formatDate: menggunakan $formatDate magic global (via Alpine) di Blade view
 
   /** Warna untuk chart */
   chartColors: [

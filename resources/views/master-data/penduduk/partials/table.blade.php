@@ -36,7 +36,7 @@
             <td class="px-4 py-3 text-slate-600" x-text="genderLabel(item.jenis_kelamin)"></td>
             <td class="px-4 py-3 text-slate-600">
               <div x-text="item.tempat_lahir || '—'"></div>
-              <div class="text-xs text-slate-400" x-text="formatDate(item.tanggal_lahir)"></div>
+              <div class="text-xs text-slate-400" x-text="$formatDate(item.tanggal_lahir)"></div>
             </td>
             <td class="px-4 py-3">
               <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"

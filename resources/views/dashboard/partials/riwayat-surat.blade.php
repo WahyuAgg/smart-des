@@ -39,7 +39,7 @@
           {{-- Info surat --}}
           <div class="flex-1 min-w-0">
             <p class="text-sm font-medium text-slate-700 truncate" x-text="item.jenis_surat_nama || '-'"></p>
-            <p class="text-[11px] text-slate-400" x-text="formatDate(item.tanggal_diajukan)"></p>
+            <p class="text-[11px] text-slate-400" x-text="$formatDate(item.tanggal_diajukan)"></p>
           </div>
           {{-- Badge status --}}
           <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full capitalize shrink-0"
