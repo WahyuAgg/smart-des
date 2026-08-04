@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CurugSeeder;
+namespace Database\Seeders\curugSeeder;
 
 use App\Models\RefKecamatan;
 use Illuminate\Database\Seeder;

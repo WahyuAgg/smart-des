@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\SrtJenisSurat;
 
-class SuratService
+class SuratServices
 {
     public function getJenisSurat()
     {

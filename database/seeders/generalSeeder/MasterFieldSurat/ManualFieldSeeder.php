@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\GeneralSeeder\MasterFieldSurat;
+namespace Database\Seeders\generalSeeder\MasterFieldSurat;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,7 +27,7 @@ class ManualFieldSeeder extends Seeder
             ['nama' => 'perihal', 'label' => 'Perihal', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
             ['nama' => 'lampiran', 'label' => 'Lampiran', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],
             ['nama' => 'tembusan', 'label' => 'Tembusan', 'source' => null, 'source_field' => null, 'tipe' => 'textarea', 'input_mode' => 'manual'],
-            
+
             ['nama' => 'tanggal', 'label' => 'Tanggal', 'source' => null, 'source_field' => null, 'tipe' => 'date', 'input_mode' => 'manual'],
             ['nama' => 'waktu', 'label' => 'Waktu', 'source' => null, 'source_field' => null, 'tipe' => 'time', 'input_mode' => 'manual'],
             ['nama' => 'tempat', 'label' => 'Tempat', 'source' => null, 'source_field' => null, 'tipe' => 'text', 'input_mode' => 'manual'],

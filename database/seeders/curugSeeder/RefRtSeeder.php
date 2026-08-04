@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CurugSeeder;
+namespace Database\Seeders\curugSeeder;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

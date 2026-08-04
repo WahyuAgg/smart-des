@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\GeneralSeeder\MasterFieldSurat;
+namespace Database\Seeders\generalSeeder\MasterFieldSurat;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

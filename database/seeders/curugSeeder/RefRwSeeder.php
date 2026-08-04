@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CurugSeeder;
+namespace Database\Seeders\curugSeeder;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -12,7 +12,7 @@ class RefRwSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    
+
 
     public function run(): void
     {
@@ -24,6 +24,5 @@ class RefRwSeeder extends Seeder
             'ketua_rw' => 'Nama Ketua RW 001',
             'dusun_id' => $dusunId,
         ]);
-
     }
 }

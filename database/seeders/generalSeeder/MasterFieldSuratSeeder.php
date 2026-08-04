@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Seeders\GeneralSeeder;
+namespace Database\Seeders\generalSeeder;
 
 use App\Models\SrtMasterFieldSurat;
 use Illuminate\Database\Seeder;
-use Database\Seeders\GeneralSeeder\MasterFieldSurat\AlamatPendudukSeeder;
-use Database\Seeders\GeneralSeeder\MasterFieldSurat\ManualFieldSeeder;
-use Database\Seeders\GeneralSeeder\MasterFieldSurat\PerangkatDesaSeeder;
-use Database\Seeders\GeneralSeeder\MasterFieldSurat\DataPendudukSeeder;
+use Database\Seeders\generalSeeder\MasterFieldSurat\AlamatPendudukSeeder;
+use Database\Seeders\generalSeeder\MasterFieldSurat\ManualFieldSeeder;
+use Database\Seeders\generalSeeder\MasterFieldSurat\PerangkatDesaSeeder;
+use Database\Seeders\generalSeeder\MasterFieldSurat\DataPendudukSeeder;
 use Database\Seeders\GeneralSeeder\MasterFieldSurat\ProfilDesaSeeder;
 use Database\Seeders\GeneralSeeder\MasterFieldSurat\SystemSupportSeeder;
 

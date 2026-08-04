@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\GeneralSeeder;
+namespace Database\Seeders\generalSeeder;
 
 use App\Models\SrtKategoriSurat;
 use Illuminate\Database\Seeder;
@@ -125,7 +125,6 @@ class KategoriSuratSeeder extends Seeder
                 ],
                 $item
             );
-
         }
     }
 }
