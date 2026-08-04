@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\PaperController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\GaleriController;
 use App\Http\Controllers\Api\FullModelAccessorController;
+use App\Http\Controllers\Api\ArtisanController;
 
 // -----------------------------------------------------------------
 // Protected route
@@ -160,6 +161,29 @@ Route::middleware([
     Route::get('/roles', [RoleController::class, 'index']);
 });
 
+/**
+ * Route for Artisan commands - Admin only
+ * These routes allow running artisan commands via API for system maintenance.
+ * Restricted to admin role only for security purposes.
+ */
+Route::middleware([
+    'auth:sanctum',
+    'role:admin',
+])->prefix('artisan')->group(function () {
+    // Get list of available artisan commands
+    Route::get('commands', [ArtisanController::class, 'list']);
+
+    // Execute any allowed artisan command
+    Route::post('execute', [ArtisanController::class, 'execute']);
+
+    // Shortcut methods for common commands
+    Route::post('cache-clear', [ArtisanController::class, 'cacheClear']);
+    Route::post('optimize', [ArtisanController::class, 'optimize']);
+    Route::post('optimize-clear', [ArtisanController::class, 'optimizeClear']);
+    Route::post('storage-link', [ArtisanController::class, 'storageLink']);
+    Route::post('migrate', [ArtisanController::class, 'migrate']);
+});
+
 
 /**
  * These routes are for authentication.
@@ -246,5 +270,5 @@ Route::get('galeri/{galeri}', [GaleriController::class, 'show']);
 Route::prefix('test-model')->group(function () {
     Route::get('profil-desa',        [FullModelAccessorController::class, 'profilDesa']);
     Route::get('penduduk/{id}',      [FullModelAccessorController::class, 'penduduk']);
-    Route::get('perangkat-desa/{id}',[FullModelAccessorController::class, 'perangkatDesa']);
+    Route::get('perangkat-desa/{id}', [FullModelAccessorController::class, 'perangkatDesa']);
 });
