@@ -1,6 +1,6 @@
 <?php
 
-namespace database\seeders\TestingSrtSeeder;
+namespace database\Seeders\TestingSrtSeeder;
 
 use App\Models\RefJabatanPerangkat;
 use App\Models\RefPerangkatDesa;
