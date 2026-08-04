@@ -19,10 +19,10 @@ use Database\Seeders\GeneralSeeder\KategoriSuratSeeder;
 use Database\Seeders\GeneralSeeder\MasterFieldSuratSeeder;
 
 
-use Database\Seeders\curugSeeder\RefProfilDesaSeeder;
-use Database\Seeders\curugSeeder\RefDusunSeeder;
-use Database\Seeders\curugSeeder\RefRwSeeder;
-use Database\Seeders\curugSeeder\RefRtSeeder;
+use Database\Seeders\CurugSeeder\RefProfilDesaSeeder;
+use Database\Seeders\CurugSeeder\RefDusunSeeder;
+use Database\Seeders\CurugSeeder\RefRwSeeder;
+use Database\Seeders\CurugSeeder\RefRtSeeder;
 
 use Database\Seeders\CurugSeeder\RefKecamatanSeeder;
 
