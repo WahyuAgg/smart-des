@@ -41,7 +41,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
@@ -74,7 +74,7 @@ return [
     */
 
     'links' => [
-        '/home/curk7128/public_html/storage' => storage_path('app/public'),
+        rtrim(env('PUBLIC_PATH', public_path()), '/') . '/storage' => storage_path('app/public'),
     ],
 
 ];
