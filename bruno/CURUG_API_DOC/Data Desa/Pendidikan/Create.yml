@@ -1,0 +1,62 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/pendidikan"
+  body:
+    type: json
+    data: |-
+      {    "tingkat_pendidikan": "S4"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/pendidikan"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {    "tingkat_pendidikan": "S4"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 19:23:21 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBWHFKC25CDRK74XD2EBKT5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 11,
+              "tingkat_pendidikan": "S4"
+            }
+          }

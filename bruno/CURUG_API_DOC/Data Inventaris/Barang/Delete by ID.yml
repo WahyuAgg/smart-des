@@ -1,0 +1,132 @@
+info:
+  name: Delete by ID
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "kode_barang": "BRG-00012",
+        "nama_barang": "Laptop Lenovo ThinkPad Edited",
+        "kategori_id": 2,
+        "lokasi_id": 2,
+        "satuan": "Unit",
+        "tanggal_perolehan": "2026-07-28",
+        "keterangan": "Laptop untuk staf Edited"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "13"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example (fail)
+    description: Barnag yang memiliki riwayat mutasi atau transaksi tidak boleh dihapus
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "kode_barang": "BRG-00012",
+            "nama_barang": "Laptop Lenovo ThinkPad Edited",
+            "kategori_id": 2,
+            "lokasi_id": 2,
+            "satuan": "Unit",
+            "tanggal_perolehan": "2026-07-28",
+            "keterangan": "Laptop untuk staf Edited"
+          }
+    response:
+      status: 409
+      statusText: Conflict
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 16:23:20 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYFKSXE45JVSTE2AP0MR7CS2
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Barang tidak dapat dihapus karena masih memiliki riwayat transaksi.",
+            "errors": null
+          }
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "kode_barang": "BRG-00012",
+            "nama_barang": "Laptop Lenovo ThinkPad Edited",
+            "kategori_id": 2,
+            "lokasi_id": 2,
+            "satuan": "Unit",
+            "tanggal_perolehan": "2026-07-28",
+            "keterangan": "Laptop untuk staf Edited"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 19:16:10 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYFXPCWWBVK2NJCTNR2FSDJ9
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Barang berhasil dihapus.",
+            "data": null
+          }

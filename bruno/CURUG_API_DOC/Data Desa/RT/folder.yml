@@ -1,0 +1,7 @@
+info:
+  name: RT
+  type: folder
+  seq: 10
+
+request:
+  auth: inherit

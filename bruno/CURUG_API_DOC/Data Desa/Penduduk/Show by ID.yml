@@ -1,0 +1,115 @@
+info:
+  name: Show by ID
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/penduduk/{{id_penduduk}}"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/penduduk/{{id_penduduk}}"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Tue, 04 Aug 2026 09:28:11 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KZ61M8GWS4J140P0C9QXWHED
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "id": 200,
+              "nik": "3306024502530003",
+              "nama_lengkap": "SUPINI",
+              "kk_id": 29,
+              "jenis_kelamin": "Perempuan",
+              "tanggal_lahir": "1953-02-05T00:00:00.000000Z",
+              "tempat_lahir": "Purworejo",
+              "agama": "Islam",
+              "pekerjaan": "Petani/Pekebun",
+              "status_perkawinan": "",
+              "kewarganegaraan": "Indonesia",
+              "golongan_darah": null,
+              "no_hp": null,
+              "email": null,
+              "status_hidup": "HIDUP",
+              "tanggal_meninggal": null,
+              "alamat_id": 4,
+              "pendidikan_id": 3,
+              "nama_ayah_kandung": "KASAN MUNOJO",
+              "nama_ibu_kandung": "SINEM",
+              "nama_pendidikan": "Tamat SD/Sederajat",
+              "no_kk": "3306021512160002",
+              "tanggal_lahir_f": "05 Februari 1953",
+              "ttl": "Purworejo, 05 Februari 1953",
+              "umur": 73,
+              "alamat": {
+                "id": 4,
+                "alamat_lengkap": "Desa Curug, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.",
+                "jalan": "Jln.Lingkar Utara",
+                "rt": null,
+                "rw": null,
+                "desa": "CURUG",
+                "kecamatan": "NGOMBOL",
+                "kabupaten": "KABUPATEN PURWOREJO",
+                "provinsi": "JAWA TENGAH",
+                "kode_pos": "54172",
+                "latitude": -7.783981,
+                "longitude": 109.961424,
+                "label_alamat": null,
+                "is_utama": 0,
+                "gedung_perumahan": null,
+                "nomor_rumah": null,
+                "blok": null,
+                "no_lantai": null,
+                "no_unit": null,
+                "patokan": null,
+                "negara": "Indonesia",
+                "dusun": "CURUG",
+                "alamat_formatted": "Jln.Lingkar Utara, Dusun CURUG, Desa/Kel. Curug, Kec. Ngombol, Kabupaten Purworejo, Prov. Jawa Tengah, 54172"
+              },
+              "pendidikan": {
+                "id": 3,
+                "tingkat_pendidikan": "Tamat SD/Sederajat"
+              },
+              "kk": {
+                "id": 29,
+                "no_kk": "3306021512160002",
+                "nik_kepala_keluarga": "3306024502530003"
+              }
+            }
+          }

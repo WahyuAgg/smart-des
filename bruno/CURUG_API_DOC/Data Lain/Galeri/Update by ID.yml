@@ -1,0 +1,166 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/galeri/{{galeri_id}}"
+  body:
+    type: multipart-form
+    data:
+      - name: _method
+        type: text
+        value: PUT
+      - name: judul
+        type: text
+        value: pengajian
+      - name: deskripsi
+        type: text
+        value: pengajian khataman quran
+      - name: file
+        type: file
+        value:
+          - C:\agg\projects\KKN\asset\images_1x1.jpg
+        contentType: image/jpeg
+      - name: tanggal
+        type: text
+        value: 2026-07-29
+      - name: is_published
+        type: text
+        value: "1"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: galeri_id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/galeri"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: judul
+            type: text
+            value: pengajian
+          - name: deskripsi
+            type: text
+            value: pengajian khataman quran
+          - name: file
+            type: file
+            value:
+              - C:\agg\projects\KKN\asset\images_lanscape.jpg
+            contentType: image/jpeg
+          - name: tanggal
+            type: text
+            value: 2026-07-29
+          - name: is_published
+            type: text
+            value: "1"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 16:16:40 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQAKVT0HD80CRD0J1EX4YHV
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Galeri berhasil ditambahkan.",
+            "data": {
+              "id": 1,
+              "judul": "pengajian",
+              "deskripsi": "pengajian khataman quran",
+              "tanggal": "2026-07-29T00:00:00.000000Z",
+              "is_published": true,
+              "image_url": "http://localhost:8000/storage/galeri/AtWj7Pd8bPc2ocWzR6lcpHFsQCF7xIR6varrYfw5.jpg"
+            }
+          }
+  - name: example (1)
+    request:
+      url: "{{base_url}}/api/galeri/{{galeri_id}}"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: _method
+            type: text
+            value: PUT
+          - name: judul
+            type: text
+            value: pengajian
+          - name: deskripsi
+            type: text
+            value: pengajian khataman quran
+          - name: file
+            type: file
+            value:
+              - C:\agg\projects\KKN\asset\images_1x1.jpg
+            contentType: image/jpeg
+          - name: tanggal
+            type: text
+            value: 2026-07-29
+          - name: is_published
+            type: text
+            value: "1"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 16:19:51 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYQASPS7JKW0ESSPYSNKSAE7
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Galeri berhasil diperbarui.",
+            "data": {
+              "id": 1,
+              "judul": "pengajian",
+              "deskripsi": "pengajian khataman quran",
+              "tanggal": "2026-07-29T00:00:00.000000Z",
+              "is_published": true,
+              "image_url": "http://localhost:8000/storage/galeri/OJCHQSxSpMlhmfYfQ03sImWQBD8bmyZapa0AxRyt.jpg"
+            }
+          }

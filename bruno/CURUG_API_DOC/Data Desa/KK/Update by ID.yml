@@ -1,0 +1,78 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 2
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/kk/{{id_kk}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "no_kk": "238766666666666",
+        "nik_kepala_keluarga": "23094938277777777"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_kk
+      value: "2"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/kk/{{id_kk}}"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |
+          {
+            "no_kk": "238766666666666",
+            "nik_kepala_keluarga": "23094938277777777"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 18:52:43 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBTSCPMMKE51K9QDBJQ4GVW
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 2,
+              "no_kk": "238766666666666",
+              "nik_kepala_keluarga": "23094938277777777"
+            }
+          }

@@ -1,0 +1,78 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/inv-kategori-barang/{{id_inv_kategori_barang}}"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "nama" : "Barang Elektronik edited",
+        "keterangan" : "Barang elektronik milik desa"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_kategori_barang
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-kategori-barang/{{id_inv_kategori_barang}}"
+      method: PUT
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama" : "Barang Elektronik",
+            "keterangan" : "Barang elektronik milik desa"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:18:48 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYEVGK0S7TB6FJKFHWVEF3Z9
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Kategori barang berhasil diperbarui.",
+            "data": {
+              "id": 1,
+              "nama": "Barang Elektronik",
+              "keterangan": "Barang elektronik milik desa"
+            }
+          }

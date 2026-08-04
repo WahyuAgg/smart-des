@@ -1,0 +1,94 @@
+info:
+  name: Login
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/login"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: "{\r
+
+      \  \"email\": \"admin@desa.id\",\r
+
+      \  \"password\": \"admin123\"\r
+
+      }\r\n"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+
+        if (body.token) {
+            bru.setVar("access_token", body.token);
+        console.log("Token saved:",bru.getVar('access_token'))           // Runtime variables
+        } else {
+            console.warn("Token key not found.");
+        }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Login example
+    request:
+      url: "{{base_url}}/api/login"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: "{\r
+
+          \  \"email\": \"admin@desa.id\",\r
+
+          \  \"password\": \"admin123\"\r
+
+          }\r\n"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 08:04:17 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXANP2GGAG3GQ5SHJFHXK7RB
+      body:
+        type: json
+        data: |-
+          {
+            "message": "Login berhasil.",
+            "token": "29|b47y66ln6QC65DpGTFGPML97bxVAvVP2o88iXpO81e8ea09c",
+            "token_type": "Bearer",
+            "user": {
+              "id": 1,
+              "name": "Administrator",
+              "email": "admin@desa.id",
+              "roles": [
+                "admin"
+              ],
+              "permissions": []
+            }
+          }

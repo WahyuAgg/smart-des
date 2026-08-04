@@ -1,0 +1,123 @@
+info:
+  name: Index
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{base_url}}/api/pendidikan"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/pendidikan"
+      method: GET
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 19:19:33 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBWAHAPS7Y556VP61BW7S1E
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 1,
+                  "tingkat_pendidikan": "Tidak/Belum Sekolah"
+                },
+                {
+                  "id": 2,
+                  "tingkat_pendidikan": "Belum Tamat SD/Sederajat"
+                },
+                {
+                  "id": 3,
+                  "tingkat_pendidikan": "Tamat SD/Sederajat"
+                },
+                {
+                  "id": 4,
+                  "tingkat_pendidikan": "SLTP/Sederajat"
+                },
+                {
+                  "id": 5,
+                  "tingkat_pendidikan": "SLTA/Sederajat"
+                },
+                {
+                  "id": 6,
+                  "tingkat_pendidikan": "Diploma I/II"
+                },
+                {
+                  "id": 7,
+                  "tingkat_pendidikan": "Akademi/Diploma III/Sarjana Muda"
+                },
+                {
+                  "id": 8,
+                  "tingkat_pendidikan": "Diploma IV/Strata I"
+                },
+                {
+                  "id": 9,
+                  "tingkat_pendidikan": "Strata II"
+                },
+                {
+                  "id": 10,
+                  "tingkat_pendidikan": "Strata III"
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/pendidikan?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/pendidikan?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/pendidikan?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/pendidikan",
+              "per_page": 15,
+              "prev_page_url": null,
+              "to": 10,
+              "total": 10
+            }
+          }

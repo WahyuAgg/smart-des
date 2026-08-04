@@ -1,0 +1,79 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-jabatan-perangkat"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+          "kode": "testing_jbtn",
+          "nama": "Testing Jbtn",
+          "urutan": 32,
+          "aktif": true
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-jabatan-perangkat"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+              "kode": "testing_jbtn",
+              "nama": "Testing Jbtn",
+              "urutan": 32,
+              "aktif": true
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sat, 25 Jul 2026 03:15:32 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYBMAQ07BJGMH7TN989AWWZJ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 26,
+              "kode": "testing_jbtn",
+              "nama": "Testing Jbtn",
+              "urutan": 32,
+              "aktif": true
+            }
+          }

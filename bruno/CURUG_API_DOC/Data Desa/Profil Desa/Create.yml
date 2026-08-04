@@ -1,0 +1,74 @@
+info:
+  name: Create
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-profil-desa"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: multipart-form
+    data:
+      - name: nama
+        type: text
+        value: Curugs
+      - name: kode
+        type: text
+        value: "3306022050"
+      - name: alamat
+        type: text
+        value: Jln.Lingkar Utara, Desa Curug, RT 002, RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.
+        description: alamat lengkap
+      - name: telepon
+        type: text
+        value: "081234567890"
+      - name: email
+        type: text
+        value: desa_curug@example.com
+      - name: website
+        type: text
+        value: https://desacurug.co.id
+      - name: logo
+        type: file
+        value:
+          - C:\agg\projects\KKN\asset\images_1x1.jpg
+        contentType: image/jpeg
+      - name: visi
+        type: text
+        value: Menjadi desa yang maju, mandiri, dan sejahtera.
+      - name: misi[0]
+        type: text
+        value: Meningkatkan kualitas pelayanan publik.
+      - name: misi[1]
+        type: text
+        value: Mengembangkan potensi ekonomi desa.
+      - name: deskripsi
+        type: text
+        value: Desa Curug adalah desa curug.
+      - name: peta_pdf
+        type: file
+        value:
+          - C:\agg\projects\KKN\Peta_Curug_A1_ALL_compressed.pdf
+        contentType: application/pdf
+      - name: profil_kecamatan[camat]
+        type: text
+        value: Budi Santoso
+      - name: profil_kecamatan[nip]
+        type: text
+        value: "198501012010011001"
+      - name: profil_kecamatan[telepon]
+        type: text
+        value: "081234567890"
+      - name: profil_kecamatan[email]
+        type: text
+        value: camat.depoksleman@slemankab.go.id
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

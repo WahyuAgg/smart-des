@@ -1,0 +1,108 @@
+info:
+  name: Pengadaan by ID
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/pengadaan"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "jumlah" : 5,
+        "keterangan" : "pengadaan barang elektronik"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/pengadaan"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jumlah" : 5,
+            "keterangan" : "pengadaan barang elektronik"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 04:54:23 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYGYS4REMP62MVGFQF4WRH1E
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Pengadaan barang berhasil dicatat.",
+            "data": {
+              "peminjaman_id": null,
+              "nomor": "ADQ-20260727-002",
+              "jenis": "PENGADAAN",
+              "tanggal": "2026-07-27T00:00:00.000000Z",
+              "keterangan": "pengadaan barang elektronik",
+              "updated_at": "2026-07-27T04:54:23.000000Z",
+              "created_at": "2026-07-27T04:54:23.000000Z",
+              "id": 44,
+              "details": [
+                {
+                  "id": 52,
+                  "mutasi_id": 44,
+                  "barang_id": 15,
+                  "jumlah": 5,
+                  "created_at": "2026-07-27T04:54:23.000000Z",
+                  "updated_at": "2026-07-27T04:54:23.000000Z",
+                  "barang": {
+                    "id": 15,
+                    "kode_barang": "BRG-00015",
+                    "nama_barang": "Laptop Lenovo ThinkPad E14",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staf administrasi",
+                    "jumlah_total": 17,
+                    "jumlah_dipinjam": 9,
+                    "created_at": "2026-07-26T19:50:57.000000Z",
+                    "updated_at": "2026-07-27T04:54:23.000000Z",
+                    "jumlah_tersedia": 8
+                  }
+                }
+              ]
+            }
+          }

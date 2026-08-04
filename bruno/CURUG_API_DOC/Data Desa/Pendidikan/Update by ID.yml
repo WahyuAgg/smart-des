@@ -1,0 +1,67 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/pendidikan/{{id}}"
+  body:
+    type: json
+    data: |-
+      {    "tingkat_pendidikan": "S5"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id
+      value: "11"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/pendidikan/{{id}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {    "tingkat_pendidikan": "S5"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 19:23:54 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBWJFB3YYX5J1DBFB0194H5
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil diperbarui.",
+            "data": {
+              "id": 11,
+              "tingkat_pendidikan": "S5"
+            }
+          }

@@ -1,0 +1,105 @@
+info:
+  name: step 2 Show jenis surat by ID
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{base_url}}/api/srt-jenis-surat/{{jenis_surat_id}}"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+runtime:
+  variables:
+    - name: jenis_surat_id
+      value: "2"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-jenis-surat/{{jenis_surat_id}}"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Wed, 29 Jul 2026 12:44:51 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYPYG1CMP31TQ3D4V7NFR021
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "id": 9,
+              "kategori_surat_id": 1,
+              "kode_jenis_surat": "SKD2",
+              "nama_jenis_surat": "Surat Keterangan Domisili 2",
+              "deskripsi": "Surat untuk menerangkan domisili penduduk.",
+              "is_active": true,
+              "template_url": "http://localhost:8000/storage/templates/ox9hd7SuLTKcvk9nLs7TQ2W86GfhPkNPOufaDVjr.docx",
+              "template_pdf_url": "http://localhost:8000/storage/templates_pdf/ox9hd7SuLTKcvk9nLs7TQ2W86GfhPkNPOufaDVjr.pdf",
+              "srt_kategori_surat": {
+                "id": 1,
+                "kode_kategori_surat": "KET",
+                "nama_kategori_surat": "Surat Keterangan",
+                "deskripsi": "Berbagai surat yang menerangkan suatu kondisi, status, atau keadaan seseorang.",
+                "is_active": true
+              },
+              "srt_jenis_surat_penduduks": [
+                {
+                  "id": 6,
+                  "jenis_surat_id": 9,
+                  "urutan": 1,
+                  "kode": "telapor",
+                  "label": "Pelapor",
+                  "deskripsi": "Orang yang melaporkan",
+                  "wajib": true
+                },
+                {
+                  "id": 7,
+                  "jenis_surat_id": 9,
+                  "urutan": 2,
+                  "kode": "terlapor",
+                  "label": "Terlapor",
+                  "deskripsi": "Orang yang dilaporkan",
+                  "wajib": false
+                },
+                {
+                  "id": 8,
+                  "jenis_surat_id": 9,
+                  "urutan": 3,
+                  "kode": "saksi",
+                  "label": "Saksi",
+                  "deskripsi": "Orang yang melihat kejadian",
+                  "wajib": false
+                }
+              ]
+            }
+          }

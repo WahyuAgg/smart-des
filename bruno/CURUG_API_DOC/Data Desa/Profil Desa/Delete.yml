@@ -1,0 +1,55 @@
+info:
+  name: Delete
+  type: http
+  seq: 3
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/ref-profil-desa"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-profil-desa"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Tue, 28 Jul 2026 20:29:28 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYN6P1Q5YZ9283S7N6WWVQS3
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Profil desa berhasil dihapus.",
+            "data": null
+          }

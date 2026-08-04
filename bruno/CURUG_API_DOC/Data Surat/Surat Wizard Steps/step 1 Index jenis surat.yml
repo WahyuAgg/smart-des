@@ -1,0 +1,98 @@
+info:
+  name: step 1 Index jenis surat
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/srt-jenis-surat"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/srt-jenis-surat"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Fri, 24 Jul 2026 09:56:14 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KY9RVP3ND3DRSMVRWFQZC210
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 1,
+                  "kategori_surat_id": 1,
+                  "kode_jenis_surat": "SKP",
+                  "nama_jenis_surat": "Surat Keterangan Domisili Penduduk",
+                  "deskripsi": "Surat keterangan yang menerangkan status seseorang sebagai penduduk desa.",
+                  "template_path": "app/templates/domisili_temp.docx",
+                  "is_active": true
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/srt-jenis-surat?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/srt-jenis-surat?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/srt-jenis-surat?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/srt-jenis-surat",
+              "per_page": 15,
+              "prev_page_url": null,
+              "to": 1,
+              "total": 1
+            }
+          }

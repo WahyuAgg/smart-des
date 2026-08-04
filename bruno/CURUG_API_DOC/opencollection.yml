@@ -1,0 +1,37 @@
+opencollection: 1.0.0
+
+info:
+  name: CURUG_API_DOC
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: "{{access_token}}"
+  variables:
+    - name: access_token
+      value: ""
+    - name: base_url
+      value: https://curug.my.id
+    - name: id_penduduk
+      value: "200"
+    - name: per_page
+      value: "5"
+    - name: keywords
+      value: ""
+bundled: false
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

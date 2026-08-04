@@ -1,0 +1,144 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{base_url}}/api/papers/{{paper_id}}"
+  body:
+    type: multipart-form
+    data:
+      - name: _method
+        type: text
+        value: PUT
+      - name: judul
+        type: text
+        value: "  Informasi Desa untuk Meningkatkan Pelayanan Publik"
+      - name: slug
+        type: text
+        value: pemanfaatan-sistem-informasi-desa-untuk-meningkatkan-pelayanan-publik
+      - name: ringkasan
+        type: text
+        value: Penelitian ini membahas implementasi sistem informasi desa dalam meningkatkan efisiensi administrasi, transparansi, dan kualitas pelayanan kepada masyarakat.
+      - name: nama_penulis
+        type: text
+        value: Ahmad Fauzan
+      - name: tahun
+        type: text
+        value: "2026"
+      - name: pdf
+        type: file
+        value:
+          - C:\agg\projects\KKN\asset\sample_pdf_doc.pdf
+        contentType: application/pdf
+      - name: thumbnail
+        type: file
+        value:
+          - C:\agg\projects\KKN\asset\images_lanscape.jpg
+        contentType: image/jpeg
+      - name: jumlah_halaman
+        type: text
+        value: "12"
+      - name: status
+        type: text
+        value: published
+  auth: inherit
+
+runtime:
+  variables:
+    - name: paper_id
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/papers/{{paper_id}}"
+      method: POST
+      body:
+        type: multipart-form
+        data:
+          - name: _method
+            type: text
+            value: PUT
+          - name: judul
+            type: text
+            value: "  Informasi Desa untuk Meningkatkan Pelayanan Publik"
+          - name: slug
+            type: text
+            value: pemanfaatan-sistem-informasi-desa-untuk-meningkatkan-pelayanan-publik
+          - name: ringkasan
+            type: text
+            value: Penelitian ini membahas implementasi sistem informasi desa dalam meningkatkan efisiensi administrasi, transparansi, dan kualitas pelayanan kepada masyarakat.
+          - name: nama_penulis
+            type: text
+            value: Ahmad Fauzan
+          - name: tahun
+            type: text
+            value: "2026"
+          - name: pdf
+            type: file
+            value:
+              - C:\agg\projects\KKN\asset\sample_pdf_doc.pdf
+            contentType: application/pdf
+          - name: thumbnail
+            type: file
+            value:
+              - C:\agg\projects\KKN\asset\images_lanscape.jpg
+            contentType: image/jpeg
+          - name: jumlah_halaman
+            type: text
+            value: "12"
+          - name: status
+            type: text
+            value: published
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Tue, 28 Jul 2026 23:54:29 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYNJDEHHGD981FJTW6TQGB2H
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Paper berhasil diperbarui.",
+            "data": {
+              "id": 1,
+              "judul": "Informasi Desa untuk Meningkatkan Pelayanan Publik",
+              "slug": "pemanfaatan-sistem-informasi-desa-untuk-meningkatkan-pelayanan-publik",
+              "ringkasan": "Penelitian ini membahas implementasi sistem informasi desa dalam meningkatkan efisiensi administrasi, transparansi, dan kualitas pelayanan kepada masyarakat.",
+              "nama_penulis": "Ahmad Fauzan",
+              "tahun": 2026,
+              "pdf_path": "papers/pdf/FKUJjShHnGEBRSjFzAnjb52N3yJJ0fKmFtJIuqTB.pdf",
+              "thumbnail_path": "papers/thumbnail/bZyEHvIR3W5fZmEqNPOobNVL9fG6RiY48rp2E3RC.jpg",
+              "jumlah_halaman": 12,
+              "status": "published",
+              "created_at": "2026-07-28T23:34:26.000000Z",
+              "updated_at": "2026-07-28T23:54:29.000000Z",
+              "deleted_at": null,
+              "pdf_url": "http://localhost:8000/storage/papers/pdf/FKUJjShHnGEBRSjFzAnjb52N3yJJ0fKmFtJIuqTB.pdf",
+              "thumbnail_url": "http://localhost:8000/storage/papers/thumbnail/bZyEHvIR3W5fZmEqNPOobNVL9fG6RiY48rp2E3RC.jpg"
+            }
+          }

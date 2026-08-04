@@ -1,0 +1,108 @@
+info:
+  name: Hilang by ID
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/hilang"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "jumlah" : 2,
+        "keterangan" : "hilang"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/hilang"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jumlah" : 2,
+            "keterangan" : "hilang"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 04:46:14 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYGYA6ZP1EETGS2CE5CM46JE
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Barang hilang berhasil dicatat.",
+            "data": {
+              "peminjaman_id": null,
+              "nomor": "HLG-20260727-001",
+              "jenis": "HILANG",
+              "tanggal": "2026-07-27T00:00:00.000000Z",
+              "keterangan": "hilang",
+              "updated_at": "2026-07-27T04:46:14.000000Z",
+              "created_at": "2026-07-27T04:46:14.000000Z",
+              "id": 42,
+              "details": [
+                {
+                  "id": 50,
+                  "mutasi_id": 42,
+                  "barang_id": 15,
+                  "jumlah": 2,
+                  "created_at": "2026-07-27T04:46:14.000000Z",
+                  "updated_at": "2026-07-27T04:46:14.000000Z",
+                  "barang": {
+                    "id": 15,
+                    "kode_barang": "BRG-00015",
+                    "nama_barang": "Laptop Lenovo ThinkPad E14",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staf administrasi",
+                    "jumlah_total": 11,
+                    "jumlah_dipinjam": 9,
+                    "created_at": "2026-07-26T19:50:57.000000Z",
+                    "updated_at": "2026-07-27T04:46:14.000000Z",
+                    "jumlah_tersedia": 2
+                  }
+                }
+              ]
+            }
+          }

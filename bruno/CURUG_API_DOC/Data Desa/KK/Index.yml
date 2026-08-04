@@ -1,0 +1,113 @@
+info:
+  name: Index
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{base_url}}/api/kk?per_page=2&search=6666"
+  params:
+    - name: per_page
+      value: "2"
+      type: query
+    - name: search
+      value: "6666"
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/kk?per_page=2&search=6666"
+      method: GET
+      params:
+        - name: per_page
+          value: "2"
+          type: query
+        - name: search
+          value: "6666"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 12 Jul 2026 19:08:20 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXBVNZ8E3EBTSEYD0QXQ1056
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 6,
+                  "no_kk": "666666748264554343463",
+                  "nik_kepala_keluarga": null
+                },
+                {
+                  "id": 4,
+                  "no_kk": "666666748264554643",
+                  "nik_kepala_keluarga": null
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/kk?page=1",
+              "from": 1,
+              "last_page": 2,
+              "last_page_url": "http://127.0.0.1:8000/api/kk?page=2",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/kk?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/kk?page=2",
+                  "label": "2",
+                  "page": 2,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/kk?page=2",
+                  "label": "Next &raquo;",
+                  "page": 2,
+                  "active": false
+                }
+              ],
+              "next_page_url": "http://127.0.0.1:8000/api/kk?page=2",
+              "path": "http://127.0.0.1:8000/api/kk",
+              "per_page": 2,
+              "prev_page_url": null,
+              "to": 2,
+              "total": 4
+            }
+          }

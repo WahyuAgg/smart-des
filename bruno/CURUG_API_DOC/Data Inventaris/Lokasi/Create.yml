@@ -1,0 +1,119 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-lokasi/"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "nama" : "Gudang PKK 2",
+        "keterangan" : "Tempat simpan barang-barang PKK"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-lokasi/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama" : "Balai desa",
+            "keterangan" : "Tempat simpan barang-barang desa"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:06:24 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYETSWEZX6MFPGCGZF54CPGJ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Lokasi berhasil ditambahkan.",
+            "data": {
+              "nama": "Balai desa",
+              "keterangan": "Tempat simpan barang-barang desa",
+              "id": 1
+            }
+          }
+  - name: example (1)
+    request:
+      url: "{{base_url}}/api/inv-lokasi/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama" : "Gudang PKK",
+            "keterangan" : "Tempat simpan barang-barang PKK"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 09:07:10 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYETV8QTDQ4K8CN0MAZNBCYW
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Lokasi berhasil ditambahkan.",
+            "data": {
+              "nama": "Gudang PKK",
+              "keterangan": "Tempat simpan barang-barang PKK",
+              "id": 2
+            }
+          }

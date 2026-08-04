@@ -1,0 +1,74 @@
+info:
+  name: Show by ID
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{base_url}}/api/ref-perangkat-desa/{{id_perangkat_desa}}"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_perangkat_desa
+      value: "1"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-perangkat-desa/{{id_perangkat_desa}}"
+      method: GET
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Tue, 28 Jul 2026 22:24:49 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYND98468F6FRHSJD4RYYPKZ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "kode": "sekdes",
+              "nama": "Sekretaris Desa",
+              "aktif": true,
+              "urutan": 2,
+              "perangkat": {
+                "id": 1,
+                "jabatan_perangkat_id": 2,
+                "nama": "Pak Bayu Perangkat Desa",
+                "nip": "3829292929292929",
+                "telepon": "081234567890",
+                "email": "budi@gmail.com",
+                "tanggal_mulai": "2020-01-01T00:00:00.000000Z"
+              }
+            }
+          }

@@ -1,0 +1,10 @@
+info:
+  name: Data Lain
+  type: folder
+  seq: 7
+
+request:
+  headers:
+    - name: ""
+      value: ""
+  auth: inherit

@@ -1,0 +1,236 @@
+info:
+  name: Index
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{base_url}}/api/inv-peminjaman?per_page=3&page=1&status=dipinjam"
+  params:
+    - name: per_page
+      value: "3"
+      type: query
+    - name: page
+      value: "1"
+      type: query
+    - name: status
+      value: dikembalikan
+      type: query
+      disabled: true
+    - name: status
+      value: dipinjam
+      type: query
+    - name: status
+      value: dibatalkan
+      type: query
+      disabled: true
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-peminjaman?per_page=3&page=1"
+      method: GET
+      params:
+        - name: per_page
+          value: "3"
+          type: query
+        - name: page
+          value: "1"
+          type: query
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Sun, 26 Jul 2026 20:29:17 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYG1W8FWRRPMWMHDF5ZC6QBZ
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Success",
+            "data": {
+              "current_page": 1,
+              "data": [
+                {
+                  "id": 2,
+                  "nomor": "PJM-20260727-0002",
+                  "nama_peminjam": "Budi Santoso",
+                  "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+                  "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+                  "tanggal_kembali": "2026-07-26T00:00:00.000000Z",
+                  "status": "dikembalikan",
+                  "keterangan": "Peminjaman laptop dan proyektor untuk kkn gel 2",
+                  "created_at": "2026-07-26T20:10:38.000000Z",
+                  "updated_at": "2026-07-26T20:22:26.000000Z",
+                  "details": [
+                    {
+                      "id": 3,
+                      "peminjaman_id": 2,
+                      "barang_id": 15,
+                      "jumlah_pinjam": 6,
+                      "jumlah_kembali": 4,
+                      "jumlah_hilang": 2,
+                      "keterangan": null,
+                      "created_at": "2026-07-26T20:10:38.000000Z",
+                      "updated_at": "2026-07-26T20:22:26.000000Z",
+                      "barang": {
+                        "id": 15,
+                        "kode_barang": "BRG-00015",
+                        "nama_barang": "Laptop Lenovo ThinkPad E14",
+                        "kategori_id": 1,
+                        "lokasi_id": 1,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "Laptop untuk staf administrasi",
+                        "jumlah_total": 8,
+                        "jumlah_dipinjam": 0,
+                        "created_at": "2026-07-26T19:50:57.000000Z",
+                        "updated_at": "2026-07-26T20:22:26.000000Z"
+                      }
+                    },
+                    {
+                      "id": 4,
+                      "peminjaman_id": 2,
+                      "barang_id": 14,
+                      "jumlah_pinjam": 2,
+                      "jumlah_kembali": 2,
+                      "jumlah_hilang": 0,
+                      "keterangan": null,
+                      "created_at": "2026-07-26T20:10:38.000000Z",
+                      "updated_at": "2026-07-26T20:22:26.000000Z",
+                      "barang": {
+                        "id": 14,
+                        "kode_barang": "BRG-0005",
+                        "nama_barang": "Proyektor EPSON",
+                        "kategori_id": 1,
+                        "lokasi_id": 1,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-28T00:00:00.000000Z",
+                        "keterangan": "Proyektor untuk meeting staf",
+                        "jumlah_total": 6,
+                        "jumlah_dipinjam": 0,
+                        "created_at": "2026-07-26T19:48:46.000000Z",
+                        "updated_at": "2026-07-26T20:22:26.000000Z"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": 1,
+                  "nomor": "PJM-20260727-0001",
+                  "nama_peminjam": "Budi Santoso",
+                  "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+                  "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+                  "tanggal_kembali": "2026-07-26T00:00:00.000000Z",
+                  "status": "dikembalikan",
+                  "keterangan": "Peminjaman laptop dan proyektor untuk kkn",
+                  "created_at": "2026-07-26T19:52:05.000000Z",
+                  "updated_at": "2026-07-26T20:05:12.000000Z",
+                  "details": [
+                    {
+                      "id": 1,
+                      "peminjaman_id": 1,
+                      "barang_id": 15,
+                      "jumlah_pinjam": 5,
+                      "jumlah_kembali": 5,
+                      "jumlah_hilang": 0,
+                      "keterangan": null,
+                      "created_at": "2026-07-26T19:52:05.000000Z",
+                      "updated_at": "2026-07-26T20:05:12.000000Z",
+                      "barang": {
+                        "id": 15,
+                        "kode_barang": "BRG-00015",
+                        "nama_barang": "Laptop Lenovo ThinkPad E14",
+                        "kategori_id": 1,
+                        "lokasi_id": 1,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "Laptop untuk staf administrasi",
+                        "jumlah_total": 8,
+                        "jumlah_dipinjam": 0,
+                        "created_at": "2026-07-26T19:50:57.000000Z",
+                        "updated_at": "2026-07-26T20:22:26.000000Z"
+                      }
+                    },
+                    {
+                      "id": 2,
+                      "peminjaman_id": 1,
+                      "barang_id": 14,
+                      "jumlah_pinjam": 1,
+                      "jumlah_kembali": 1,
+                      "jumlah_hilang": 0,
+                      "keterangan": null,
+                      "created_at": "2026-07-26T19:52:05.000000Z",
+                      "updated_at": "2026-07-26T20:05:12.000000Z",
+                      "barang": {
+                        "id": 14,
+                        "kode_barang": "BRG-0005",
+                        "nama_barang": "Proyektor EPSON",
+                        "kategori_id": 1,
+                        "lokasi_id": 1,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-28T00:00:00.000000Z",
+                        "keterangan": "Proyektor untuk meeting staf",
+                        "jumlah_total": 6,
+                        "jumlah_dipinjam": 0,
+                        "created_at": "2026-07-26T19:48:46.000000Z",
+                        "updated_at": "2026-07-26T20:22:26.000000Z"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "first_page_url": "http://127.0.0.1:8000/api/inv-peminjaman?page=1",
+              "from": 1,
+              "last_page": 1,
+              "last_page_url": "http://127.0.0.1:8000/api/inv-peminjaman?page=1",
+              "links": [
+                {
+                  "url": null,
+                  "label": "&laquo; Previous",
+                  "page": null,
+                  "active": false
+                },
+                {
+                  "url": "http://127.0.0.1:8000/api/inv-peminjaman?page=1",
+                  "label": "1",
+                  "page": 1,
+                  "active": true
+                },
+                {
+                  "url": null,
+                  "label": "Next &raquo;",
+                  "page": null,
+                  "active": false
+                }
+              ],
+              "next_page_url": null,
+              "path": "http://127.0.0.1:8000/api/inv-peminjaman",
+              "per_page": 3,
+              "prev_page_url": null,
+              "to": 2,
+              "total": 2
+            }
+          }

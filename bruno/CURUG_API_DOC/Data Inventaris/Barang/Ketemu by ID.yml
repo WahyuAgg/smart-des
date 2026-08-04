@@ -1,0 +1,150 @@
+info:
+  name: Ketemu by ID
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/ketemu"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "jumlah" : 1,
+        "keterangan" : "Menemukan Kembali barang yang hilang"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_inv_barang
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/ketemu"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jumlah" : 3,
+            "keterangan" : "Menemukan Kembali barang yang hilang"
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 04:50:25 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYGYHW9MJC4M9WTW1H7V3JZW
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Jumlah ditemukan (3) melebihi jumlah barang yang masih tercatat hilang (2).",
+            "errors": null
+          }
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-barang/{{id_inv_barang}}/ketemu"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "jumlah" : 1,
+            "keterangan" : "Menemukan Kembali barang yang hilang"
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 04:53:06 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYGYPSN1Z689C8DCET2YMXVF
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Barang ketemu berhasil dicatat.",
+            "data": {
+              "peminjaman_id": null,
+              "nomor": "KTM-20260727-001",
+              "jenis": "KETEMU",
+              "tanggal": "2026-07-27T00:00:00.000000Z",
+              "keterangan": "Menemukan Kembali barang yang hilang",
+              "updated_at": "2026-07-27T04:53:06.000000Z",
+              "created_at": "2026-07-27T04:53:06.000000Z",
+              "id": 43,
+              "details": [
+                {
+                  "id": 51,
+                  "mutasi_id": 43,
+                  "barang_id": 15,
+                  "jumlah": 1,
+                  "created_at": "2026-07-27T04:53:06.000000Z",
+                  "updated_at": "2026-07-27T04:53:06.000000Z",
+                  "barang": {
+                    "id": 15,
+                    "kode_barang": "BRG-00015",
+                    "nama_barang": "Laptop Lenovo ThinkPad E14",
+                    "kategori_id": 1,
+                    "lokasi_id": 1,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Laptop untuk staf administrasi",
+                    "jumlah_total": 12,
+                    "jumlah_dipinjam": 9,
+                    "created_at": "2026-07-26T19:50:57.000000Z",
+                    "updated_at": "2026-07-27T04:53:06.000000Z",
+                    "jumlah_tersedia": 3
+                  }
+                }
+              ]
+            }
+          }

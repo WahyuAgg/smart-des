@@ -1,0 +1,67 @@
+info:
+  name: Create
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{base_url}}/api/ref-dusun"
+  body:
+    type: json
+    data: |-
+      {
+          "nama": "Apel",
+          "kepala_dusun": "Pak Jeruk"
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/ref-dusun"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+              "nama": "Apel",
+              "kepala_dusun": "Pak Jeruk"
+            }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 11:42:16 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYHP3ZXYZ87JP85S4YNAD4MD
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data berhasil ditambahkan.",
+            "data": {
+              "id": 3,
+              "nama": "Apel",
+              "kepala_dusun": "Pak Jeruk"
+            }
+          }

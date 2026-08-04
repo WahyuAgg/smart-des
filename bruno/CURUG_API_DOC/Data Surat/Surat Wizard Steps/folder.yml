@@ -1,0 +1,7 @@
+info:
+  name: Surat Wizard Steps
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit

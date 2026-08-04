@@ -1,0 +1,218 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/inv-peminjaman"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "nama_peminjam": "Budi Pengarep",
+        "tanggal_pinjam": "2026-07-27",
+        "tanggal_rencana_kembali": "2026-08-03",
+        "keterangan": "Peminjaman untuk acara pengajian",
+        "details": [
+          {
+            "barang_id": 17,
+            "jumlah": 2
+          },
+          {
+            "barang_id": 18,
+            "jumlah": 4
+          }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-peminjaman"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "nama_peminjam": "Budi Santoso",
+            "tanggal_pinjam": "2026-07-27",
+            "tanggal_rencana_kembali": "2026-08-03",
+            "keterangan": "Peminjaman untuk acara desa",
+            "details": [
+              {
+                "barang_id": 17,
+                "jumlah": 5
+              },
+              {
+                "barang_id": 18,
+                "jumlah": 6
+              }
+            ]
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 06:28:37 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH45P938BHJQMBXDBGQBY59
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Peminjaman berhasil dicatat.",
+            "data": {
+              "id": 15,
+              "nomor": "PJM-20260727-007",
+              "nama_peminjam": "Budi Santoso",
+              "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+              "tanggal_rencana_kembali": "2026-08-03T00:00:00.000000Z",
+              "tanggal_kembali": null,
+              "status": "dipinjam",
+              "keterangan": "Peminjaman untuk acara desa",
+              "created_at": "2026-07-27T06:28:37.000000Z",
+              "updated_at": "2026-07-27T06:28:37.000000Z",
+              "details": [
+                {
+                  "id": 26,
+                  "peminjaman_id": 15,
+                  "barang_id": 17,
+                  "jumlah_pinjam": 5,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:28:37.000000Z",
+                  "barang": {
+                    "id": 17,
+                    "kode_barang": "BRG-00017",
+                    "nama_barang": "Lampu Cas LED",
+                    "kategori_id": 1,
+                    "lokasi_id": 2,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "lampu untuk keperluan acara desa",
+                    "jumlah_total": 16,
+                    "jumlah_dipinjam": 5,
+                    "created_at": "2026-07-27T05:00:50.000000Z",
+                    "updated_at": "2026-07-27T06:28:37.000000Z",
+                    "jumlah_tersedia": 11
+                  }
+                },
+                {
+                  "id": 27,
+                  "peminjaman_id": 15,
+                  "barang_id": 18,
+                  "jumlah_pinjam": 6,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:28:37.000000Z",
+                  "barang": {
+                    "id": 18,
+                    "kode_barang": "BRG-00018",
+                    "nama_barang": "Piring",
+                    "kategori_id": 2,
+                    "lokasi_id": 2,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Piring untuk keperluan acara desa",
+                    "jumlah_total": 20,
+                    "jumlah_dipinjam": 6,
+                    "created_at": "2026-07-27T06:27:32.000000Z",
+                    "updated_at": "2026-07-27T06:28:37.000000Z",
+                    "jumlah_tersedia": 14
+                  }
+                }
+              ],
+              "mutasis": [
+                {
+                  "id": 62,
+                  "peminjaman_id": 15,
+                  "nomor": "PJM-20260727-007",
+                  "jenis": "PINJAM",
+                  "tanggal": "2026-07-27T00:00:00.000000Z",
+                  "keterangan": "Peminjaman: PJM-20260727-007",
+                  "created_at": "2026-07-27T06:28:37.000000Z",
+                  "updated_at": "2026-07-27T06:28:37.000000Z",
+                  "details": [
+                    {
+                      "id": 75,
+                      "mutasi_id": 62,
+                      "barang_id": 17,
+                      "jumlah": 5,
+                      "created_at": "2026-07-27T06:28:37.000000Z",
+                      "updated_at": "2026-07-27T06:28:37.000000Z",
+                      "barang": {
+                        "id": 17,
+                        "kode_barang": "BRG-00017",
+                        "nama_barang": "Lampu Cas LED",
+                        "kategori_id": 1,
+                        "lokasi_id": 2,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "lampu untuk keperluan acara desa",
+                        "jumlah_total": 16,
+                        "jumlah_dipinjam": 5,
+                        "created_at": "2026-07-27T05:00:50.000000Z",
+                        "updated_at": "2026-07-27T06:28:37.000000Z",
+                        "jumlah_tersedia": 11
+                      }
+                    },
+                    {
+                      "id": 76,
+                      "mutasi_id": 62,
+                      "barang_id": 18,
+                      "jumlah": 6,
+                      "created_at": "2026-07-27T06:28:37.000000Z",
+                      "updated_at": "2026-07-27T06:28:37.000000Z",
+                      "barang": {
+                        "id": 18,
+                        "kode_barang": "BRG-00018",
+                        "nama_barang": "Piring",
+                        "kategori_id": 2,
+                        "lokasi_id": 2,
+                        "satuan": "Unit",
+                        "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                        "keterangan": "Piring untuk keperluan acara desa",
+                        "jumlah_total": 20,
+                        "jumlah_dipinjam": 6,
+                        "created_at": "2026-07-27T06:27:32.000000Z",
+                        "updated_at": "2026-07-27T06:28:37.000000Z",
+                        "jumlah_tersedia": 14
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }

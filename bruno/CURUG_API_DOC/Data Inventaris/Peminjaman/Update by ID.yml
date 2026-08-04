@@ -1,0 +1,178 @@
+info:
+  name: Update by ID
+  type: http
+  seq: 6
+
+http:
+  method: PUT
+  url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}"
+  body:
+    type: json
+    data: |-
+      {
+        "nama_peminjam": "Budi Santoso edited",
+        "tanggal_pinjam": "2026-07-27",
+        "tanggal_rencana_kembali": "2026-09-03",
+        "keterangan": "Peminjaman acara pengajian edited"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: id_peminjaman
+      value: "15"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: example
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {
+            "nama_peminjam": "Budi Santoso edited",
+            "tanggal_pinjam": "2026-07-27",
+            "tanggal_rencana_kembali": "2026-09-03",
+            "keterangan": "Peminjaman acara pengajian edited"
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 07:08:25 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH6EHXX5PRBMJ0N7TQCEB18
+      body:
+        type: json
+        data: |-
+          {
+            "success": true,
+            "message": "Data peminjaman berhasil diperbarui.",
+            "data": {
+              "id": 17,
+              "nomor": "PJM-20260727-009",
+              "nama_peminjam": "Budi Santoso edited",
+              "tanggal_pinjam": "2026-07-27T00:00:00.000000Z",
+              "tanggal_rencana_kembali": "2026-09-03T00:00:00.000000Z",
+              "tanggal_kembali": null,
+              "status": "dipinjam",
+              "keterangan": "Peminjaman acara pengajian edited",
+              "created_at": "2026-07-27T07:01:33.000000Z",
+              "updated_at": "2026-07-27T07:08:25.000000Z",
+              "details": [
+                {
+                  "id": 30,
+                  "peminjaman_id": 17,
+                  "barang_id": 17,
+                  "jumlah_pinjam": 2,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T07:01:33.000000Z",
+                  "updated_at": "2026-07-27T07:01:33.000000Z",
+                  "barang": {
+                    "id": 17,
+                    "kode_barang": "BRG-00017",
+                    "nama_barang": "Lampu Cas LED",
+                    "kategori_id": 1,
+                    "lokasi_id": 2,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "lampu untuk keperluan acara desa",
+                    "jumlah_total": 16,
+                    "jumlah_dipinjam": 4,
+                    "created_at": "2026-07-27T05:00:50.000000Z",
+                    "updated_at": "2026-07-27T07:01:33.000000Z",
+                    "jumlah_tersedia": 12
+                  }
+                },
+                {
+                  "id": 31,
+                  "peminjaman_id": 17,
+                  "barang_id": 18,
+                  "jumlah_pinjam": 4,
+                  "jumlah_kembali": 0,
+                  "jumlah_hilang": 0,
+                  "keterangan": null,
+                  "created_at": "2026-07-27T07:01:33.000000Z",
+                  "updated_at": "2026-07-27T07:01:33.000000Z",
+                  "barang": {
+                    "id": 18,
+                    "kode_barang": "BRG-00018",
+                    "nama_barang": "Piring",
+                    "kategori_id": 2,
+                    "lokasi_id": 2,
+                    "satuan": "Unit",
+                    "tanggal_perolehan": "2026-07-26T00:00:00.000000Z",
+                    "keterangan": "Piring untuk keperluan acara desa",
+                    "jumlah_total": 18,
+                    "jumlah_dipinjam": 6,
+                    "created_at": "2026-07-27T06:27:32.000000Z",
+                    "updated_at": "2026-07-27T07:05:38.000000Z",
+                    "jumlah_tersedia": 12
+                  }
+                }
+              ]
+            }
+          }
+  - name: example (fail)
+    request:
+      url: "{{base_url}}/api/inv-peminjaman/{{id_peminjaman}}"
+      method: PUT
+      body:
+        type: json
+        data: |-
+          {
+            "nama_peminjam": "Budi Santoso edited",
+            "tanggal_pinjam": "2026-07-27",
+            "tanggal_rencana_kembali": "2026-09-03",
+            "keterangan": "Peminjaman acara pengajian edited"
+          }
+    response:
+      status: 422
+      statusText: Unprocessable Entity
+      headers:
+        - name: host
+          value: 127.0.0.1:8000
+        - name: connection
+          value: close
+        - name: x-powered-by
+          value: PHP/8.2.29
+        - name: cache-control
+          value: no-cache, private
+        - name: date
+          value: Mon, 27 Jul 2026 07:08:50 GMT
+        - name: content-type
+          value: application/json
+        - name: access-control-allow-origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KYH6FAWAA0A591D3RED9XAPK
+      body:
+        type: json
+        data: |-
+          {
+            "success": false,
+            "message": "Peminjaman dengan status dikembalikan tidak dapat diubah.",
+            "errors": null
+          }

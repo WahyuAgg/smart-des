@@ -1,0 +1,55 @@
+info:
+  name: Delete by ID
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{base_url}}/api/penduduk/{{id_penduduk}}"
+  headers:
+    - name: Accept
+      value: application/json
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Delete by ID sample
+    request:
+      url: "{{base_url}}/api/penduduk/{{id_penduduk}}"
+      method: DELETE
+      headers:
+        - name: Accept
+          value: application/json
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Host
+          value: 127.0.0.1:8000
+        - name: Connection
+          value: close
+        - name: X-Powered-By
+          value: PHP/8.2.29
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Sun, 12 Jul 2026 06:04:35 GMT
+        - name: Content-Type
+          value: application/json
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXAETWZCZ017BHMMX9ZJ3C6K
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "message": "Data berhasil dihapus.",
+              "data": null
+          }

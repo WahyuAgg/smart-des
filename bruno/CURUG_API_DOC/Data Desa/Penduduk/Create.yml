@@ -1,0 +1,242 @@
+info:
+  name: Create
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{base_url}}/api/penduduk/"
+  headers:
+    - name: Accept
+      value: application/json
+  body:
+    type: json
+    data: |
+      {
+              "nik": "3453464575675678",
+              "nama_lengkap": "AMAT",
+              "kk_id": 110,
+              "nama_ayah_kandung": "SITI CHIPTIYAH MM",
+              "nama_ibu_kandung": "MARGO UTOMO UTOMO",
+              "jenis_kelamin": "P",
+              "tanggal_lahir": "1971-01-01T00:00:00.000000Z",
+              "tempat_lahir": "Purworejo",
+              "agama": "Islam",
+              "pekerjaan": "Petani/Pekebun",
+              "status_perkawinan": "Belum Kawin",
+              "kewarganegaraan": "Indonesia",
+              "golongan_darah": "B",
+              "no_hp": "081904703153",
+              "email": "example@example.com",
+              "status_hidup": "HIDUP",
+              "tanggal_meninggal": null,
+              "pendidikan_id": 5,
+              "alamat": {
+                  "label_alamat": "Rumah",
+                  "is_utama": 1,
+                  "alamat_lengkap": "Desa Curug, RT 001 RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.",
+                  "jalan": "Jln.Lingkar Barat",
+                  "gedung_perumahan": "Perum mawar",
+                  "nomor_rumah": 338,
+                  "blok": 4,
+                  "no_lantai": 5,
+                  "no_unit": 6,
+                  "rt": "002",
+                  "rw": "001",
+                  "desa": "Bojonegoro",
+                  "dusun": "Cagar",
+                  "kecamatan": "Kaliuaag",
+                  "kabupaten": "Purworejo",
+                  "provinsi": "Jawa Tengan",
+                  "negara": "Indonesia",
+                  "kode_pos": "54172",
+                  "patokan": "Belakang Puskesmas Ngombol",
+                  "latitude": "-7.7839810",
+                  "longitude": "109.9614240"
+              }
+          }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Create sample
+    request:
+      url: "{{base_url}}/api/penduduk/"
+      method: POST
+      headers:
+        - name: Accept
+          value: application/json
+      body:
+        type: json
+        data: "{\r
+
+          \        \"nik\": \"33060242343243545126\",\r
+
+          \        \"nama_lengkap\": \"SITI MUBAIDAH MM\",\r
+
+          \        \"kk_id\": 23,\r
+
+          \        \"nama_ayah_kandung\": \"SITI CHIPTIYAH MM\",\r
+
+          \        \"nama_ibu_kandung\": \"MARGO UTOMO UTOMO\",\r
+
+          \        \"jenis_kelamin\": \"Perempuan\",\r
+
+          \        \"tanggal_lahir\": \"1971-01-01T00:00:00.000000Z\",\r
+
+          \        \"tempat_lahir\": \"Purworejo\",\r
+
+          \        \"agama\": \"Islam\",\r
+
+          \        \"pekerjaan\": \"Petani/Pekebun\",\r
+
+          \        \"status_perkawinan\": \"Belum Kawin\",\r
+
+          \        \"kewarganegaraan\": \"Indonesia\",\r
+
+          \        \"golongan_darah\": \"B\",\r
+
+          \        \"no_hp\": \"081904703153\",\r
+
+          \        \"email\": \"example@example.com\",\r
+
+          \        \"status_hidup\": \"HIDUP\",\r
+
+          \        \"tanggal_meninggal\": null,\r
+
+          \        \"pendidikan_id\": 5,\r
+
+          \        \"alamat\": {\r
+
+          \            \"label_alamat\": \"Rumah\",\r
+
+          \            \"is_utama\": 1,\r
+
+          \            \"alamat_lengkap\": \"Desa Curug, RT 001 RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.\",\r
+
+          \            \"jalan\": \"Jln.Lingkar Barat\",\r
+
+          \            \"gedung_perumahan\": \"Perum mawar\",\r
+
+          \            \"nomor_rumah\": 338,\r
+
+          \            \"blok\": 4,\r
+
+          \            \"no_lantai\": 5,\r
+
+          \            \"no_unit\": 6,\r
+
+          \            \"rt\": \"2\",\r
+
+          \            \"rw\": \"2\",\r
+
+          \            \"desa\": \"Curug\",\r
+
+          \            \"dusun\": \"Cagar\",\r
+
+          \            \"kecamatan\": \"Ngombol\",\r
+
+          \            \"kabupaten\": \"Purworejo\",\r
+
+          \            \"provinsi\": \"Jawa Tengah\",\r
+
+          \            \"negara\": \"Indonesia\",\r
+
+          \            \"kode_pos\": \"54172\",\r
+
+          \            \"patokan\": \"Belakang Puskesmas Ngombol\",\r
+
+          \            \"latitude\": \"-7.7839810\",\r
+
+          \            \"longitude\": \"109.9614240\"\r
+
+          \        }\r
+
+          \    }\r\n"
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Host
+          value: 127.0.0.1:8000
+        - name: Connection
+          value: close
+        - name: X-Powered-By
+          value: PHP/8.2.29
+        - name: Cache-Control
+          value: no-cache, private
+        - name: Date
+          value: Sun, 12 Jul 2026 05:26:10 GMT
+        - name: Content-Type
+          value: application/json
+        - name: Access-Control-Allow-Origin
+          value: "*"
+        - name: phpdebugbar-id
+          value: 01KXACMHQPPAYDG9EK4Q17QYKZ
+      body:
+        type: json
+        data: |-
+          {
+              "success": true,
+              "message": "Data penduduk berhasil ditambahkan.",
+              "data": {
+                  "id": 140,
+                  "nik": "33060242343243545126",
+                  "nama_lengkap": "SITI MUBAIDAH MM",
+                  "kk_id": 23,
+                  "nama_ayah_kandung": "SITI CHIPTIYAH MM",
+                  "nama_ibu_kandung": "MARGO UTOMO UTOMO",
+                  "jenis_kelamin": "Perempuan",
+                  "tanggal_lahir": "1971-01-01T00:00:00.000000Z",
+                  "tempat_lahir": "Purworejo",
+                  "agama": "Islam",
+                  "pekerjaan": "Petani/Pekebun",
+                  "status_perkawinan": "Belum Kawin",
+                  "kewarganegaraan": "Indonesia",
+                  "golongan_darah": "B",
+                  "no_hp": "081904703153",
+                  "email": "example@example.com",
+                  "status_hidup": "HIDUP",
+                  "tanggal_meninggal": null,
+                  "alamat_id": 18,
+                  "pendidikan_id": 5,
+                  "alamat": {
+                      "id": 18,
+                      "label_alamat": "Rumah",
+                      "is_utama": 1,
+                      "alamat_lengkap": "Desa Curug, RT 001 RW 001, Kecamatan Ngombol, Kabupaten Purworejo, Jawa Tengah.",
+                      "jalan": "Jln.Lingkar Barat",
+                      "gedung_perumahan": "Perum mawar",
+                      "nomor_rumah": "338",
+                      "blok": "4",
+                      "no_lantai": "5",
+                      "no_unit": "6",
+                      "rt": "2",
+                      "rw": "2",
+                      "desa": "Curug",
+                      "dusun": "Cagar",
+                      "kecamatan": "Ngombol",
+                      "kabupaten": "Purworejo",
+                      "provinsi": "Jawa Tengah",
+                      "negara": "Indonesia",
+                      "kode_pos": "54172",
+                      "patokan": "Belakang Puskesmas Ngombol",
+                      "latitude": "-7.7839810",
+                      "longitude": "109.9614240"
+                  },
+                  "pendidikan": {
+                      "id": 5,
+                      "tingkat_pendidikan": "SLTA/Sederajat"
+                  },
+                  "kk": {
+                      "id": 23,
+                      "no_kk": "3306021308080442",
+                      "nik_kepala_keluarga": "3306020505680007"
+                  }
+              }
+          }
