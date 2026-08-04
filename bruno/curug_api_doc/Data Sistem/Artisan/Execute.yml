@@ -1,0 +1,22 @@
+info:
+  name: Execute
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{base_url}}/api/artisan/execute"
+  body:
+    type: json
+    data: |-
+      {
+        "command":"config:cache",
+        "parameters": []
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

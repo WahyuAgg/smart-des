@@ -22,7 +22,7 @@ request:
     - name: access_token
       value: ""
     - name: base_url
-      value: http://127.0.0.1:8000
+      value: https://curug.my.id
     - name: id_penduduk
       value: "200"
     - name: per_page
