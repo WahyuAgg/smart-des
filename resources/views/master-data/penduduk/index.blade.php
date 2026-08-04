@@ -16,6 +16,8 @@
 
     @include('master-data.penduduk.partials.table')
 
+    @include('master-data.penduduk.partials.detail')
+
     <x-modal max-width="max-w-5xl">
       <x-slot:title>
         <span x-text="editingId ? 'Edit Penduduk' : 'Tambah Penduduk'"></span>

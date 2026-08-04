@@ -4,7 +4,8 @@ import { normalizePaginatedResponse } from '../utils/pagination';
 export const perangkatDesaApi = {
   async list({ page = 1, search = '', perPage = 10 } = {}) {
     const params = new URLSearchParams({ page, per_page: perPage, search: search || '' });
-    return apiFetchJson(`${baseUrl}/ref-perangkat-desa?${params.toString()}`);
+    const payload = await apiFetchJson(`${baseUrl}/ref-perangkat-desa?${params.toString()}`);
+    return normalizePaginatedResponse(payload);
   },
   /** @deprecated Use list() instead */
   paginate(opts) { return this.list(opts); },

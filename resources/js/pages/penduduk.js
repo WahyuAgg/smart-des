@@ -11,6 +11,11 @@ import { useWilayahLookup } from '../composables/useWilayahLookup';
 export default () => ({
   ...useCrud({ api: pendudukApi, mapper: { emptyForm, mapItemToForm, buildPayload }, entityName: 'Penduduk', useNormalize: false }),
 
+  // Detail Modal state
+  detailShow: false,
+  detailLoading: false,
+  detailItem: null,
+
   // Autocomplete/lookup state & methods for KK and Pendidikan
   ...useKKLookup(),
   ...usePendidikanLookup(),
@@ -36,6 +41,23 @@ export default () => ({
     await this.syncWilayahSelection();
     this.showModal = true;
     await Promise.all([this.ensureKkSelection(), this.ensurePendidikanSelection()]);
+  },
+
+  async openDetail(item) {
+    this.detailShow = true;
+    this.detailLoading = true;
+    this.detailItem = null;
+
+    try {
+      const data = await pendudukApi.getById(item.id);
+      this.detailItem = data || item;
+    } catch (error) {
+      if (error instanceof UnauthorizedError) return;
+      this.$store.notify.show(error.message || 'Gagal memuat detail penduduk.', 'error');
+      this.detailItem = item;
+    } finally {
+      this.detailLoading = false;
+    }
   },
 
   async save() {

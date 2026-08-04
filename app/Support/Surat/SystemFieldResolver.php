@@ -27,6 +27,10 @@ class SystemFieldResolver
 
             'hari' => now()->translatedFormat('l'),
 
+            'waktu' => now()->translatedFormat('H.i'),
+
+            'hari_tanggal' => now()->translatedFormat('l, d F Y'),
+
             default => null,
         };
     }

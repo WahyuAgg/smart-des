@@ -1,5 +1,5 @@
-<div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-  <div class="overflow-x-auto">
+<div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+  <div class="overflow-visible">
     <table class="w-full text-sm">
       <thead>
         <tr class="bg-slate-50 border-b border-slate-200 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">

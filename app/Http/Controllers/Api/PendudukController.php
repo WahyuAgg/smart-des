@@ -24,6 +24,16 @@ class PendudukController extends CrudController
         'pendidikan',
         'kk',
     ];
+    
+    protected array $appends = [
+        // 'get_alamat',
+        'nama_pendidikan',
+        'no_kk',
+        'tanggal_lahir_f',
+        'ttl',
+        'umur',
+
+    ];
 
     protected array $withUpdate = [
         'alamat',
