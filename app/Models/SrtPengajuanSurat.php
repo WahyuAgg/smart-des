@@ -44,6 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtPengajuanSurat whereTanggalSelesai($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtPengajuanSurat whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtPengajuanSurat whereUserId($value)
+ * @property-read string|null $jenis_surat_nama
  * @mixin \Eloquent
  */
 class SrtPengajuanSurat extends Model

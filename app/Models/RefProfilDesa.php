@@ -69,6 +69,10 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereVisi($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa whereWebsite($value)
+ * @property string|null $peta_pdf
+ * @property-read string|null $logo_url
+ * @property-read string|null $peta_pdf_url
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|RefProfilDesa wherePetaPdf($value)
  * @mixin \Eloquent
  */
 class RefProfilDesa extends Model

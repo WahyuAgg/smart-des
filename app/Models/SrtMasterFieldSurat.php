@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtMasterFieldSurat whereSourceField($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtMasterFieldSurat whereTipe($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtMasterFieldSurat whereUpdatedAt($value)
+ * @property-read mixed $nama_formatted
  * @mixin \Eloquent
  */
 class SrtMasterFieldSurat extends Model

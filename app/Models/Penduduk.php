@@ -72,6 +72,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTanggalMeninggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereTempatLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Penduduk whereUpdatedAt($value)
+ * @property-read mixed $ttl
  * @mixin \Eloquent
  */
 class Penduduk extends Model

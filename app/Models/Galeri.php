@@ -17,6 +17,18 @@ use Illuminate\Support\Facades\Storage;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string|null $image_url
  * @property-read string|null $image_thumbnail_url
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereDeskripsi($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereIsPublished($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereJudul($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereTanggal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Galeri whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Galeri extends Model
 {

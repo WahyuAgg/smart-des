@@ -9,6 +9,43 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @property int $id
+ * @property string $judul
+ * @property string $slug
+ * @property string|null $ringkasan
+ * @property string $nama_penulis
+ * @property int|null $tahun
+ * @property string|null $pdf_path
+ * @property string|null $thumbnail_path
+ * @property int $jumlah_halaman
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read string|null $pdf_url
+ * @property-read string|null $thumbnail_url
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereJudul($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereJumlahHalaman($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereNamaPenulis($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper wherePdfPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereRingkasan($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereTahun($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereThumbnailPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Paper withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Paper extends Model
 {
     use HasFactory, SoftDeletes;

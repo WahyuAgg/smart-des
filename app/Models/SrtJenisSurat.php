@@ -35,6 +35,10 @@ use Illuminate\Support\Facades\Storage;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSurat whereNamaJenisSurat($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSurat whereTemplatePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSurat whereUpdatedAt($value)
+ * @property string|null $template_pdf_path
+ * @property-read mixed $template_pdf_url
+ * @property-read mixed $template_url
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SrtJenisSurat whereTemplatePdfPath($value)
  * @mixin \Eloquent
  */
 class SrtJenisSurat extends Model

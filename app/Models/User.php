@@ -46,6 +46,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutRole($roles, $guard = null)
+ * @property bool $is_active
+ * @property-read string|null $role_name
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsActive($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
