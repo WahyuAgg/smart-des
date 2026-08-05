@@ -1,10 +1,11 @@
 <header x-data="{
-  loggingOut: false,
-  async doLogout() {
-    this.loggingOut = true;
-    await Auth.logout();
-  }
-}" class="h-16 bg-slate-300 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
+    loggingOut: false,
+    async doLogout() {
+        this.loggingOut = true;
+        await Auth.logout();
+    }
+}"
+  class="h-16 bg-slate-300 border-b border-slate-200 flex items-center justify-between px-6 sticky top-0 z-10">
   <div class="flex items-center gap-3">
     {{-- Toggle sidebar --}}
     <button type="button" @click="$store.sidebar.toggle()"
@@ -22,7 +23,20 @@
     </div>
   </div>
 
-  {{-- Right side: only show when logged in --}}
+  {{-- Right side: show login button when not logged in, user menu when logged in --}}
+  <template x-if="!$store.user.isLoggedIn">
+    <a href="{{ route('login') }}"
+      class="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white hover:bg-accent-hover transition font-medium text-sm">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+        <polyline points="10 17 15 12 10 7" />
+        <line x1="15" y1="12" x2="3" y2="12" />
+      </svg>
+      Login
+    </a>
+  </template>
+
   <template x-if="$store.user.isLoggedIn">
     <div class="flex items-center gap-3">
       {{-- Role badge --}}
@@ -41,18 +55,19 @@
 
       {{-- User avatar --}}
       <div class="w-9 h-9 rounded-full bg-accent-light text-accent-hover flex items-center justify-center">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>
       </div>
 
       {{-- Logout button --}}
-      <button @click="doLogout()"
-              :disabled="loggingOut"
-              class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-red-50 text-slate-800 hover:text-red-500 transition disabled:opacity-50"
-              title="Logout">
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <button @click="doLogout()" :disabled="loggingOut"
+        class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-red-50 text-slate-800 hover:text-red-500 transition disabled:opacity-50"
+        title="Logout">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
           <polyline points="16 17 21 12 16 7" />
           <line x1="21" y1="12" x2="9" y2="12" />

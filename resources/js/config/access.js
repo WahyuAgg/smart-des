@@ -83,9 +83,10 @@ export const ROUTE_ACCESS = [
 // 4. SIDEBAR MENU DEFINITIONS
 // =============================================================
 // level: 'public' | 'auth' | 'staff' | 'admin'
+
 export const SIDEBAR_MENU = [
     // Top-level menu items
-    { label: "Dashboard", route: "dashboard", icon: "home", level: "auth" },
+    { label: "Dashboard", route: "dashboard", icon: "home", level: "public" },
     {
         label: "Pembuatan Surat",
         route: "surat.index",

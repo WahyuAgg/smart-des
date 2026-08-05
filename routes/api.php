@@ -144,10 +144,7 @@ Route::middleware([
     Route::put('galeri/{galeri}', [GaleriController::class, 'update']);
     Route::delete('galeri/{galeri}', [GaleriController::class, 'destroy']);
 
-    /**
-     * Route for Dashboard
-     */
-    Route::get('dashboard', [DashboardController::class, 'index']);
+
 
     /**
      * Currently this route is not used, but it can be used in the future if needed.
@@ -203,6 +200,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
+/**
+ * Route for Dashboard — Optional Authentication
+ * Uses 'optional_auth' middleware to allow both:
+ * - Authenticated users: Auth::check() = true, get full data
+ * - Guest users: Auth::check() = false, get public data only
+ */
+Route::middleware('optional_auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index']);
+});
+
 
 
 // -----------------------------------------------------------------
@@ -221,6 +228,7 @@ Route::get('/testing', [TestingController::class, 'testing']);
 
 /** Route for app info */
 Route::get('/app-info', [AppInfoController::class, 'info']);
+
 
 
 /**
