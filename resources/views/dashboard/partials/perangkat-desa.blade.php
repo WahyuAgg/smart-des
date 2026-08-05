@@ -1,22 +1,22 @@
 {{-- Perangkat Desa --}}
-<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
-  <div class="flex items-center justify-between mb-4">
-    <div class="flex items-center gap-2">
-      <div
-        class="w-8 h-8 rounded-lg bg-linear-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-sm">
-        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
+<template x-if="perangkatDesa.length > 0">
+  <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:shadow-md transition-shadow">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <div
+          class="w-8 h-8 rounded-lg bg-linear-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-sm">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-semibold text-slate-700">Perangkat Desa</h3>
       </div>
-      <h3 class="text-sm font-semibold text-slate-700">Perangkat Desa</h3>
+      <span class="text-xs font-medium text-slate-400" x-text="perangkatDesa.length + ' orang'"></span>
     </div>
-    <span class="text-xs font-medium text-slate-400" x-text="perangkatDesa.length + ' orang'"></span>
-  </div>
 
-  <template x-if="perangkatDesa.length > 0">
     <div class="space-y-2 max-h-85 overflow-y-auto pr-1">
       <template x-for="(item, index) in perangkatDesa" :key="item.jabatan_perangkat?.kode || index">
         <div class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition group">
@@ -50,9 +50,5 @@
         </div>
       </template>
     </div>
-  </template>
-
-  <template x-if="perangkatDesa.length === 0">
-    <p class="text-sm text-slate-400 text-center py-6">Belum ada data perangkat desa</p>
-  </template>
-</div>
+  </div>
+</template>

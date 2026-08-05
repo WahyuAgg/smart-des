@@ -139,7 +139,7 @@ class DashboardController extends ApiController
         ];
 
         // Conditional data based on auth status
-        $perangkatDesa = $isAuth
+        $perangkatDesa = true
             ? RefPerangkatDesa::with('jabatanPerangkat')->limit(6)->get()
             : [];
 
