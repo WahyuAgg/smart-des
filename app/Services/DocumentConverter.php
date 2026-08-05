@@ -15,8 +15,13 @@ class DocumentConverter
         $outputDir = storage_path('app/public/generated_surat/pdf');
         File::ensureDirectoryExists($outputDir); // Pastikan folder ada
 
+        // Set user profile LibreOffice ke writable directory
+        $userProfile = storage_path('app/libreoffice_profile');
+        File::ensureDirectoryExists($userProfile);
+
         $command = sprintf(
-            '"%s" --headless --convert-to pdf --outdir "%s" "%s" 2>&1',
+            'HOME=%s "%s" --headless --convert-to pdf --outdir "%s" "%s" 2>&1',
+            escapeshellarg($userProfile),
             $soffice,
             $outputDir,
             $docxPath
