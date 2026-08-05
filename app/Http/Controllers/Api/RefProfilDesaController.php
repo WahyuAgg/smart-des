@@ -33,7 +33,10 @@ class RefProfilDesaController extends CrudController
         'kades',
     ];
 
-    private function formatWilayah(RefProfilDesa $record): array
+    /**
+     * Format wilayah data. Made public static for reusability.
+     */
+    public static function formatWilayahData(RefProfilDesa $record): array
     {
         $village = Village::with('district.city.province')
             ->where('code', $record->kode)
@@ -76,12 +79,42 @@ class RefProfilDesaController extends CrudController
         ];
     }
 
-    private function buildResponse(RefProfilDesa $record): array
+    /**
+     * Legacy method for backward compatibility.
+     */
+    private function formatWilayah(RefProfilDesa $record): array
     {
-        $record->append($this->appends);
+        return self::formatWilayahData($record);
+    }
+
+    /**
+     * Build formatted profil desa response with wilayah data.
+     * Made public static so it can be reused by DashboardController.
+     */
+    public static function buildProfilDesaResponse(?RefProfilDesa $record = null): ?array
+    {
+        if (!$record) {
+            $record = RefProfilDesa::query()->first();
+        }
+
+        if (!$record) {
+            return null;
+        }
+
+        $appends = [
+            'kode_pos',
+            'nama_provinsi',
+            'nama_kabupaten',
+            'nama_kecamatan',
+            'nama_desa',
+            'profil_kecamatan',
+            'kades',
+        ];
+
+        $record->append($appends);
 
         $data = $record->toArray();
-        $data = array_merge($data, $this->formatWilayah($record));
+        $data = array_merge($data, self::formatWilayahData($record));
 
         unset(
             $data['provinsi_code'],
@@ -91,6 +124,14 @@ class RefProfilDesaController extends CrudController
         );
 
         return $data;
+    }
+
+    /**
+     * Legacy method for backward compatibility.
+     */
+    private function buildResponse(RefProfilDesa $record): array
+    {
+        return self::buildProfilDesaResponse($record);
     }
 
     public function storeProfilDesa(StoreRefProfilDesaRequest $request): JsonResponse

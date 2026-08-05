@@ -14,8 +14,8 @@ http:
     data: |
       {
         "jenis_surat_id": 3,
-        "niks": ["2206024912930003", "3306022702220001"],
-        "keperluan":null
+        "niks": ["2206024912930003", "3306022702220001", "3306022702220001"],
+        "keperluan":"testing placeholders"
       }
 
 settings:

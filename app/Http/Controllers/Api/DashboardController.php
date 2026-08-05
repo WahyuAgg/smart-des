@@ -4,7 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Penduduk;
 use App\Models\Kk;
+use App\Models\RefPerangkatDesa;
+use App\Models\SrtPengajuanSurat;
+use App\Models\RefDusun;
+use App\Models\RefRw;
+use App\Models\RefRt;
+use App\Models\InvPeminjaman;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -117,15 +124,53 @@ class DashboardController extends ApiController
             ->orderBy('jumlah', 'desc')
             ->get();
 
+        // Profil Desa (always public)
+        /** @phpstan-ignore-next-line */
+        $profilDesa = RefProfilDesaController::buildProfilDesaResponse();
+
+        // Check if user is authenticated
+        $isAuth = Auth::check();
+
+        // Wilayah Administrasi (always public)
+        $jumlahWilayahAdministrasi = [
+            'jumlah_dusun' => RefDusun::count(),
+            'jumlah_rw' => RefRw::count(),
+            'jumlah_rt' => RefRt::count(),
+        ];
+
+        // Conditional data based on auth status
+        $perangkatDesa = $isAuth
+            ? RefPerangkatDesa::with('jabatanPerangkat')->limit(6)->get()
+            : [];
+
+        $riwayatSurat = $isAuth
+            ? SrtPengajuanSurat::latest()->limit(10)->get()
+            : [];
+
+        $peminjamanInventaris = $isAuth
+            ? InvPeminjaman::with('details.barang')->latest()->limit(10)->get()
+            : [];
+        
+        
+        
+
         return $this->success([
+            // Always public data
+            'profil_desa' => $profilDesa,
             'total_penduduk' => $totalPenduduk,
             'jumlah_laki_laki' => $lakiLaki,
             'jumlah_perempuan' => $perempuan,
             'jumlah_kk' => $jumlahKk,
+            'wilayah_administrasi' => $jumlahWilayahAdministrasi,
             'distribusi_umur' => $distribusiUmur,
             'distribusi_pendidikan' => $distribusiPendidikan,
             'distribusi_pekerjaan' => $distribusiPekerjaan,
             'distribusi_agama' => $distribusiAgama,
+            
+            // Conditional data (only when authenticated)
+            'perangkat_desa' => $perangkatDesa,
+            'riwayat_surat' => $riwayatSurat,
+            'peminjaman_inventaris' => $peminjamanInventaris,
         ]);
     }
 }

@@ -14,27 +14,27 @@ http:
         value: "1"
       - name: kode_jenis_surat
         type: text
-        value: SKK
+        value: TEST ID 3
       - name: nama_jenis_surat
         type: text
-        value: Surat Keterangan Kematian
+        value: Placeholders Tester ID 3
       - name: deskripsi
         type: text
-        value: Surat untuk menerangkan kematian penduduk.
+        value: Surat untuk testing placeholders.
       - name: is_active
         type: text
         value: "1"
       - name: template
         type: file
         value:
-          - C:\agg\projects\KKN\asset\sampel_template_surat\SKD.docx
+          - C:\agg\projects\KKN\asset\sampel_template_surat\Auto_placeholder_tester.docx
         contentType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
       - name: penduduk_fields[0][urutan]
         type: text
         value: "1"
       - name: penduduk_fields[0][kode]
         type: text
-        value: telapor
+        value: pelapor
       - name: penduduk_fields[0][label]
         type: text
         value: Pelapor
