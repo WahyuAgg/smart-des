@@ -139,22 +139,17 @@ class DashboardController extends ApiController
         ];
 
         // Conditional data based on auth status
-        $perangkatDesa = true
+        $perangkatDesa = $isAuth
             ? RefPerangkatDesa::with('jabatanPerangkat')->limit(6)->get()
             : [];
 
-        // $riwayatSurat = $isAuth
-        $riwayatSurat = true
+        $riwayatSurat = $isAuth
             ? SrtPengajuanSurat::latest()->limit(10)->get()
             : [];
 
-        // $peminjamanInventaris = $isAuth
-        $peminjamanInventaris = true
+        $peminjamanInventaris = $isAuth
             ? InvPeminjaman::with('details.barang')->latest()->limit(10)->get()
             : [];
-        
-        
-        
 
         return $this->success([
             // Always public data
