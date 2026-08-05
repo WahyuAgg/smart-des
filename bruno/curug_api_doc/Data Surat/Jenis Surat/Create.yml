@@ -27,7 +27,7 @@ http:
       - name: template
         type: file
         value:
-          - C:\agg\projects\KKN\web_desa\storage\app\templates\domisili_temp.docx
+          - C:\agg\projects\KKN\asset\sampel_template_surat\SKD.docx
         contentType: application/vnd.openxmlformats-officedocument.wordprocessingml.document
       - name: penduduk_fields[0][urutan]
         type: text
